@@ -133,6 +133,16 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
     const make = document.getElementById("make").value;
     const model = document.getElementById("model").value;
     const date = document.getElementById("date").value;
+    const dateObj = new Date(rawDate);
+
+const options = {
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric"
+};
+
+const date = dateObj.toLocaleDateString("en-US", options);
     const time = document.getElementById("time").value;
 
     try {
