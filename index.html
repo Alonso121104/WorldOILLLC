@@ -13,6 +13,8 @@
             background-size: 900px;
 
             min-height: 100vh;
+            padding: 20px 0;
+
             display: flex;
             justify-content: center;
             align-items: center;
@@ -74,11 +76,9 @@
             margin-bottom: 15px;
         }
 
-        /* hidden date input (fixed properly) */
         #date {
             position: absolute;
-            opacity: 0;
-            pointer-events: none;
+            left: -9999px;
         }
     </style>
 </head>
@@ -96,14 +96,13 @@
         <input type="number" id="year" placeholder="Vehicle Year" required>
         <input type="text" id="make" placeholder="Vehicle Make" required>
         <input type="text" id="model" placeholder="Vehicle Model" required>
-        
-        <!-- Date -->
 
-       <input type="date" id="date" required style="position:absolute; opacity:0; pointer-events:none;">
+        <!-- DATE -->
+        <input type="date" id="date" required>
 
-<div class="date-box" onclick="document.getElementById('date').showPicker()">
-    <span id="dateText">Select Date</span>
-</div>
+        <div class="date-box" onclick="document.getElementById('date').showPicker()">
+            <span id="dateText">Select Date</span>
+        </div>
 
         <!-- TIME -->
         <select id="time" required>
@@ -129,7 +128,6 @@
             <option value="17:00">5:00 PM</option>
             <option value="17:30">5:30 PM</option>
         </select>
-	<br><br>
 
         <button type="submit">Submit Request</button>
 
