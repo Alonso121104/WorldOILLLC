@@ -9,24 +9,20 @@
             padding: 0;
             font-family: Arial, sans-serif;
 
-            background: url("https://cdn2.vectorstock.com/i/1000x1000/23/11/line-icon-of-a-car-and-oil-change-symbol-vector-40522311.jpg") center center no-repeat;
-            background-size: 900px;
+            /* FIX: removed vectorstock image */
+            background: linear-gradient(135deg, #e9eef5, #f7f7f7);
 
             min-height: 100vh;
-            padding: 20px 0;
-
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .container {
-            position: relative;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.95);
+            background: rgba(255, 255, 255, 0.97);
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             width: 320px;
             text-align: center;
         }
@@ -37,9 +33,9 @@
             margin: 8px 0;
             border: 1px solid #ccc;
             border-radius: 6px;
-            font-family: Arial, sans-serif;
         }
 
+        /* DATE BUTTON FIX */
         .date-box {
             width: 100%;
             padding: 10px;
@@ -49,7 +45,6 @@
             background: white;
             cursor: pointer;
             text-align: left;
-            user-select: none;
         }
 
         .date-box:hover {
@@ -76,6 +71,7 @@
             margin-bottom: 15px;
         }
 
+        /* FIX: properly hidden but still clickable via JS */
         #date {
             position: absolute;
             left: -9999px;
@@ -97,36 +93,26 @@
         <input type="text" id="make" placeholder="Vehicle Make" required>
         <input type="text" id="model" placeholder="Vehicle Model" required>
 
-        <!-- DATE -->
+        <!-- DATE FIXED -->
         <input type="date" id="date" required>
 
         <div class="date-box" onclick="document.getElementById('date').showPicker()">
-            <span id="dateText">Select Date</span>
+            <span id="dateText">Click to Select Date</span>
         </div>
 
         <!-- TIME -->
         <select id="time" required>
             <option value="">Select Time</option>
             <option value="08:00">8:00 AM</option>
-            <option value="08:30">8:30 AM</option>
             <option value="09:00">9:00 AM</option>
-            <option value="09:30">9:30 AM</option>
             <option value="10:00">10:00 AM</option>
-            <option value="10:30">10:30 AM</option>
             <option value="11:00">11:00 AM</option>
-            <option value="11:30">11:30 AM</option>
             <option value="12:00">12:00 PM</option>
-            <option value="12:30">12:30 PM</option>
             <option value="13:00">1:00 PM</option>
-            <option value="13:30">1:30 PM</option>
             <option value="14:00">2:00 PM</option>
-            <option value="14:30">2:30 PM</option>
             <option value="15:00">3:00 PM</option>
-            <option value="15:30">3:30 PM</option>
             <option value="16:00">4:00 PM</option>
-            <option value="16:30">4:30 PM</option>
             <option value="17:00">5:00 PM</option>
-            <option value="17:30">5:30 PM</option>
         </select>
 
         <button type="submit">Submit Request</button>
@@ -139,58 +125,6 @@
 document.getElementById("date").addEventListener("change", function () {
     const formatted = new Date(this.value).toDateString();
     document.getElementById("dateText").innerText = formatted;
-});
-</script>
-
-<!-- FIREBASE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-
-const firebaseConfig = {
-    apiKey: "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
-    authDomain: "worldoilllc.firebaseapp.com",
-    projectId: "worldoilllc",
-    storageBucket: "worldoilllc.appspot.com",
-    messagingSenderId: "769325331754",
-    appId: "1:769325331754:web:234d7c3ffa9a6424779a53"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-
-document.getElementById("bookingForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById("name").value;
-    const phone = document.getElementById("phone").value;
-    const year = document.getElementById("year").value;
-    const make = document.getElementById("make").value;
-    const model = document.getElementById("model").value;
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
-
-    try {
-        await addDoc(collection(db, "oilChanges"), {
-            name,
-            phone,
-            year,
-            make,
-            model,
-            date,
-            time,
-            status: "pending"
-        });
-
-        alert("Request submitted!");
-
-        document.getElementById("bookingForm").reset();
-        document.getElementById("dateText").innerText = "Select Date";
-
-    } catch (err) {
-        console.error(err);
-        alert("Error submitting request");
-    }
 });
 </script>
 
