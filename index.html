@@ -132,17 +132,21 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
     const year = document.getElementById("year").value;
     const make = document.getElementById("make").value;
     const model = document.getElementById("model").value;
-    const date = document.getElementById("date").value;
+
+    // ✅ FIXED DATE HANDLING
+    const rawDate = document.getElementById("date").value;
+
     const dateObj = new Date(rawDate);
 
-const options = {
-    weekday: "short",
-    year: "numeric",
-    month: "short",
-    day: "numeric"
-};
+    const options = {
+        weekday: "short",
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+    };
 
-const date = dateObj.toLocaleDateString("en-US", options);
+    const formattedDate = dateObj.toLocaleDateString("en-US", options);
+
     const time = document.getElementById("time").value;
 
     try {
@@ -152,7 +156,7 @@ const date = dateObj.toLocaleDateString("en-US", options);
             year,
             make,
             model,
-            date,
+            date: formattedDate,
             time,
             status: "pending"
         });
@@ -166,6 +170,3 @@ const date = dateObj.toLocaleDateString("en-US", options);
     }
 });
 </script>
-
-</body>
-</html>
