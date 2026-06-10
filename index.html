@@ -109,6 +109,12 @@
     </form>
 
 </div>
+	<script>
+document.getElementById("date").addEventListener("change", function () {
+    const formatted = new Date(this.value).toDateString();
+    document.getElementById("dateText").innerText = formatted;
+});
+</script>
 
 <!-- FIREBASE -->
 <script type="module">
