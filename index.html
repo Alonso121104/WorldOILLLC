@@ -99,8 +99,11 @@
         
         <!-- Date -->
 
-       <input type="date" id="date" required
-        style="opacity:0; position:absolute; pointer-events:none;">
+       <input type="date" id="date" required style="position:absolute; opacity:0; pointer-events:none;">
+
+<div class="date-box" onclick="document.getElementById('date').showPicker()">
+    <span id="dateText">Select Date</span>
+</div>
 
         <!-- TIME -->
         <select id="time" required>
