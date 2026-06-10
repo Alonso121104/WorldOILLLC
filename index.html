@@ -9,7 +9,6 @@
             padding: 0;
             font-family: Arial, sans-serif;
 
-            /* FIX: removed vectorstock image */
             background: linear-gradient(135deg, #e9eef5, #f7f7f7);
 
             min-height: 100vh;
@@ -33,22 +32,7 @@
             margin: 8px 0;
             border: 1px solid #ccc;
             border-radius: 6px;
-        }
-
-        /* DATE BUTTON FIX */
-        .date-box {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            background: white;
-            cursor: pointer;
-            text-align: left;
-        }
-
-        .date-box:hover {
-            background: #f0f0f0;
+            font-family: Arial, sans-serif;
         }
 
         button {
@@ -70,12 +54,6 @@
             font-size: 20px;
             margin-bottom: 15px;
         }
-
-        /* FIX: properly hidden but still clickable via JS */
-        #date {
-            position: absolute;
-            left: -9999px;
-        }
     </style>
 </head>
 
@@ -93,12 +71,8 @@
         <input type="text" id="make" placeholder="Vehicle Make" required>
         <input type="text" id="model" placeholder="Vehicle Model" required>
 
-        <!-- DATE FIXED -->
+        <!-- ✅ NORMAL DATE FIELD -->
         <input type="date" id="date" required>
-
-        <div class="date-box" onclick="document.getElementById('date').showPicker()">
-            <span id="dateText">Click to Select Date</span>
-        </div>
 
         <!-- TIME -->
         <select id="time" required>
@@ -120,13 +94,6 @@
     </form>
 
 </div>
-
-<script>
-document.getElementById("date").addEventListener("change", function () {
-    const formatted = new Date(this.value).toDateString();
-    document.getElementById("dateText").innerText = formatted;
-});
-</script>
 
 </body>
 </html>
