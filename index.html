@@ -115,6 +115,35 @@
     </form>
 
 </div>
+    <script>
+document.getElementById("bookingForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const rawDate = document.getElementById("date").value;
+    const dateObj = new Date(rawDate);
+
+    const formattedDate = dateObj.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+    });
+
+    const data = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        year: document.getElementById("year").value,
+        make: document.getElementById("make").value,
+        model: document.getElementById("model").value,
+        date: formattedDate,
+        time: document.getElementById("time").value,
+        status: "pending",
+        createdAt: new Date().toISOString()
+    };
+
+    console.log(data); // just to test
+});
+</script>
 
 <!-- FIREBASE -->
 <script type="module">
