@@ -67,14 +67,11 @@
     <form id="bookingForm">
 
         <input type="text" id="name" placeholder="Full Name" required>
-
-        <!-- 📱 phone keypad -->
         <input type="tel" id="phone" placeholder="Phone Number" required>
 
-        <!-- 🔢 number keypad -->
         <input 
-            type="number" 
-            id="year" 
+            type="number"
+            id="year"
             placeholder="Vehicle Year"
             inputmode="numeric"
             pattern="[0-9]*"
@@ -84,7 +81,6 @@
         <input type="text" id="make" placeholder="Vehicle Make" required>
         <input type="text" id="model" placeholder="Vehicle Model" required>
 
-        <!-- 📅 native date picker -->
         <input type="date" id="date" required>
 
         <select id="time" required>
@@ -115,35 +111,6 @@
     </form>
 
 </div>
-    <script>
-document.getElementById("bookingForm").addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const rawDate = document.getElementById("date").value;
-    const dateObj = new Date(rawDate);
-
-    const formattedDate = dateObj.toLocaleDateString("en-US", {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        year: "numeric"
-    });
-
-    const data = {
-        name: document.getElementById("name").value,
-        phone: document.getElementById("phone").value,
-        year: document.getElementById("year").value,
-        make: document.getElementById("make").value,
-        model: document.getElementById("model").value,
-        date: formattedDate,
-        time: document.getElementById("time").value,
-        status: "pending",
-        createdAt: new Date().toISOString()
-    };
-
-    console.log(data); // just to test
-});
-</script>
 
 <!-- FIREBASE -->
 <script type="module">
@@ -159,20 +126,32 @@ const firebaseConfig = {
     appId: "1:769325331754:web:234d7c3ffa9a6424779a53"
 };
 
-
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 document.getElementById("bookingForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // 📅 FORMAT DATE
+    const rawDate = document.getElementById("date").value;
+
+    const dateObj = new Date(rawDate);
+
+    const formattedDate = dateObj.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric"
+    });
+
+    // 📦 DATA SENT TO FIREBASE
     const data = {
         name: document.getElementById("name").value,
         phone: document.getElementById("phone").value,
         year: document.getElementById("year").value,
         make: document.getElementById("make").value,
         model: document.getElementById("model").value,
-        date: document.getElementById("date").value,
+        date: formattedDate,
         time: document.getElementById("time").value,
         status: "pending",
         createdAt: new Date().toISOString()
@@ -182,6 +161,7 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
         await addDoc(collection(db, "oilChanges"), data);
 
         alert("Request submitted successfully!");
+
         document.getElementById("bookingForm").reset();
 
     } catch (err) {
@@ -193,5 +173,3 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
 
 </body>
 </html>
-
-
