@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Oil Change Booking</title>
+    <title>World Oil Change</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         body {
@@ -18,11 +20,16 @@
 
         .container {
             background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             width: 340px;
             text-align: center;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 15px;
         }
 
         input, select {
@@ -31,41 +38,22 @@
             margin: 8px 0;
             border: 1px solid #ccc;
             border-radius: 6px;
-        }
-
-        .date-box {
-            width: 100%;
-            padding: 10px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            background: white;
-            cursor: pointer;
-            text-align: left;
-        }
-
-        .date-box:hover {
-            background: #f0f0f0;
+            font-size: 16px;
         }
 
         button {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             background: #111;
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            margin-top: 10px;
+            font-size: 16px;
         }
 
         button:hover {
             background: #333;
-        }
-
-        h1 {
-            font-size: 20px;
-            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -79,19 +67,26 @@
     <form id="bookingForm">
 
         <input type="text" id="name" placeholder="Full Name" required>
+
+        <!-- 📱 phone keypad -->
         <input type="tel" id="phone" placeholder="Phone Number" required>
-        <input type="number" id="year" placeholder="Vehicle Year" required>
+
+        <!-- 🔢 number keypad -->
+        <input 
+            type="number" 
+            id="year" 
+            placeholder="Vehicle Year"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            required
+        >
+
         <input type="text" id="make" placeholder="Vehicle Make" required>
         <input type="text" id="model" placeholder="Vehicle Model" required>
 
-        <!-- DATE -->
-        <div class="date-box" onclick="document.getElementById('date').showPicker()">
-            <span id="dateText">Select Date</span>
-        </div>
+        <!-- 📅 native date picker -->
+        <input type="date" id="date" required>
 
-        <input type="date" id="date" required style="opacity:0; position:absolute;">
-
-        <!-- TIME -->
         <select id="time" required>
             <option value="">Select Time</option>
             <option>08:00 AM</option>
@@ -120,13 +115,6 @@
     </form>
 
 </div>
-
-<script>
-document.getElementById("date").addEventListener("change", function () {
-    const formatted = new Date(this.value).toDateString();
-    document.getElementById("dateText").innerText = formatted;
-});
-</script>
 
 <!-- FIREBASE -->
 <script type="module">
@@ -166,7 +154,6 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
 
         alert("Request submitted successfully!");
         document.getElementById("bookingForm").reset();
-        document.getElementById("dateText").innerText = "Select Date";
 
     } catch (err) {
         console.error(err);
@@ -177,4 +164,5 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
 
 </body>
 </html>
+
 
