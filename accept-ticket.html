@@ -1,0 +1,159 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Accept Oil Change Job</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+button {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: .9;
+}
+
+#status {
+    margin-top: 20px;
+    font-weight: bold;
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+    <h1>Oil Change Job</h1>
+
+    <p>Ticket ID: <span id="ticketId"></span></p>
+
+    <button id="acceptBtn">
+        Accept Job
+    </button>
+
+    <div id="status"></div>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+    getFirestore,
+    doc,
+    updateDoc,
+    getDoc,
+    serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* REPLACE WITH YOUR FIREBASE CONFIG */
+const firebaseConfig = {
+    apiKey: "YOUR_API_KEY",
+    authDomain: "YOUR_PROJECT.firebaseapp.com",
+    projectId: "YOUR_PROJECT_ID",
+    storageBucket: "YOUR_PROJECT.appspot.com",
+    messagingSenderId: "YOUR_SENDER_ID",
+    appId: "YOUR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const params = new URLSearchParams(window.location.search);
+const ticketId = params.get("id");
+
+document.getElementById("ticketId").textContent = ticketId || "Missing";
+
+if (!ticketId) {
+    document.getElementById("status").innerText =
+        "No ticket ID found in URL.";
+}
+
+async function loadTicket() {
+    try {
+        const ticketRef = doc(db, "tickets", ticketId);
+        const ticketSnap = await getDoc(ticketRef);
+
+        if (!ticketSnap.exists()) {
+            document.getElementById("status").innerText =
+                "Ticket not found.";
+            return;
+        }
+
+        const data = ticketSnap.data();
+
+        document.querySelector(".card").insertAdjacentHTML(
+            "beforeend",
+            `
+            <hr>
+            <p><strong>Vehicle:</strong>
+            ${data.year || ""} ${data.make || ""} ${data.model || ""}</p>
+
+            <p><strong>Date:</strong>
+            ${data.date || ""}</p>
+
+            <p><strong>Time:</strong>
+            ${data.time || ""}</p>
+            `
+        );
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+loadTicket();
+
+document.getElementById("acceptBtn").addEventListener("click", async () => {
+
+    try {
+
+        const ticketRef = doc(db, "tickets", ticketId);
+
+        await updateDoc(ticketRef, {
+            status: "accepted",
+            providerAcceptedAt: serverTimestamp(),
+            providerName: "Assigned Provider"
+        });
+
+        document.getElementById("status").innerText =
+            "Job accepted successfully.";
+
+        document.getElementById("acceptBtn").disabled = true;
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("status").innerText =
+            "Error accepting ticket.";
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
+```
