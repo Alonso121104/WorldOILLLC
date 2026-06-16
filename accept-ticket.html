@@ -1,72 +1,98 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Accept Oil Change Job</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accept Oil Change Job</title>
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    text-align: center;
-}
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 30px;
+    }
 
-.card {
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 20px;
-}
+    .card {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
 
-button {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 15px 25px;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-}
+    h1 {
+      margin-bottom: 10px;
+    }
 
-button:hover {
-    opacity: .9;
-}
+    .info {
+      text-align: left;
+      margin-top: 20px;
+      line-height: 1.7;
+    }
 
-#status {
-    margin-top: 20px;
-    font-weight: bold;
-}
-</style>
+    button {
+      width: 100%;
+      margin-top: 25px;
+      padding: 15px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #acceptBtn {
+      background: #28a745;
+      color: white;
+    }
+
+    #acceptBtn:disabled {
+      background: #999;
+      cursor: not-allowed;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="card">
+  <div class="card">
     <h1>Oil Change Job</h1>
+    <p>Review and accept this job.</p>
 
-    <p>Ticket ID: <span id="ticketId"></span></p>
+    <div class="info">
+      <p><strong>Ticket ID:</strong> <span id="ticketIdText"></span></p>
+      <p><strong>Name:</strong> <span id="nameText">Loading...</span></p>
+      <p><strong>Phone:</strong> <span id="phoneText">Loading...</span></p>
+      <p><strong>Vehicle:</strong> <span id="vehicleText">Loading...</span></p>
+      <p><strong>Date:</strong> <span id="dateText">Loading...</span></p>
+      <p><strong>Time:</strong> <span id="timeText">Loading...</span></p>
+      <p><strong>Status:</strong> <span id="statusText">Loading...</span></p>
+    </div>
 
-    <button id="acceptBtn">
-        Accept Job
-    </button>
+    <button id="acceptBtn">Accept Job</button>
 
-    <div id="status"></div>
-</div>
+    <p id="message"></p>
+  </div>
 
-<script type="module">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-    getFirestore,
-    doc,
-    updateDoc,
-    getDoc,
-    serverTimestamp
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      updateDoc,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-/* REPLACE WITH YOUR FIREBASE CONFIG */
+    /*IREBASE CONFIG */
 const firebaseConfig = {
     apiKey: "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
     authDomain: "worldoilllc.firebaseapp.com",
@@ -76,84 +102,99 @@ const firebaseConfig = {
     appId: "1:769325331754:web:234d7c3ffa9a6424779a53"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
-const params = new URLSearchParams(window.location.search);
-const ticketId = params.get("id");
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-document.getElementById("ticketId").textContent = ticketId || "Missing";
+    const params = new URLSearchParams(window.location.search);
+    const ticketId = params.get("id");
 
-if (!ticketId) {
-    document.getElementById("status").innerText =
-        "No ticket ID found in URL.";
-}
+    const ticketIdText = document.getElementById("ticketIdText");
+    const nameText = document.getElementById("nameText");
+    const phoneText = document.getElementById("phoneText");
+    const vehicleText = document.getElementById("vehicleText");
+    const dateText = document.getElementById("dateText");
+    const timeText = document.getElementById("timeText");
+    const statusText = document.getElementById("statusText");
+    const acceptBtn = document.getElementById("acceptBtn");
+    const message = document.getElementById("message");
 
-async function loadTicket() {
-    try {
-        const ticketRef = doc(db, "tickets", ticketId);
+    let ticketRef;
+
+    ticketIdText.textContent = ticketId || "Missing";
+
+    if (!ticketId) {
+      message.textContent = "Missing ticket ID.";
+      acceptBtn.disabled = true;
+    } else {
+      ticketRef = doc(db, "oilChanges", ticketId);
+      loadTicket();
+    }
+
+    async function loadTicket() {
+      try {
         const ticketSnap = await getDoc(ticketRef);
 
         if (!ticketSnap.exists()) {
-            document.getElementById("status").innerText =
-                "Ticket not found.";
-            return;
+          message.textContent = "Ticket not found.";
+          acceptBtn.disabled = true;
+          return;
         }
 
         const data = ticketSnap.data();
 
-        document.querySelector(".card").insertAdjacentHTML(
-            "beforeend",
-            `
-            <hr>
-            <p><strong>Vehicle:</strong>
-            ${data.year || ""} ${data.make || ""} ${data.model || ""}</p>
+        nameText.textContent =
+          data.name || data.customerName || "Not provided";
 
-            <p><strong>Date:</strong>
-            ${data.date || ""}</p>
+        phoneText.textContent =
+          data.phone || data.customerPhone || "Not provided";
 
-            <p><strong>Time:</strong>
-            ${data.time || ""}</p>
-            `
-        );
+        vehicleText.textContent =
+          `${data.year || ""} ${data.make || ""} ${data.model || ""}`.trim() || "Not provided";
 
-    } catch (error) {
+        dateText.textContent =
+          data.date || data.appointmentDate || "Not provided";
+
+        timeText.textContent =
+          data.time || data.appointmentTime || "Not provided";
+
+        statusText.textContent =
+          data.status || "new";
+
+        if (data.status === "accepted") {
+          message.textContent = "This job has already been accepted.";
+          acceptBtn.disabled = true;
+        }
+
+      } catch (error) {
         console.error(error);
+        message.textContent = "Error loading ticket.";
+        acceptBtn.disabled = true;
+      }
     }
-}
 
-loadTicket();
-
-document.getElementById("acceptBtn").addEventListener("click", async () => {
-
-    try {
-
-        const ticketRef = doc(db, "tickets", ticketId);
+    acceptBtn.addEventListener("click", async () => {
+      try {
+        acceptBtn.disabled = true;
+        message.textContent = "Accepting job...";
 
         await updateDoc(ticketRef, {
-            status: "accepted",
-            providerAcceptedAt: serverTimestamp(),
-            providerName: "Assigned Provider"
+          status: "accepted",
+          providerName: "World Oil Provider",
+          providerAcceptedAt: serverTimestamp()
         });
 
-        document.getElementById("status").innerText =
-            "Job accepted successfully.";
+        statusText.textContent = "accepted";
+        message.textContent = "Job accepted successfully.";
 
-        document.getElementById("acceptBtn").disabled = true;
-
-    } catch (error) {
-
+      } catch (error) {
         console.error(error);
-
-        document.getElementById("status").innerText =
-            "Error accepting ticket.";
-
-    }
-
-});
-
-</script>
+        message.textContent = "Error accepting job.";
+        acceptBtn.disabled = false;
+      }
+    });
+  </script>
 
 </body>
 </html>
-```
+
