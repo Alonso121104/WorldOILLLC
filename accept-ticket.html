@@ -84,13 +84,45 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-    import {
-      getFirestore,
-      doc,
-      getDoc,
-      updateDoc,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+    
+    acceptBtn.addEventListener("click", async () => {
+  try {
+    acceptBtn.disabled = true;
+    message.textContent = "Accepting job...";
+
+    await runTransaction(db, async (transaction) => {
+      const ticketSnap = await transaction.get(ticketRef);
+
+      if (!ticketSnap.exists()) {
+        throw new Error("Ticket not found.");
+      }
+
+      const ticket = ticketSnap.data();
+
+      if (ticket.status === "accepted") {
+        throw new Error("This job has already been claimed.");
+      }
+
+      transaction.update(ticketRef, {
+        status: "accepted",
+        providerName: "World Oil Provider",
+        providerAcceptedAt: serverTimestamp()
+      });
+    });
+
+    statusText.textContent = "accepted";
+    message.textContent = "Job accepted successfully.";
+
+  } catch (error) {
+    console.error(error);
+    message.textContent = error.message || "Error accepting job.";
+    acceptBtn.disabled = false;
+
+    if (message.textContent.includes("already been claimed")) {
+      acceptBtn.disabled = true;
+    }
+  }
+});
 
     /*IREBASE CONFIG */
 const firebaseConfig = {
