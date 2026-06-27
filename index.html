@@ -115,7 +115,14 @@
 <!-- FIREBASE -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {
+    getFirestore,
+    collection,
+    addDoc,
+    query,
+    where,
+    getDocs
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
@@ -132,10 +139,19 @@ const db = getFirestore(app);
 document.getElementById("bookingForm").addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    // 📅 FORMAT DATE
-    const rawDate = document.getElementById("date").value;
+    const submitButton = document.querySelector("button[type='submit']");
+    submitButton.disabled = true;
+    submitButton.textContent = "Checking...";
 
-    const dateObj = new Date(rawDate);
+    const name = document.getElementById("name").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const year = document.getElementById("year").value.trim();
+    const make = document.getElementById("make").value.trim();
+    const model = document.getElementById("model").value.trim();
+    const rawDate = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    const dateObj = new Date(rawDate + "T00:00:00");
 
     const formattedDate = dateObj.toLocaleDateString("en-US", {
         weekday: "short",
@@ -144,30 +160,64 @@ document.getElementById("bookingForm").addEventListener("submit", async (e) => {
         year: "numeric"
     });
 
-    // 📦 DATA SENT TO FIREBASE
-    const data = {
-        name: document.getElementById("name").value,
-        phone: document.getElementById("phone").value,
-        year: document.getElementById("year").value,
-        make: document.getElementById("make").value,
-        model: document.getElementById("model").value,
-        date: formattedDate,
-        time: document.getElementById("time").value,
-        status: "pending",
-        createdAt: new Date().toISOString()
-    };
-
     try {
+        // Rule 1: one booking per phone number per day
+        const samePhoneSameDayQuery = query(
+            collection(db, "oilChanges"),
+            where("phone", "==", phone),
+            where("rawDate", "==", rawDate)
+        );
+
+        const samePhoneSnapshot = await getDocs(samePhoneSameDayQuery);
+
+        if (!samePhoneSnapshot.empty) {
+            alert("You can only book one appointment per day with this phone number.");
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Request";
+            return;
+        }
+
+        // Rule 2: max 2 bookings for same date and time
+        const sameSlotQuery = query(
+            collection(db, "oilChanges"),
+            where("rawDate", "==", rawDate),
+            where("time", "==", time)
+        );
+
+        const sameSlotSnapshot = await getDocs(sameSlotQuery);
+
+        if (sameSlotSnapshot.size >= 2) {
+            alert("This time slot is already full. Please choose another time.");
+            submitButton.disabled = false;
+            submitButton.textContent = "Submit Request";
+            return;
+        }
+
+        const data = {
+            name,
+            phone,
+            year,
+            make,
+            model,
+            rawDate,
+            date: formattedDate,
+            time,
+            status: "pending",
+            createdAt: new Date().toISOString()
+        };
+
         await addDoc(collection(db, "oilChanges"), data);
 
         alert("Request submitted successfully!");
-
         document.getElementById("bookingForm").reset();
 
     } catch (err) {
         console.error(err);
         alert("Error submitting request");
     }
+
+    submitButton.disabled = false;
+    submitButton.textContent = "Submit Request";
 });
 </script>
 
