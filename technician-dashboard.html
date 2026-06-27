@@ -12,31 +12,17 @@
       padding: 20px;
     }
 
-    h1 {
+    h1 { text-align: center; }
+
+    .top-bar {
+      max-width: 650px;
+      margin: 0 auto 20px;
       text-align: center;
-    }
-
-    .ticket {
-      background: white;
-      max-width: 600px;
-      margin: 15px auto;
-      padding: 18px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    }
-
-    .ticket h2 {
-      margin-top: 0;
-    }
-
-    .status {
-      font-weight: bold;
-      text-transform: uppercase;
     }
 
     button {
       padding: 10px 14px;
-      margin: 6px 4px 0 0;
+      margin: 5px;
       border: none;
       border-radius: 6px;
       color: white;
@@ -44,10 +30,34 @@
       font-size: 15px;
     }
 
+    .refresh { background: #007bff; }
     .accept { background: #28a745; }
     .complete { background: #111; }
     .cancel { background: #dc3545; }
-    .refresh { background: #007bff; display: block; margin: 0 auto 20px; }
+
+    .ticket {
+      background: white;
+      max-width: 650px;
+      margin: 15px auto;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
+
+    .ticket h2 { margin-top: 0; }
+
+    .status {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .empty, .error {
+      text-align: center;
+      margin-top: 30px;
+      font-weight: bold;
+    }
+
+    .error { color: red; }
   </style>
 </head>
 
@@ -55,7 +65,10 @@
 
 <h1>World Oil Provider Dashboard</h1>
 
-<button class="refresh" onclick="loadTickets()">Refresh Tickets</button>
+<div class="top-bar">
+  <button class="refresh" onclick="loadTickets()">Refresh Tickets</button>
+  <p>Showing only pending and accepted jobs.</p>
+</div>
 
 <div id="tickets">Loading tickets...</div>
 
@@ -68,6 +81,7 @@ import {
   doc,
   updateDoc,
   query,
+  where,
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -85,17 +99,22 @@ const db = getFirestore(app);
 
 const ticketsDiv = document.getElementById("tickets");
 
-async function loadTickets() {
+window.loadTickets = async function () {
   ticketsDiv.innerHTML = "Loading tickets...";
 
   try {
-    const q = query(collection(db, "oilChanges"), orderBy("createdAt", "desc"));
+    const q = query(
+      collection(db, "oilChanges"),
+      where("status", "in", ["pending", "accepted"]),
+      orderBy("createdAt", "desc")
+    );
+
     const snapshot = await getDocs(q);
 
     ticketsDiv.innerHTML = "";
 
     if (snapshot.empty) {
-      ticketsDiv.innerHTML = "<p style='text-align:center;'>No tickets found.</p>";
+      ticketsDiv.innerHTML = "<p class='empty'>No active tickets.</p>";
       return;
     }
 
@@ -106,12 +125,14 @@ async function loadTickets() {
       const ticket = document.createElement("div");
       ticket.className = "ticket";
 
+      const vehicle = `${data.year || ""} ${data.make || ""} ${data.model || ""}`.trim();
+
       ticket.innerHTML = `
         <h2>Ticket: ${data.ticketNumber || id}</h2>
         <p><strong>Status:</strong> <span class="status">${data.status || "pending"}</span></p>
         <p><strong>Customer:</strong> ${data.name || "Not provided"}</p>
         <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
-        <p><strong>Vehicle:</strong> ${data.year || ""} ${data.make || ""} ${data.model || ""}</p>
+        <p><strong>Vehicle:</strong> ${vehicle || "Not provided"}</p>
         <p><strong>Date:</strong> ${data.rawDate || data.date || "Not provided"}</p>
         <p><strong>Time:</strong> ${data.time || "Not provided"}</p>
 
@@ -125,11 +146,14 @@ async function loadTickets() {
 
   } catch (error) {
     console.error(error);
-    ticketsDiv.innerHTML = "<p style='text-align:center;color:red;'>Error loading tickets.</p>";
+    ticketsDiv.innerHTML = "<p class='error'>Error loading tickets. Check Firebase rules/indexes.</p>";
   }
-}
+};
 
-window.updateStatus = async function(id, status) {
+window.updateStatus = async function (id, status) {
+  const confirmUpdate = confirm("Change this ticket to " + status + "?");
+  if (!confirmUpdate) return;
+
   try {
     await updateDoc(doc(db, "oilChanges", id), {
       status: status,
@@ -137,6 +161,8 @@ window.updateStatus = async function(id, status) {
     });
 
     alert("Ticket updated to " + status);
+
+    // completed or cancelled tickets disappear because dashboard only shows pending/accepted
     loadTickets();
 
   } catch (error) {
