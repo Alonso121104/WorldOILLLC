@@ -1,67 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>World Oil Provider Dashboard</title>
+  <title>World Oil Technician Dashboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 20px;
-    }
-
-    h1 { text-align: center; }
-
-    .top-bar {
-      max-width: 650px;
-      margin: 0 auto 20px;
-      text-align: center;
-    }
-
-    button {
-      padding: 10px 14px;
-      margin: 5px;
-      border: none;
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
-      font-size: 15px;
-    }
-
-    .refresh { background: #007bff; }
-    .accept { background: #28a745; }
-    .complete { background: #111; }
-    .cancel { background: #dc3545; }
-
-    .ticket {
-      background: white;
-      max-width: 650px;
-      margin: 15px auto;
-      padding: 18px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-    }
-
-    .status {
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-
-    .empty, .error {
-      text-align: center;
-      margin-top: 30px;
-      font-weight: bold;
-    }
-
-    .error { color: red; }
+    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:20px; }
+    h1 { text-align:center; }
+    .top-bar { max-width:650px; margin:0 auto 20px; text-align:center; }
+    button { padding:10px 14px; margin:5px; border:none; border-radius:6px; color:white; cursor:pointer; font-size:15px; }
+    .refresh { background:#007bff; }
+    .accept { background:#28a745; }
+    .complete { background:#111; }
+    .cancel { background:#dc3545; }
+    .ticket { background:white; max-width:650px; margin:15px auto; padding:18px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.15); }
+    .status { font-weight:bold; text-transform:uppercase; }
+    .empty, .error { text-align:center; margin-top:30px; font-weight:bold; }
+    .error { color:red; }
   </style>
 </head>
-
 <body>
 
-<h1>World Oil Provider Dashboard</h1>
+<h1>World Oil Technician Dashboard</h1>
 
 <div class="top-bar">
   <button class="refresh" onclick="loadTickets()">Refresh Tickets</button>
@@ -77,9 +36,7 @@ import {
   collection,
   getDocs,
   doc,
-  updateDoc,
-  query,
-  orderBy
+  updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -93,79 +50,90 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
 const ticketsDiv = document.getElementById("tickets");
 
 window.loadTickets = async function () {
   ticketsDiv.innerHTML = "Loading tickets...";
 
   try {
-    const q = query(
-      collection(db, "oilChanges"),
-      orderBy("createdAt", "desc")
-    );
-
-    const snapshot = await getDocs(q);
-
+    const snapshot = await getDocs(collection(db, "oilChanges"));
     ticketsDiv.innerHTML = "";
 
-    let activeCount = 0;
+    let tickets = [];
 
     snapshot.forEach((docSnap) => {
       const data = docSnap.data();
-      const id = docSnap.id;
-
       const status = data.status || "pending";
 
-      if (status !== "pending" && status !== "accepted") {
-        return;
+      if (status === "pending" || status === "accepted") {
+        tickets.push({
+          id: docSnap.id,
+          ...data
+        });
       }
+    });
 
-      activeCount++;
+    tickets.sort((a, b) => {
+      return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+    });
 
+    if (tickets.length === 0) {
+      ticketsDiv.innerHTML = "<p class='empty'>No active tickets.</p>";
+      return;
+    }
+
+    tickets.forEach((data) => {
       const vehicle = `${data.year || ""} ${data.make || ""} ${data.model || ""}`.trim();
 
       const ticket = document.createElement("div");
       ticket.className = "ticket";
 
       ticket.innerHTML = `
-        <h2>Ticket: ${data.ticketNumber || id}</h2>
-        <p><strong>Status:</strong> <span class="status">${status}</span></p>
+        <h2>Ticket: ${data.ticketNumber || data.id}</h2>
+        <p><strong>Status:</strong> <span class="status">${data.status || "pending"}</span></p>
         <p><strong>Customer:</strong> ${data.name || "Not provided"}</p>
         <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
         <p><strong>Vehicle:</strong> ${vehicle || "Not provided"}</p>
         <p><strong>Date:</strong> ${data.rawDate || data.date || "Not provided"}</p>
         <p><strong>Time:</strong> ${data.time || "Not provided"}</p>
 
-        <button class="accept" onclick="updateStatus('${id}', 'accepted')">Accept</button>
-        <button class="complete" onclick="updateStatus('${id}', 'completed')">Complete</button>
-        <button class="cancel" onclick="updateStatus('${id}', 'cancelled')">Cancel</button>
+        <button class="accept" onclick="updateStatus('${data.id}', 'accepted')">Accept</button>
+        <button class="complete" onclick="updateStatus('${data.id}', 'completed')">Complete</button>
+        <button class="cancel" onclick="updateStatus('${data.id}', 'cancelled')">Cancel</button>
       `;
 
       ticketsDiv.appendChild(ticket);
     });
 
-    if (activeCount === 0) {
-      ticketsDiv.innerHTML = "<p class='empty'>No active tickets.</p>";
-    }
-
   } catch (error) {
     console.error(error);
-    ticketsDiv.innerHTML = "<p class='error'>Error loading tickets.</p>";
+    ticketsDiv.innerHTML = "<p class='error'>Error loading tickets. Check browser console.</p>";
   }
 };
 
 window.updateStatus = async function (id, status) {
-  const confirmUpdate = confirm("Change this ticket to " + status + "?");
-  if (!confirmUpdate) return;
+  if (!confirm("Change this ticket to " + status + "?")) return;
 
   try {
-    await updateDoc(doc(db, "oilChanges", id), {
-      status: status,
+    const updateData = {
+      status,
       updatedAt: new Date().toISOString()
-    });
+    };
 
-    alert("Ticket updated to " + status);
+    if (status === "accepted") {
+      updateData.technicianName = "World Oil Technician";
+      updateData.technicianAcceptedAt = new Date().toISOString();
+    }
+
+    if (status === "completed") {
+      updateData.completedAt = new Date().toISOString();
+    }
+
+    if (status === "cancelled") {
+      updateData.cancelledAt = new Date().toISOString();
+    }
+
+    await updateDoc(doc(db, "oilChanges", id), updateData);
     loadTickets();
 
   } catch (error) {
