@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>World Oil Technician Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:20px; }
+    h1 { text-align:center; }
+    .top-bar { max-width:650px; margin:0 auto 20px; text-align:center; }
+    button { padding:10px 14px; margin:5px; border:none; border-radius:6px; color:white; cursor:pointer; font-size:15px; }
+    .refresh { background:#007bff; }
+    .accept { background:#28a745; }
+    .complete { background:#111; }
+    .cancel { background:#dc3545; }
+    .ticket { background:white; max-width:650px; margin:15px auto; padding:18px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.15); }
+    .status { font-weight:bold; text-transform:uppercase; }
+    .empty, .error { text-align:center; margin-top:30px; font-weight:bold; }
+    .error { color:red; }
+  </style>
+</head>
+<body>
+
+<h1>World Oil Technician Dashboard</h1>
+
+<div class="top-bar">
+  <button class="refresh" onclick="loadTickets()">Refresh Tickets</button>
+  <p>Showing pending and accepted jobs only.</p>
+</div>
+
+<div id="tickets">Loading tickets...</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
+  authDomain: "worldoilllc.firebaseapp.com",
+  projectId: "worldoilllc",
+  storageBucket: "worldoilllc.appspot.com",
+  messagingSenderId: "769325331754",
+  appId: "1:769325331754:web:234d7c3ffa9a6424779a53"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const ticketsDiv = document.getElementById("tickets");
+
+window.loadTickets = async function () {
+  ticketsDiv.innerHTML = "Loading tickets...";
+
+  try {
+    const snapshot = await getDocs(collection(db, "oilChanges"));
+    ticketsDiv.innerHTML = "";
+
+    let tickets = [];
+
+    snapshot.forEach((docSnap) => {
+      const data = docSnap.data();
+      const status = data.status || "pending";
+
+      if (status === "pending" || status === "accepted") {
+        tickets.push({
+          id: docSnap.id,
+          ...data
+        });
+      }
+    });
+
+    tickets.sort((a, b) => {
+      return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
+    });
+
+    if (tickets.length === 0) {
+      ticketsDiv.innerHTML = "<p class='empty'>No active tickets.</p>";
+      return;
+    }
+
+    tickets.forEach((data) => {
+      const vehicle = `${data.year || ""} ${data.make || ""} ${data.model || ""}`.trim();
+
+      const ticket = document.createElement("div");
+      ticket.className = "ticket";
+
+      ticket.innerHTML = `
+        <h2>Ticket: ${data.ticketNumber || data.id}</h2>
+        <p><strong>Status:</strong> <span class="status">${data.status || "pending"}</span></p>
+        <p><strong>Customer:</strong> ${data.name || "Not provided"}</p>
+        <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
+        <p><strong>Vehicle:</strong> ${vehicle || "Not provided"}</p>
+        <p><strong>Date:</strong> ${data.rawDate || data.date || "Not provided"}</p>
+        <p><strong>Time:</strong> ${data.time || "Not provided"}</p>
+
+        <button class="accept" onclick="updateStatus('${data.id}', 'accepted')">Accept</button>
+        <button class="complete" onclick="updateStatus('${data.id}', 'completed')">Complete</button>
+        <button class="cancel" onclick="updateStatus('${data.id}', 'cancelled')">Cancel</button>
+      `;
+
+      ticketsDiv.appendChild(ticket);
+    });
+
+  } catch (error) {
+    console.error(error);
+    ticketsDiv.innerHTML = "<p class='error'>Error loading tickets. Check browser console.</p>";
+  }
+};
+
+window.updateStatus = async function (id, status) {
+  if (!confirm("Change this ticket to " + status + "?")) return;
+
+  try {
+    const updateData = {
+      status,
+      updatedAt: new Date().toISOString()
+    };
+
+    if (status === "accepted") {
+      updateData.technicianName = "World Oil Technician";
+      updateData.technicianAcceptedAt = new Date().toISOString();
+    }
+
+    if (status === "completed") {
+      updateData.completedAt = new Date().toISOString();
+    }
+
+    if (status === "cancelled") {
+      updateData.cancelledAt = new Date().toISOString();
+    }
+
+    await updateDoc(doc(db, "oilChanges", id), updateData);
+    loadTickets();
+
+  } catch (error) {
+    console.error(error);
+    alert("Could not update ticket.");
+  }
+};
+
+loadTickets();
+</script>
+
+</body>
+</html>
