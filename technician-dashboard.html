@@ -6,31 +6,52 @@
   <style>
     body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:20px; }
     h1 { text-align:center; }
-    .top-bar { max-width:650px; margin:0 auto 20px; text-align:center; }
+    .card, .ticket { background:white; max-width:650px; margin:15px auto; padding:18px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.15); }
+    input { width:100%; padding:12px; margin:8px 0; font-size:16px; box-sizing:border-box; }
     button { padding:10px 14px; margin:5px; border:none; border-radius:6px; color:white; cursor:pointer; font-size:15px; }
+    .login { background:#111; width:100%; }
+    .logout, .cancel { background:#dc3545; }
     .refresh { background:#007bff; }
     .accept { background:#28a745; }
     .complete { background:#111; }
-    .cancel { background:#dc3545; }
-    .ticket { background:white; max-width:650px; margin:15px auto; padding:18px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.15); }
     .status { font-weight:bold; text-transform:uppercase; }
-    .empty, .error { text-align:center; margin-top:30px; font-weight:bold; }
-    .error { color:red; }
+    .top-bar { max-width:650px; margin:0 auto 20px; text-align:center; }
+    .error { color:red; text-align:center; font-weight:bold; }
+    .empty { text-align:center; font-weight:bold; }
   </style>
 </head>
+
 <body>
 
 <h1>World Oil Technician Dashboard</h1>
 
-<div class="top-bar">
-  <button class="refresh" onclick="loadTickets()">Refresh Tickets</button>
-  <p>Showing pending and accepted jobs only.</p>
+<div id="loginBox" class="card">
+  <h2>Technician Login</h2>
+  <input type="email" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Password" />
+  <button class="login" onclick="login()">Login</button>
+  <p id="loginMessage" class="error"></p>
 </div>
 
-<div id="tickets">Loading tickets...</div>
+<div id="dashboard" style="display:none;">
+  <div class="top-bar">
+    <p>Logged in as: <strong id="userEmail"></strong></p>
+    <button class="refresh" onclick="loadTickets()">Refresh Tickets</button>
+    <button class="logout" onclick="logout()">Logout</button>
+    <p>Showing pending and accepted jobs only.</p>
+  </div>
+
+  <div id="tickets">Loading tickets...</div>
+</div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import {
   getFirestore,
   collection,
@@ -49,8 +70,42 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
+
+const loginBox = document.getElementById("loginBox");
+const dashboard = document.getElementById("dashboard");
 const ticketsDiv = document.getElementById("tickets");
+const userEmail = document.getElementById("userEmail");
+
+window.login = async function () {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const loginMessage = document.getElementById("loginMessage");
+
+  try {
+    loginMessage.textContent = "";
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (error) {
+    loginMessage.textContent = "Login failed. Check email and password.";
+  }
+};
+
+window.logout = async function () {
+  await signOut(auth);
+};
+
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    loginBox.style.display = "none";
+    dashboard.style.display = "block";
+    userEmail.textContent = user.email;
+    loadTickets();
+  } else {
+    loginBox.style.display = "block";
+    dashboard.style.display = "none";
+  }
+});
 
 window.loadTickets = async function () {
   ticketsDiv.innerHTML = "Loading tickets...";
@@ -66,16 +121,11 @@ window.loadTickets = async function () {
       const status = data.status || "pending";
 
       if (status === "pending" || status === "accepted") {
-        tickets.push({
-          id: docSnap.id,
-          ...data
-        });
+        tickets.push({ id: docSnap.id, ...data });
       }
     });
 
-    tickets.sort((a, b) => {
-      return new Date(b.createdAt || 0) - new Date(a.createdAt || 0);
-    });
+    tickets.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
 
     if (tickets.length === 0) {
       ticketsDiv.innerHTML = "<p class='empty'>No active tickets.</p>";
@@ -107,7 +157,7 @@ window.loadTickets = async function () {
 
   } catch (error) {
     console.error(error);
-    ticketsDiv.innerHTML = "<p class='error'>Error loading tickets. Check browser console.</p>";
+    ticketsDiv.innerHTML = "<p class='error'>Error loading tickets.</p>";
   }
 };
 
@@ -115,23 +165,17 @@ window.updateStatus = async function (id, status) {
   if (!confirm("Change this ticket to " + status + "?")) return;
 
   try {
+    const user = auth.currentUser;
+
     const updateData = {
       status,
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
+      technicianEmail: user ? user.email : "unknown"
     };
 
-    if (status === "accepted") {
-      updateData.technicianName = "World Oil Technician";
-      updateData.technicianAcceptedAt = new Date().toISOString();
-    }
-
-    if (status === "completed") {
-      updateData.completedAt = new Date().toISOString();
-    }
-
-    if (status === "cancelled") {
-      updateData.cancelledAt = new Date().toISOString();
-    }
+    if (status === "accepted") updateData.technicianAcceptedAt = new Date().toISOString();
+    if (status === "completed") updateData.completedAt = new Date().toISOString();
+    if (status === "cancelled") updateData.cancelledAt = new Date().toISOString();
 
     await updateDoc(doc(db, "oilChanges", id), updateData);
     loadTickets();
@@ -141,8 +185,6 @@ window.updateStatus = async function (id, status) {
     alert("Could not update ticket.");
   }
 };
-
-loadTickets();
 </script>
 
 </body>
