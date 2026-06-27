@@ -27,7 +27,7 @@
 
 <div id="loginBox" class="card">
   <h2>Technician Login</h2>
-  <input type="email" id="email" placeholder="Email" />
+  <p>Enter your technician password.</p>
   <input type="password" id="password" placeholder="Password" />
   <button class="login" onclick="login()">Login</button>
   <p id="loginMessage" class="error"></p>
@@ -69,6 +69,8 @@ const firebaseConfig = {
   appId: "1:769325331754:web:234d7c3ffa9a6424779a53"
 };
 
+const TECHNICIAN_EMAIL = "technician1@worldoil.com";
+
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
@@ -79,15 +81,14 @@ const ticketsDiv = document.getElementById("tickets");
 const userEmail = document.getElementById("userEmail");
 
 window.login = async function () {
-  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const loginMessage = document.getElementById("loginMessage");
 
   try {
     loginMessage.textContent = "";
-    await signInWithEmailAndPassword(auth, email, password);
+    await signInWithEmailAndPassword(auth, TECHNICIAN_EMAIL, password);
   } catch (error) {
-    loginMessage.textContent = "Login failed. Check email and password.";
+    loginMessage.textContent = "Incorrect password.";
   }
 };
 
@@ -185,6 +186,8 @@ window.updateStatus = async function (id, status) {
     alert("Could not update ticket.");
   }
 };
+
+loadTickets();
 </script>
 
 </body>
