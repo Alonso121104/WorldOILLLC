@@ -169,14 +169,22 @@ window.updateStatus = async function (id, status) {
     const user = auth.currentUser;
 
     const updateData = {
-      status,
+      status: status,
       updatedAt: new Date().toISOString(),
       technicianEmail: user ? user.email : "unknown"
     };
 
-    if (status === "accepted") updateData.technicianAcceptedAt = new Date().toISOString();
-    if (status === "completed") updateData.completedAt = new Date().toISOString();
-    if (status === "cancelled") updateData.cancelledAt = new Date().toISOString();
+    if (status === "accepted") {
+      updateData.technicianAcceptedAt = new Date().toISOString();
+    }
+
+    if (status === "completed") {
+      updateData.completedAt = new Date().toISOString();
+    }
+
+    if (status === "cancelled") {
+      updateData.cancelledAt = new Date().toISOString();
+    }
 
     await updateDoc(doc(db, "oilChanges", id), updateData);
     loadTickets();
@@ -186,8 +194,6 @@ window.updateStatus = async function (id, status) {
     alert("Could not update ticket.");
   }
 };
-
-loadTickets();
 </script>
 
 </body>
