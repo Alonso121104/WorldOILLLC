@@ -44,8 +44,6 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     }
 
-    .ticket h2 { margin-top: 0; }
-
     .status {
       font-weight: bold;
       text-transform: uppercase;
@@ -67,7 +65,7 @@
 
 <div class="top-bar">
   <button class="refresh" onclick="loadTickets()">Refresh Tickets</button>
-  <p>Showing only pending and accepted jobs.</p>
+  <p>Showing pending and accepted jobs only.</p>
 </div>
 
 <div id="tickets">Loading tickets...</div>
@@ -81,7 +79,6 @@ import {
   doc,
   updateDoc,
   query,
-  where,
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -105,7 +102,6 @@ window.loadTickets = async function () {
   try {
     const q = query(
       collection(db, "oilChanges"),
-      where("status", "in", ["pending", "accepted"]),
       orderBy("createdAt", "desc")
     );
 
@@ -113,23 +109,28 @@ window.loadTickets = async function () {
 
     ticketsDiv.innerHTML = "";
 
-    if (snapshot.empty) {
-      ticketsDiv.innerHTML = "<p class='empty'>No active tickets.</p>";
-      return;
-    }
+    let activeCount = 0;
 
     snapshot.forEach((docSnap) => {
       const data = docSnap.data();
       const id = docSnap.id;
 
-      const ticket = document.createElement("div");
-      ticket.className = "ticket";
+      const status = data.status || "pending";
+
+      if (status !== "pending" && status !== "accepted") {
+        return;
+      }
+
+      activeCount++;
 
       const vehicle = `${data.year || ""} ${data.make || ""} ${data.model || ""}`.trim();
 
+      const ticket = document.createElement("div");
+      ticket.className = "ticket";
+
       ticket.innerHTML = `
         <h2>Ticket: ${data.ticketNumber || id}</h2>
-        <p><strong>Status:</strong> <span class="status">${data.status || "pending"}</span></p>
+        <p><strong>Status:</strong> <span class="status">${status}</span></p>
         <p><strong>Customer:</strong> ${data.name || "Not provided"}</p>
         <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
         <p><strong>Vehicle:</strong> ${vehicle || "Not provided"}</p>
@@ -144,9 +145,13 @@ window.loadTickets = async function () {
       ticketsDiv.appendChild(ticket);
     });
 
+    if (activeCount === 0) {
+      ticketsDiv.innerHTML = "<p class='empty'>No active tickets.</p>";
+    }
+
   } catch (error) {
     console.error(error);
-    ticketsDiv.innerHTML = "<p class='error'>Error loading tickets. Check Firebase rules/indexes.</p>";
+    ticketsDiv.innerHTML = "<p class='error'>Error loading tickets.</p>";
   }
 };
 
@@ -161,8 +166,6 @@ window.updateStatus = async function (id, status) {
     });
 
     alert("Ticket updated to " + status);
-
-    // completed or cancelled tickets disappear because dashboard only shows pending/accepted
     loadTickets();
 
   } catch (error) {
