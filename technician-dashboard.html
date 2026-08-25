@@ -86,9 +86,36 @@ window.login = async function () {
 
   try {
     loginMessage.textContent = "";
-    await signInWithEmailAndPassword(auth, TECHNICIAN_EMAIL, password);
+
+    await signInWithEmailAndPassword(
+      auth,
+      TECHNICIAN_EMAIL,
+      password
+    );
+
   } catch (error) {
-    loginMessage.textContent = "Incorrect password.";
+    console.error("Firebase login error:", error);
+
+    if (error.code === "auth/user-not-found") {
+      loginMessage.textContent =
+        "Technician account does not exist: " + TECHNICIAN_EMAIL;
+
+    } else if (error.code === "auth/wrong-password") {
+      loginMessage.textContent =
+        "The password is incorrect.";
+
+    } else if (error.code === "auth/invalid-credential") {
+      loginMessage.textContent =
+        "The email or password is incorrect.";
+
+    } else if (error.code === "auth/operation-not-allowed") {
+      loginMessage.textContent =
+        "Email/Password login is not enabled in Firebase.";
+
+    } else {
+      loginMessage.textContent =
+        "Login error: " + error.code;
+    }
   }
 };
 
