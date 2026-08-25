@@ -198,24 +198,38 @@ const submitButton = document.getElementById("submitButton");
 const message = document.getElementById("message");
 
 
-// --------------------------------------------------
-// SET MINIMUM DATE TO TODAY
-// --------------------------------------------------
+// ==========================================
+// TODAY'S DATE
+// ==========================================
 
-const today = new Date();
+function getTodayString() {
 
-const yyyy = today.getFullYear();
-const mm = String(today.getMonth() + 1).padStart(2, "0");
-const dd = String(today.getDate()).padStart(2, "0");
+    const today = new Date();
 
-const todayString = `${yyyy}-${mm}-${dd}`;
+    const year = today.getFullYear();
 
+    const month = String(
+        today.getMonth() + 1
+    ).padStart(2, "0");
+
+    const day = String(
+        today.getDate()
+    ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+const todayString = getTodayString();
+
+
+// Don't allow appointments in the past
 document.getElementById("date").min = todayString;
 
 
-// --------------------------------------------------
-// NORMALIZE PHONE NUMBER
-// --------------------------------------------------
+// ==========================================
+// NORMALIZE PHONE
+// ==========================================
 
 function normalizePhone(phone) {
 
@@ -224,22 +238,20 @@ function normalizePhone(phone) {
 }
 
 
-// --------------------------------------------------
-// VALIDATE PHONE
-// --------------------------------------------------
+// ==========================================
+// PHONE VALIDATION
+// ==========================================
 
 function isValidPhone(phone) {
 
-    const digits = normalizePhone(phone);
-
-    return digits.length === 10;
+    return normalizePhone(phone).length === 10;
 
 }
 
 
-// --------------------------------------------------
-// SHOW MESSAGE
-// --------------------------------------------------
+// ==========================================
+// DISPLAY MESSAGE
+// ==========================================
 
 function showMessage(text, type) {
 
@@ -250,22 +262,20 @@ function showMessage(text, type) {
 }
 
 
-// --------------------------------------------------
-// SUBMIT BOOKING
-// --------------------------------------------------
+// ==========================================
+// FORM SUBMISSION
+// ==========================================
 
-form.addEventListener("submit", async function(e) {
+form.addEventListener("submit", async function(event) {
 
-    e.preventDefault();
+    event.preventDefault();
 
-
-    // Clear old message
     showMessage("", "");
 
 
-    // --------------------------------------------------
-    // CHECK REQUIRED FIELDS
-    // --------------------------------------------------
+    // ======================================
+    // REQUIRED FIELDS
+    // ======================================
 
     if (!form.checkValidity()) {
 
@@ -280,9 +290,9 @@ form.addEventListener("submit", async function(e) {
     }
 
 
-    // --------------------------------------------------
+    // ======================================
     // GET VALUES
-    // --------------------------------------------------
+    // ======================================
 
     const name =
         document.getElementById("name").value.trim();
@@ -299,16 +309,16 @@ form.addEventListener("submit", async function(e) {
     const model =
         document.getElementById("model").value.trim();
 
-    const rawDate =
+    const appointmentDate =
         document.getElementById("date").value;
 
     const time =
         document.getElementById("time").value;
 
 
-    // --------------------------------------------------
-    // NAME VALIDATION
-    // --------------------------------------------------
+    // ======================================
+    // NAME
+    // ======================================
 
     if (name.length < 2) {
 
@@ -321,13 +331,14 @@ form.addEventListener("submit", async function(e) {
     }
 
 
-    // --------------------------------------------------
-    // PHONE VALIDATION
-    // --------------------------------------------------
+    // ======================================
+    // PHONE
+    // ======================================
 
-    const normalizedPhone = normalizePhone(phone);
+    const normalizedPhone =
+        normalizePhone(phone);
 
-    if (normalizedPhone.length !== 10) {
+    if (!isValidPhone(phone)) {
 
         showMessage(
             "Please enter a valid 10-digit phone number.",
@@ -338,9 +349,9 @@ form.addEventListener("submit", async function(e) {
     }
 
 
-    // --------------------------------------------------
-    // YEAR VALIDATION
-    // --------------------------------------------------
+    // ======================================
+    // VEHICLE YEAR
+    // ======================================
 
     const vehicleYear = Number(year);
 
@@ -359,9 +370,9 @@ form.addEventListener("submit", async function(e) {
     }
 
 
-    // --------------------------------------------------
-    // VEHICLE VALIDATION
-    // --------------------------------------------------
+    // ======================================
+    // MAKE / MODEL
+    // ======================================
 
     if (!make || !model) {
 
@@ -374,14 +385,14 @@ form.addEventListener("submit", async function(e) {
     }
 
 
-    // --------------------------------------------------
-    // DATE VALIDATION
-    // --------------------------------------------------
+    // ======================================
+    // APPOINTMENT DATE
+    // ======================================
 
-    if (!rawDate) {
+    if (!appointmentDate) {
 
         showMessage(
-            "Please select a date.",
+            "Please select an appointment date.",
             "error"
         );
 
@@ -389,7 +400,7 @@ form.addEventListener("submit", async function(e) {
     }
 
 
-    if (rawDate < todayString) {
+    if (appointmentDate < todayString) {
 
         showMessage(
             "Please select today or a future date.",
@@ -400,14 +411,14 @@ form.addEventListener("submit", async function(e) {
     }
 
 
-    // --------------------------------------------------
-    // TIME VALIDATION
-    // --------------------------------------------------
+    // ======================================
+    // TIME
+    // ======================================
 
     if (!time) {
 
         showMessage(
-            "Please select a time.",
+            "Please select an appointment time.",
             "error"
         );
 
@@ -415,9 +426,13 @@ form.addEventListener("submit", async function(e) {
     }
 
 
-    // --------------------------------------------------
-    // DATA SENT TO BACKEND
-    // --------------------------------------------------
+    // ======================================
+    // IMPORTANT:
+    // submissionDate = TODAY
+    // appointmentDate = CUSTOMER'S DATE
+    //
+    // These are intentionally different.
+    // ======================================
 
     const data = {
 
@@ -431,16 +446,18 @@ form.addEventListener("submit", async function(e) {
 
         model: model,
 
-        rawDate: rawDate,
+        rawDate: appointmentDate,
 
-        time: time
+        time: time,
+
+        submissionDate: todayString
 
     };
 
 
-    // --------------------------------------------------
-    // PREVENT DOUBLE SUBMISSION
-    // --------------------------------------------------
+    // ======================================
+    // PREVENT DOUBLE CLICK
+    // ======================================
 
     submitButton.disabled = true;
 
@@ -452,17 +469,19 @@ form.addEventListener("submit", async function(e) {
     );
 
 
-    // --------------------------------------------------
-    // SEND TO RENDER
-    // --------------------------------------------------
+    // ======================================
+    // 15 SECOND TIMEOUT
+    // ======================================
 
-    const controller = new AbortController();
+    const controller =
+        new AbortController();
 
-    const timeout = setTimeout(function() {
-
-        controller.abort();
-
-    }, 15000);
+    const timeout = setTimeout(
+        function() {
+            controller.abort();
+        },
+        15000
+    );
 
 
     try {
@@ -489,9 +508,9 @@ form.addEventListener("submit", async function(e) {
         clearTimeout(timeout);
 
 
-        // --------------------------------------------------
-        // READ RESPONSE
-        // --------------------------------------------------
+        // ==================================
+        // READ BACKEND RESPONSE
+        // ==================================
 
         let result = {};
 
@@ -506,9 +525,9 @@ form.addEventListener("submit", async function(e) {
         }
 
 
-        // --------------------------------------------------
-        // BACKEND REJECTED REQUEST
-        // --------------------------------------------------
+        // ==================================
+        // REQUEST REJECTED
+        // ==================================
 
         if (!response.ok) {
 
@@ -525,9 +544,9 @@ form.addEventListener("submit", async function(e) {
         }
 
 
-        // --------------------------------------------------
+        // ==================================
         // SUCCESS
-        // --------------------------------------------------
+        // ==================================
 
         showMessage(
 
@@ -540,9 +559,8 @@ form.addEventListener("submit", async function(e) {
 
         form.reset();
 
-
-        // Put minimum date back after reset
-        document.getElementById("date").min = todayString;
+        document.getElementById("date").min =
+            getTodayString();
 
 
     } catch (error) {
@@ -577,12 +595,12 @@ form.addEventListener("submit", async function(e) {
 
         }
 
-
     } finally {
 
         submitButton.disabled = false;
 
-        submitButton.textContent = "Submit Request";
+        submitButton.textContent =
+            "Submit Request";
 
     }
 
