@@ -10,54 +10,110 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background: url("https://cdn2.vectorstock.com/i/1000x1000/23/11/line-icon-of-a-car-and-oil-change-symbol-vector-40522311.jpg") center center no-repeat;
+
+            background: url("https://cdn2.vectorstock.com/i/1000x1000/23/11/line-icon-of-a-car-and-oil-change-symbol-vector-40522311.jpg")
+                center center no-repeat;
+
             background-size: 900px;
+
             display: flex;
             justify-content: center;
             align-items: center;
+
             min-height: 100vh;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.95);
+
             padding: 25px;
+
             border-radius: 12px;
+
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+
             width: 340px;
-            text-align: center;
+
+            text-align: left;
         }
 
         h1 {
             font-size: 20px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+        }
+
+        .required {
+            color: #b00020;
+        }
+
+        .help {
+            display: block;
+
+            font-size: 12px;
+
+            color: #666;
+
+            margin-top: 4px;
         }
 
         input,
         select {
             width: 100%;
+
             padding: 10px;
-            margin: 8px 0;
+
             border: 1px solid #ccc;
+
             border-radius: 6px;
+
             font-size: 16px;
+
             box-sizing: border-box;
+
+            background: white;
         }
 
         input:focus,
         select:focus {
             outline: none;
+
             border-color: #111;
+
+            box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
         }
 
         button {
             width: 100%;
+
             padding: 12px;
+
             background: #111;
+
             color: white;
+
             border: none;
+
             border-radius: 6px;
+
             cursor: pointer;
+
             font-size: 16px;
+
             margin-top: 8px;
         }
 
@@ -67,33 +123,47 @@
 
         button:disabled {
             background: #777;
+
             cursor: not-allowed;
         }
 
         #message {
             display: none;
+
             margin-top: 12px;
+
             padding: 10px;
+
             border-radius: 6px;
+
             font-size: 14px;
+
             font-weight: bold;
+
+            text-align: center;
         }
 
         .error {
             display: block !important;
+
             color: #b00020;
+
             background: #ffe5e5;
         }
 
         .success {
             display: block !important;
+
             color: #146c2e;
+
             background: #e5f7e9;
         }
 
         .loading {
             display: block !important;
+
             color: #333;
+
             background: #eeeeee;
         }
     </style>
@@ -107,99 +177,218 @@
 
     <form id="bookingForm">
 
-        <input
-            type="text"
-            id="name"
-            placeholder="Full Name"
-            autocomplete="name"
-            maxlength="100"
-            required
+        <!-- FULL NAME -->
+        <div class="field">
+
+            <label for="name">
+                Full Name <span class="required">*</span>
+            </label>
+
+            <input
+                type="text"
+                id="name"
+                name="name"
+                autocomplete="name"
+                maxlength="100"
+                required
+                aria-required="true"
+                placeholder="Enter your full name"
+            >
+
+        </div>
+
+
+        <!-- PHONE -->
+        <div class="field">
+
+            <label for="phone">
+                Phone Number <span class="required">*</span>
+            </label>
+
+            <input
+                type="tel"
+                id="phone"
+                name="phone"
+                autocomplete="tel"
+                inputmode="tel"
+                maxlength="20"
+                required
+                aria-required="true"
+                placeholder="Enter your phone number"
+                aria-describedby="phoneHelp"
+            >
+
+            <span id="phoneHelp" class="help">
+                Enter a 10-digit phone number.
+            </span>
+
+        </div>
+
+
+        <!-- VEHICLE YEAR -->
+        <div class="field">
+
+            <label for="year">
+                Vehicle Year <span class="required">*</span>
+            </label>
+
+            <input
+                type="number"
+                id="year"
+                name="year"
+                inputmode="numeric"
+                min="1900"
+                max="2026"
+                required
+                aria-required="true"
+                placeholder="Example: 2020"
+            >
+
+        </div>
+
+
+        <!-- VEHICLE MAKE -->
+        <div class="field">
+
+            <label for="make">
+                Vehicle Make <span class="required">*</span>
+            </label>
+
+            <input
+                type="text"
+                id="make"
+                name="make"
+                maxlength="50"
+                required
+                aria-required="true"
+                placeholder="Example: Toyota"
+            >
+
+        </div>
+
+
+        <!-- VEHICLE MODEL -->
+        <div class="field">
+
+            <label for="model">
+                Vehicle Model <span class="required">*</span>
+            </label>
+
+            <input
+                type="text"
+                id="model"
+                name="model"
+                maxlength="50"
+                required
+                aria-required="true"
+                placeholder="Example: Camry"
+            >
+
+        </div>
+
+
+        <!-- APPOINTMENT DATE -->
+        <div class="field">
+
+            <label for="date">
+                Appointment Date <span class="required">*</span>
+            </label>
+
+            <input
+                type="date"
+                id="date"
+                name="date"
+                required
+                aria-required="true"
+            >
+
+            <span class="help">
+                Select the date you want your oil change.
+            </span>
+
+        </div>
+
+
+        <!-- APPOINTMENT TIME -->
+        <div class="field">
+
+            <label for="time">
+                Appointment Time <span class="required">*</span>
+            </label>
+
+            <select
+                id="time"
+                name="time"
+                required
+                aria-required="true"
+            >
+
+                <option value="">Select a time</option>
+
+                <option value="08:00 AM">08:00 AM</option>
+                <option value="08:30 AM">08:30 AM</option>
+
+                <option value="09:00 AM">09:00 AM</option>
+                <option value="09:30 AM">09:30 AM</option>
+
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="10:30 AM">10:30 AM</option>
+
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="11:30 AM">11:30 AM</option>
+
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="12:30 PM">12:30 PM</option>
+
+                <option value="01:00 PM">01:00 PM</option>
+                <option value="01:30 PM">01:30 PM</option>
+
+                <option value="02:00 PM">02:00 PM</option>
+                <option value="02:30 PM">02:30 PM</option>
+
+                <option value="03:00 PM">03:00 PM</option>
+                <option value="03:30 PM">03:30 PM</option>
+
+                <option value="04:00 PM">04:00 PM</option>
+                <option value="04:30 PM">04:30 PM</option>
+
+                <option value="05:00 PM">05:00 PM</option>
+
+            </select>
+
+        </div>
+
+
+        <!-- SUBMIT -->
+        <button
+            type="submit"
+            id="submitButton"
         >
-
-        <input
-            type="tel"
-            id="phone"
-            placeholder="Phone Number"
-            autocomplete="tel"
-            inputmode="tel"
-            maxlength="20"
-            required
-        >
-
-        <input
-            type="number"
-            id="year"
-            placeholder="Vehicle Year"
-            inputmode="numeric"
-            min="1900"
-            max="2026"
-            required
-        >
-
-        <input
-            type="text"
-            id="make"
-            placeholder="Vehicle Make"
-            maxlength="50"
-            required
-        >
-
-        <input
-            type="text"
-            id="model"
-            placeholder="Vehicle Model"
-            maxlength="50"
-            required
-        >
-
-        <input
-            type="date"
-            id="date"
-            required
-        >
-
-        <select id="time" required>
-            <option value="">Select Time</option>
-            <option value="08:00 AM">08:00 AM</option>
-            <option value="08:30 AM">08:30 AM</option>
-            <option value="09:00 AM">09:00 AM</option>
-            <option value="09:30 AM">09:30 AM</option>
-            <option value="10:00 AM">10:00 AM</option>
-            <option value="10:30 AM">10:30 AM</option>
-            <option value="11:00 AM">11:00 AM</option>
-            <option value="11:30 AM">11:30 AM</option>
-            <option value="12:00 PM">12:00 PM</option>
-            <option value="12:30 PM">12:30 PM</option>
-            <option value="01:00 PM">01:00 PM</option>
-            <option value="01:30 PM">01:30 PM</option>
-            <option value="02:00 PM">02:00 PM</option>
-            <option value="02:30 PM">02:30 PM</option>
-            <option value="03:00 PM">03:00 PM</option>
-            <option value="03:30 PM">03:30 PM</option>
-            <option value="04:00 PM">04:00 PM</option>
-            <option value="04:30 PM">04:30 PM</option>
-            <option value="05:00 PM">05:00 PM</option>
-        </select>
-
-        <button type="submit" id="submitButton">
             Submit Request
         </button>
 
+
+        <!-- MESSAGE -->
         <div id="message"></div>
 
     </form>
 
 </div>
 
+
 <script>
 
 const form = document.getElementById("bookingForm");
-const submitButton = document.getElementById("submitButton");
-const message = document.getElementById("message");
+
+const submitButton =
+    document.getElementById("submitButton");
+
+const message =
+    document.getElementById("message");
 
 
 // ==========================================
-// TODAY'S DATE
+// GET TODAY'S DATE
 // ==========================================
 
 function getTodayString() {
@@ -208,13 +397,13 @@ function getTodayString() {
 
     const year = today.getFullYear();
 
-    const month = String(
-        today.getMonth() + 1
-    ).padStart(2, "0");
+    const month =
+        String(today.getMonth() + 1)
+        .padStart(2, "0");
 
-    const day = String(
-        today.getDate()
-    ).padStart(2, "0");
+    const day =
+        String(today.getDate())
+        .padStart(2, "0");
 
     return `${year}-${month}-${day}`;
 }
@@ -223,8 +412,10 @@ function getTodayString() {
 const todayString = getTodayString();
 
 
-// Don't allow appointments in the past
-document.getElementById("date").min = todayString;
+// Don't allow past appointments
+
+document.getElementById("date").min =
+    todayString;
 
 
 // ==========================================
@@ -239,18 +430,7 @@ function normalizePhone(phone) {
 
 
 // ==========================================
-// PHONE VALIDATION
-// ==========================================
-
-function isValidPhone(phone) {
-
-    return normalizePhone(phone).length === 10;
-
-}
-
-
-// ==========================================
-// DISPLAY MESSAGE
+// SHOW MESSAGE
 // ==========================================
 
 function showMessage(text, type) {
@@ -266,358 +446,375 @@ function showMessage(text, type) {
 // FORM SUBMISSION
 // ==========================================
 
-form.addEventListener("submit", async function(event) {
+form.addEventListener(
+    "submit",
+    async function(event) {
 
-    event.preventDefault();
+        event.preventDefault();
 
-    showMessage("", "");
 
+        showMessage("", "");
 
-    // ======================================
-    // REQUIRED FIELDS
-    // ======================================
 
-    if (!form.checkValidity()) {
+        // ======================================
+        // REQUIRED FIELDS
+        // ======================================
 
-        form.reportValidity();
+        if (!form.checkValidity()) {
 
-        showMessage(
-            "Please fill out all required fields.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // ======================================
-    // GET VALUES
-    // ======================================
-
-    const name =
-        document.getElementById("name").value.trim();
-
-    const phone =
-        document.getElementById("phone").value.trim();
-
-    const year =
-        document.getElementById("year").value.trim();
-
-    const make =
-        document.getElementById("make").value.trim();
-
-    const model =
-        document.getElementById("model").value.trim();
-
-    const appointmentDate =
-        document.getElementById("date").value;
-
-    const time =
-        document.getElementById("time").value;
-
-
-    // ======================================
-    // NAME
-    // ======================================
-
-    if (name.length < 2) {
-
-        showMessage(
-            "Please enter your full name.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // ======================================
-    // PHONE
-    // ======================================
-
-  <!-- PHONE -->
-        <div class="field">
-            <label for="phone">
-                Phone Number <span aria-hidden="true">*</span>
-            </label>
-
-            <input
-                type="tel"
-                id="phone"
-                name="phone"
-                autocomplete="tel"
-                inputmode="tel"
-                maxlength="20"
-                required
-                aria-required="true"
-                aria-describedby="phoneHelp"
-            >
-
-            <span id="phoneHelp" class="help">
-                Enter a 10-digit phone number.
-            </span>
-        </div>
-
-
-    // ======================================
-    // VEHICLE YEAR
-    // ======================================
-
-    const vehicleYear = Number(year);
-
-    if (
-        !Number.isInteger(vehicleYear) ||
-        vehicleYear < 1900 ||
-        vehicleYear > 2026
-    ) {
-
-        showMessage(
-            "Please enter a valid vehicle year.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // ======================================
-    // MAKE / MODEL
-    // ======================================
-
-    if (!make || !model) {
-
-        showMessage(
-            "Please enter the vehicle make and model.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // ======================================
-    // APPOINTMENT DATE
-    // ======================================
-
-    if (!appointmentDate) {
-
-        showMessage(
-            "Please select an appointment date.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    if (appointmentDate < todayString) {
-
-        showMessage(
-            "Please select today or a future date.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // ======================================
-    // TIME
-    // ======================================
-
-    if (!time) {
-
-        showMessage(
-            "Please select an appointment time.",
-            "error"
-        );
-
-        return;
-    }
-
-
-    // ======================================
-    // IMPORTANT:
-    // submissionDate = TODAY
-    // appointmentDate = CUSTOMER'S DATE
-    //
-    // These are intentionally different.
-    // ======================================
-
-    const data = {
-
-        name: name,
-
-        phone: normalizedPhone,
-
-        year: vehicleYear,
-
-        make: make,
-
-        model: model,
-
-        rawDate: appointmentDate,
-
-        time: time,
-
-        submissionDate: todayString
-
-    };
-
-
-    // ======================================
-    // PREVENT DOUBLE CLICK
-    // ======================================
-
-    submitButton.disabled = true;
-
-    submitButton.textContent = "Submitting...";
-
-    showMessage(
-        "Submitting your request...",
-        "loading"
-    );
-
-
-    // ======================================
-    // 15 SECOND TIMEOUT
-    // ======================================
-
-    const controller =
-        new AbortController();
-
-    const timeout = setTimeout(
-        function() {
-            controller.abort();
-        },
-        15000
-    );
-
-
-    try {
-
-        const response = await fetch(
-
-            "https://worldoil-render-backend.onrender.com/book",
-
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(data),
-
-                signal: controller.signal
-            }
-
-        );
-
-
-        clearTimeout(timeout);
-
-
-        // ==================================
-        // READ BACKEND RESPONSE
-        // ==================================
-
-        let result = {};
-
-        try {
-
-            result = await response.json();
-
-        } catch {
-
-            result = {};
-
-        }
-
-
-        // ==================================
-        // REQUEST REJECTED
-        // ==================================
-
-        if (!response.ok) {
+            form.reportValidity();
 
             showMessage(
-
-                result.error ||
-                "This request could not be submitted.",
-
+                "Please fill out all required fields.",
                 "error"
-
             );
 
             return;
         }
 
 
-        // ==================================
-        // SUCCESS
-        // ==================================
+        // ======================================
+        // GET VALUES
+        // ======================================
+
+        const name =
+            document.getElementById("name")
+            .value.trim();
+
+        const phone =
+            document.getElementById("phone")
+            .value.trim();
+
+        const year =
+            document.getElementById("year")
+            .value.trim();
+
+        const make =
+            document.getElementById("make")
+            .value.trim();
+
+        const model =
+            document.getElementById("model")
+            .value.trim();
+
+        const appointmentDate =
+            document.getElementById("date")
+            .value;
+
+        const time =
+            document.getElementById("time")
+            .value;
+
+
+        // ======================================
+        // NAME VALIDATION
+        // ======================================
+
+        if (name.length < 2) {
+
+            showMessage(
+                "Please enter your full name.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // ======================================
+        // PHONE VALIDATION
+        // ======================================
+
+        const normalizedPhone =
+            normalizePhone(phone);
+
+        if (normalizedPhone.length !== 10) {
+
+            showMessage(
+                "Please enter a valid 10-digit phone number.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // ======================================
+        // YEAR VALIDATION
+        // ======================================
+
+        const vehicleYear =
+            Number(year);
+
+        if (
+            !Number.isInteger(vehicleYear) ||
+            vehicleYear < 1900 ||
+            vehicleYear > 2026
+        ) {
+
+            showMessage(
+                "Please enter a valid vehicle year.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // ======================================
+        // MAKE / MODEL
+        // ======================================
+
+        if (!make || !model) {
+
+            showMessage(
+                "Please enter the vehicle make and model.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // ======================================
+        // DATE
+        // ======================================
+
+        if (!appointmentDate) {
+
+            showMessage(
+                "Please select an appointment date.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        if (appointmentDate < todayString) {
+
+            showMessage(
+                "Please select today or a future date.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // ======================================
+        // TIME
+        // ======================================
+
+        if (!time) {
+
+            showMessage(
+                "Please select an appointment time.",
+                "error"
+            );
+
+            return;
+        }
+
+
+        // ======================================
+        // DATA
+        // ======================================
+
+        const data = {
+
+            name: name,
+
+            phone: normalizedPhone,
+
+            year: vehicleYear,
+
+            make: make,
+
+            model: model,
+
+            rawDate: appointmentDate,
+
+            time: time,
+
+            // IMPORTANT:
+            // This is TODAY, not the appointment date.
+            submissionDate: todayString
+
+        };
+
+
+        // ======================================
+        // PREVENT DOUBLE SUBMISSION
+        // ======================================
+
+        submitButton.disabled = true;
+
+        submitButton.textContent =
+            "Submitting...";
 
         showMessage(
-
-            "Request submitted successfully!",
-
-            "success"
-
+            "Submitting your request...",
+            "loading"
         );
 
 
-        form.reset();
+        // ======================================
+        // REQUEST TIMEOUT
+        // ======================================
 
-        document.getElementById("date").min =
-            getTodayString();
+        const controller =
+            new AbortController();
+
+        const timeout =
+            setTimeout(
+                function() {
+
+                    controller.abort();
+
+                },
+                15000
+            );
 
 
-    } catch (error) {
+        try {
 
-        clearTimeout(timeout);
+            const response = await fetch(
 
-        console.error(
-            "Booking error:",
-            error
-        );
+                "https://worldoil-render-backend.onrender.com/book",
 
+                {
 
-        if (error.name === "AbortError") {
+                    method: "POST",
 
-            showMessage(
+                    headers: {
+                        "Content-Type":
+                            "application/json"
+                    },
 
-                "The server took too long to respond. Please try again.",
+                    body:
+                        JSON.stringify(data),
 
-                "error"
+                    signal:
+                        controller.signal
+
+                }
 
             );
 
-        } else {
+
+            clearTimeout(timeout);
+
+
+            // ==================================
+            // READ RESPONSE
+            // ==================================
+
+            let result = {};
+
+            try {
+
+                result =
+                    await response.json();
+
+            } catch {
+
+                result = {};
+
+            }
+
+
+            // ==================================
+            // BACKEND REJECTED
+            // ==================================
+
+            if (!response.ok) {
+
+                showMessage(
+
+                    result.error ||
+                    "This request could not be submitted.",
+
+                    "error"
+
+                );
+
+                return;
+            }
+
+
+            // ==================================
+            // SUCCESS
+            // ==================================
 
             showMessage(
 
-                "Could not submit request. Please try again.",
+                "Request submitted successfully!",
 
-                "error"
+                "success"
 
             );
+
+
+            form.reset();
+
+
+            // Restore today's minimum date
+
+            document.getElementById("date").min =
+                getTodayString();
+
+
+        } catch (error) {
+
+            clearTimeout(timeout);
+
+
+            console.error(
+                "Booking error:",
+                error
+            );
+
+
+            if (
+                error.name ===
+                "AbortError"
+            ) {
+
+                showMessage(
+
+                    "The server took too long to respond. Please try again.",
+
+                    "error"
+
+                );
+
+            } else {
+
+                showMessage(
+
+                    "Could not submit request. Please try again.",
+
+                    "error"
+
+                );
+
+            }
+
+        } finally {
+
+            submitButton.disabled = false;
+
+            submitButton.textContent =
+                "Submit Request";
 
         }
 
-    } finally {
-
-        submitButton.disabled = false;
-
-        submitButton.textContent =
-            "Submit Request";
-
     }
 
-});
+);
 
 </script>
 
 </body>
 </html>
-      
