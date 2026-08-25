@@ -1,227 +1,1151 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>World Oil Technician Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:20px; }
-    h1 { text-align:center; }
-    .card, .ticket { background:white; max-width:650px; margin:15px auto; padding:18px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,0.15); }
-    input { width:100%; padding:12px; margin:8px 0; font-size:16px; box-sizing:border-box; }
-    button { padding:10px 14px; margin:5px; border:none; border-radius:6px; color:white; cursor:pointer; font-size:15px; }
-    .login { background:#111; width:100%; }
-    .logout, .cancel { background:#dc3545; }
-    .refresh { background:#007bff; }
-    .accept { background:#28a745; }
-    .complete { background:#111; }
-    .status { font-weight:bold; text-transform:uppercase; }
-    .top-bar { max-width:650px; margin:0 auto 20px; text-align:center; }
-    .error { color:red; text-align:center; font-weight:bold; }
-    .empty { text-align:center; font-weight:bold; }
-  </style>
+
+    <meta charset="UTF-8">
+
+    <title>
+        World Oil Technician Dashboard
+    </title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f4f4;
+
+            color: #111;
+
+            margin: 0;
+
+            padding: 20px;
+
+        }
+
+
+        h1 {
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        h2 {
+
+            margin-top: 0;
+
+        }
+
+
+        .card,
+        .ticket {
+
+            background: white;
+
+            max-width: 650px;
+
+            margin: 15px auto;
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.15);
+
+        }
+
+
+        label {
+
+            display: block;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        input {
+
+            width: 100%;
+
+            padding: 12px;
+
+            margin-bottom: 10px;
+
+            font-size: 16px;
+
+            border: 2px solid #777;
+
+            border-radius: 6px;
+
+        }
+
+
+        input:focus,
+        button:focus {
+
+            outline: 3px solid #005fcc;
+
+            outline-offset: 2px;
+
+        }
+
+
+        button {
+
+            padding: 11px 15px;
+
+            margin: 5px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+
+        .login {
+
+            background: #111;
+
+            width: 100%;
+
+            margin: 0;
+
+        }
+
+
+        .logout,
+        .cancel {
+
+            background: #b00020;
+
+        }
+
+
+        .refresh {
+
+            background: #005fcc;
+
+        }
+
+
+        .accept {
+
+            background: #187a35;
+
+        }
+
+
+        .complete {
+
+            background: #111;
+
+        }
+
+
+        button:hover {
+
+            filter: brightness(0.9);
+
+        }
+
+
+        .status {
+
+            font-weight: bold;
+
+            text-transform: uppercase;
+
+        }
+
+
+        .top-bar {
+
+            max-width: 650px;
+
+            margin: 0 auto 20px;
+
+            text-align: center;
+
+        }
+
+
+        .button-row {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+
+            gap: 5px;
+
+        }
+
+
+        .error {
+
+            color: #8b0000;
+
+            background: #ffe5e5;
+
+            border: 2px solid #b00020;
+
+            padding: 10px;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+
+        }
+
+
+        .success {
+
+            color: #145c2a;
+
+            background: #e5f7e9;
+
+            border: 2px solid #217a3c;
+
+            padding: 10px;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+
+        }
+
+
+        .empty {
+
+            text-align: center;
+
+            font-weight: bold;
+
+        }
+
+
+        .ticket-actions {
+
+            margin-top: 15px;
+
+            border-top: 1px solid #ddd;
+
+            padding-top: 10px;
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 10px;
+
+            }
+
+
+            .card,
+            .ticket {
+
+                padding: 15px;
+
+            }
+
+
+            .button-row {
+
+                flex-direction: column;
+
+            }
+
+
+            button {
+
+                width: 100%;
+
+                margin: 4px 0;
+
+            }
+
+        }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            * {
+
+                animation: none !important;
+
+                transition: none !important;
+
+            }
+
+        }
+
+    </style>
+
 </head>
+
 
 <body>
 
-<h1>World Oil Technician Dashboard</h1>
+<h1>
+    World Oil Technician Dashboard
+</h1>
 
-<div id="loginBox" class="card">
-  <h2>Technician Login</h2>
-  <p>Enter your technician password.</p>
-  <input type="password" id="password" placeholder="Password" />
-  <button class="login" onclick="login()">Login</button>
-  <p id="loginMessage" class="error"></p>
+
+<!-- LOGIN -->
+
+<div
+    id="loginBox"
+    class="card"
+>
+
+    <h2>
+        Technician Login
+    </h2>
+
+    <p>
+        Enter your technician password to access customer appointments.
+    </p>
+
+
+    <form id="loginForm">
+
+        <label for="password">
+            Technician Password
+        </label>
+
+        <input
+            type="password"
+            id="password"
+            autocomplete="current-password"
+            required
+            aria-required="true"
+        >
+
+
+        <button
+            type="submit"
+            class="login"
+        >
+            Login
+        </button>
+
+
+        <div
+            id="loginMessage"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+        ></div>
+
+    </form>
+
 </div>
 
-<div id="dashboard" style="display:none;">
-  <div class="top-bar">
-    <p>Logged in as: <strong id="userEmail"></strong></p>
-    <button class="refresh" onclick="loadTickets()">Refresh Tickets</button>
-    <button class="logout" onclick="logout()">Logout</button>
-    <p>Showing pending and accepted jobs only.</p>
-  </div>
 
-  <div id="tickets">Loading tickets...</div>
+<!-- DASHBOARD -->
+
+<div
+    id="dashboard"
+    style="display:none;"
+>
+
+    <div class="top-bar">
+
+        <p>
+            Logged in as:
+            <strong id="userEmail"></strong>
+        </p>
+
+
+        <div class="button-row">
+
+            <button
+                type="button"
+                class="refresh"
+                id="refreshButton"
+            >
+                Refresh Tickets
+            </button>
+
+
+            <button
+                type="button"
+                class="logout"
+                id="logoutButton"
+            >
+                Logout
+            </button>
+
+        </div>
+
+
+        <p>
+            Showing pending and accepted jobs only.
+        </p>
+
+
+        <div
+            id="dashboardMessage"
+            role="status"
+            aria-live="polite"
+            aria-atomic="true"
+        ></div>
+
+    </div>
+
+
+    <div
+        id="tickets"
+        aria-live="polite"
+        aria-busy="false"
+    >
+        Loading tickets...
+    </div>
+
 </div>
+
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
 import {
-  getAuth,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+
 import {
-  getFirestore,
-  collection,
-  getDocs,
-  doc,
-  updateDoc
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    getAuth,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+
+import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    updateDoc
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
-  authDomain: "worldoilllc.firebaseapp.com",
-  projectId: "worldoilllc",
-  storageBucket: "worldoilllc.appspot.com",
-  messagingSenderId: "769325331754",
-  appId: "1:769325331754:web:234d7c3ffa9a6424779a53"
+
+    apiKey:
+        "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
+
+    authDomain:
+        "worldoilllc.firebaseapp.com",
+
+    projectId:
+        "worldoilllc",
+
+    storageBucket:
+        "worldoilllc.appspot.com",
+
+    messagingSenderId:
+        "769325331754",
+
+    appId:
+        "1:769325331754:web:234d7c3ffa9a6424779a53"
+
 };
 
-const TECHNICIAN_EMAIL = "tech@worldoil.com";
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const TECHNICIAN_EMAIL =
+    "tech@worldoil.com";
 
-const loginBox = document.getElementById("loginBox");
-const dashboard = document.getElementById("dashboard");
-const ticketsDiv = document.getElementById("tickets");
-const userEmail = document.getElementById("userEmail");
 
-window.login = async function () {
-  const password = document.getElementById("password").value;
-  const loginMessage = document.getElementById("loginMessage");
+const app =
+    initializeApp(firebaseConfig);
 
-  try {
-    loginMessage.textContent = "";
+const auth =
+    getAuth(app);
 
-    await signInWithEmailAndPassword(
-      auth,
-      TECHNICIAN_EMAIL,
-      password
+const db =
+    getFirestore(app);
+
+
+const loginBox =
+    document.getElementById(
+        "loginBox"
     );
 
-  } catch (error) {
-    console.error("Firebase login error:", error);
 
-    if (error.code === "auth/user-not-found") {
-      loginMessage.textContent =
-        "Technician account does not exist: " + TECHNICIAN_EMAIL;
+const dashboard =
+    document.getElementById(
+        "dashboard"
+    );
 
-    } else if (error.code === "auth/wrong-password") {
-      loginMessage.textContent =
-        "The password is incorrect.";
 
-    } else if (error.code === "auth/invalid-credential") {
-      loginMessage.textContent =
-        "The email or password is incorrect.";
+const ticketsDiv =
+    document.getElementById(
+        "tickets"
+    );
 
-    } else if (error.code === "auth/operation-not-allowed") {
-      loginMessage.textContent =
-        "Email/Password login is not enabled in Firebase.";
 
-    } else {
-      loginMessage.textContent =
-        "Login error: " + error.code;
+const userEmail =
+    document.getElementById(
+        "userEmail"
+    );
+
+
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
+
+
+const loginMessage =
+    document.getElementById(
+        "loginMessage"
+    );
+
+
+const dashboardMessage =
+    document.getElementById(
+        "dashboardMessage"
+    );
+
+
+const refreshButton =
+    document.getElementById(
+        "refreshButton"
+    );
+
+
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
+
+
+// -----------------------------------------
+// LOGIN
+// -----------------------------------------
+
+loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        const password =
+            document.getElementById(
+                "password"
+            ).value;
+
+
+        loginMessage.textContent = "";
+
+
+        try {
+
+            await signInWithEmailAndPassword(
+                auth,
+                TECHNICIAN_EMAIL,
+                password
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Firebase login error:",
+                error
+            );
+
+
+            if (
+                error.code ===
+                "auth/user-not-found"
+            ) {
+
+                loginMessage.textContent =
+                    "The technician account does not exist.";
+
+            } else if (
+                error.code ===
+                "auth/wrong-password"
+            ) {
+
+                loginMessage.textContent =
+                    "The technician password is incorrect.";
+
+            } else if (
+                error.code ===
+                "auth/invalid-credential"
+            ) {
+
+                loginMessage.textContent =
+                    "The technician email or password is incorrect.";
+
+            } else {
+
+                loginMessage.textContent =
+                    "Login failed. Please try again.";
+
+            }
+
+        }
+
     }
-  }
-};
+);
 
-window.logout = async function () {
-  await signOut(auth);
-};
 
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    loginBox.style.display = "none";
-    dashboard.style.display = "block";
-    userEmail.textContent = user.email;
-    loadTickets();
-  } else {
-    loginBox.style.display = "block";
-    dashboard.style.display = "none";
-  }
-});
+// -----------------------------------------
+// LOGOUT
+// -----------------------------------------
 
-window.loadTickets = async function () {
-  ticketsDiv.innerHTML = "Loading tickets...";
+logoutButton.addEventListener(
+    "click",
+    async function() {
 
-  try {
-    const snapshot = await getDocs(collection(db, "oilChanges"));
-    ticketsDiv.innerHTML = "";
+        await signOut(auth);
 
-    let tickets = [];
+    }
+);
 
-    snapshot.forEach((docSnap) => {
-      const data = docSnap.data();
-      const status = data.status || "pending";
 
-      if (status === "pending" || status === "accepted") {
-        tickets.push({ id: docSnap.id, ...data });
-      }
-    });
+// -----------------------------------------
+// AUTH STATE
+// -----------------------------------------
 
-    tickets.sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0));
+onAuthStateChanged(
+    auth,
+    function(user) {
 
-    if (tickets.length === 0) {
-      ticketsDiv.innerHTML = "<p class='empty'>No active tickets.</p>";
-      return;
+        if (user) {
+
+            loginBox.style.display =
+                "none";
+
+            dashboard.style.display =
+                "block";
+
+            userEmail.textContent =
+                user.email;
+
+            loadTickets();
+
+        } else {
+
+            loginBox.style.display =
+                "block";
+
+            dashboard.style.display =
+                "none";
+
+        }
+
+    }
+);
+
+
+// -----------------------------------------
+// REFRESH
+// -----------------------------------------
+
+refreshButton.addEventListener(
+    "click",
+    loadTickets
+);
+
+
+// -----------------------------------------
+// LOAD TICKETS
+// -----------------------------------------
+
+async function loadTickets() {
+
+    ticketsDiv.setAttribute(
+        "aria-busy",
+        "true"
+    );
+
+    ticketsDiv.innerHTML =
+        "<p>Loading tickets...</p>";
+
+
+    try {
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "oilChanges"
+                )
+            );
+
+
+        let tickets = [];
+
+
+        snapshot.forEach(
+            function(docSnap) {
+
+                const data =
+                    docSnap.data();
+
+
+                const status =
+                    data.status ||
+                    "pending";
+
+
+                if (
+                    status === "pending" ||
+                    status === "accepted"
+                ) {
+
+                    tickets.push({
+                        id: docSnap.id,
+                        ...data
+                    });
+
+                }
+
+            }
+        );
+
+
+        tickets.sort(
+            function(a, b) {
+
+                return new Date(
+                    b.createdAt || 0
+                ) -
+                new Date(
+                    a.createdAt || 0
+                );
+
+            }
+        );
+
+
+        ticketsDiv.innerHTML = "";
+
+
+        if (tickets.length === 0) {
+
+            ticketsDiv.innerHTML =
+                "<p class='empty'>No active tickets.</p>";
+
+            return;
+
+        }
+
+
+        tickets.forEach(
+            function(data) {
+
+                const vehicle =
+                    `${data.year || ""} ${data.make || ""} ${data.model || ""}`
+                    .trim();
+
+
+                const ticket =
+                    document.createElement(
+                        "article"
+                    );
+
+
+                ticket.className =
+                    "ticket";
+
+
+                const title =
+                    document.createElement(
+                        "h2"
+                    );
+
+
+                title.textContent =
+                    "Ticket: " +
+                    (
+                        data.ticketNumber ||
+                        data.id
+                    );
+
+
+                ticket.appendChild(
+                    title
+                );
+
+
+                const details =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                details.innerHTML = `
+
+                    <p>
+                        <strong>Status:</strong>
+                        <span class="status">
+                            ${data.status || "pending"}
+                        </span>
+                    </p>
+
+                    <p>
+                        <strong>Customer:</strong>
+                        ${data.name || "Not provided"}
+                    </p>
+
+                    <p>
+                        <strong>Phone:</strong>
+                        ${data.phone || "Not provided"}
+                    </p>
+
+                    <p>
+                        <strong>Vehicle:</strong>
+                        ${vehicle || "Not provided"}
+                    </p>
+
+                    <p>
+                        <strong>Date:</strong>
+                        ${data.rawDate || data.date || "Not provided"}
+                    </p>
+
+                    <p>
+                        <strong>Time:</strong>
+                        ${data.time || "Not provided"}
+                    </p>
+
+                `;
+
+
+                ticket.appendChild(
+                    details
+                );
+
+
+                const actions =
+                    document.createElement(
+                        "div"
+                    );
+
+
+                actions.className =
+                    "ticket-actions";
+
+
+                const acceptButton =
+                    createButton(
+                        "Accept appointment",
+                        "accept",
+                        function() {
+
+                            updateStatus(
+                                data.id,
+                                "accepted"
+                            );
+
+                        }
+                    );
+
+
+                const completeButton =
+                    createButton(
+                        "Complete appointment",
+                        "complete",
+                        function() {
+
+                            updateStatus(
+                                data.id,
+                                "completed"
+                            );
+
+                        }
+                    );
+
+
+                const cancelButton =
+                    createButton(
+                        "Cancel appointment",
+                        "cancel",
+                        function() {
+
+                            updateStatus(
+                                data.id,
+                                "cancelled"
+                            );
+
+                        }
+                    );
+
+
+                actions.appendChild(
+                    acceptButton
+                );
+
+                actions.appendChild(
+                    completeButton
+                );
+
+                actions.appendChild(
+                    cancelButton
+                );
+
+
+                ticket.appendChild(
+                    actions
+                );
+
+
+                ticketsDiv.appendChild(
+                    ticket
+                );
+
+            }
+        );
+
+
+    } catch (error) {
+
+        console.error(
+            "Firestore error:",
+            error
+        );
+
+
+        ticketsDiv.innerHTML = `
+
+            <div class="error">
+
+                <strong>
+                    Error loading tickets.
+                </strong>
+
+                <p>
+                    Your technician account is signed in,
+                    but the dashboard could not read the
+                    oilChanges collection.
+                </p>
+
+                <p>
+                    Check your Firebase Firestore security rules.
+                </p>
+
+            </div>
+
+        `;
+
+    } finally {
+
+        ticketsDiv.setAttribute(
+            "aria-busy",
+            "false"
+        );
+
     }
 
-    tickets.forEach((data) => {
-      const vehicle = `${data.year || ""} ${data.make || ""} ${data.model || ""}`.trim();
+}
 
-      const ticket = document.createElement("div");
-      ticket.className = "ticket";
 
-      ticket.innerHTML = `
-        <h2>Ticket: ${data.ticketNumber || data.id}</h2>
-        <p><strong>Status:</strong> <span class="status">${data.status || "pending"}</span></p>
-        <p><strong>Customer:</strong> ${data.name || "Not provided"}</p>
-        <p><strong>Phone:</strong> ${data.phone || "Not provided"}</p>
-        <p><strong>Vehicle:</strong> ${vehicle || "Not provided"}</p>
-        <p><strong>Date:</strong> ${data.rawDate || data.date || "Not provided"}</p>
-        <p><strong>Time:</strong> ${data.time || "Not provided"}</p>
+// -----------------------------------------
+// CREATE BUTTON
+// -----------------------------------------
 
-        <button class="accept" onclick="updateStatus('${data.id}', 'accepted')">Accept</button>
-        <button class="complete" onclick="updateStatus('${data.id}', 'completed')">Complete</button>
-        <button class="cancel" onclick="updateStatus('${data.id}', 'cancelled')">Cancel</button>
-      `;
+function createButton(
+    text,
+    className,
+    action
+) {
 
-      ticketsDiv.appendChild(ticket);
-    });
+    const button =
+        document.createElement(
+            "button"
+        );
 
-  } catch (error) {
-    console.error(error);
-    ticketsDiv.innerHTML = "<p class='error'>Error loading tickets.</p>";
-  }
-};
 
-window.updateStatus = async function (id, status) {
-  if (!confirm("Change this ticket to " + status + "?")) return;
+    button.type =
+        "button";
 
-  try {
-    const user = auth.currentUser;
 
-    const updateData = {
-      status: status,
-      updatedAt: new Date().toISOString(),
-      technicianEmail: user ? user.email : "unknown"
-    };
+    button.textContent =
+        text;
 
-    if (status === "accepted") {
-      updateData.technicianAcceptedAt = new Date().toISOString();
+
+    button.className =
+        className;
+
+
+    button.addEventListener(
+        "click",
+        action
+    );
+
+
+    return button;
+
+}
+
+
+// -----------------------------------------
+// UPDATE STATUS
+// -----------------------------------------
+
+async function updateStatus(
+    id,
+    status
+) {
+
+    const confirmation =
+        confirm(
+            "Change this appointment to " +
+            status +
+            "?"
+        );
+
+
+    if (!confirmation) {
+
+        return;
+
     }
 
-    if (status === "completed") {
-      updateData.completedAt = new Date().toISOString();
+
+    try {
+
+        const user =
+            auth.currentUser;
+
+
+        const updateData = {
+
+            status:
+                status,
+
+            updatedAt:
+                new Date().toISOString(),
+
+            technicianEmail:
+                user
+                    ? user.email
+                    : "unknown"
+
+        };
+
+
+        if (
+            status ===
+            "accepted"
+        ) {
+
+            updateData
+                .technicianAcceptedAt =
+                new Date()
+                    .toISOString();
+
+        }
+
+
+        if (
+            status ===
+            "completed"
+        ) {
+
+            updateData.completedAt =
+                new Date()
+                    .toISOString();
+
+        }
+
+
+        if (
+            status ===
+            "cancelled"
+        ) {
+
+            updateData.cancelledAt =
+                new Date()
+                    .toISOString();
+
+        }
+
+
+        await updateDoc(
+            doc(
+                db,
+                "oilChanges",
+                id
+            ),
+            updateData
+        );
+
+
+        dashboardMessage.className =
+            "success";
+
+
+        dashboardMessage.textContent =
+            "Appointment updated successfully.";
+
+
+        await loadTickets();
+
+
+    } catch (error) {
+
+        console.error(
+            "Update error:",
+            error
+        );
+
+
+        dashboardMessage.className =
+            "error";
+
+
+        dashboardMessage.textContent =
+            "Could not update the appointment.";
+
     }
 
-    if (status === "cancelled") {
-      updateData.cancelledAt = new Date().toISOString();
-    }
+}
 
-    await updateDoc(doc(db, "oilChanges", id), updateData);
-    loadTickets();
-
-  } catch (error) {
-    console.error(error);
-    alert("Could not update ticket.");
-  }
-};
 </script>
 
 </body>
+
 </html>
