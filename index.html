@@ -1,27 +1,47 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>World Oil Change</title>
+    <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World OIL LLC</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <style>
+
+        /* ==========================================
+           PAGE
+           ========================================== */
+
         body {
             margin: 0;
             padding: 0;
+
             font-family: Arial, sans-serif;
 
-            background: url("https://cdn2.vectorstock.com/i/1000x1000/23/11/line-icon-of-a-car-and-oil-change-symbol-vector-40522311.jpg")
-                center center no-repeat;
+            background:
+                url("https://cdn2.vectorstock.com/i/1000x1000/23/11/line-icon-of-a-car-and-oil-change-symbol-vector-40522311.jpg")
+                center center
+                no-repeat;
 
             background-size: 900px;
 
             display: flex;
+
             justify-content: center;
+
             align-items: center;
 
             min-height: 100vh;
         }
+
+
+        /* ==========================================
+           BOOKING CONTAINER
+           ========================================== */
 
         .container {
             background: rgba(255, 255, 255, 0.95);
@@ -30,22 +50,28 @@
 
             border-radius: 12px;
 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            box-shadow:
+                0 10px 30px rgba(0,0,0,0.3);
 
             width: 340px;
 
             text-align: left;
         }
 
+
         h1 {
             font-size: 20px;
+
             margin-bottom: 20px;
+
             text-align: center;
         }
+
 
         .field {
             margin-bottom: 14px;
         }
+
 
         label {
             display: block;
@@ -57,9 +83,11 @@
             margin-bottom: 6px;
         }
 
+
         .required {
             color: #b00020;
         }
+
 
         .help {
             display: block;
@@ -70,6 +98,7 @@
 
             margin-top: 4px;
         }
+
 
         input,
         select {
@@ -88,14 +117,17 @@
             background: white;
         }
 
+
         input:focus,
         select:focus {
             outline: none;
 
             border-color: #111;
 
-            box-shadow: 0 0 0 2px rgba(0,0,0,0.08);
+            box-shadow:
+                0 0 0 2px rgba(0,0,0,0.08);
         }
+
 
         button {
             width: 100%;
@@ -117,15 +149,22 @@
             margin-top: 8px;
         }
 
+
         button:hover {
             background: #333;
         }
+
 
         button:disabled {
             background: #777;
 
             cursor: not-allowed;
         }
+
+
+        /* ==========================================
+           BOOKING MESSAGE
+           ========================================== */
 
         #message {
             display: none;
@@ -143,6 +182,7 @@
             text-align: center;
         }
 
+
         .error {
             display: block !important;
 
@@ -151,6 +191,7 @@
             background: #ffe5e5;
         }
 
+
         .success {
             display: block !important;
 
@@ -158,6 +199,7 @@
 
             background: #e5f7e9;
         }
+
 
         .loading {
             display: block !important;
@@ -169,45 +211,62 @@
 
 
         /* ==========================================
-           SIDE MENU
+           HAMBURGER MENU BUTTON
            ========================================== */
 
         .menu-button {
             position: fixed;
+
             top: 16px;
+
             left: 16px;
-            z-index: 1001;
+
+            z-index: 3001;
 
             width: 46px;
+
             height: 46px;
 
             padding: 0;
+
             margin: 0;
 
             background: #111;
+
             color: white;
 
             border: none;
+
             border-radius: 8px;
 
             font-size: 25px;
+
             line-height: 46px;
+
             text-align: center;
 
             cursor: pointer;
 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+            box-shadow:
+                0 4px 12px rgba(0,0,0,0.25);
         }
+
+
+        /* ==========================================
+           SIDE MENU
+           ========================================== */
 
         .side-menu {
             position: fixed;
 
             top: 0;
+
             left: -290px;
 
-            z-index: 1000;
+            z-index: 3000;
 
             width: 270px;
+
             height: 100vh;
 
             padding: 80px 20px 20px;
@@ -216,16 +275,19 @@
 
             background: white;
 
-            box-shadow: 5px 0 20px rgba(0,0,0,0.25);
+            box-shadow:
+                5px 0 20px rgba(0,0,0,0.25);
 
             transition: left 0.25s ease;
 
             overflow-y: auto;
         }
 
+
         .side-menu.open {
             left: 0;
         }
+
 
         .side-menu h2 {
             margin: 0 0 20px;
@@ -234,6 +296,20 @@
 
             text-align: left;
         }
+
+
+        .side-menu .established {
+            display: block;
+
+            margin-top: -14px;
+
+            margin-bottom: 20px;
+
+            color: #666;
+
+            font-size: 13px;
+        }
+
 
         .side-menu a {
             display: block;
@@ -253,9 +329,15 @@
             border-radius: 6px;
         }
 
+
         .side-menu a:hover {
             background: #eeeeee;
         }
+
+
+        /* ==========================================
+           MENU OVERLAY
+           ========================================== */
 
         .menu-overlay {
             display: none;
@@ -264,10 +346,11 @@
 
             inset: 0;
 
-            z-index: 999;
+            z-index: 2999;
 
             background: rgba(0,0,0,0.35);
         }
+
 
         .menu-overlay.show {
             display: block;
@@ -283,9 +366,10 @@
 
             position: fixed;
 
-            z-index: 1002;
+            z-index: 4000;
 
             top: 50%;
+
             left: 50%;
 
             transform: translate(-50%, -50%);
@@ -304,16 +388,40 @@
 
             border-radius: 12px;
 
-            box-shadow: 0 10px 35px rgba(0,0,0,0.35);
+            box-shadow:
+                0 10px 35px rgba(0,0,0,0.35);
         }
+
 
         .info-panel.show {
             display: block;
         }
 
+
         .info-panel h2 {
             margin-top: 0;
+
+            margin-bottom: 18px;
         }
+
+
+        .info-panel p {
+            line-height: 1.6;
+
+            font-size: 15px;
+        }
+
+
+        .info-panel a {
+            color: #111;
+
+            font-weight: bold;
+        }
+
+
+        /* ==========================================
+           CLOSE BUTTON
+           ========================================== */
 
         .info-panel .close-panel {
             width: auto;
@@ -323,7 +431,67 @@
             margin: -8px -8px 10px 10px;
 
             padding: 5px 10px;
+
+            font-size: 20px;
+
+            line-height: 1;
         }
+
+
+        /* ==========================================
+           REVIEW
+           ========================================== */
+
+        .review-stars {
+            font-size: 28px;
+
+            letter-spacing: 3px;
+
+            margin: 10px 0;
+        }
+
+
+        .review-star-picker {
+            display: flex;
+
+            gap: 5px;
+
+            margin: 10px 0 15px;
+        }
+
+
+        .review-star-picker button {
+            width: auto;
+
+            padding: 5px;
+
+            margin: 0;
+
+            background: transparent;
+
+            color: #ccc;
+
+            font-size: 30px;
+
+            line-height: 1;
+
+            border: none;
+
+            box-shadow: none;
+        }
+
+
+        .review-star-picker button:hover {
+            background: transparent;
+
+            color: #111;
+        }
+
+
+        .review-star-picker button.selected {
+            color: #111;
+        }
+
 
         .info-panel input,
         .info-panel textarea {
@@ -342,24 +510,109 @@
             font-size: 16px;
         }
 
+
         .info-panel textarea {
             min-height: 100px;
 
             resize: vertical;
         }
 
-        .review-stars {
-            font-size: 28px;
 
-            letter-spacing: 3px;
+        .review-submit {
+            width: 100% !important;
 
-            margin: 10px 0;
+            float: none !important;
         }
 
-        .info-panel .review-submit {
-            float: none;
 
-            width: 100%;
+        .review-message {
+            margin-top: 10px;
+
+            padding: 10px;
+
+            border-radius: 6px;
+
+            font-size: 14px;
+
+            display: none;
+        }
+
+
+        .review-message.success {
+            display: block;
+
+            color: #146c2e;
+
+            background: #e5f7e9;
+        }
+
+
+        .review-message.error {
+            display: block;
+
+            color: #b00020;
+
+            background: #ffe5e5;
+        }
+
+
+        /* ==========================================
+           CUSTOMER REVIEW DISPLAY
+           ========================================== */
+
+        .customer-review {
+            border-top: 1px solid #ddd;
+
+            padding: 15px 0;
+        }
+
+
+        .customer-review:first-child {
+            border-top: none;
+        }
+
+
+        .customer-review-name {
+            font-weight: bold;
+
+            margin-bottom: 5px;
+        }
+
+
+        .customer-review-stars {
+            letter-spacing: 2px;
+
+            margin-bottom: 5px;
+        }
+
+
+        .customer-review-text {
+            margin: 0;
+
+            color: #444;
+        }
+
+
+        /* ==========================================
+           MOBILE
+           ========================================== */
+
+        @media (max-width: 480px) {
+
+            .container {
+                width: calc(100% - 40px);
+
+                margin: 20px;
+
+                padding: 20px;
+            }
+
+            .info-panel {
+                width: calc(100% - 30px);
+
+                padding: 20px;
+            }
+
         }
 
     </style>
@@ -370,7 +623,7 @@
 
 
 <!-- ==========================================
-     SIDE MENU
+     HAMBURGER BUTTON
      ========================================== -->
 
 <button
@@ -379,14 +632,24 @@
     type="button"
     aria-label="Open menu"
     aria-expanded="false"
->☰</button>
+>
+    ☰
+</button>
 
+
+<!-- ==========================================
+     MENU OVERLAY
+     ========================================== -->
 
 <div
     class="menu-overlay"
-    id="menuOverlay">
-</div>
+    id="menuOverlay"
+></div>
 
+
+<!-- ==========================================
+     SIDE MENU
+     ========================================== -->
 
 <nav
     class="side-menu"
@@ -394,29 +657,57 @@
     aria-label="Main menu"
 >
 
-    <h2>World Oil Change</h2>
+    <h2>World OIL LLC</h2>
 
-    <a href="#" data-action="book">
+    <span class="established">
+        Est. June 2026
+    </span>
+
+
+    <a
+        href="#"
+        data-action="book"
+    >
         🏠 Book Appointment
     </a>
 
-    <a href="#" data-panel="about-me">
+
+    <a
+        href="#"
+        data-panel="about-me"
+    >
         👨‍🔧 About Me
     </a>
 
-    <a href="#" data-panel="about-company">
+
+    <a
+        href="#"
+        data-panel="about-company"
+    >
         🏢 About Company
     </a>
 
-    <a href="#" data-panel="contact">
+
+    <a
+        href="#"
+        data-panel="contact"
+    >
         📞 Contact
     </a>
 
-    <a href="#" data-panel="reviews">
+
+    <a
+        href="#"
+        data-panel="reviews"
+    >
         ⭐ Reviews
     </a>
 
-    <a href="#" data-panel="leave-review">
+
+    <a
+        href="#"
+        data-panel="leave-review"
+    >
         ✍️ Leave a Review
     </a>
 
@@ -435,18 +726,37 @@
     <button
         class="close-panel"
         type="button"
-    >×</button>
+    >
+        ×
+    </button>
+
 
     <h2>About Me</h2>
 
+
     <p>
-        Add your personal introduction here —
-        your experience, your background,
-        and why you started World Oil Change.
+        Welcome to World OIL LLC.
+    </p>
+
+
+    <p>
+        I created World OIL LLC to make oil changes
+        easier and more convenient for customers.
+    </p>
+
+
+    <p>
+        Instead of making customers spend time waiting
+        at a shop, our goal is to bring the oil change
+        service directly to your home.
     </p>
 
 </section>
 
+
+<!-- ==========================================
+     ABOUT COMPANY
+     ========================================== -->
 
 <section
     class="info-panel"
@@ -456,27 +766,40 @@
     <button
         class="close-panel"
         type="button"
-    >×</button>
+    >
+        ×
+    </button>
+
 
     <h2>About World OIL LLC</h2>
 
-    <p>
-        Welcome to World OIL LLC, where we bring your oil
-        change directly to your home.
-    </p>
 
     <p>
-        Our goal is to make oil changes simple, convenient,
-        and stress-free. With our easy-to-use website, you
-        can quickly navigate, choose an appointment time,
-        and request your oil change without complicated steps.
+        Welcome to World OIL LLC, where we bring your
+        oil change directly to your home.
     </p>
+
+
+    <p>
+        Our goal is to make oil changes simple,
+        convenient, and stress-free.
+    </p>
+
+
+    <p>
+        Our website is designed for simple navigation,
+        allowing you to quickly choose an appointment
+        time and request your oil change without
+        complicated steps.
+    </p>
+
 
     <p>
         <strong>Est. June 2026</strong>
     </p>
 
 </section>
+
 
 <!-- ==========================================
      CONTACT
@@ -490,9 +813,13 @@
     <button
         class="close-panel"
         type="button"
-    >×</button>
+    >
+        ×
+    </button>
+
 
     <h2>Contact Us</h2>
+
 
     <p>
         📞
@@ -501,11 +828,18 @@
         </a>
     </p>
 
+
     <p>
         ✉️
         <a href="mailto:tech@worldoil.com">
             tech@worldoil.com
         </a>
+    </p>
+
+
+    <p>
+        Call or email World OIL LLC with questions
+        about appointments or our oil change service.
     </p>
 
 </section>
@@ -523,17 +857,21 @@
     <button
         class="close-panel"
         type="button"
-    >×</button>
+    >
+        ×
+    </button>
+
 
     <h2>Customer Reviews</h2>
 
-    <div class="review-stars">
-        ★★★★★
-    </div>
 
-    <p>
-        Customer reviews will appear here.
-    </p>
+    <div id="reviewList">
+
+        <p>
+            No customer reviews yet.
+        </p>
+
+    </div>
 
 </section>
 
@@ -550,27 +888,81 @@
     <button
         class="close-panel"
         type="button"
-    >×</button>
+    >
+        ×
+    </button>
+
 
     <h2>Leave a Review</h2>
+
 
     <input
         type="text"
         id="reviewName"
         placeholder="Your name"
+        maxlength="50"
     >
 
+
+    <p>
+        Rating:
+    </p>
+
+
     <div
-        class="review-stars"
-        aria-label="5 star rating"
+        class="review-star-picker"
+        id="starPicker"
     >
-        ★★★★★
+
+        <button
+            type="button"
+            data-rating="1"
+            aria-label="1 star"
+        >
+            ★
+        </button>
+
+        <button
+            type="button"
+            data-rating="2"
+            aria-label="2 stars"
+        >
+            ★
+        </button>
+
+        <button
+            type="button"
+            data-rating="3"
+            aria-label="3 stars"
+        >
+            ★
+        </button>
+
+        <button
+            type="button"
+            data-rating="4"
+            aria-label="4 stars"
+        >
+            ★
+        </button>
+
+        <button
+            type="button"
+            data-rating="5"
+            aria-label="5 stars"
+        >
+            ★
+        </button>
+
     </div>
+
 
     <textarea
         id="reviewText"
         placeholder="Tell us about your experience"
+        maxlength="500"
     ></textarea>
+
 
     <button
         class="review-submit"
@@ -580,18 +972,28 @@
         Submit Review
     </button>
 
+
+    <div
+        id="reviewMessage"
+        class="review-message"
+    ></div>
+
 </section>
 
 
 <!-- ==========================================
-     YOUR ORIGINAL BOOKING PAGE
+     BOOKING PAGE
      ========================================== -->
 
-<div class="container">
+<div
+    class="container"
+    id="bookingContainer"
+>
 
     <h1>
         World Oil Change
     </h1>
+
 
     <form id="bookingForm">
 
@@ -601,14 +1003,10 @@
         <div class="field">
 
             <label for="name">
-
                 Full Name
-
-                <span class="required">
-                    *
-                </span>
-
+                <span class="required">*</span>
             </label>
+
 
             <input
                 type="text"
@@ -629,14 +1027,10 @@
         <div class="field">
 
             <label for="phone">
-
                 Phone Number
-
-                <span class="required">
-                    *
-                </span>
-
+                <span class="required">*</span>
             </label>
+
 
             <input
                 type="tel"
@@ -650,6 +1044,7 @@
                 placeholder="Enter your phone number"
                 aria-describedby="phoneHelp"
             >
+
 
             <span
                 id="phoneHelp"
@@ -666,14 +1061,10 @@
         <div class="field">
 
             <label for="year">
-
                 Vehicle Year
-
-                <span class="required">
-                    *
-                </span>
-
+                <span class="required">*</span>
             </label>
+
 
             <input
                 type="number"
@@ -695,14 +1086,10 @@
         <div class="field">
 
             <label for="make">
-
                 Vehicle Make
-
-                <span class="required">
-                    *
-                </span>
-
+                <span class="required">*</span>
             </label>
+
 
             <input
                 type="text"
@@ -722,14 +1109,10 @@
         <div class="field">
 
             <label for="model">
-
                 Vehicle Model
-
-                <span class="required">
-                    *
-                </span>
-
+                <span class="required">*</span>
             </label>
+
 
             <input
                 type="text"
@@ -749,14 +1132,10 @@
         <div class="field">
 
             <label for="date">
-
                 Appointment Date
-
-                <span class="required">
-                    *
-                </span>
-
+                <span class="required">*</span>
             </label>
+
 
             <input
                 type="date"
@@ -765,6 +1144,7 @@
                 required
                 aria-required="true"
             >
+
 
             <span class="help">
                 Select the date you want your oil change.
@@ -778,14 +1158,10 @@
         <div class="field">
 
             <label for="time">
-
                 Appointment Time
-
-                <span class="required">
-                    *
-                </span>
-
+                <span class="required">*</span>
             </label>
+
 
             <select
                 id="time"
@@ -798,81 +1174,34 @@
                     Select a time
                 </option>
 
-                <option value="08:00 AM">
-                    08:00 AM
-                </option>
+                <option value="08:00 AM">08:00 AM</option>
+                <option value="08:30 AM">08:30 AM</option>
 
-                <option value="08:30 AM">
-                    08:30 AM
-                </option>
+                <option value="09:00 AM">09:00 AM</option>
+                <option value="09:30 AM">09:30 AM</option>
 
-                <option value="09:00 AM">
-                    09:00 AM
-                </option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="10:30 AM">10:30 AM</option>
 
-                <option value="09:30 AM">
-                    09:30 AM
-                </option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="11:30 AM">11:30 AM</option>
 
-                <option value="10:00 AM">
-                    10:00 AM
-                </option>
+                <option value="12:00 PM">12:00 PM</option>
+                <option value="12:30 PM">12:30 PM</option>
 
-                <option value="10:30 AM">
-                    10:30 AM
-                </option>
+                <option value="01:00 PM">01:00 PM</option>
+                <option value="01:30 PM">01:30 PM</option>
 
-                <option value="11:00 AM">
-                    11:00 AM
-                </option>
+                <option value="02:00 PM">02:00 PM</option>
+                <option value="02:30 PM">02:30 PM</option>
 
-                <option value="11:30 AM">
-                    11:30 AM
-                </option>
+                <option value="03:00 PM">03:00 PM</option>
+                <option value="03:30 PM">03:30 PM</option>
 
-                <option value="12:00 PM">
-                    12:00 PM
-                </option>
+                <option value="04:00 PM">04:00 PM</option>
+                <option value="04:30 PM">04:30 PM</option>
 
-                <option value="12:30 PM">
-                    12:30 PM
-                </option>
-
-                <option value="01:00 PM">
-                    01:00 PM
-                </option>
-
-                <option value="01:30 PM">
-                    01:30 PM
-                </option>
-
-                <option value="02:00 PM">
-                    02:00 PM
-                </option>
-
-                <option value="02:30 PM">
-                    02:30 PM
-                </option>
-
-                <option value="03:00 PM">
-                    03:00 PM
-                </option>
-
-                <option value="03:30 PM">
-                    03:30 PM
-                </option>
-
-                <option value="04:00 PM">
-                    04:00 PM
-                </option>
-
-                <option value="04:30 PM">
-                    04:30 PM
-                </option>
-
-                <option value="05:00 PM">
-                    05:00 PM
-                </option>
+                <option value="05:00 PM">05:00 PM</option>
 
             </select>
 
@@ -901,9 +1230,9 @@
 <script>
 
 
-// ==========================================
-// SIDE MENU
-// ==========================================
+/* ==========================================
+   SIDE MENU
+   ========================================== */
 
 const menuButton =
     document.getElementById("menuButton");
@@ -930,7 +1259,6 @@ function closeMenu() {
     );
 
     menuButton.textContent = "☰";
-
 }
 
 
@@ -941,6 +1269,14 @@ function closePanels() {
         panel.classList.remove("show");
 
     });
+}
+
+
+function closeEverything() {
+
+    closeMenu();
+
+    closePanels();
 
 }
 
@@ -952,15 +1288,18 @@ menuButton.addEventListener(
         const isOpen =
             sideMenu.classList.toggle("open");
 
+
         menuOverlay.classList.toggle(
             "show",
             isOpen
         );
 
+
         menuButton.setAttribute(
             "aria-expanded",
             String(isOpen)
         );
+
 
         menuButton.textContent =
             isOpen ? "×" : "☰";
@@ -973,13 +1312,15 @@ menuOverlay.addEventListener(
     "click",
     function() {
 
-        closeMenu();
-
-        closePanels();
+        closeEverything();
 
     }
 );
 
+
+/* ==========================================
+   MENU LINKS
+   ========================================== */
 
 document
     .querySelectorAll(".side-menu a")
@@ -992,32 +1333,28 @@ document
                 event.preventDefault();
 
 
-                // BOOK APPOINTMENT
+                /* BOOK APPOINTMENT */
 
                 if (
                     link.dataset.action === "book"
                 ) {
 
-                    closeMenu();
+                    closeEverything();
 
-                    closePanels();
 
                     document
-                        .querySelector(".container")
+                        .getElementById("bookingContainer")
                         .scrollIntoView({
                             behavior: "smooth",
                             block: "center"
                         });
 
-                    return;
 
+                    return;
                 }
 
 
-                closeMenu();
-
-                closePanels();
-
+                /* INFORMATION PANEL */
 
                 const panel =
                     document.getElementById(
@@ -1025,7 +1362,12 @@ document
                     );
 
 
+                closeMenu();
+
+
                 if (panel) {
+
+                    closePanels();
 
                     panel.classList.add("show");
 
@@ -1036,6 +1378,10 @@ document
 
     });
 
+
+/* ==========================================
+   CLOSE BUTTONS
+   ========================================== */
 
 document
     .querySelectorAll(".close-panel")
@@ -1053,15 +1399,17 @@ document
     });
 
 
+/* ==========================================
+   ESC KEY
+   ========================================== */
+
 document.addEventListener(
     "keydown",
     function(event) {
 
         if (event.key === "Escape") {
 
-            closeMenu();
-
-            closePanels();
+            closeEverything();
 
         }
 
@@ -1069,10 +1417,318 @@ document.addEventListener(
 );
 
 
+/* ==========================================
+   REVIEWS
+   ========================================== */
 
-// ==========================================
-// ORIGINAL BOOKING SYSTEM
-// ==========================================
+let selectedRating = 0;
+
+
+const starButtons =
+    document.querySelectorAll(
+        "#starPicker button"
+    );
+
+
+starButtons.forEach(function(button) {
+
+    button.addEventListener(
+        "click",
+        function() {
+
+            selectedRating =
+                Number(button.dataset.rating);
+
+
+            starButtons.forEach(
+                function(star) {
+
+                    const rating =
+                        Number(
+                            star.dataset.rating
+                        );
+
+
+                    star.classList.toggle(
+                        "selected",
+                        rating <= selectedRating
+                    );
+
+                }
+            );
+
+        }
+    );
+
+});
+
+
+/* ==========================================
+   LOAD REVIEWS
+   ========================================== */
+
+function loadReviews() {
+
+    const reviewList =
+        document.getElementById(
+            "reviewList"
+        );
+
+
+    let reviews = [];
+
+
+    try {
+
+        reviews =
+            JSON.parse(
+                localStorage.getItem(
+                    "worldOilReviews"
+                )
+            ) || [];
+
+    } catch {
+
+        reviews = [];
+
+    }
+
+
+    if (reviews.length === 0) {
+
+        reviewList.innerHTML =
+            "<p>No customer reviews yet.</p>";
+
+        return;
+    }
+
+
+    reviewList.innerHTML = "";
+
+
+    reviews.forEach(function(review) {
+
+        const reviewElement =
+            document.createElement("div");
+
+
+        reviewElement.className =
+            "customer-review";
+
+
+        const stars =
+            "★".repeat(review.rating) +
+            "☆".repeat(5 - review.rating);
+
+
+        reviewElement.innerHTML = `
+
+            <div class="customer-review-name">
+                ${escapeHtml(review.name)}
+            </div>
+
+            <div class="customer-review-stars">
+                ${stars}
+            </div>
+
+            <p class="customer-review-text">
+                ${escapeHtml(review.text)}
+            </p>
+
+        `;
+
+
+        reviewList.appendChild(
+            reviewElement
+        );
+
+    });
+
+}
+
+
+/* ==========================================
+   ESCAPE REVIEW TEXT
+   ========================================== */
+
+function escapeHtml(text) {
+
+    const div =
+        document.createElement("div");
+
+
+    div.textContent = text;
+
+
+    return div.innerHTML;
+
+}
+
+
+/* ==========================================
+   SUBMIT REVIEW
+   ========================================== */
+
+document
+    .getElementById("reviewSubmit")
+    .addEventListener(
+        "click",
+        function() {
+
+            const name =
+                document
+                    .getElementById("reviewName")
+                    .value
+                    .trim();
+
+
+            const text =
+                document
+                    .getElementById("reviewText")
+                    .value
+                    .trim();
+
+
+            const reviewMessage =
+                document.getElementById(
+                    "reviewMessage"
+                );
+
+
+            reviewMessage.className =
+                "review-message";
+
+
+            reviewMessage.textContent = "";
+
+
+            if (name.length < 2) {
+
+                reviewMessage.textContent =
+                    "Please enter your name.";
+
+                reviewMessage.classList.add(
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (selectedRating < 1) {
+
+                reviewMessage.textContent =
+                    "Please select a star rating.";
+
+                reviewMessage.classList.add(
+                    "error"
+                );
+
+                return;
+            }
+
+
+            if (text.length < 3) {
+
+                reviewMessage.textContent =
+                    "Please write a short review.";
+
+                reviewMessage.classList.add(
+                    "error"
+                );
+
+                return;
+            }
+
+
+            const review = {
+
+                name: name,
+
+                rating: selectedRating,
+
+                text: text
+
+            };
+
+
+            let reviews = [];
+
+
+            try {
+
+                reviews =
+                    JSON.parse(
+                        localStorage.getItem(
+                            "worldOilReviews"
+                        )
+                    ) || [];
+
+            } catch {
+
+                reviews = [];
+
+            }
+
+
+            reviews.push(review);
+
+
+            localStorage.setItem(
+                "worldOilReviews",
+                JSON.stringify(reviews)
+            );
+
+
+            document
+                .getElementById("reviewName")
+                .value = "";
+
+
+            document
+                .getElementById("reviewText")
+                .value = "";
+
+
+            selectedRating = 0;
+
+
+            starButtons.forEach(
+                function(star) {
+
+                    star.classList.remove(
+                        "selected"
+                    );
+
+                }
+            );
+
+
+            reviewMessage.textContent =
+                "Thank you! Your review has been saved.";
+
+
+            reviewMessage.classList.add(
+                "success"
+            );
+
+
+            loadReviews();
+
+        }
+    );
+
+
+/* ==========================================
+   LOAD REVIEWS ON START
+   ========================================== */
+
+loadReviews();
+
+
+/* ==========================================
+   ORIGINAL BOOKING SYSTEM
+   ========================================== */
 
 const form =
     document.getElementById("bookingForm");
@@ -1086,10 +1742,9 @@ const message =
     document.getElementById("message");
 
 
-
-// ==========================================
-// GET TODAY'S DATE
-// ==========================================
+/* ==========================================
+   TODAY'S DATE
+   ========================================== */
 
 function getTodayString() {
 
@@ -1103,12 +1758,12 @@ function getTodayString() {
 
     const month =
         String(today.getMonth() + 1)
-        .padStart(2, "0");
+            .padStart(2, "0");
 
 
     const day =
         String(today.getDate())
-        .padStart(2, "0");
+            .padStart(2, "0");
 
 
     return `${year}-${month}-${day}`;
@@ -1120,16 +1775,13 @@ const todayString =
     getTodayString();
 
 
-// Don't allow past appointments
-
 document.getElementById("date").min =
     todayString;
 
 
-
-// ==========================================
-// NORMALIZE PHONE
-// ==========================================
+/* ==========================================
+   NORMALIZE PHONE
+   ========================================== */
 
 function normalizePhone(phone) {
 
@@ -1138,15 +1790,15 @@ function normalizePhone(phone) {
 }
 
 
-
-// ==========================================
-// SHOW MESSAGE
-// ==========================================
+/* ==========================================
+   SHOW MESSAGE
+   ========================================== */
 
 function showMessage(text, type) {
 
     message.textContent =
         text;
+
 
     message.className =
         type;
@@ -1154,10 +1806,9 @@ function showMessage(text, type) {
 }
 
 
-
-// ==========================================
-// FORM SUBMISSION
-// ==========================================
+/* ==========================================
+   BOOKING SUBMISSION
+   ========================================== */
 
 form.addEventListener(
     "submit",
@@ -1169,23 +1820,25 @@ form.addEventListener(
         showMessage("", "");
 
 
-        // REQUIRED FIELDS
+        /* REQUIRED FIELDS */
 
         if (!form.checkValidity()) {
 
             form.reportValidity();
+
 
             showMessage(
                 "Please fill out all required fields.",
                 "error"
             );
 
+
             return;
 
         }
 
 
-        // GET VALUES
+        /* GET VALUES */
 
         const name =
             document
@@ -1234,8 +1887,7 @@ form.addEventListener(
                 .value;
 
 
-
-        // NAME VALIDATION
+        /* NAME */
 
         if (name.length < 2) {
 
@@ -1249,8 +1901,7 @@ form.addEventListener(
         }
 
 
-
-        // PHONE VALIDATION
+        /* PHONE */
 
         const normalizedPhone =
             normalizePhone(phone);
@@ -1270,8 +1921,7 @@ form.addEventListener(
         }
 
 
-
-        // YEAR VALIDATION
+        /* YEAR */
 
         const vehicleYear =
             Number(year);
@@ -1293,8 +1943,7 @@ form.addEventListener(
         }
 
 
-
-        // MAKE / MODEL
+        /* MAKE / MODEL */
 
         if (!make || !model) {
 
@@ -1308,8 +1957,7 @@ form.addEventListener(
         }
 
 
-
-        // DATE
+        /* DATE */
 
         if (!appointmentDate) {
 
@@ -1337,8 +1985,7 @@ form.addEventListener(
         }
 
 
-
-        // TIME
+        /* TIME */
 
         if (!time) {
 
@@ -1352,8 +1999,7 @@ form.addEventListener(
         }
 
 
-
-        // DATA
+        /* DATA */
 
         const data = {
 
@@ -1376,10 +2022,11 @@ form.addEventListener(
         };
 
 
+        /* PREVENT DOUBLE SUBMISSION */
 
-        // PREVENT DOUBLE SUBMISSION
+        submitButton.disabled =
+            true;
 
-        submitButton.disabled = true;
 
         submitButton.textContent =
             "Submitting...";
@@ -1391,8 +2038,7 @@ form.addEventListener(
         );
 
 
-
-        // REQUEST TIMEOUT
+        /* TIMEOUT */
 
         const controller =
             new AbortController();
@@ -1407,7 +2053,6 @@ form.addEventListener(
                 },
                 15000
             );
-
 
 
         try {
@@ -1442,8 +2087,7 @@ form.addEventListener(
             clearTimeout(timeout);
 
 
-
-            // READ RESPONSE
+            /* RESPONSE */
 
             let result = {};
 
@@ -1460,8 +2104,7 @@ form.addEventListener(
             }
 
 
-
-            // BACKEND REJECTED
+            /* ERROR */
 
             if (!response.ok) {
 
@@ -1474,31 +2117,27 @@ form.addEventListener(
 
                 );
 
+
                 return;
 
             }
 
 
-
-            // SUCCESS
+            /* SUCCESS */
 
             showMessage(
-
                 "Request submitted successfully!",
-
                 "success"
-
             );
 
 
             form.reset();
 
 
-            // Restore today's minimum date
-
-            document.getElementById("date").min =
+            document.getElementById(
+                "date"
+            ).min =
                 getTodayString();
-
 
 
         } catch (error) {
@@ -1513,8 +2152,7 @@ form.addEventListener(
 
 
             if (
-                error.name ===
-                "AbortError"
+                error.name === "AbortError"
             ) {
 
                 showMessage(
@@ -1537,7 +2175,6 @@ form.addEventListener(
 
             }
 
-
         } finally {
 
             submitButton.disabled =
@@ -1553,6 +2190,7 @@ form.addEventListener(
 );
 
 </script>
+
 
 </body>
 </html>
