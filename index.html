@@ -1440,207 +1440,151 @@
 
     <script>
 
-        /* ==========================================
-           CONFIGURATION
-        ========================================== */
+    /* ==================================================
+       CONFIGURATION
+    ================================================== */
 
-        const BOOKING_ENDPOINT =
-            "https://worldoil-render-backend.onrender.com/book";
-
-
-        const REQUEST_TIMEOUT =
-            15000;
+    const API_URL =
+        "https://worldoil-render-backend.onrender.com";
 
 
-        /* ==========================================
-           MENU ELEMENTS
-        ========================================== */
+    /* ==================================================
+       MENU ELEMENTS
+    ================================================== */
 
-        const menuButton =
-            document.getElementById("menuButton");
+    const menuButton =
+        document.getElementById("menuButton");
 
-        const sideMenu =
-            document.getElementById("sideMenu");
+    const sideMenu =
+        document.getElementById("sideMenu");
 
-        const menuOverlay =
-            document.getElementById("menuOverlay");
+    const menuOverlay =
+        document.getElementById("menuOverlay");
 
-        const infoBackdrop =
-            document.getElementById("infoBackdrop");
+    const infoBackdrop =
+        document.getElementById("infoBackdrop");
 
-        const infoPanels =
-            document.querySelectorAll(".info-panel");
-
-
-        /* ==========================================
-           MENU STATE
-        ========================================== */
-
-        function openMenu() {
-
-            closePanels();
-
-            sideMenu.classList.add("open");
-
-            menuOverlay.classList.add("show");
-
-            sideMenu.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-
-            menuButton.setAttribute(
-                "aria-expanded",
-                "true"
-            );
-
-            menuButton.setAttribute(
-                "aria-label",
-                "Close menu"
-            );
-
-            menuButton.textContent = "×";
-        }
+    const infoPanels =
+        document.querySelectorAll(".info-panel");
 
 
-        function closeMenu() {
+    /* ==================================================
+       CLOSE MENU
+    ================================================== */
 
-            sideMenu.classList.remove("open");
+    function closeMenu() {
 
-            menuOverlay.classList.remove("show");
+        sideMenu.classList.remove("open");
 
-            sideMenu.setAttribute(
-                "aria-hidden",
-                "true"
-            );
+        menuOverlay.classList.remove("show");
 
-            menuButton.setAttribute(
-                "aria-expanded",
-                "false"
-            );
+        menuButton.setAttribute(
+            "aria-expanded",
+            "false"
+        );
 
-            menuButton.setAttribute(
-                "aria-label",
-                "Open menu"
-            );
+        menuButton.textContent =
+            "☰";
 
-            menuButton.textContent = "☰";
-        }
+    }
 
 
-        function toggleMenu() {
+    /* ==================================================
+       CLOSE PANELS
+    ================================================== */
+
+    function closePanels() {
+
+        infoPanels.forEach(
+            function(panel) {
+
+                panel.classList.remove(
+                    "show"
+                );
+
+            }
+        );
+
+        infoBackdrop.classList.remove(
+            "show"
+        );
+
+    }
+
+
+    /* ==================================================
+       OPEN / CLOSE MENU
+    ================================================== */
+
+    menuButton.addEventListener(
+        "click",
+        function() {
 
             const isOpen =
-                sideMenu.classList.contains("open");
-
-            if (isOpen) {
-                closeMenu();
-            } else {
-                openMenu();
-            }
-        }
+                sideMenu.classList.toggle(
+                    "open"
+                );
 
 
-        /* ==========================================
-           INFORMATION PANELS
-        ========================================== */
-
-        function closePanels() {
-
-            infoPanels.forEach(function(panel) {
-
-                panel.classList.remove("show");
-
-            });
-
-            infoBackdrop.classList.remove("show");
-
-            infoBackdrop.setAttribute(
-                "aria-hidden",
-                "true"
+            menuOverlay.classList.toggle(
+                "show",
+                isOpen
             );
+
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+
+            menuButton.textContent =
+                isOpen ? "×" : "☰";
+
         }
+    );
 
 
-        function openPanel(panel) {
+    /* ==================================================
+       MENU OVERLAY
+    ================================================== */
 
-            if (!panel) {
-                return;
-            }
+    menuOverlay.addEventListener(
+        "click",
+        function() {
 
             closeMenu();
 
             closePanels();
 
-            infoBackdrop.classList.add("show");
-
-            infoBackdrop.setAttribute(
-                "aria-hidden",
-                "false"
-            );
-
-            panel.classList.add("show");
-
-            const closeButton =
-                panel.querySelector(".close-panel");
-
-            if (closeButton) {
-
-                setTimeout(function() {
-
-                    closeButton.focus();
-
-                }, 50);
-
-            }
         }
+    );
 
 
-        /* ==========================================
-           MENU BUTTON
-        ========================================== */
+    /* ==================================================
+       INFORMATION BACKDROP
+    ================================================== */
 
-        menuButton.addEventListener(
-            "click",
-            toggleMenu
-        );
+    infoBackdrop.addEventListener(
+        "click",
+        function() {
 
+            closePanels();
 
-        /* ==========================================
-           MENU OVERLAY
-        ========================================== */
-
-        menuOverlay.addEventListener(
-            "click",
-            function() {
-
-                closeMenu();
-
-            }
-        );
+        }
+    );
 
 
-        /* ==========================================
-           INFORMATION BACKDROP
-        ========================================== */
+    /* ==================================================
+       MENU LINKS
+    ================================================== */
 
-        infoBackdrop.addEventListener(
-            "click",
-            function() {
-
-                closePanels();
-
-            }
-        );
-
-
-        /* ==========================================
-           MENU LINKS
-        ========================================== */
-
-        document
-            .querySelectorAll(".side-menu a")
-            .forEach(function(link) {
+    document
+        .querySelectorAll(
+            ".side-menu a"
+        )
+        .forEach(
+            function(link) {
 
                 link.addEventListener(
                     "click",
@@ -1649,39 +1593,40 @@
                         event.preventDefault();
 
 
-                        /* BOOK APPOINTMENT */
+                        /* --------------------------------
+                           BOOK APPOINTMENT
+                        -------------------------------- */
 
                         if (
-                            link.dataset.action === "book"
+                            link.dataset.action ===
+                            "book"
                         ) {
 
                             closeMenu();
 
                             closePanels();
 
-                            const bookingContainer =
-                                document.querySelector(
+
+                            document
+                                .querySelector(
                                     ".container"
-                                );
+                                )
+                                .scrollIntoView({
+                                    behavior:
+                                        "smooth",
+                                    block:
+                                        "center"
+                                });
 
-                            bookingContainer.scrollIntoView({
-                                behavior: "smooth",
-                                block: "center"
-                            });
-
-                            setTimeout(function() {
-
-                                document
-                                    .getElementById("name")
-                                    .focus();
-
-                            }, 500);
 
                             return;
+
                         }
 
 
-                        /* INFORMATION PANEL */
+                        /* --------------------------------
+                           INFORMATION PANEL
+                        -------------------------------- */
 
                         const panelId =
                             link.dataset.panel;
@@ -1693,21 +1638,55 @@
                             );
 
 
-                        openPanel(panel);
+                        if (!panel) {
+                            return;
+                        }
+
+
+                        closeMenu();
+
+                        closePanels();
+
+
+                        infoBackdrop.classList.add(
+                            "show"
+                        );
+
+
+                        panel.classList.add(
+                            "show"
+                        );
+
+
+                        /* --------------------------------
+                           LOAD REVIEWS
+                        -------------------------------- */
+
+                        if (
+                            panelId === "reviews"
+                        ) {
+
+                            loadReviews();
+
+                        }
 
                     }
                 );
 
-            });
+            }
+        );
 
 
-        /* ==========================================
-           CLOSE INFORMATION WINDOWS
-        ========================================== */
+    /* ==================================================
+       CLOSE BUTTONS
+    ================================================== */
 
-        document
-            .querySelectorAll(".close-panel")
-            .forEach(function(button) {
+    document
+        .querySelectorAll(
+            ".close-panel"
+        )
+        .forEach(
+            function(button) {
 
                 button.addEventListener(
                     "click",
@@ -1718,1023 +1697,1106 @@
                     }
                 );
 
-            });
-
-
-        /* ==========================================
-           ESCAPE KEY
-        ========================================== */
-
-        document.addEventListener(
-            "keydown",
-            function(event) {
-
-                if (event.key !== "Escape") {
-                    return;
-                }
-
-
-                if (
-                    sideMenu.classList.contains("open")
-                ) {
-
-                    closeMenu();
-
-                    return;
-                }
-
-
-                const openPanelElement =
-                    document.querySelector(
-                        ".info-panel.show"
-                    );
-
-
-                if (openPanelElement) {
-
-                    closePanels();
-
-                }
-
             }
         );
 
 
-        /* ==========================================
-           REVIEW SYSTEM
-        ========================================== */
+    /* ==================================================
+       ESCAPE
+    ================================================== */
 
-        const reviewStars =
-            document.querySelectorAll(
-                ".review-star"
-            );
+    document.addEventListener(
+        "keydown",
+        function(event) {
 
+            if (
+                event.key === "Escape"
+            ) {
 
-        const ratingLabel =
-            document.getElementById(
-                "ratingLabel"
-            );
+                closeMenu();
 
+                closePanels();
 
-        let selectedRating = 0;
+            }
 
-
-        function updateStars(rating) {
-
-            reviewStars.forEach(
-                function(star) {
-
-                    const starRating =
-                        Number(
-                            star.dataset.rating
-                        );
+        }
+    );
 
 
-                    const selected =
-                        starRating <= rating;
+    /* ==================================================
+       REVIEW ELEMENTS
+    ================================================== */
+
+    const reviewName =
+        document.getElementById(
+            "reviewName"
+        );
+
+    const reviewText =
+        document.getElementById(
+            "reviewText"
+        );
+
+    const reviewSubmit =
+        document.getElementById(
+            "reviewSubmit"
+        );
+
+    const reviewMessage =
+        document.getElementById(
+            "reviewMessage"
+        );
 
 
-                    star.classList.toggle(
-                        "selected",
-                        selected
-                    );
+    /* ==================================================
+       REVIEW RATING
+    ================================================== */
+
+    let selectedRating = 5;
 
 
-                    star.setAttribute(
-                        "aria-checked",
-                        String(
-                            starRating === rating
+    const reviewStars =
+        document.querySelector(
+            "#leave-review .review-stars"
+        );
+
+
+    if (reviewStars) {
+
+        reviewStars.style.cursor =
+            "pointer";
+
+        reviewStars.title =
+            "Click to select your rating";
+
+
+        reviewStars.addEventListener(
+            "click",
+            function(event) {
+
+                const rect =
+                    reviewStars.getBoundingClientRect();
+
+                const x =
+                    event.clientX -
+                    rect.left;
+
+                const starWidth =
+                    rect.width / 5;
+
+                selectedRating =
+                    Math.min(
+                        5,
+                        Math.max(
+                            1,
+                            Math.ceil(
+                                x /
+                                starWidth
+                            )
                         )
                     );
 
-                }
-            );
 
-
-            if (rating === 0) {
-
-                ratingLabel.textContent =
-                    "Select a rating";
-
-                return;
-            }
-
-
-            ratingLabel.textContent =
-                rating === 1
-                    ? "1 star"
-                    : `${rating} stars`;
-        }
-
-
-        reviewStars.forEach(
-            function(star) {
-
-                star.addEventListener(
-                    "click",
-                    function() {
-
-                        selectedRating =
-                            Number(
-                                star.dataset.rating
-                            );
-
-                        updateStars(
-                            selectedRating
-                        );
-
-                    }
-                );
-
-
-                star.addEventListener(
-                    "keydown",
-                    function(event) {
-
-                        if (
-                            event.key === "ArrowRight" ||
-                            event.key === "ArrowUp"
-                        ) {
-
-                            event.preventDefault();
-
-                            selectedRating =
-                                Math.min(
-                                    5,
-                                    selectedRating + 1
-                                );
-
-                            updateStars(
-                                selectedRating
-                            );
-
-                        }
-
-
-                        if (
-                            event.key === "ArrowLeft" ||
-                            event.key === "ArrowDown"
-                        ) {
-
-                            event.preventDefault();
-
-                            selectedRating =
-                                Math.max(
-                                    1,
-                                    selectedRating - 1
-                                );
-
-                            updateStars(
-                                selectedRating
-                            );
-
-                        }
-
-                    }
-                );
+                updateRatingStars();
 
             }
         );
 
+    }
 
-        /* ==========================================
-           REVIEW SUBMISSION
-        ========================================== */
 
-        const reviewSubmit =
-            document.getElementById(
-                "reviewSubmit"
+    function updateRatingStars() {
+
+        if (!reviewStars) {
+            return;
+        }
+
+
+        reviewStars.textContent =
+            "★".repeat(
+                selectedRating
+            ) +
+            "☆".repeat(
+                5 - selectedRating
             );
 
+        reviewStars.setAttribute(
+            "aria-label",
+            `${selectedRating} out of 5 stars`
+        );
 
-        const reviewNameInput =
-            document.getElementById(
-                "reviewName"
-            );
-
-
-        const reviewTextInput =
-            document.getElementById(
-                "reviewText"
-            );
+    }
 
 
-        const reviewMessage =
-            document.getElementById(
-                "reviewMessage"
-            );
+    updateRatingStars();
 
 
-        reviewSubmit.addEventListener(
-            "click",
-            function() {
+    /* ==================================================
+       SUBMIT REVIEW
+    ================================================== */
 
-                const reviewName =
-                    reviewNameInput.value.trim();
+    reviewSubmit.addEventListener(
+        "click",
+        async function() {
 
+            const name =
+                reviewName.value.trim();
 
-                const reviewText =
-                    reviewTextInput.value.trim();
-
-
-                reviewMessage.textContent = "";
-
-
-                if (
-                    reviewName.length < 2
-                ) {
-
-                    reviewMessage.textContent =
-                        "Please enter your name.";
-
-                    return;
-                }
+            const review =
+                reviewText.value.trim();
 
 
-                if (
-                    selectedRating < 1 ||
-                    selectedRating > 5
-                ) {
+            /* ------------------------------------------
+               VALIDATION
+            ------------------------------------------ */
 
-                    reviewMessage.textContent =
-                        "Please select a star rating.";
-
-                    return;
-                }
-
-
-                if (
-                    reviewText.length < 3
-                ) {
-
-                    reviewMessage.textContent =
-                        "Please enter your review.";
-
-                    return;
-                }
-
-
-                /*
-                 * The frontend cannot permanently save
-                 * a review without a backend endpoint.
-                 *
-                 * This prevents pretending that the review
-                 * was stored when it was not.
-                 */
+            if (!name) {
 
                 reviewMessage.textContent =
-                    "Thank you for your review! " +
-                    "Review submission is ready for backend connection.";
+                    "Please enter your name.";
 
+                reviewMessage.style.color =
+                    "#b00020";
 
-                /*
-                 * Reset the form after validation.
-                 */
-
-                reviewNameInput.value = "";
-
-                reviewTextInput.value = "";
-
-                selectedRating = 0;
-
-                updateStars(0);
-
-            }
-        );
-
-
-        /* ==========================================
-           BOOKING ELEMENTS
-        ========================================== */
-
-        const form =
-            document.getElementById(
-                "bookingForm"
-            );
-
-
-        const submitButton =
-            document.getElementById(
-                "submitButton"
-            );
-
-
-        const message =
-            document.getElementById(
-                "message"
-            );
-
-
-        const dateInput =
-            document.getElementById(
-                "date"
-            );
-
-
-        const yearInput =
-            document.getElementById(
-                "year"
-            );
-
-
-        const timeInput =
-            document.getElementById(
-                "time"
-            );
-
-
-        /* ==========================================
-           CURRENT YEAR
-        ========================================== */
-
-        const currentYear =
-            new Date().getFullYear();
-
-
-        yearInput.max =
-            String(currentYear);
-
-
-        /* ==========================================
-           TODAY'S DATE
-        ========================================== */
-
-        function getTodayString() {
-
-            const today =
-                new Date();
-
-
-            const year =
-                today.getFullYear();
-
-
-            const month =
-                String(
-                    today.getMonth() + 1
-                ).padStart(2, "0");
-
-
-            const day =
-                String(
-                    today.getDate()
-                ).padStart(2, "0");
-
-
-            return `${year}-${month}-${day}`;
-        }
-
-
-        function updateMinimumDate() {
-
-            dateInput.min =
-                getTodayString();
-
-        }
-
-
-        updateMinimumDate();
-
-
-        /* ==========================================
-           ALLOWED APPOINTMENT TIMES
-        ========================================== */
-
-        const allowedTimes =
-            new Set(
-                Array.from(
-                    timeInput.options
-                )
-                .map(
-                    function(option) {
-                        return option.value;
-                    }
-                )
-                .filter(Boolean)
-            );
-
-
-        /* ==========================================
-           NORMALIZE PHONE
-        ========================================== */
-
-        function normalizePhone(phone) {
-
-            return phone.replace(
-                /\D/g,
-                ""
-            );
-
-        }
-
-
-        /* ==========================================
-           SHOW BOOKING MESSAGE
-        ========================================== */
-
-        function showMessage(
-            text,
-            type
-        ) {
-
-            message.textContent =
-                text;
-
-            message.className =
-                type || "";
-
-        }
-
-
-        /* ==========================================
-           REQUEST ID
-        ========================================== */
-
-        function createRequestId() {
-
-            if (
-                window.crypto &&
-                typeof window.crypto.randomUUID ===
-                    "function"
-            ) {
-
-                return window.crypto.randomUUID();
+                return;
 
             }
 
 
-            return (
-                Date.now().toString(36) +
-                "-" +
-                Math.random()
-                    .toString(36)
-                    .substring(2, 12)
-            );
-        }
+            if (!review) {
 
+                reviewMessage.textContent =
+                    "Please enter your review.";
 
-        /* ==========================================
-           NAME VALIDATION
-        ========================================== */
+                reviewMessage.style.color =
+                    "#b00020";
 
-        function isValidName(name) {
-
-            if (
-                name.length < 2 ||
-                name.length > 100
-            ) {
-
-                return false;
+                return;
 
             }
 
 
-            return /^[A-Za-zÀ-ÖØ-öø-ÿ' .-]+$/.test(
-                name
-            );
-        }
+            /* ------------------------------------------
+               DISABLE BUTTON
+            ------------------------------------------ */
+
+            reviewSubmit.disabled =
+                true;
+
+            reviewSubmit.textContent =
+                "Submitting...";
 
 
-        /* ==========================================
-           VEHICLE TEXT VALIDATION
-        ========================================== */
+            reviewMessage.textContent =
+                "Submitting your review...";
 
-        function isValidVehicleText(
-            value,
-            maxLength
-        ) {
-
-            if (
-                !value ||
-                value.length > maxLength
-            ) {
-
-                return false;
-
-            }
+            reviewMessage.style.color =
+                "#666";
 
 
-            return /^[A-Za-z0-9À-ÖØ-öø-ÿ' .-]+$/.test(
-                value
-            );
-        }
+            try {
 
+                const response =
+                    await fetch(
+                        `${API_URL}/reviews`,
+                        {
+                            method:
+                                "POST",
 
-        /* ==========================================
-           DATE VALIDATION
-        ========================================== */
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
 
-        function isValidDateString(
-            dateString
-        ) {
+                            body:
+                                JSON.stringify({
 
-            if (
-                !/^\d{4}-\d{2}-\d{2}$/.test(
-                    dateString
-                )
-            ) {
+                                    name:
+                                        name,
 
-                return false;
+                                    rating:
+                                        selectedRating,
 
-            }
+                                    review:
+                                        review
 
+                                })
 
-            const parts =
-                dateString.split("-");
-
-
-            const year =
-                Number(parts[0]);
-
-
-            const month =
-                Number(parts[1]);
-
-
-            const day =
-                Number(parts[2]);
-
-
-            const date =
-                new Date(
-                    year,
-                    month - 1,
-                    day
-                );
-
-
-            return (
-                date.getFullYear() === year &&
-                date.getMonth() === month - 1 &&
-                date.getDate() === day
-            );
-        }
-
-
-        /* ==========================================
-           FORM SUBMISSION
-        ========================================== */
-
-        form.addEventListener(
-            "submit",
-            async function(event) {
-
-                event.preventDefault();
-
-
-                showMessage(
-                    "",
-                    ""
-                );
-
-
-                updateMinimumDate();
-
-
-                /* GET VALUES */
-
-                const name =
-                    document
-                        .getElementById("name")
-                        .value
-                        .trim();
-
-
-                const phone =
-                    document
-                        .getElementById("phone")
-                        .value
-                        .trim();
-
-
-                const year =
-                    yearInput
-                        .value
-                        .trim();
-
-
-                const make =
-                    document
-                        .getElementById("make")
-                        .value
-                        .trim();
-
-
-                const model =
-                    document
-                        .getElementById("model")
-                        .value
-                        .trim();
-
-
-                const appointmentDate =
-                    dateInput.value;
-
-
-                const time =
-                    timeInput.value;
-
-
-                /* NAME */
-
-                if (
-                    !isValidName(name)
-                ) {
-
-                    showMessage(
-                        "Please enter a valid full name.",
-                        "error"
+                        }
                     );
 
-                    document
-                        .getElementById("name")
-                        .focus();
 
-                    return;
-                }
-
-
-                /* PHONE */
-
-                const normalizedPhone =
-                    normalizePhone(phone);
-
-
-                if (
-                    normalizedPhone.length !== 10
-                ) {
-
-                    showMessage(
-                        "Please enter a valid 10-digit phone number.",
-                        "error"
-                    );
-
-                    document
-                        .getElementById("phone")
-                        .focus();
-
-                    return;
-                }
-
-
-                /* YEAR */
-
-                const vehicleYear =
-                    Number(year);
-
-
-                if (
-                    !Number.isInteger(
-                        vehicleYear
-                    ) ||
-                    vehicleYear < 1900 ||
-                    vehicleYear > currentYear
-                ) {
-
-                    showMessage(
-                        `Please enter a vehicle year between 1900 and ${currentYear}.`,
-                        "error"
-                    );
-
-                    yearInput.focus();
-
-                    return;
-                }
-
-
-                /* MAKE */
-
-                if (
-                    !isValidVehicleText(
-                        make,
-                        50
-                    )
-                ) {
-
-                    showMessage(
-                        "Please enter a valid vehicle make.",
-                        "error"
-                    );
-
-                    document
-                        .getElementById("make")
-                        .focus();
-
-                    return;
-                }
-
-
-                /* MODEL */
-
-                if (
-                    !isValidVehicleText(
-                        model,
-                        50
-                    )
-                ) {
-
-                    showMessage(
-                        "Please enter a valid vehicle model.",
-                        "error"
-                    );
-
-                    document
-                        .getElementById("model")
-                        .focus();
-
-                    return;
-                }
-
-
-                /* DATE */
-
-                if (
-                    !isValidDateString(
-                        appointmentDate
-                    )
-                ) {
-
-                    showMessage(
-                        "Please select a valid appointment date.",
-                        "error"
-                    );
-
-                    dateInput.focus();
-
-                    return;
-                }
-
-
-                const todayString =
-                    getTodayString();
-
-
-                if (
-                    appointmentDate < todayString
-                ) {
-
-                    showMessage(
-                        "Please select today or a future date.",
-                        "error"
-                    );
-
-                    dateInput.focus();
-
-                    return;
-                }
-
-
-                /* TIME */
-
-                if (
-                    !allowedTimes.has(time)
-                ) {
-
-                    showMessage(
-                        "Please select a valid appointment time.",
-                        "error"
-                    );
-
-                    timeInput.focus();
-
-                    return;
-                }
-
-
-                /* ==================================
-                   REQUEST DATA
-                ================================== */
-
-                const requestId =
-                    createRequestId();
-
-
-                const submissionTimestamp =
-                    new Date().toISOString();
-
-
-                const data = {
-
-                    requestId:
-
-                        requestId,
-
-                    name:
-
-                        name,
-
-                    phone:
-
-                        normalizedPhone,
-
-                    year:
-
-                        vehicleYear,
-
-                    make:
-
-                        make,
-
-                    model:
-
-                        model,
-
-                    rawDate:
-
-                        appointmentDate,
-
-                    time:
-
-                        time,
-
-                    submissionDate:
-
-                        todayString,
-
-                    submissionTimestamp:
-
-                        submissionTimestamp
-
-                };
-
-
-                /* ==================================
-                   PREVENT DOUBLE SUBMISSION
-                ================================== */
-
-                if (
-                    submitButton.disabled
-                ) {
-
-                    return;
-
-                }
-
-
-                submitButton.disabled =
-                    true;
-
-
-                submitButton.textContent =
-                    "Submitting...";
-
-
-                showMessage(
-                    "Submitting your request...",
-                    "loading"
-                );
-
-
-                /* ==================================
-                   REQUEST TIMEOUT
-                ================================== */
-
-                const controller =
-                    new AbortController();
-
-
-                const timeout =
-                    setTimeout(
-                        function() {
-
-                            controller.abort();
-
-                        },
-                        REQUEST_TIMEOUT
-                    );
+                let result = {};
 
 
                 try {
 
-                    const response =
-                        await fetch(
-                            BOOKING_ENDPOINT,
-                            {
-                                method: "POST",
+                    result =
+                        await response.json();
 
-                                headers: {
-                                    "Content-Type":
-                                        "application/json",
+                } catch {
 
-                                    "Accept":
-                                        "application/json",
-
-                                    "X-Request-ID":
-                                        requestId
-                                },
-
-                                body:
-                                    JSON.stringify(
-                                        data
-                                    ),
-
-                                signal:
-                                    controller.signal
-                            }
-                        );
-
-
-                    clearTimeout(timeout);
-
-
-                    /* ==================================
-                       READ RESPONSE
-                    ================================== */
-
-                    let result = {};
-
-
-                    try {
-
-                        result =
-                            await response.json();
-
-                    } catch {
-
-                        result = {};
-
-                    }
-
-
-                    /* ==================================
-                       BACKEND REJECTED
-                    ================================== */
-
-                    if (
-                        !response.ok
-                    ) {
-
-                        showMessage(
-                            result.error ||
-                            "This request could not be submitted.",
-                            "error"
-                        );
-
-                        return;
-                    }
-
-
-                    /* ==================================
-                       SUCCESS
-                    ================================== */
-
-                    showMessage(
-                        result.message ||
-                        "Request submitted successfully!",
-                        "success"
-                    );
-
-
-                    form.reset();
-
-
-                    updateMinimumDate();
-
-
-                } catch (error) {
-
-                    clearTimeout(timeout);
-
-
-                    console.error(
-                        "Booking error:",
-                        error
-                    );
-
-
-                    if (
-                        error.name ===
-                        "AbortError"
-                    ) {
-
-                        showMessage(
-                            "The server took too long to respond. Please try again.",
-                            "error"
-                        );
-
-                    } else {
-
-                        showMessage(
-                            "Could not submit request. Please check your connection and try again.",
-                            "error"
-                        );
-
-                    }
-
-
-                } finally {
-
-                    submitButton.disabled =
-                        false;
-
-
-                    submitButton.textContent =
-                        "Submit Request";
+                    result = {};
 
                 }
 
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        result.error ||
+                        "Could not submit your review."
+                    );
+
+                }
+
+
+                /* --------------------------------------
+                   SUCCESS
+                -------------------------------------- */
+
+                reviewMessage.textContent =
+                    "Thank you for your review!";
+
+                reviewMessage.style.color =
+                    "#146c2e";
+
+
+                reviewName.value =
+                    "";
+
+                reviewText.value =
+                    "";
+
+
+                selectedRating =
+                    5;
+
+                updateRatingStars();
+
+
+                /*
+                 * Refresh Customer Reviews
+                 * immediately.
+                 */
+
+                await loadReviews();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Review error:",
+                    error
+                );
+
+
+                reviewMessage.textContent =
+                    error.message ||
+                    "Could not submit your review. Please try again.";
+
+                reviewMessage.style.color =
+                    "#b00020";
+
+
+            } finally {
+
+                reviewSubmit.disabled =
+                    false;
+
+                reviewSubmit.textContent =
+                    "Submit Review";
+
             }
+
+        }
+    );
+
+
+    /* ==================================================
+       LOAD REVIEWS
+    ================================================== */
+
+    async function loadReviews() {
+
+        const reviewsPanel =
+            document.getElementById(
+                "reviews"
+            );
+
+
+        if (!reviewsPanel) {
+            return;
+        }
+
+
+        /*
+         * Find the existing review text.
+         */
+
+        const paragraphs =
+            reviewsPanel.querySelectorAll(
+                "p"
+            );
+
+
+        let reviewContainer =
+            document.getElementById(
+                "reviewList"
+            );
+
+
+        /*
+         * Create the review list
+         * the first time.
+         */
+
+        if (!reviewContainer) {
+
+            reviewContainer =
+                document.createElement(
+                    "div"
+                );
+
+            reviewContainer.id =
+                "reviewList";
+
+
+            /*
+             * Put it before the
+             * final note.
+             */
+
+            reviewsPanel.appendChild(
+                reviewContainer
+            );
+
+        }
+
+
+        reviewContainer.innerHTML =
+            `
+                <p class="review-note">
+                    Loading reviews...
+                </p>
+            `;
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${API_URL}/reviews`
+                );
+
+
+            const result =
+                await response.json();
+
+
+            if (!response.ok) {
+
+                throw new Error(
+                    result.error ||
+                    "Could not load reviews."
+                );
+
+            }
+
+
+            const reviews =
+                result.reviews || [];
+
+
+            /* ------------------------------------------
+               NO REVIEWS
+            ------------------------------------------ */
+
+            if (
+                reviews.length === 0
+            ) {
+
+                reviewContainer.innerHTML =
+                    `
+                        <p>
+                            No customer reviews yet.
+                        </p>
+
+                        <p class="review-note">
+                            Be the first to leave a review!
+                        </p>
+                    `;
+
+                return;
+
+            }
+
+
+            /* ------------------------------------------
+               DISPLAY REVIEWS
+            ------------------------------------------ */
+
+            reviewContainer.innerHTML =
+                "";
+
+
+            reviews.forEach(
+                function(item) {
+
+                    const reviewBox =
+                        document.createElement(
+                            "div"
+                        );
+
+
+                    reviewBox.style.padding =
+                        "14px";
+
+                    reviewBox.style.marginTop =
+                        "12px";
+
+                    reviewBox.style.background =
+                        "#f5f5f5";
+
+                    reviewBox.style.borderRadius =
+                        "8px";
+
+
+                    const stars =
+                        Math.min(
+                            5,
+                            Math.max(
+                                1,
+                                Number(
+                                    item.rating
+                                ) || 5
+                            )
+                        );
+
+
+                    const starsElement =
+                        document.createElement(
+                            "div"
+                        );
+
+                    starsElement.textContent =
+                        "★".repeat(
+                            stars
+                        ) +
+                        "☆".repeat(
+                            5 - stars
+                        );
+
+                    starsElement.style.fontSize =
+                        "22px";
+
+
+                    const nameElement =
+                        document.createElement(
+                            "strong"
+                        );
+
+                    nameElement.textContent =
+                        item.name ||
+                        "Customer";
+
+
+                    const textElement =
+                        document.createElement(
+                            "p"
+                        );
+
+                    textElement.textContent =
+                        item.review ||
+                        "";
+
+
+                    textElement.style.margin =
+                        "8px 0 0";
+
+
+                    reviewBox.appendChild(
+                        starsElement
+                    );
+
+                    reviewBox.appendChild(
+                        nameElement
+                    );
+
+                    reviewBox.appendChild(
+                        textElement
+                    );
+
+
+                    if (
+                        item.createdAt
+                    ) {
+
+                        const dateElement =
+                            document.createElement(
+                                "small"
+                            );
+
+
+                        const date =
+                            new Date(
+                                item.createdAt
+                            );
+
+
+                        if (
+                            !Number.isNaN(
+                                date.getTime()
+                            )
+                        ) {
+
+                            dateElement.textContent =
+                                date.toLocaleDateString();
+
+                            dateElement.style.color =
+                                "#666";
+
+                            reviewBox.appendChild(
+                                dateElement
+                            );
+
+                        }
+
+                    }
+
+
+                    reviewContainer.appendChild(
+                        reviewBox
+                    );
+
+                }
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Load reviews error:",
+                error
+            );
+
+
+            reviewContainer.innerHTML =
+                `
+                    <p class="review-note">
+                        Unable to load reviews right now.
+                        Please try again later.
+                    </p>
+                `;
+
+        }
+
+    }
+
+
+    /* ==================================================
+       BOOKING SYSTEM
+    ================================================== */
+
+    const form =
+        document.getElementById(
+            "bookingForm"
         );
+
+    const submitButton =
+        document.getElementById(
+            "submitButton"
+        );
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    /* ==================================================
+       TODAY
+    ================================================== */
+
+    function getTodayString() {
+
+        const today =
+            new Date();
+
+
+        const year =
+            today.getFullYear();
+
+
+        const month =
+            String(
+                today.getMonth() + 1
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        const day =
+            String(
+                today.getDate()
+            ).padStart(
+                2,
+                "0"
+            );
+
+
+        return `${year}-${month}-${day}`;
+
+    }
+
+
+    const dateInput =
+        document.getElementById(
+            "date"
+        );
+
+
+    dateInput.min =
+        getTodayString();
+
+
+    /* ==================================================
+       PHONE
+    ================================================== */
+
+    function normalizePhone(phone) {
+
+        return phone.replace(
+            /\D/g,
+            ""
+        );
+
+    }
+
+
+    /* ==================================================
+       BOOKING MESSAGE
+    ================================================== */
+
+    function showMessage(
+        text,
+        type
+    ) {
+
+        message.textContent =
+            text;
+
+        message.className =
+            type;
+
+    }
+
+
+    /* ==================================================
+       BOOKING SUBMISSION
+    ================================================== */
+
+    form.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            showMessage(
+                "",
+                ""
+            );
+
+
+            if (
+                !form.checkValidity()
+            ) {
+
+                form.reportValidity();
+
+
+                showMessage(
+                    "Please fill out all required fields.",
+                    "error"
+                );
+
+
+                return;
+
+            }
+
+
+            const name =
+                document
+                    .getElementById("name")
+                    .value
+                    .trim();
+
+
+            const phone =
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim();
+
+
+            const year =
+                document
+                    .getElementById("year")
+                    .value
+                    .trim();
+
+
+            const make =
+                document
+                    .getElementById("make")
+                    .value
+                    .trim();
+
+
+            const model =
+                document
+                    .getElementById("model")
+                    .value
+                    .trim();
+
+
+            const appointmentDate =
+                dateInput.value;
+
+
+            const time =
+                document
+                    .getElementById("time")
+                    .value;
+
+
+            /* ------------------------------------------
+               NAME
+            ------------------------------------------ */
+
+            if (
+                name.length < 2
+            ) {
+
+                showMessage(
+                    "Please enter your full name.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* ------------------------------------------
+               PHONE
+            ------------------------------------------ */
+
+            const normalizedPhone =
+                normalizePhone(
+                    phone
+                );
+
+
+            if (
+                normalizedPhone.length !== 10
+            ) {
+
+                showMessage(
+                    "Please enter a valid 10-digit phone number.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* ------------------------------------------
+               YEAR
+            ------------------------------------------ */
+
+            const vehicleYear =
+                Number(year);
+
+
+            const currentYear =
+                new Date().getFullYear();
+
+
+            if (
+                !Number.isInteger(
+                    vehicleYear
+                ) ||
+                vehicleYear < 1900 ||
+                vehicleYear > currentYear
+            ) {
+
+                showMessage(
+                    "Please enter a valid vehicle year.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* ------------------------------------------
+               MAKE / MODEL
+            ------------------------------------------ */
+
+            if (
+                !make ||
+                !model
+            ) {
+
+                showMessage(
+                    "Please enter the vehicle make and model.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* ------------------------------------------
+               DATE
+            ------------------------------------------ */
+
+            if (
+                !appointmentDate
+            ) {
+
+                showMessage(
+                    "Please select an appointment date.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                appointmentDate <
+                getTodayString()
+            ) {
+
+                showMessage(
+                    "Please select today or a future date.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* ------------------------------------------
+               TIME
+            ------------------------------------------ */
+
+            if (!time) {
+
+                showMessage(
+                    "Please select an appointment time.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* ------------------------------------------
+               DATA
+            ------------------------------------------ */
+
+            const data = {
+
+                name:
+                    name,
+
+                phone:
+                    normalizedPhone,
+
+                year:
+                    vehicleYear,
+
+                make:
+                    make,
+
+                model:
+                    model,
+
+                rawDate:
+                    appointmentDate,
+
+                time:
+                    time
+
+            };
+
+
+            /* ------------------------------------------
+               DISABLE
+            ------------------------------------------ */
+
+            submitButton.disabled =
+                true;
+
+            submitButton.textContent =
+                "Submitting...";
+
+
+            showMessage(
+                "Submitting your request...",
+                "loading"
+            );
+
+
+            const controller =
+                new AbortController();
+
+
+            const timeout =
+                setTimeout(
+                    function() {
+
+                        controller.abort();
+
+                    },
+                    15000
+                );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/book`,
+                        {
+
+                            method:
+                                "POST",
+
+                            headers: {
+
+                                "Content-Type":
+                                    "application/json"
+
+                            },
+
+                            body:
+                                JSON.stringify(
+                                    data
+                                ),
+
+                            signal:
+                                controller.signal
+
+                        }
+                    );
+
+
+                clearTimeout(
+                    timeout
+                );
+
+
+                let result = {};
+
+
+                try {
+
+                    result =
+                        await response.json();
+
+                } catch {
+
+                    result = {};
+
+                }
+
+
+                if (
+                    !response.ok
+                ) {
+
+                    showMessage(
+                        result.error ||
+                        "This request could not be submitted.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                showMessage(
+                    "Appointment request submitted successfully!",
+                    "success"
+                );
+
+
+                form.reset();
+
+
+                dateInput.min =
+                    getTodayString();
+
+
+            } catch (error) {
+
+                clearTimeout(
+                    timeout
+                );
+
+
+                console.error(
+                    "Booking error:",
+                    error
+                );
+
+
+                if (
+                    error.name ===
+                    "AbortError"
+                ) {
+
+                    showMessage(
+                        "The server took too long to respond. Please try again.",
+                        "error"
+                    );
+
+                } else {
+
+                    showMessage(
+                        "Could not submit request. Please try again.",
+                        "error"
+                    );
+
+                }
+
+            } finally {
+
+                submitButton.disabled =
+                    false;
+
+                submitButton.textContent =
+                    "Submit Request";
+
+            }
+
+        }
+    );
+
 
 
         /* ==========================================
