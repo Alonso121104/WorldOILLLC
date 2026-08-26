@@ -59,8 +59,6 @@
             max-width: calc(100% - 40px);
 
             text-align: left;
-
-            box-sizing: border-box;
         }
 
 
@@ -109,7 +107,6 @@
 
             font-size: 16px;
 
-            box-sizing: border-box;
             background: white;
             font-family: inherit;
         }
@@ -269,8 +266,6 @@
 
             padding: 85px 20px 20px;
 
-            box-sizing: border-box;
-
             background: white;
 
             box-shadow:
@@ -414,8 +409,6 @@
 
             padding: 25px;
 
-            box-sizing: border-box;
-
             background: white;
 
             border-radius: 12px;
@@ -532,28 +525,39 @@
         .review-stars {
             display: flex;
 
-            gap: 4px;
+            align-items: center;
+
+            gap: 5px;
+
+            margin: 14px 0 8px;
 
             font-size: 28px;
-
-            margin: 10px 0;
         }
 
 
+        /* BIG EASY-TO-CLICK STARS */
+
         .review-star {
-            width: auto;
+            width: 52px;
+            height: 52px;
 
             padding: 0;
-
             margin: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
 
             background: transparent;
 
-            color: #bbb;
+            color: #d0d0d0;
 
             border: none;
 
-            font-size: 30px;
+            border-radius: 10px;
+
+            font-size: 38px;
 
             line-height: 1;
 
@@ -561,28 +565,40 @@
 
             transition:
                 color 0.15s ease,
-                transform 0.15s ease;
+                transform 0.15s ease,
+                background 0.15s ease;
         }
 
+
+        /* HOVER */
 
         .review-star:hover {
-            background: transparent;
+            background: #fff8df;
 
-            color: #111;
+            color: #ffc107;
 
-            transform: scale(1.08);
+            transform: scale(1.12);
         }
 
+
+        /* SELECTED */
 
         .review-star.selected {
-            color: #111;
+            color: #ffc107;
+
+            text-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.15);
         }
 
 
+        /* KEYBOARD FOCUS */
+
         .review-star:focus-visible {
-            outline: 2px solid #111;
+            outline: 3px solid #111;
+
             outline-offset: 2px;
-            border-radius: 4px;
+
+            background: #fff8df;
         }
 
 
@@ -594,15 +610,17 @@
 
         .rating-label {
             font-size: 14px;
+
             font-weight: bold;
-            margin-top: 2px;
+
+            margin-top: 4px;
+
+            color: #555;
         }
 
 
         .info-panel textarea {
             width: 100%;
-
-            box-sizing: border-box;
 
             min-height: 110px;
 
@@ -652,19 +670,25 @@
 
         .review-item-name {
             font-weight: bold;
+
             margin-bottom: 4px;
         }
 
 
         .review-item-stars {
             font-size: 18px;
+
             letter-spacing: 2px;
+
+            color: #ffc107;
         }
 
 
         .review-item-text {
             margin: 8px 0 0;
+
             line-height: 1.5;
+
             word-wrap: break-word;
         }
 
@@ -681,8 +705,6 @@
                 align-items: flex-start;
 
                 padding-top: 80px;
-
-                box-sizing: border-box;
 
                 background-attachment: scroll;
             }
@@ -706,6 +728,24 @@
                 width: 290px;
             }
 
+
+            /* EVEN EASIER ON MOBILE */
+
+            .review-stars {
+                gap: 2px;
+
+                justify-content: center;
+            }
+
+
+            .review-star {
+                width: 54px;
+
+                height: 54px;
+
+                font-size: 40px;
+            }
+
         }
 
 
@@ -719,11 +759,13 @@
                 scroll-behavior: auto;
             }
 
+
             .side-menu,
             .info-panel,
             .info-backdrop,
             .review-star {
                 transition: none;
+
                 animation: none;
             }
 
@@ -792,50 +834,32 @@
         </div>
 
 
-        <a
-            href="#"
-            data-action="book"
-        >
+        <a href="#" data-action="book">
             🏠 Book Appointment
         </a>
 
 
-        <a
-            href="#"
-            data-panel="about-me"
-        >
+        <a href="#" data-panel="about-me">
             👨‍🔧 About Me
         </a>
 
 
-        <a
-            href="#"
-            data-panel="about-company"
-        >
+        <a href="#" data-panel="about-company">
             🏢 About Company
         </a>
 
 
-        <a
-            href="#"
-            data-panel="contact"
-        >
+        <a href="#" data-panel="contact">
             📞 Contact
         </a>
 
 
-        <a
-            href="#"
-            data-panel="reviews"
-        >
+        <a href="#" data-panel="reviews">
             ⭐ Reviews
         </a>
 
 
-        <a
-            href="#"
-            data-panel="leave-review"
-        >
+        <a href="#" data-panel="leave-review">
             ✍️ Leave a Review
         </a>
 
@@ -863,7 +887,9 @@
         </button>
 
 
-        <h2 id="aboutMeTitle">About Me</h2>
+        <h2 id="aboutMeTitle">
+            About Me
+        </h2>
 
 
         <p>
@@ -972,7 +998,9 @@
         </button>
 
 
-        <h2 id="contactTitle">Contact Us</h2>
+        <h2 id="contactTitle">
+            Contact Us
+        </h2>
 
 
         <div class="contact-box">
@@ -1030,7 +1058,9 @@
         </button>
 
 
-        <h2 id="reviewsTitle">Customer Reviews</h2>
+        <h2 id="reviewsTitle">
+            Customer Reviews
+        </h2>
 
 
         <div id="reviewList">
@@ -1084,6 +1114,8 @@
         >
 
 
+        <!-- STAR RATING -->
+
         <div
             class="review-stars"
             id="reviewStars"
@@ -1093,7 +1125,7 @@
 
             <button
                 type="button"
-                class="review-star"
+                class="review-star selected"
                 data-rating="1"
                 role="radio"
                 aria-label="1 star"
@@ -1102,9 +1134,10 @@
                 ★
             </button>
 
+
             <button
                 type="button"
-                class="review-star"
+                class="review-star selected"
                 data-rating="2"
                 role="radio"
                 aria-label="2 stars"
@@ -1113,9 +1146,10 @@
                 ★
             </button>
 
+
             <button
                 type="button"
-                class="review-star"
+                class="review-star selected"
                 data-rating="3"
                 role="radio"
                 aria-label="3 stars"
@@ -1124,9 +1158,10 @@
                 ★
             </button>
 
+
             <button
                 type="button"
-                class="review-star"
+                class="review-star selected"
                 data-rating="4"
                 role="radio"
                 aria-label="4 stars"
@@ -1135,13 +1170,14 @@
                 ★
             </button>
 
+
             <button
                 type="button"
-                class="review-star"
+                class="review-star selected"
                 data-rating="5"
                 role="radio"
                 aria-label="5 stars"
-                aria-checked="false"
+                aria-checked="true"
             >
                 ★
             </button>
@@ -1153,7 +1189,7 @@
             class="rating-label"
             id="ratingLabel"
         >
-            Select a rating
+            5 out of 5 stars
         </div>
 
 
@@ -1207,9 +1243,6 @@
             novalidate
         >
 
-
-            <!-- FULL NAME -->
-
             <div class="field">
 
                 <label for="name">
@@ -1232,8 +1265,6 @@
 
             </div>
 
-
-            <!-- PHONE -->
 
             <div class="field">
 
@@ -1267,8 +1298,6 @@
             </div>
 
 
-            <!-- VEHICLE YEAR -->
-
             <div class="field">
 
                 <label for="year">
@@ -1283,6 +1312,7 @@
                     name="year"
                     inputmode="numeric"
                     min="1900"
+                    max="2026"
                     required
                     aria-required="true"
                     placeholder="Example: 2020"
@@ -1290,8 +1320,6 @@
 
             </div>
 
-
-            <!-- VEHICLE MAKE -->
 
             <div class="field">
 
@@ -1315,8 +1343,6 @@
             </div>
 
 
-            <!-- VEHICLE MODEL -->
-
             <div class="field">
 
                 <label for="model">
@@ -1338,8 +1364,6 @@
 
             </div>
 
-
-            <!-- APPOINTMENT DATE -->
 
             <div class="field">
 
@@ -1368,8 +1392,6 @@
 
             </div>
 
-
-            <!-- APPOINTMENT TIME -->
 
             <div class="field">
 
@@ -1415,8 +1437,6 @@
             </div>
 
 
-            <!-- SUBMIT -->
-
             <button
                 type="submit"
                 id="submitButton"
@@ -1424,8 +1444,6 @@
                 Submit Request
             </button>
 
-
-            <!-- MESSAGE -->
 
             <div
                 id="message"
@@ -1498,16 +1516,12 @@
         infoPanels.forEach(
             function(panel) {
 
-                panel.classList.remove(
-                    "show"
-                );
+                panel.classList.remove("show");
 
             }
         );
 
-        infoBackdrop.classList.remove(
-            "show"
-        );
+        infoBackdrop.classList.remove("show");
 
     }
 
@@ -1521,9 +1535,7 @@
         function() {
 
             const isOpen =
-                sideMenu.classList.toggle(
-                    "open"
-                );
+                sideMenu.classList.toggle("open");
 
 
             menuOverlay.classList.toggle(
@@ -1580,9 +1592,7 @@
     ================================================== */
 
     document
-        .querySelectorAll(
-            ".side-menu a"
-        )
+        .querySelectorAll(".side-menu a")
         .forEach(
             function(link) {
 
@@ -1593,13 +1603,8 @@
                         event.preventDefault();
 
 
-                        /* --------------------------------
-                           BOOK APPOINTMENT
-                        -------------------------------- */
-
                         if (
-                            link.dataset.action ===
-                            "book"
+                            link.dataset.action === "book"
                         ) {
 
                             closeMenu();
@@ -1608,14 +1613,10 @@
 
 
                             document
-                                .querySelector(
-                                    ".container"
-                                )
+                                .querySelector(".container")
                                 .scrollIntoView({
-                                    behavior:
-                                        "smooth",
-                                    block:
-                                        "center"
+                                    behavior: "smooth",
+                                    block: "center"
                                 });
 
 
@@ -1623,10 +1624,6 @@
 
                         }
 
-
-                        /* --------------------------------
-                           INFORMATION PANEL
-                        -------------------------------- */
 
                         const panelId =
                             link.dataset.panel;
@@ -1648,19 +1645,10 @@
                         closePanels();
 
 
-                        infoBackdrop.classList.add(
-                            "show"
-                        );
+                        infoBackdrop.classList.add("show");
 
+                        panel.classList.add("show");
 
-                        panel.classList.add(
-                            "show"
-                        );
-
-
-                        /* --------------------------------
-                           LOAD REVIEWS
-                        -------------------------------- */
 
                         if (
                             panelId === "reviews"
@@ -1682,9 +1670,7 @@
     ================================================== */
 
     document
-        .querySelectorAll(
-            ".close-panel"
-        )
+        .querySelectorAll(".close-panel")
         .forEach(
             function(button) {
 
@@ -1709,9 +1695,7 @@
         "keydown",
         function(event) {
 
-            if (
-                event.key === "Escape"
-            ) {
+            if (event.key === "Escape") {
 
                 closeMenu();
 
@@ -1749,84 +1733,154 @@
 
 
     /* ==================================================
-       REVIEW RATING
+       STAR RATING
     ================================================== */
 
     let selectedRating = 5;
 
 
     const reviewStars =
-        document.querySelector(
-            "#leave-review .review-stars"
+        document.querySelectorAll(
+            ".review-star"
         );
 
 
-    if (reviewStars) {
-
-        reviewStars.style.cursor =
-            "pointer";
-
-        reviewStars.title =
-            "Click to select your rating";
+    const ratingLabel =
+        document.getElementById(
+            "ratingLabel"
+        );
 
 
-        reviewStars.addEventListener(
-            "click",
-            function(event) {
+    /* ==================================================
+       UPDATE STAR DISPLAY
+    ================================================== */
 
-                const rect =
-                    reviewStars.getBoundingClientRect();
+    function updateRatingStars() {
 
-                const x =
-                    event.clientX -
-                    rect.left;
+        reviewStars.forEach(
+            function(star) {
 
-                const starWidth =
-                    rect.width / 5;
-
-                selectedRating =
-                    Math.min(
-                        5,
-                        Math.max(
-                            1,
-                            Math.ceil(
-                                x /
-                                starWidth
-                            )
-                        )
+                const rating =
+                    Number(
+                        star.dataset.rating
                     );
 
 
-                updateRatingStars();
+                const selected =
+                    rating <= selectedRating;
+
+
+                star.classList.toggle(
+                    "selected",
+                    selected
+                );
+
+
+                star.textContent =
+                    selected
+                        ? "★"
+                        : "☆";
+
+
+                star.setAttribute(
+                    "aria-checked",
+                    String(
+                        rating === selectedRating
+                    )
+                );
 
             }
         );
 
-    }
 
+        if (ratingLabel) {
 
-    function updateRatingStars() {
+            ratingLabel.textContent =
+                `${selectedRating} out of 5 stars`;
 
-        if (!reviewStars) {
-            return;
         }
 
-
-        reviewStars.textContent =
-            "★".repeat(
-                selectedRating
-            ) +
-            "☆".repeat(
-                5 - selectedRating
-            );
-
-        reviewStars.setAttribute(
-            "aria-label",
-            `${selectedRating} out of 5 stars`
-        );
-
     }
 
+
+    /* ==================================================
+       STAR CLICK
+    ================================================== */
+
+    reviewStars.forEach(
+        function(star) {
+
+            star.addEventListener(
+                "click",
+                function() {
+
+                    selectedRating =
+                        Number(
+                            star.dataset.rating
+                        );
+
+
+                    updateRatingStars();
+
+                }
+            );
+
+
+            /* --------------------------------------
+               HOVER PREVIEW
+            -------------------------------------- */
+
+            star.addEventListener(
+                "mouseenter",
+                function() {
+
+                    const hoverRating =
+                        Number(
+                            star.dataset.rating
+                        );
+
+
+                    reviewStars.forEach(
+                        function(item) {
+
+                            const rating =
+                                Number(
+                                    item.dataset.rating
+                                );
+
+
+                            item.textContent =
+                                rating <= hoverRating
+                                    ? "★"
+                                    : "☆";
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /* --------------------------------------
+               RESTORE AFTER HOVER
+            -------------------------------------- */
+
+            star.addEventListener(
+                "mouseleave",
+                function() {
+
+                    updateRatingStars();
+
+                }
+            );
+
+        }
+    );
+
+
+    /* ==================================================
+       INITIAL STAR STATE
+    ================================================== */
 
     updateRatingStars();
 
@@ -1845,10 +1899,6 @@
             const review =
                 reviewText.value.trim();
 
-
-            /* ------------------------------------------
-               VALIDATION
-            ------------------------------------------ */
 
             if (!name) {
 
@@ -1876,10 +1926,6 @@
             }
 
 
-            /* ------------------------------------------
-               DISABLE BUTTON
-            ------------------------------------------ */
-
             reviewSubmit.disabled =
                 true;
 
@@ -1900,8 +1946,7 @@
                     await fetch(
                         `${API_URL}/reviews`,
                         {
-                            method:
-                                "POST",
+                            method: "POST",
 
                             headers: {
                                 "Content-Type":
@@ -1951,10 +1996,6 @@
                 }
 
 
-                /* --------------------------------------
-                   SUCCESS
-                -------------------------------------- */
-
                 reviewMessage.textContent =
                     "Thank you for your review!";
 
@@ -1972,13 +2013,9 @@
                 selectedRating =
                     5;
 
+
                 updateRatingStars();
 
-
-                /*
-                 * Refresh Customer Reviews
-                 * immediately.
-                 */
 
                 await loadReviews();
 
@@ -1997,7 +2034,6 @@
 
                 reviewMessage.style.color =
                     "#b00020";
-
 
             } finally {
 
@@ -2019,58 +2055,14 @@
 
     async function loadReviews() {
 
-        const reviewsPanel =
-            document.getElementById(
-                "reviews"
-            );
-
-
-        if (!reviewsPanel) {
-            return;
-        }
-
-
-        /*
-         * Find the existing review text.
-         */
-
-        const paragraphs =
-            reviewsPanel.querySelectorAll(
-                "p"
-            );
-
-
-        let reviewContainer =
+        const reviewContainer =
             document.getElementById(
                 "reviewList"
             );
 
 
-        /*
-         * Create the review list
-         * the first time.
-         */
-
         if (!reviewContainer) {
-
-            reviewContainer =
-                document.createElement(
-                    "div"
-                );
-
-            reviewContainer.id =
-                "reviewList";
-
-
-            /*
-             * Put it before the
-             * final note.
-             */
-
-            reviewsPanel.appendChild(
-                reviewContainer
-            );
-
+            return;
         }
 
 
@@ -2108,13 +2100,7 @@
                 result.reviews || [];
 
 
-            /* ------------------------------------------
-               NO REVIEWS
-            ------------------------------------------ */
-
-            if (
-                reviews.length === 0
-            ) {
+            if (reviews.length === 0) {
 
                 reviewContainer.innerHTML =
                     `
@@ -2132,10 +2118,6 @@
             }
 
 
-            /* ------------------------------------------
-               DISPLAY REVIEWS
-            ------------------------------------------ */
-
             reviewContainer.innerHTML =
                 "";
 
@@ -2149,17 +2131,8 @@
                         );
 
 
-                    reviewBox.style.padding =
-                        "14px";
-
-                    reviewBox.style.marginTop =
-                        "12px";
-
-                    reviewBox.style.background =
-                        "#f5f5f5";
-
-                    reviewBox.style.borderRadius =
-                        "8px";
+                    reviewBox.className =
+                        "review-item";
 
 
                     const stars =
@@ -2179,22 +2152,27 @@
                             "div"
                         );
 
+
+                    starsElement.className =
+                        "review-item-stars";
+
+
                     starsElement.textContent =
-                        "★".repeat(
-                            stars
-                        ) +
+                        "★".repeat(stars) +
                         "☆".repeat(
                             5 - stars
                         );
 
-                    starsElement.style.fontSize =
-                        "22px";
-
 
                     const nameElement =
                         document.createElement(
-                            "strong"
+                            "div"
                         );
+
+
+                    nameElement.className =
+                        "review-item-name";
+
 
                     nameElement.textContent =
                         item.name ||
@@ -2206,31 +2184,32 @@
                             "p"
                         );
 
+
+                    textElement.className =
+                        "review-item-text";
+
+
                     textElement.textContent =
                         item.review ||
                         "";
-
-
-                    textElement.style.margin =
-                        "8px 0 0";
 
 
                     reviewBox.appendChild(
                         starsElement
                     );
 
+
                     reviewBox.appendChild(
                         nameElement
                     );
+
 
                     reviewBox.appendChild(
                         textElement
                     );
 
 
-                    if (
-                        item.createdAt
-                    ) {
+                    if (item.createdAt) {
 
                         const dateElement =
                             document.createElement(
@@ -2410,9 +2389,7 @@
             );
 
 
-            if (
-                !form.checkValidity()
-            ) {
+            if (!form.checkValidity()) {
 
                 form.reportValidity();
 
@@ -2473,13 +2450,7 @@
                     .value;
 
 
-            /* ------------------------------------------
-               NAME
-            ------------------------------------------ */
-
-            if (
-                name.length < 2
-            ) {
+            if (name.length < 2) {
 
                 showMessage(
                     "Please enter your full name.",
@@ -2490,10 +2461,6 @@
 
             }
 
-
-            /* ------------------------------------------
-               PHONE
-            ------------------------------------------ */
 
             const normalizedPhone =
                 normalizePhone(
@@ -2515,10 +2482,6 @@
             }
 
 
-            /* ------------------------------------------
-               YEAR
-            ------------------------------------------ */
-
             const vehicleYear =
                 Number(year);
 
@@ -2528,9 +2491,7 @@
 
 
             if (
-                !Number.isInteger(
-                    vehicleYear
-                ) ||
+                !Number.isInteger(vehicleYear) ||
                 vehicleYear < 1900 ||
                 vehicleYear > currentYear
             ) {
@@ -2545,14 +2506,7 @@
             }
 
 
-            /* ------------------------------------------
-               MAKE / MODEL
-            ------------------------------------------ */
-
-            if (
-                !make ||
-                !model
-            ) {
+            if (!make || !model) {
 
                 showMessage(
                     "Please enter the vehicle make and model.",
@@ -2564,13 +2518,7 @@
             }
 
 
-            /* ------------------------------------------
-               DATE
-            ------------------------------------------ */
-
-            if (
-                !appointmentDate
-            ) {
+            if (!appointmentDate) {
 
                 showMessage(
                     "Please select an appointment date.",
@@ -2597,10 +2545,6 @@
             }
 
 
-            /* ------------------------------------------
-               TIME
-            ------------------------------------------ */
-
             if (!time) {
 
                 showMessage(
@@ -2612,10 +2556,6 @@
 
             }
 
-
-            /* ------------------------------------------
-               DATA
-            ------------------------------------------ */
 
             const data = {
 
@@ -2642,10 +2582,6 @@
 
             };
 
-
-            /* ------------------------------------------
-               DISABLE
-            ------------------------------------------ */
 
             submitButton.disabled =
                 true;
@@ -2724,9 +2660,7 @@
                 }
 
 
-                if (
-                    !response.ok
-                ) {
+                if (!response.ok) {
 
                     showMessage(
                         result.error ||
@@ -2798,41 +2732,33 @@
     );
 
 
+    /* ==================================================
+       UPDATE YEAR LIMIT
+    ================================================== */
 
-        /* ==========================================
-           UPDATE YEAR LIMIT IF PAGE STAYS OPEN
-        ========================================== */
-
-        setInterval(
-            function() {
-
-                const newCurrentYear =
-                    new Date().getFullYear();
-
-
-                if (
-                    Number(
-                        yearInput.max
-                    ) !== newCurrentYear
-                ) {
-
-                    yearInput.max =
-                        String(
-                            newCurrentYear
-                        );
-
-                }
-
-            },
-            60 * 60 * 1000
+    const yearInput =
+        document.getElementById(
+            "year"
         );
 
 
-        /* ==========================================
-           INITIAL REVIEW STATE
-        ========================================== */
+    function updateYearLimit() {
 
-        updateStars(0);
+        yearInput.max =
+            String(
+                new Date().getFullYear()
+            );
+
+    }
+
+
+    updateYearLimit();
+
+
+    setInterval(
+        updateYearLimit,
+        60 * 60 * 1000
+    );
 
     </script>
 
