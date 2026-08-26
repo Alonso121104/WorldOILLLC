@@ -3,18 +3,15 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>World OIL LLC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <title>World Oil Change</title>
 
     <style>
 
         /* ==========================================
            PAGE
-           ========================================== */
+        ========================================== */
 
         body {
             margin: 0;
@@ -29,6 +26,8 @@
 
             background-size: 900px;
 
+            background-attachment: fixed;
+
             display: flex;
 
             justify-content: center;
@@ -41,10 +40,11 @@
 
         /* ==========================================
            BOOKING CONTAINER
-           ========================================== */
+        ========================================== */
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
+
+            background: rgba(255, 255, 255, 0.96);
 
             padding: 25px;
 
@@ -55,12 +55,19 @@
 
             width: 340px;
 
+            max-width: calc(100% - 40px);
+
             text-align: left;
+
+            box-sizing: border-box;
         }
 
 
         h1 {
-            font-size: 20px;
+
+            font-size: 22px;
+
+            margin-top: 0;
 
             margin-bottom: 20px;
 
@@ -69,11 +76,13 @@
 
 
         .field {
+
             margin-bottom: 14px;
         }
 
 
         label {
+
             display: block;
 
             font-size: 15px;
@@ -85,11 +94,13 @@
 
 
         .required {
+
             color: #b00020;
         }
 
 
         .help {
+
             display: block;
 
             font-size: 12px;
@@ -102,6 +113,7 @@
 
         input,
         select {
+
             width: 100%;
 
             padding: 10px;
@@ -119,7 +131,9 @@
 
 
         input:focus,
-        select:focus {
+        select:focus,
+        textarea:focus {
+
             outline: none;
 
             border-color: #111;
@@ -130,6 +144,7 @@
 
 
         button {
+
             width: 100%;
 
             padding: 12px;
@@ -151,11 +166,13 @@
 
 
         button:hover {
+
             background: #333;
         }
 
 
         button:disabled {
+
             background: #777;
 
             cursor: not-allowed;
@@ -163,10 +180,11 @@
 
 
         /* ==========================================
-           BOOKING MESSAGE
-           ========================================== */
+           MESSAGE
+        ========================================== */
 
         #message {
+
             display: none;
 
             margin-top: 12px;
@@ -184,6 +202,7 @@
 
 
         .error {
+
             display: block !important;
 
             color: #b00020;
@@ -193,6 +212,7 @@
 
 
         .success {
+
             display: block !important;
 
             color: #146c2e;
@@ -202,6 +222,7 @@
 
 
         .loading {
+
             display: block !important;
 
             color: #333;
@@ -212,20 +233,21 @@
 
         /* ==========================================
            HAMBURGER MENU BUTTON
-           ========================================== */
+        ========================================== */
 
         .menu-button {
+
             position: fixed;
 
             top: 16px;
 
             left: 16px;
 
-            z-index: 3001;
+            z-index: 2001;
 
-            width: 46px;
+            width: 48px;
 
-            height: 46px;
+            height: 48px;
 
             padding: 0;
 
@@ -239,9 +261,9 @@
 
             border-radius: 8px;
 
-            font-size: 25px;
+            font-size: 26px;
 
-            line-height: 46px;
+            line-height: 48px;
 
             text-align: center;
 
@@ -252,24 +274,33 @@
         }
 
 
+        .menu-button:hover {
+
+            background: #333;
+        }
+
+
         /* ==========================================
            SIDE MENU
-           ========================================== */
+        ========================================== */
 
         .side-menu {
+
             position: fixed;
 
             top: 0;
 
-            left: -290px;
+            left: -310px;
 
-            z-index: 3000;
+            z-index: 2000;
 
-            width: 270px;
+            width: 290px;
+
+            max-width: 85vw;
 
             height: 100vh;
 
-            padding: 80px 20px 20px;
+            padding: 85px 20px 20px;
 
             box-sizing: border-box;
 
@@ -278,45 +309,44 @@
             box-shadow:
                 5px 0 20px rgba(0,0,0,0.25);
 
-            transition: left 0.25s ease;
+            transition:
+                left 0.25s ease;
 
             overflow-y: auto;
         }
 
 
         .side-menu.open {
+
             left: 0;
         }
 
 
         .side-menu h2 {
-            margin: 0 0 20px;
 
-            font-size: 20px;
+            margin: 0 0 8px;
 
-            text-align: left;
+            font-size: 21px;
         }
 
 
-        .side-menu .established {
-            display: block;
-
-            margin-top: -14px;
-
-            margin-bottom: 20px;
+        .menu-est {
 
             color: #666;
 
             font-size: 13px;
+
+            margin-bottom: 20px;
         }
 
 
         .side-menu a {
+
             display: block;
 
             padding: 14px 10px;
 
-            margin-bottom: 4px;
+            margin-bottom: 5px;
 
             color: #111;
 
@@ -331,56 +361,62 @@
 
 
         .side-menu a:hover {
+
             background: #eeeeee;
         }
 
 
         /* ==========================================
            MENU OVERLAY
-           ========================================== */
+        ========================================== */
 
         .menu-overlay {
+
             display: none;
 
             position: fixed;
 
             inset: 0;
 
-            z-index: 2999;
+            z-index: 1999;
 
-            background: rgba(0,0,0,0.35);
+            background:
+                rgba(0,0,0,0.40);
         }
 
 
         .menu-overlay.show {
+
             display: block;
         }
 
 
         /* ==========================================
-           INFORMATION WINDOWS
-           ========================================== */
+           INFORMATION PANELS
+        ========================================== */
 
         .info-panel {
+
             display: none;
 
             position: fixed;
 
-            z-index: 4000;
+            z-index: 3000;
 
             top: 50%;
 
             left: 50%;
 
-            transform: translate(-50%, -50%);
+            transform:
+                translate(-50%, -50%);
 
-            width: min(90%, 420px);
+            width: min(90%, 440px);
 
-            max-height: 80vh;
+            max-height: 82vh;
 
             overflow-y: auto;
 
-            padding: 24px;
+            padding: 25px;
 
             box-sizing: border-box;
 
@@ -394,11 +430,13 @@
 
 
         .info-panel.show {
+
             display: block;
         }
 
 
         .info-panel h2 {
+
             margin-top: 0;
 
             margin-bottom: 18px;
@@ -406,43 +444,83 @@
 
 
         .info-panel p {
+
             line-height: 1.6;
 
             font-size: 15px;
         }
 
 
-        .info-panel a {
-            color: #111;
-
-            font-weight: bold;
-        }
-
-
         /* ==========================================
            CLOSE BUTTON
-           ========================================== */
+        ========================================== */
 
-        .info-panel .close-panel {
+        .close-panel {
+
             width: auto;
 
             float: right;
 
             margin: -8px -8px 10px 10px;
 
-            padding: 5px 10px;
+            padding: 4px 11px;
 
-            font-size: 20px;
+            background: #111;
+
+            color: white;
+
+            font-size: 22px;
 
             line-height: 1;
+
+            border-radius: 6px;
+        }
+
+
+        .close-panel:hover {
+
+            background: #333;
         }
 
 
         /* ==========================================
-           REVIEW
-           ========================================== */
+           CONTACT LINKS
+        ========================================== */
+
+        .contact-link {
+
+            color: #111;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        .contact-link:hover {
+
+            text-decoration: underline;
+        }
+
+
+        .contact-box {
+
+            padding: 14px;
+
+            background: #f5f5f5;
+
+            border-radius: 8px;
+
+            margin-top: 12px;
+        }
+
+
+        /* ==========================================
+           REVIEWS
+        ========================================== */
 
         .review-stars {
+
             font-size: 28px;
 
             letter-spacing: 3px;
@@ -451,55 +529,23 @@
         }
 
 
-        .review-star-picker {
-            display: flex;
+        .review-note {
 
-            gap: 5px;
+            color: #666;
 
-            margin: 10px 0 15px;
+            font-size: 14px;
         }
 
 
-        .review-star-picker button {
-            width: auto;
-
-            padding: 5px;
-
-            margin: 0;
-
-            background: transparent;
-
-            color: #ccc;
-
-            font-size: 30px;
-
-            line-height: 1;
-
-            border: none;
-
-            box-shadow: none;
-        }
-
-
-        .review-star-picker button:hover {
-            background: transparent;
-
-            color: #111;
-        }
-
-
-        .review-star-picker button.selected {
-            color: #111;
-        }
-
-
-        .info-panel input,
         .info-panel textarea {
+
             width: 100%;
 
             box-sizing: border-box;
 
-            margin-bottom: 12px;
+            min-height: 110px;
+
+            resize: vertical;
 
             padding: 10px;
 
@@ -508,109 +554,38 @@
             border-radius: 6px;
 
             font-size: 16px;
-        }
 
-
-        .info-panel textarea {
-            min-height: 100px;
-
-            resize: vertical;
+            margin-bottom: 12px;
         }
 
 
         .review-submit {
-            width: 100% !important;
 
-            float: none !important;
-        }
-
-
-        .review-message {
-            margin-top: 10px;
-
-            padding: 10px;
-
-            border-radius: 6px;
-
-            font-size: 14px;
-
-            display: none;
-        }
-
-
-        .review-message.success {
-            display: block;
-
-            color: #146c2e;
-
-            background: #e5f7e9;
-        }
-
-
-        .review-message.error {
-            display: block;
-
-            color: #b00020;
-
-            background: #ffe5e5;
-        }
-
-
-        /* ==========================================
-           CUSTOMER REVIEW DISPLAY
-           ========================================== */
-
-        .customer-review {
-            border-top: 1px solid #ddd;
-
-            padding: 15px 0;
-        }
-
-
-        .customer-review:first-child {
-            border-top: none;
-        }
-
-
-        .customer-review-name {
-            font-weight: bold;
-
-            margin-bottom: 5px;
-        }
-
-
-        .customer-review-stars {
-            letter-spacing: 2px;
-
-            margin-bottom: 5px;
-        }
-
-
-        .customer-review-text {
-            margin: 0;
-
-            color: #444;
+            width: 100%;
         }
 
 
         /* ==========================================
            MOBILE
-           ========================================== */
+        ========================================== */
 
-        @media (max-width: 480px) {
+        @media (max-width: 500px) {
 
-            .container {
-                width: calc(100% - 40px);
+            body {
 
-                margin: 20px;
+                background-size: 600px;
 
-                padding: 20px;
+                align-items: flex-start;
+
+                padding-top: 80px;
+
+                box-sizing: border-box;
             }
 
-            .info-panel {
-                width: calc(100% - 30px);
 
-                padding: 20px;
+            .container {
+
+                margin-bottom: 30px;
             }
 
         }
@@ -622,1575 +597,1399 @@
 <body>
 
 
-<!-- ==========================================
-     HAMBURGER BUTTON
-     ========================================== -->
-
-<button
-    class="menu-button"
-    id="menuButton"
-    type="button"
-    aria-label="Open menu"
-    aria-expanded="false"
->
-    ☰
-</button>
-
-
-<!-- ==========================================
-     MENU OVERLAY
-     ========================================== -->
-
-<div
-    class="menu-overlay"
-    id="menuOverlay"
-></div>
-
-
-<!-- ==========================================
-     SIDE MENU
-     ========================================== -->
-
-<nav
-    class="side-menu"
-    id="sideMenu"
-    aria-label="Main menu"
->
-
-    <h2>World OIL LLC</h2>
-
-    <span class="established">
-        Est. June 2026
-    </span>
-
-
-    <a
-        href="#"
-        data-action="book"
-    >
-        🏠 Book Appointment
-    </a>
-
-
-    <a
-        href="#"
-        data-panel="about-me"
-    >
-        👨‍🔧 About Me
-    </a>
-
-
-    <a
-        href="#"
-        data-panel="about-company"
-    >
-        🏢 About Company
-    </a>
-
-
-    <a
-        href="#"
-        data-panel="contact"
-    >
-        📞 Contact
-    </a>
-
-
-    <a
-        href="#"
-        data-panel="reviews"
-    >
-        ⭐ Reviews
-    </a>
-
-
-    <a
-        href="#"
-        data-panel="leave-review"
-    >
-        ✍️ Leave a Review
-    </a>
-
-</nav>
-
-
-<!-- ==========================================
-     ABOUT ME
-     ========================================== -->
-
-<section
-    class="info-panel"
-    id="about-me"
->
+    <!-- ==========================================
+         HAMBURGER BUTTON
+    ========================================== -->
 
     <button
-        class="close-panel"
+        class="menu-button"
+        id="menuButton"
         type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
     >
-        ×
+        ☰
     </button>
 
 
-    <h2>About Me</h2>
-
-
-    <p>
-        Welcome to World OIL LLC.
-    </p>
-
-
-    <p>
-        I created World OIL LLC to make oil changes
-        easier and more convenient for customers.
-    </p>
-
-
-    <p>
-        Instead of making customers spend time waiting
-        at a shop, our goal is to bring the oil change
-        service directly to your home.
-    </p>
-
-</section>
-
-
-<!-- ==========================================
-     ABOUT COMPANY
-     ========================================== -->
-
-<section
-    class="info-panel"
-    id="about-company"
->
-
-    <button
-        class="close-panel"
-        type="button"
-    >
-        ×
-    </button>
-
-
-    <h2>About World OIL LLC</h2>
-
-
-    <p>
-        Welcome to World OIL LLC, where we bring your
-        oil change directly to your home.
-    </p>
-
-
-    <p>
-        Our goal is to make oil changes simple,
-        convenient, and stress-free.
-    </p>
-
-
-    <p>
-        Our website is designed for simple navigation,
-        allowing you to quickly choose an appointment
-        time and request your oil change without
-        complicated steps.
-    </p>
-
-
-    <p>
-        <strong>Est. June 2026</strong>
-    </p>
-
-</section>
-
-
-<!-- ==========================================
-     CONTACT
-     ========================================== -->
-
-<section
-    class="info-panel"
-    id="contact"
->
-
-    <button
-        class="close-panel"
-        type="button"
-    >
-        ×
-    </button>
-
-
-    <h2>Contact Us</h2>
-
-
-    <p>
-        📞
-        <a href="tel:+13236010663">
-            (323) 601-0663
-        </a>
-    </p>
-
-
-    <p>
-        ✉️
-        <a href="mailto:tech@worldoil.com">
-            tech@worldoil.com
-        </a>
-    </p>
-
-
-    <p>
-        Call or email World OIL LLC with questions
-        about appointments or our oil change service.
-    </p>
-
-</section>
-
-
-<!-- ==========================================
-     REVIEWS
-     ========================================== -->
-
-<section
-    class="info-panel"
-    id="reviews"
->
-
-    <button
-        class="close-panel"
-        type="button"
-    >
-        ×
-    </button>
-
-
-    <h2>Customer Reviews</h2>
-
-
-    <div id="reviewList">
-
-        <p>
-            No customer reviews yet.
-        </p>
-
-    </div>
-
-</section>
-
-
-<!-- ==========================================
-     LEAVE A REVIEW
-     ========================================== -->
-
-<section
-    class="info-panel"
-    id="leave-review"
->
-
-    <button
-        class="close-panel"
-        type="button"
-    >
-        ×
-    </button>
-
-
-    <h2>Leave a Review</h2>
-
-
-    <input
-        type="text"
-        id="reviewName"
-        placeholder="Your name"
-        maxlength="50"
-    >
-
-
-    <p>
-        Rating:
-    </p>
-
+    <!-- ==========================================
+         MENU OVERLAY
+    ========================================== -->
 
     <div
-        class="review-star-picker"
-        id="starPicker"
-    >
-
-        <button
-            type="button"
-            data-rating="1"
-            aria-label="1 star"
-        >
-            ★
-        </button>
-
-        <button
-            type="button"
-            data-rating="2"
-            aria-label="2 stars"
-        >
-            ★
-        </button>
-
-        <button
-            type="button"
-            data-rating="3"
-            aria-label="3 stars"
-        >
-            ★
-        </button>
-
-        <button
-            type="button"
-            data-rating="4"
-            aria-label="4 stars"
-        >
-            ★
-        </button>
-
-        <button
-            type="button"
-            data-rating="5"
-            aria-label="5 stars"
-        >
-            ★
-        </button>
-
-    </div>
-
-
-    <textarea
-        id="reviewText"
-        placeholder="Tell us about your experience"
-        maxlength="500"
-    ></textarea>
-
-
-    <button
-        class="review-submit"
-        id="reviewSubmit"
-        type="button"
-    >
-        Submit Review
-    </button>
-
-
-    <div
-        id="reviewMessage"
-        class="review-message"
+        class="menu-overlay"
+        id="menuOverlay"
     ></div>
 
-</section>
 
+    <!-- ==========================================
+         SIDE MENU
+    ========================================== -->
 
-<!-- ==========================================
-     BOOKING PAGE
-     ========================================== -->
+    <nav
+        class="side-menu"
+        id="sideMenu"
+        aria-label="Main menu"
+    >
 
-<div
-    class="container"
-    id="bookingContainer"
->
+        <h2>World Oil Change</h2>
 
-    <h1>
-        World Oil Change
-    </h1>
-
-
-    <form id="bookingForm">
-
-
-        <!-- FULL NAME -->
-
-        <div class="field">
-
-            <label for="name">
-                Full Name
-                <span class="required">*</span>
-            </label>
-
-
-            <input
-                type="text"
-                id="name"
-                name="name"
-                autocomplete="name"
-                maxlength="100"
-                required
-                aria-required="true"
-                placeholder="Enter your full name"
-            >
-
+        <div class="menu-est">
+            World OIL LLC • Est. June 2026
         </div>
 
 
-        <!-- PHONE -->
-
-        <div class="field">
-
-            <label for="phone">
-                Phone Number
-                <span class="required">*</span>
-            </label>
+        <a
+            href="#"
+            data-action="book"
+        >
+            🏠 Book Appointment
+        </a>
 
 
-            <input
-                type="tel"
-                id="phone"
-                name="phone"
-                autocomplete="tel"
-                inputmode="tel"
-                maxlength="20"
-                required
-                aria-required="true"
-                placeholder="Enter your phone number"
-                aria-describedby="phoneHelp"
-            >
+        <a
+            href="#"
+            data-panel="about-me"
+        >
+            👨‍🔧 About Me
+        </a>
 
 
-            <span
-                id="phoneHelp"
-                class="help"
-            >
-                Enter a 10-digit phone number.
-            </span>
-
-        </div>
+        <a
+            href="#"
+            data-panel="about-company"
+        >
+            🏢 About Company
+        </a>
 
 
-        <!-- VEHICLE YEAR -->
-
-        <div class="field">
-
-            <label for="year">
-                Vehicle Year
-                <span class="required">*</span>
-            </label>
+        <a
+            href="#"
+            data-panel="contact"
+        >
+            📞 Contact
+        </a>
 
 
-            <input
-                type="number"
-                id="year"
-                name="year"
-                inputmode="numeric"
-                min="1900"
-                max="2026"
-                required
-                aria-required="true"
-                placeholder="Example: 2020"
-            >
-
-        </div>
+        <a
+            href="#"
+            data-panel="reviews"
+        >
+            ⭐ Reviews
+        </a>
 
 
-        <!-- VEHICLE MAKE -->
+        <a
+            href="#"
+            data-panel="leave-review"
+        >
+            ✍️ Leave a Review
+        </a>
 
-        <div class="field">
-
-            <label for="make">
-                Vehicle Make
-                <span class="required">*</span>
-            </label>
-
-
-            <input
-                type="text"
-                id="make"
-                name="make"
-                maxlength="50"
-                required
-                aria-required="true"
-                placeholder="Example: Toyota"
-            >
-
-        </div>
+    </nav>
 
 
-        <!-- VEHICLE MODEL -->
+    <!-- ==========================================
+         ABOUT ME
+    ========================================== -->
 
-        <div class="field">
-
-            <label for="model">
-                Vehicle Model
-                <span class="required">*</span>
-            </label>
-
-
-            <input
-                type="text"
-                id="model"
-                name="model"
-                maxlength="50"
-                required
-                aria-required="true"
-                placeholder="Example: Camry"
-            >
-
-        </div>
-
-
-        <!-- APPOINTMENT DATE -->
-
-        <div class="field">
-
-            <label for="date">
-                Appointment Date
-                <span class="required">*</span>
-            </label>
-
-
-            <input
-                type="date"
-                id="date"
-                name="date"
-                required
-                aria-required="true"
-            >
-
-
-            <span class="help">
-                Select the date you want your oil change.
-            </span>
-
-        </div>
-
-
-        <!-- APPOINTMENT TIME -->
-
-        <div class="field">
-
-            <label for="time">
-                Appointment Time
-                <span class="required">*</span>
-            </label>
-
-
-            <select
-                id="time"
-                name="time"
-                required
-                aria-required="true"
-            >
-
-                <option value="">
-                    Select a time
-                </option>
-
-                <option value="08:00 AM">08:00 AM</option>
-                <option value="08:30 AM">08:30 AM</option>
-
-                <option value="09:00 AM">09:00 AM</option>
-                <option value="09:30 AM">09:30 AM</option>
-
-                <option value="10:00 AM">10:00 AM</option>
-                <option value="10:30 AM">10:30 AM</option>
-
-                <option value="11:00 AM">11:00 AM</option>
-                <option value="11:30 AM">11:30 AM</option>
-
-                <option value="12:00 PM">12:00 PM</option>
-                <option value="12:30 PM">12:30 PM</option>
-
-                <option value="01:00 PM">01:00 PM</option>
-                <option value="01:30 PM">01:30 PM</option>
-
-                <option value="02:00 PM">02:00 PM</option>
-                <option value="02:30 PM">02:30 PM</option>
-
-                <option value="03:00 PM">03:00 PM</option>
-                <option value="03:30 PM">03:30 PM</option>
-
-                <option value="04:00 PM">04:00 PM</option>
-                <option value="04:30 PM">04:30 PM</option>
-
-                <option value="05:00 PM">05:00 PM</option>
-
-            </select>
-
-        </div>
-
-
-        <!-- SUBMIT -->
+    <section
+        class="info-panel"
+        id="about-me"
+    >
 
         <button
-            type="submit"
-            id="submitButton"
+            class="close-panel"
+            type="button"
         >
-            Submit Request
+            ×
         </button>
 
 
-        <!-- MESSAGE -->
-
-        <div id="message"></div>
-
-    </form>
-
-</div>
+        <h2>About Me</h2>
 
 
-<script>
+        <p>
+            Welcome to World Oil Change.
+        </p>
 
 
-/* ==========================================
-   SIDE MENU
-   ========================================== */
-
-const menuButton =
-    document.getElementById("menuButton");
-
-const sideMenu =
-    document.getElementById("sideMenu");
-
-const menuOverlay =
-    document.getElementById("menuOverlay");
-
-const infoPanels =
-    document.querySelectorAll(".info-panel");
+        <p>
+            I started World OIL LLC with the goal of
+            making oil changes easier and more convenient
+            for customers.
+        </p>
 
 
-function closeMenu() {
-
-    sideMenu.classList.remove("open");
-
-    menuOverlay.classList.remove("show");
-
-    menuButton.setAttribute(
-        "aria-expanded",
-        "false"
-    );
-
-    menuButton.textContent = "☰";
-}
+        <p>
+            Instead of spending time waiting at a shop,
+            our service is designed to bring the oil change
+            directly to you.
+        </p>
 
 
-function closePanels() {
+        <p>
+            Thank you for choosing World Oil Change.
+        </p>
 
-    infoPanels.forEach(function(panel) {
-
-        panel.classList.remove("show");
-
-    });
-}
+    </section>
 
 
-function closeEverything() {
+    <!-- ==========================================
+         ABOUT COMPANY
+    ========================================== -->
 
-    closeMenu();
+    <section
+        class="info-panel"
+        id="about-company"
+    >
 
-    closePanels();
-
-}
-
-
-menuButton.addEventListener(
-    "click",
-    function() {
-
-        const isOpen =
-            sideMenu.classList.toggle("open");
-
-
-        menuOverlay.classList.toggle(
-            "show",
-            isOpen
-        );
+        <button
+            class="close-panel"
+            type="button"
+        >
+            ×
+        </button>
 
 
-        menuButton.setAttribute(
-            "aria-expanded",
-            String(isOpen)
-        );
+        <h2>About World OIL LLC</h2>
 
 
-        menuButton.textContent =
-            isOpen ? "×" : "☰";
-
-    }
-);
-
-
-menuOverlay.addEventListener(
-    "click",
-    function() {
-
-        closeEverything();
-
-    }
-);
+        <p>
+            Welcome to World OIL LLC, where we bring your
+            oil change directly to your home.
+        </p>
 
 
-/* ==========================================
-   MENU LINKS
-   ========================================== */
+        <p>
+            Our goal is to make oil changes simple,
+            convenient, and stress-free.
+        </p>
 
-document
-    .querySelectorAll(".side-menu a")
-    .forEach(function(link) {
 
-        link.addEventListener(
+        <p>
+            With our easy-to-use website, you can quickly
+            navigate, choose an appointment time, and
+            request your oil change without complicated
+            steps.
+        </p>
+
+
+        <p>
+            Our website is designed to make booking as
+            simple as possible.
+        </p>
+
+
+        <p>
+            <strong>Est. June 2026</strong>
+        </p>
+
+    </section>
+
+
+    <!-- ==========================================
+         CONTACT
+    ========================================== -->
+
+    <section
+        class="info-panel"
+        id="contact"
+    >
+
+        <button
+            class="close-panel"
+            type="button"
+        >
+            ×
+        </button>
+
+
+        <h2>Contact Us</h2>
+
+
+        <div class="contact-box">
+
+            <p>
+                📞
+                <a
+                    class="contact-link"
+                    href="tel:+13236010663"
+                >
+                    (323) 601-0663
+                </a>
+            </p>
+
+
+            <p>
+                ✉️
+                <a
+                    class="contact-link"
+                    href="mailto:tech@worldoil.com"
+                >
+                    tech@worldoil.com
+                </a>
+            </p>
+
+        </div>
+
+
+        <p>
+            Tap the phone number to call us or tap the
+            email address to send us an email.
+        </p>
+
+    </section>
+
+
+    <!-- ==========================================
+         REVIEWS
+    ========================================== -->
+
+    <section
+        class="info-panel"
+        id="reviews"
+    >
+
+        <button
+            class="close-panel"
+            type="button"
+        >
+            ×
+        </button>
+
+
+        <h2>Customer Reviews</h2>
+
+
+        <div class="review-stars">
+            ★★★★★
+        </div>
+
+
+        <p>
+            Customer reviews will appear here.
+        </p>
+
+
+        <p class="review-note">
+            Have you used World Oil Change?
+            We would love to hear about your experience.
+        </p>
+
+    </section>
+
+
+    <!-- ==========================================
+         LEAVE A REVIEW
+    ========================================== -->
+
+    <section
+        class="info-panel"
+        id="leave-review"
+    >
+
+        <button
+            class="close-panel"
+            type="button"
+        >
+            ×
+        </button>
+
+
+        <h2>Leave a Review</h2>
+
+
+        <input
+            type="text"
+            id="reviewName"
+            placeholder="Your name"
+            maxlength="100"
+        >
+
+
+        <div
+            class="review-stars"
+            aria-label="5 star rating"
+        >
+            ★★★★★
+        </div>
+
+
+        <textarea
+            id="reviewText"
+            placeholder="Tell us about your experience"
+            maxlength="1000"
+        ></textarea>
+
+
+        <button
+            class="review-submit"
+            id="reviewSubmit"
+            type="button"
+        >
+            Submit Review
+        </button>
+
+
+        <p
+            id="reviewMessage"
+            class="review-note"
+        ></p>
+
+    </section>
+
+
+    <!-- ==========================================
+         BOOKING FORM
+    ========================================== -->
+
+    <div class="container">
+
+        <h1>
+            World Oil Change
+        </h1>
+
+
+        <form id="bookingForm">
+
+
+            <!-- FULL NAME -->
+
+            <div class="field">
+
+                <label for="name">
+
+                    Full Name
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    autocomplete="name"
+                    maxlength="100"
+                    required
+                    aria-required="true"
+                    placeholder="Enter your full name"
+                >
+
+            </div>
+
+
+            <!-- PHONE -->
+
+            <div class="field">
+
+                <label for="phone">
+
+                    Phone Number
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    maxlength="20"
+                    required
+                    aria-required="true"
+                    placeholder="Enter your phone number"
+                    aria-describedby="phoneHelp"
+                >
+
+
+                <span
+                    id="phoneHelp"
+                    class="help"
+                >
+                    Enter a 10-digit phone number.
+                </span>
+
+            </div>
+
+
+            <!-- VEHICLE YEAR -->
+
+            <div class="field">
+
+                <label for="year">
+
+                    Vehicle Year
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="number"
+                    id="year"
+                    name="year"
+                    inputmode="numeric"
+                    min="1900"
+                    max="2026"
+                    required
+                    aria-required="true"
+                    placeholder="Example: 2020"
+                >
+
+            </div>
+
+
+            <!-- VEHICLE MAKE -->
+
+            <div class="field">
+
+                <label for="make">
+
+                    Vehicle Make
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="make"
+                    name="make"
+                    maxlength="50"
+                    required
+                    aria-required="true"
+                    placeholder="Example: Toyota"
+                >
+
+            </div>
+
+
+            <!-- VEHICLE MODEL -->
+
+            <div class="field">
+
+                <label for="model">
+
+                    Vehicle Model
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="text"
+                    id="model"
+                    name="model"
+                    maxlength="50"
+                    required
+                    aria-required="true"
+                    placeholder="Example: Camry"
+                >
+
+            </div>
+
+
+            <!-- APPOINTMENT DATE -->
+
+            <div class="field">
+
+                <label for="date">
+
+                    Appointment Date
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    required
+                    aria-required="true"
+                >
+
+
+                <span class="help">
+                    Select the date you want your oil change.
+                </span>
+
+            </div>
+
+
+            <!-- APPOINTMENT TIME -->
+
+            <div class="field">
+
+                <label for="time">
+
+                    Appointment Time
+
+                    <span class="required">
+                        *
+                    </span>
+
+                </label>
+
+
+                <select
+                    id="time"
+                    name="time"
+                    required
+                    aria-required="true"
+                >
+
+                    <option value="">
+                        Select a time
+                    </option>
+
+                    <option value="08:00 AM">
+                        08:00 AM
+                    </option>
+
+                    <option value="08:30 AM">
+                        08:30 AM
+                    </option>
+
+                    <option value="09:00 AM">
+                        09:00 AM
+                    </option>
+
+                    <option value="09:30 AM">
+                        09:30 AM
+                    </option>
+
+                    <option value="10:00 AM">
+                        10:00 AM
+                    </option>
+
+                    <option value="10:30 AM">
+                        10:30 AM
+                    </option>
+
+                    <option value="11:00 AM">
+                        11:00 AM
+                    </option>
+
+                    <option value="11:30 AM">
+                        11:30 AM
+                    </option>
+
+                    <option value="12:00 PM">
+                        12:00 PM
+                    </option>
+
+                    <option value="12:30 PM">
+                        12:30 PM
+                    </option>
+
+                    <option value="01:00 PM">
+                        01:00 PM
+                    </option>
+
+                    <option value="01:30 PM">
+                        01:30 PM
+                    </option>
+
+                    <option value="02:00 PM">
+                        02:00 PM
+                    </option>
+
+                    <option value="02:30 PM">
+                        02:30 PM
+                    </option>
+
+                    <option value="03:00 PM">
+                        03:00 PM
+                    </option>
+
+                    <option value="03:30 PM">
+                        03:30 PM
+                    </option>
+
+                    <option value="04:00 PM">
+                        04:00 PM
+                    </option>
+
+                    <option value="04:30 PM">
+                        04:30 PM
+                    </option>
+
+                    <option value="05:00 PM">
+                        05:00 PM
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- SUBMIT -->
+
+            <button
+                type="submit"
+                id="submitButton"
+            >
+                Submit Request
+            </button>
+
+
+            <!-- MESSAGE -->
+
+            <div id="message"></div>
+
+        </form>
+
+    </div>
+
+
+    <script>
+
+
+        /* ==========================================
+           MENU ELEMENTS
+        ========================================== */
+
+        const menuButton =
+            document.getElementById("menuButton");
+
+        const sideMenu =
+            document.getElementById("sideMenu");
+
+        const menuOverlay =
+            document.getElementById("menuOverlay");
+
+        const infoPanels =
+            document.querySelectorAll(".info-panel");
+
+
+        /* ==========================================
+           CLOSE MENU
+        ========================================== */
+
+        function closeMenu() {
+
+            sideMenu.classList.remove("open");
+
+            menuOverlay.classList.remove("show");
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            menuButton.textContent = "☰";
+        }
+
+
+        /* ==========================================
+           CLOSE INFORMATION PANELS
+        ========================================== */
+
+        function closePanels() {
+
+            infoPanels.forEach(function(panel) {
+
+                panel.classList.remove("show");
+
+            });
+
+        }
+
+
+        /* ==========================================
+           OPEN/CLOSE MENU
+        ========================================== */
+
+        menuButton.addEventListener(
             "click",
-            function(event) {
+            function() {
 
-                event.preventDefault();
-
-
-                /* BOOK APPOINTMENT */
-
-                if (
-                    link.dataset.action === "book"
-                ) {
-
-                    closeEverything();
+                const isOpen =
+                    sideMenu.classList.toggle("open");
 
 
-                    document
-                        .getElementById("bookingContainer")
-                        .scrollIntoView({
-                            behavior: "smooth",
-                            block: "center"
-                        });
+                menuOverlay.classList.toggle(
+                    "show",
+                    isOpen
+                );
 
 
-                    return;
-                }
+                menuButton.setAttribute(
+                    "aria-expanded",
+                    String(isOpen)
+                );
 
 
-                /* INFORMATION PANEL */
-
-                const panel =
-                    document.getElementById(
-                        link.dataset.panel
-                    );
-
-
-                closeMenu();
-
-
-                if (panel) {
-
-                    closePanels();
-
-                    panel.classList.add("show");
-
-                }
+                menuButton.textContent =
+                    isOpen ? "×" : "☰";
 
             }
         );
 
-    });
 
+        /* ==========================================
+           CLICK OUTSIDE MENU
+        ========================================== */
 
-/* ==========================================
-   CLOSE BUTTONS
-   ========================================== */
-
-document
-    .querySelectorAll(".close-panel")
-    .forEach(function(button) {
-
-        button.addEventListener(
+        menuOverlay.addEventListener(
             "click",
             function() {
+
+                closeMenu();
 
                 closePanels();
 
             }
         );
 
-    });
+
+        /* ==========================================
+           MENU LINKS
+        ========================================== */
+
+        document
+            .querySelectorAll(".side-menu a")
+            .forEach(function(link) {
+
+                link.addEventListener(
+                    "click",
+                    function(event) {
+
+                        event.preventDefault();
 
 
-/* ==========================================
-   ESC KEY
-   ========================================== */
+                        /* BOOK APPOINTMENT */
 
-document.addEventListener(
-    "keydown",
-    function(event) {
+                        if (
+                            link.dataset.action === "book"
+                        ) {
 
-        if (event.key === "Escape") {
+                            closeMenu();
 
-            closeEverything();
-
-        }
-
-    }
-);
+                            closePanels();
 
 
-/* ==========================================
-   REVIEWS
-   ========================================== */
-
-let selectedRating = 0;
-
-
-const starButtons =
-    document.querySelectorAll(
-        "#starPicker button"
-    );
+                            document
+                                .querySelector(".container")
+                                .scrollIntoView({
+                                    behavior: "smooth",
+                                    block: "center"
+                                });
 
 
-starButtons.forEach(function(button) {
-
-    button.addEventListener(
-        "click",
-        function() {
-
-            selectedRating =
-                Number(button.dataset.rating);
+                            return;
+                        }
 
 
-            starButtons.forEach(
-                function(star) {
+                        /* OPEN INFORMATION PANEL */
 
-                    const rating =
-                        Number(
-                            star.dataset.rating
+                        closeMenu();
+
+                        closePanels();
+
+
+                        const panel =
+                            document.getElementById(
+                                link.dataset.panel
+                            );
+
+
+                        if (panel) {
+
+                            panel.classList.add("show");
+
+                        }
+
+                    }
+                );
+
+            });
+
+
+        /* ==========================================
+           CLOSE BUTTONS
+        ========================================== */
+
+        document
+            .querySelectorAll(".close-panel")
+            .forEach(function(button) {
+
+                button.addEventListener(
+                    "click",
+                    function() {
+
+                        closePanels();
+
+                    }
+                );
+
+            });
+
+
+        /* ==========================================
+           ESCAPE KEY
+        ========================================== */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (event.key === "Escape") {
+
+                    closeMenu();
+
+                    closePanels();
+
+                }
+
+            }
+        );
+
+
+        /* ==========================================
+           REVIEW BUTTON
+        ========================================== */
+
+        document
+            .getElementById("reviewSubmit")
+            .addEventListener(
+                "click",
+                function() {
+
+                    const reviewName =
+                        document
+                            .getElementById("reviewName")
+                            .value
+                            .trim();
+
+
+                    const reviewText =
+                        document
+                            .getElementById("reviewText")
+                            .value
+                            .trim();
+
+
+                    const reviewMessage =
+                        document.getElementById(
+                            "reviewMessage"
                         );
 
 
-                    star.classList.toggle(
-                        "selected",
-                        rating <= selectedRating
-                    );
+                    if (!reviewName) {
+
+                        reviewMessage.textContent =
+                            "Please enter your name.";
+
+                        return;
+                    }
+
+
+                    if (!reviewText) {
+
+                        reviewMessage.textContent =
+                            "Please enter your review.";
+
+                        return;
+                    }
+
+
+                    /*
+                     * This currently only displays a confirmation.
+                     * A real public review system needs a backend/database.
+                     */
+
+                    reviewMessage.textContent =
+                        "Thank you for your review!";
+
+
+                    document
+                        .getElementById("reviewName")
+                        .value = "";
+
+
+                    document
+                        .getElementById("reviewText")
+                        .value = "";
 
                 }
             );
 
+
+        /* ==========================================
+           BOOKING SYSTEM
+        ========================================== */
+
+        const form =
+            document.getElementById("bookingForm");
+
+
+        const submitButton =
+            document.getElementById("submitButton");
+
+
+        const message =
+            document.getElementById("message");
+
+
+        /* ==========================================
+           TODAY'S DATE
+        ========================================== */
+
+        function getTodayString() {
+
+            const today =
+                new Date();
+
+
+            const year =
+                today.getFullYear();
+
+
+            const month =
+                String(today.getMonth() + 1)
+                .padStart(2, "0");
+
+
+            const day =
+                String(today.getDate())
+                .padStart(2, "0");
+
+
+            return `${year}-${month}-${day}`;
         }
-    );
 
-});
 
+        const todayString =
+            getTodayString();
 
-/* ==========================================
-   LOAD REVIEWS
-   ========================================== */
 
-function loadReviews() {
+        document
+            .getElementById("date")
+            .min = todayString;
 
-    const reviewList =
-        document.getElementById(
-            "reviewList"
-        );
 
+        /* ==========================================
+           NORMALIZE PHONE
+        ========================================== */
 
-    let reviews = [];
+        function normalizePhone(phone) {
 
+            return phone.replace(/\D/g, "");
 
-    try {
+        }
 
-        reviews =
-            JSON.parse(
-                localStorage.getItem(
-                    "worldOilReviews"
-                )
-            ) || [];
 
-    } catch {
+        /* ==========================================
+           SHOW MESSAGE
+        ========================================== */
 
-        reviews = [];
+        function showMessage(text, type) {
 
-    }
+            message.textContent = text;
 
+            message.className = type;
 
-    if (reviews.length === 0) {
+        }
 
-        reviewList.innerHTML =
-            "<p>No customer reviews yet.</p>";
 
-        return;
-    }
+        /* ==========================================
+           FORM SUBMISSION
+        ========================================== */
 
+        form.addEventListener(
+            "submit",
+            async function(event) {
 
-    reviewList.innerHTML = "";
+                event.preventDefault();
 
 
-    reviews.forEach(function(review) {
+                showMessage("", "");
 
-        const reviewElement =
-            document.createElement("div");
 
+                /* REQUIRED FIELDS */
 
-        reviewElement.className =
-            "customer-review";
+                if (!form.checkValidity()) {
 
+                    form.reportValidity();
 
-        const stars =
-            "★".repeat(review.rating) +
-            "☆".repeat(5 - review.rating);
 
-
-        reviewElement.innerHTML = `
-
-            <div class="customer-review-name">
-                ${escapeHtml(review.name)}
-            </div>
-
-            <div class="customer-review-stars">
-                ${stars}
-            </div>
-
-            <p class="customer-review-text">
-                ${escapeHtml(review.text)}
-            </p>
-
-        `;
-
-
-        reviewList.appendChild(
-            reviewElement
-        );
-
-    });
-
-}
-
-
-/* ==========================================
-   ESCAPE REVIEW TEXT
-   ========================================== */
-
-function escapeHtml(text) {
-
-    const div =
-        document.createElement("div");
-
-
-    div.textContent = text;
-
-
-    return div.innerHTML;
-
-}
-
-
-/* ==========================================
-   SUBMIT REVIEW
-   ========================================== */
-
-document
-    .getElementById("reviewSubmit")
-    .addEventListener(
-        "click",
-        function() {
-
-            const name =
-                document
-                    .getElementById("reviewName")
-                    .value
-                    .trim();
-
-
-            const text =
-                document
-                    .getElementById("reviewText")
-                    .value
-                    .trim();
-
-
-            const reviewMessage =
-                document.getElementById(
-                    "reviewMessage"
-                );
-
-
-            reviewMessage.className =
-                "review-message";
-
-
-            reviewMessage.textContent = "";
-
-
-            if (name.length < 2) {
-
-                reviewMessage.textContent =
-                    "Please enter your name.";
-
-                reviewMessage.classList.add(
-                    "error"
-                );
-
-                return;
-            }
-
-
-            if (selectedRating < 1) {
-
-                reviewMessage.textContent =
-                    "Please select a star rating.";
-
-                reviewMessage.classList.add(
-                    "error"
-                );
-
-                return;
-            }
-
-
-            if (text.length < 3) {
-
-                reviewMessage.textContent =
-                    "Please write a short review.";
-
-                reviewMessage.classList.add(
-                    "error"
-                );
-
-                return;
-            }
-
-
-            const review = {
-
-                name: name,
-
-                rating: selectedRating,
-
-                text: text
-
-            };
-
-
-            let reviews = [];
-
-
-            try {
-
-                reviews =
-                    JSON.parse(
-                        localStorage.getItem(
-                            "worldOilReviews"
-                        )
-                    ) || [];
-
-            } catch {
-
-                reviews = [];
-
-            }
-
-
-            reviews.push(review);
-
-
-            localStorage.setItem(
-                "worldOilReviews",
-                JSON.stringify(reviews)
-            );
-
-
-            document
-                .getElementById("reviewName")
-                .value = "";
-
-
-            document
-                .getElementById("reviewText")
-                .value = "";
-
-
-            selectedRating = 0;
-
-
-            starButtons.forEach(
-                function(star) {
-
-                    star.classList.remove(
-                        "selected"
+                    showMessage(
+                        "Please fill out all required fields.",
+                        "error"
                     );
 
+
+                    return;
                 }
-            );
 
 
-            reviewMessage.textContent =
-                "Thank you! Your review has been saved.";
+                /* GET VALUES */
 
+                const name =
+                    document
+                        .getElementById("name")
+                        .value
+                        .trim();
 
-            reviewMessage.classList.add(
-                "success"
-            );
 
+                const phone =
+                    document
+                        .getElementById("phone")
+                        .value
+                        .trim();
 
-            loadReviews();
 
-        }
-    );
+                const year =
+                    document
+                        .getElementById("year")
+                        .value
+                        .trim();
 
 
-/* ==========================================
-   LOAD REVIEWS ON START
-   ========================================== */
+                const make =
+                    document
+                        .getElementById("make")
+                        .value
+                        .trim();
 
-loadReviews();
 
+                const model =
+                    document
+                        .getElementById("model")
+                        .value
+                        .trim();
 
-/* ==========================================
-   ORIGINAL BOOKING SYSTEM
-   ========================================== */
 
-const form =
-    document.getElementById("bookingForm");
+                const appointmentDate =
+                    document
+                        .getElementById("date")
+                        .value;
 
 
-const submitButton =
-    document.getElementById("submitButton");
+                const time =
+                    document
+                        .getElementById("time")
+                        .value;
 
 
-const message =
-    document.getElementById("message");
+                /* NAME */
 
+                if (name.length < 2) {
 
-/* ==========================================
-   TODAY'S DATE
-   ========================================== */
+                    showMessage(
+                        "Please enter your full name.",
+                        "error"
+                    );
 
-function getTodayString() {
+                    return;
+                }
 
-    const today =
-        new Date();
 
+                /* PHONE */
 
-    const year =
-        today.getFullYear();
+                const normalizedPhone =
+                    normalizePhone(phone);
 
 
-    const month =
-        String(today.getMonth() + 1)
-            .padStart(2, "0");
+                if (
+                    normalizedPhone.length !== 10
+                ) {
 
+                    showMessage(
+                        "Please enter a valid 10-digit phone number.",
+                        "error"
+                    );
 
-    const day =
-        String(today.getDate())
-            .padStart(2, "0");
+                    return;
+                }
 
 
-    return `${year}-${month}-${day}`;
+                /* YEAR */
 
-}
+                const vehicleYear =
+                    Number(year);
 
 
-const todayString =
-    getTodayString();
+                if (
+                    !Number.isInteger(vehicleYear) ||
+                    vehicleYear < 1900 ||
+                    vehicleYear > 2026
+                ) {
 
+                    showMessage(
+                        "Please enter a valid vehicle year.",
+                        "error"
+                    );
 
-document.getElementById("date").min =
-    todayString;
+                    return;
+                }
 
 
-/* ==========================================
-   NORMALIZE PHONE
-   ========================================== */
+                /* MAKE / MODEL */
 
-function normalizePhone(phone) {
+                if (!make || !model) {
 
-    return phone.replace(/\D/g, "");
+                    showMessage(
+                        "Please enter the vehicle make and model.",
+                        "error"
+                    );
 
-}
+                    return;
+                }
 
 
-/* ==========================================
-   SHOW MESSAGE
-   ========================================== */
+                /* DATE */
 
-function showMessage(text, type) {
+                if (!appointmentDate) {
 
-    message.textContent =
-        text;
+                    showMessage(
+                        "Please select an appointment date.",
+                        "error"
+                    );
 
+                    return;
+                }
 
-    message.className =
-        type;
 
-}
+                if (
+                    appointmentDate < todayString
+                ) {
 
+                    showMessage(
+                        "Please select today or a future date.",
+                        "error"
+                    );
 
-/* ==========================================
-   BOOKING SUBMISSION
-   ========================================== */
+                    return;
+                }
 
-form.addEventListener(
-    "submit",
-    async function(event) {
 
-        event.preventDefault();
+                /* TIME */
 
+                if (!time) {
 
-        showMessage("", "");
+                    showMessage(
+                        "Please select an appointment time.",
+                        "error"
+                    );
 
+                    return;
+                }
 
-        /* REQUIRED FIELDS */
 
-        if (!form.checkValidity()) {
+                /* DATA */
 
-            form.reportValidity();
+                const data = {
 
+                    name: name,
 
-            showMessage(
-                "Please fill out all required fields.",
-                "error"
-            );
+                    phone: normalizedPhone,
 
+                    year: vehicleYear,
 
-            return;
+                    make: make,
 
-        }
+                    model: model,
 
+                    rawDate: appointmentDate,
 
-        /* GET VALUES */
+                    time: time,
 
-        const name =
-            document
-                .getElementById("name")
-                .value
-                .trim();
+                    submissionDate: todayString
 
+                };
 
-        const phone =
-            document
-                .getElementById("phone")
-                .value
-                .trim();
 
+                /* PREVENT DOUBLE SUBMISSION */
 
-        const year =
-            document
-                .getElementById("year")
-                .value
-                .trim();
+                submitButton.disabled = true;
 
+                submitButton.textContent =
+                    "Submitting...";
 
-        const make =
-            document
-                .getElementById("make")
-                .value
-                .trim();
 
+                showMessage(
+                    "Submitting your request...",
+                    "loading"
+                );
 
-        const model =
-            document
-                .getElementById("model")
-                .value
-                .trim();
 
+                /* REQUEST TIMEOUT */
 
-        const appointmentDate =
-            document
-                .getElementById("date")
-                .value;
+                const controller =
+                    new AbortController();
 
 
-        const time =
-            document
-                .getElementById("time")
-                .value;
+                const timeout =
+                    setTimeout(
+                        function() {
 
-
-        /* NAME */
-
-        if (name.length < 2) {
-
-            showMessage(
-                "Please enter your full name.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* PHONE */
-
-        const normalizedPhone =
-            normalizePhone(phone);
-
-
-        if (
-            normalizedPhone.length !== 10
-        ) {
-
-            showMessage(
-                "Please enter a valid 10-digit phone number.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* YEAR */
-
-        const vehicleYear =
-            Number(year);
-
-
-        if (
-            !Number.isInteger(vehicleYear) ||
-            vehicleYear < 1900 ||
-            vehicleYear > 2026
-        ) {
-
-            showMessage(
-                "Please enter a valid vehicle year.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* MAKE / MODEL */
-
-        if (!make || !model) {
-
-            showMessage(
-                "Please enter the vehicle make and model.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* DATE */
-
-        if (!appointmentDate) {
-
-            showMessage(
-                "Please select an appointment date.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (
-            appointmentDate < todayString
-        ) {
-
-            showMessage(
-                "Please select today or a future date.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* TIME */
-
-        if (!time) {
-
-            showMessage(
-                "Please select an appointment time.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* DATA */
-
-        const data = {
-
-            name: name,
-
-            phone: normalizedPhone,
-
-            year: vehicleYear,
-
-            make: make,
-
-            model: model,
-
-            rawDate: appointmentDate,
-
-            time: time,
-
-            submissionDate: todayString
-
-        };
-
-
-        /* PREVENT DOUBLE SUBMISSION */
-
-        submitButton.disabled =
-            true;
-
-
-        submitButton.textContent =
-            "Submitting...";
-
-
-        showMessage(
-            "Submitting your request...",
-            "loading"
-        );
-
-
-        /* TIMEOUT */
-
-        const controller =
-            new AbortController();
-
-
-        const timeout =
-            setTimeout(
-                function() {
-
-                    controller.abort();
-
-                },
-                15000
-            );
-
-
-        try {
-
-            const response =
-                await fetch(
-
-                    "https://worldoil-render-backend.onrender.com/book",
-
-                    {
-
-                        method: "POST",
-
-                        headers: {
-
-                            "Content-Type":
-                                "application/json"
+                            controller.abort();
 
                         },
+                        15000
+                    );
 
-                        body:
-                            JSON.stringify(data),
 
-                        signal:
-                            controller.signal
+                try {
+
+                    const response =
+                        await fetch(
+                            "https://worldoil-render-backend.onrender.com/book",
+                            {
+
+                                method: "POST",
+
+                                headers: {
+
+                                    "Content-Type":
+                                        "application/json"
+
+                                },
+
+                                body:
+                                    JSON.stringify(data),
+
+                                signal:
+                                    controller.signal
+
+                            }
+                        );
+
+
+                    clearTimeout(timeout);
+
+
+                    /* READ RESPONSE */
+
+                    let result = {};
+
+
+                    try {
+
+                        result =
+                            await response.json();
+
+                    } catch {
+
+                        result = {};
 
                     }
 
-                );
+
+                    /* BACKEND REJECTED */
+
+                    if (!response.ok) {
+
+                        showMessage(
+
+                            result.error ||
+                            "This request could not be submitted.",
+
+                            "error"
+
+                        );
+
+                        return;
+                    }
 
 
-            clearTimeout(timeout);
+                    /* SUCCESS */
+
+                    showMessage(
+
+                        "Request submitted successfully!",
+
+                        "success"
+
+                    );
 
 
-            /* RESPONSE */
-
-            let result = {};
+                    form.reset();
 
 
-            try {
-
-                result =
-                    await response.json();
-
-            } catch {
-
-                result = {};
-
-            }
+                    document
+                        .getElementById("date")
+                        .min =
+                        getTodayString();
 
 
-            /* ERROR */
+                } catch (error) {
 
-            if (!response.ok) {
-
-                showMessage(
-
-                    result.error ||
-                    "This request could not be submitted.",
-
-                    "error"
-
-                );
+                    clearTimeout(timeout);
 
 
-                return;
-
-            }
-
-
-            /* SUCCESS */
-
-            showMessage(
-                "Request submitted successfully!",
-                "success"
-            );
+                    console.error(
+                        "Booking error:",
+                        error
+                    );
 
 
-            form.reset();
+                    if (
+                        error.name ===
+                        "AbortError"
+                    ) {
+
+                        showMessage(
+
+                            "The server took too long to respond. Please try again.",
+
+                            "error"
+
+                        );
+
+                    } else {
+
+                        showMessage(
+
+                            "Could not submit request. Please try again.",
+
+                            "error"
+
+                        );
+
+                    }
 
 
-            document.getElementById(
-                "date"
-            ).min =
-                getTodayString();
+                } finally {
+
+                    submitButton.disabled =
+                        false;
 
 
-        } catch (error) {
+                    submitButton.textContent =
+                        "Submit Request";
 
-            clearTimeout(timeout);
-
-
-            console.error(
-                "Booking error:",
-                error
-            );
-
-
-            if (
-                error.name === "AbortError"
-            ) {
-
-                showMessage(
-
-                    "The server took too long to respond. Please try again.",
-
-                    "error"
-
-                );
-
-            } else {
-
-                showMessage(
-
-                    "Could not submit request. Please try again.",
-
-                    "error"
-
-                );
+                }
 
             }
+        );
 
-        } finally {
-
-            submitButton.disabled =
-                false;
-
-
-            submitButton.textContent =
-                "Submit Request";
-
-        }
-
-    }
-);
-
-</script>
-
+    </script>
 
 </body>
 </html>
