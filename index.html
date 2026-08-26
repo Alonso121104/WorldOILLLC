@@ -1,28 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="World Oil Change - convenient mobile oil change service."
+    >
 
     <title>World Oil Change</title>
+
 
     <style>
 
         /* ==========================================
-           PAGE
+           RESET
         ========================================== */
 
         * {
             box-sizing: border-box;
         }
 
+
         html {
             scroll-behavior: smooth;
         }
 
+
         body {
             margin: 0;
             padding: 0;
+
+            min-height: 100vh;
+
             font-family: Arial, sans-serif;
 
             background:
@@ -31,13 +48,20 @@
                 no-repeat;
 
             background-size: 900px;
+
             background-attachment: fixed;
 
             display: flex;
             justify-content: center;
             align-items: center;
 
-            min-height: 100vh;
+            transition:
+                overflow 0.2s ease;
+        }
+
+
+        body.no-scroll {
+            overflow: hidden;
         }
 
 
@@ -46,26 +70,27 @@
         ========================================== */
 
         .container {
-            background: rgba(255, 255, 255, 0.96);
+            width: 340px;
+            max-width: calc(100% - 40px);
 
             padding: 25px;
+
+            background: rgba(255, 255, 255, 0.96);
 
             border-radius: 12px;
 
             box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.3);
-
-            width: 340px;
-            max-width: calc(100% - 40px);
+                0 10px 30px rgba(0, 0, 0, 0.30);
 
             text-align: left;
         }
 
 
         h1 {
+            margin: 0 0 20px;
+
             font-size: 22px;
-            margin-top: 0;
-            margin-bottom: 20px;
+
             text-align: center;
         }
 
@@ -77,9 +102,12 @@
 
         label {
             display: block;
-            font-size: 15px;
-            font-weight: bold;
+
             margin-bottom: 6px;
+
+            font-size: 15px;
+
+            font-weight: bold;
         }
 
 
@@ -90,9 +118,12 @@
 
         .help {
             display: block;
-            font-size: 12px;
-            color: #666;
+
             margin-top: 4px;
+
+            color: #666;
+
+            font-size: 12px;
         }
 
 
@@ -100,15 +131,18 @@
         select,
         textarea {
             width: 100%;
+
             padding: 10px;
 
             border: 1px solid #ccc;
+
             border-radius: 6px;
 
-            font-size: 16px;
+            background: #fff;
 
-            background: white;
             font-family: inherit;
+
+            font-size: 16px;
         }
 
 
@@ -131,83 +165,109 @@
 
 
         button {
-            width: 100%;
-            padding: 12px;
-
-            background: #111;
-            color: white;
-
-            border: none;
-            border-radius: 6px;
-
-            cursor: pointer;
-
-            font-size: 16px;
-
-            margin-top: 8px;
+            font-family: inherit;
         }
 
 
-        button:hover {
+        /* ==========================================
+           MAIN BUTTON
+        ========================================== */
+
+        #submitButton {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-top: 8px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #111;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s ease;
+        }
+
+
+        #submitButton:hover {
             background: #333;
+        }
+
+
+        #submitButton:disabled {
+            background: #777;
+
+            cursor: not-allowed;
         }
 
 
         button:focus-visible,
         a:focus-visible {
             outline: 3px solid #555;
+
             outline-offset: 2px;
         }
 
 
-        button:disabled {
-            background: #777;
-            cursor: not-allowed;
-        }
-
-
         /* ==========================================
-           MESSAGE
+           BOOKING MESSAGE
         ========================================== */
 
         #message {
             display: none;
 
             margin-top: 12px;
+
             padding: 10px;
 
             border-radius: 6px;
 
             font-size: 14px;
+
             font-weight: bold;
 
             text-align: center;
         }
 
 
-        .error {
-            display: block !important;
+        #message.error,
+        #message.success,
+        #message.loading {
+            display: block;
+        }
+
+
+        #message.error {
             color: #b00020;
+
             background: #ffe5e5;
         }
 
 
-        .success {
-            display: block !important;
+        #message.success {
             color: #146c2e;
+
             background: #e5f7e9;
         }
 
 
-        .loading {
-            display: block !important;
+        #message.loading {
             color: #333;
-            background: #eeeeee;
+
+            background: #eee;
         }
 
 
         /* ==========================================
-           HAMBURGER MENU BUTTON
+           HAMBURGER
         ========================================== */
 
         .menu-button {
@@ -224,13 +284,16 @@
             padding: 0;
             margin: 0;
 
-            background: #111;
-            color: white;
-
             border: none;
+
             border-radius: 8px;
 
+            background: #111;
+
+            color: white;
+
             font-size: 26px;
+
             line-height: 48px;
 
             text-align: center;
@@ -266,6 +329,8 @@
 
             padding: 85px 20px 20px;
 
+            overflow-y: auto;
+
             background: white;
 
             box-shadow:
@@ -273,8 +338,6 @@
 
             transition:
                 left 0.25s ease;
-
-            overflow-y: auto;
         }
 
 
@@ -285,14 +348,17 @@
 
         .side-menu h2 {
             margin: 0 0 8px;
+
             font-size: 21px;
         }
 
 
         .menu-est {
-            color: #666;
-            font-size: 13px;
             margin-bottom: 20px;
+
+            color: #666;
+
+            font-size: 13px;
         }
 
 
@@ -300,21 +366,26 @@
             display: block;
 
             padding: 14px 10px;
+
             margin-bottom: 5px;
+
+            border-radius: 6px;
 
             color: #111;
 
-            text-decoration: none;
-
             font-size: 16px;
+
             font-weight: bold;
 
-            border-radius: 6px;
+            text-decoration: none;
+
+            transition:
+                background 0.15s ease;
         }
 
 
         .side-menu a:hover {
-            background: #eeeeee;
+            background: #eee;
         }
 
 
@@ -326,6 +397,7 @@
             display: none;
 
             position: fixed;
+
             inset: 0;
 
             z-index: 3999;
@@ -340,7 +412,7 @@
 
 
         /* ==========================================
-           INFORMATION BLUR BACKDROP
+           INFORMATION BACKDROP
         ========================================== */
 
         .info-backdrop {
@@ -352,17 +424,14 @@
 
             z-index: 4500;
 
-            background:
-                rgba(0, 0, 0, 0.48);
+            background: rgba(0, 0, 0, 0.48);
 
-            backdrop-filter:
-                blur(9px);
+            backdrop-filter: blur(9px);
 
-            -webkit-backdrop-filter:
-                blur(9px);
+            -webkit-backdrop-filter: blur(9px);
 
             animation:
-                backdropFadeIn 0.2s ease;
+                backdropFadeIn 0.20s ease;
         }
 
 
@@ -393,25 +462,25 @@
 
             position: fixed;
 
-            z-index: 5000;
-
             top: 50%;
             left: 50%;
 
-            transform:
-                translate(-50%, -50%);
+            z-index: 5000;
 
             width: min(90%, 440px);
 
             max-height: 82vh;
 
-            overflow-y: auto;
-
             padding: 25px;
 
-            background: white;
+            overflow-y: auto;
+
+            transform:
+                translate(-50%, -50%);
 
             border-radius: 12px;
+
+            background: white;
 
             box-shadow:
                 0 15px 45px rgba(0, 0, 0, 0.50);
@@ -449,13 +518,15 @@
 
         .info-panel h2 {
             margin-top: 0;
+
             margin-bottom: 18px;
         }
 
 
         .info-panel p {
-            line-height: 1.6;
             font-size: 15px;
+
+            line-height: 1.6;
         }
 
 
@@ -464,13 +535,17 @@
         ========================================== */
 
         .close-panel {
+            float: right;
+
             width: auto;
 
-            float: right;
+            padding: 4px 11px;
 
             margin: -8px -8px 10px 10px;
 
-            padding: 4px 11px;
+            border: none;
+
+            border-radius: 6px;
 
             background: #111;
 
@@ -480,7 +555,7 @@
 
             line-height: 1;
 
-            border-radius: 6px;
+            cursor: pointer;
         }
 
 
@@ -510,11 +585,11 @@
         .contact-box {
             padding: 14px;
 
-            background: #f5f5f5;
+            margin-top: 12px;
 
             border-radius: 8px;
 
-            margin-top: 12px;
+            background: #f5f5f5;
         }
 
 
@@ -527,15 +602,13 @@
 
             align-items: center;
 
+            justify-content: center;
+
             gap: 5px;
 
             margin: 14px 0 8px;
-
-            font-size: 28px;
         }
 
-
-        /* BIG EASY-TO-CLICK STARS */
 
         .review-star {
             width: 52px;
@@ -549,13 +622,13 @@
             align-items: center;
             justify-content: center;
 
-            background: transparent;
-
-            color: #d0d0d0;
-
             border: none;
 
             border-radius: 10px;
+
+            background: transparent;
+
+            color: #d0d0d0;
 
             font-size: 38px;
 
@@ -570,18 +643,14 @@
         }
 
 
-        /* HOVER */
-
         .review-star:hover {
             background: #fff8df;
 
             color: #ffc107;
 
-            transform: scale(1.12);
+            transform: scale(1.10);
         }
 
-
-        /* SELECTED */
 
         .review-star.selected {
             color: #ffc107;
@@ -590,8 +659,6 @@
                 0 1px 2px rgba(0, 0, 0, 0.15);
         }
 
-
-        /* KEYBOARD FOCUS */
 
         .review-star:focus-visible {
             outline: 3px solid #111;
@@ -604,18 +671,21 @@
 
         .review-note {
             color: #666;
+
             font-size: 14px;
         }
 
 
         .rating-label {
+            margin-top: 4px;
+
+            color: #555;
+
             font-size: 14px;
 
             font-weight: bold;
 
-            margin-top: 4px;
-
-            color: #555;
+            text-align: center;
         }
 
 
@@ -624,32 +694,64 @@
 
             min-height: 110px;
 
-            resize: vertical;
-
             padding: 10px;
+
+            margin-bottom: 12px;
+
+            resize: vertical;
 
             border: 1px solid #ccc;
 
             border-radius: 6px;
 
-            font-size: 16px;
+            font-family: inherit;
 
-            margin-bottom: 12px;
+            font-size: 16px;
         }
 
 
         .review-submit {
             width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #111;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+        }
+
+
+        .review-submit:hover {
+            background: #333;
+        }
+
+
+        .review-submit:disabled {
+            background: #777;
+
+            cursor: not-allowed;
         }
 
 
         #reviewMessage {
+            min-height: 20px;
+
             margin-bottom: 0;
+
+            text-align: center;
         }
 
 
         /* ==========================================
-           REVIEWS DISPLAY
+           REVIEW LIST
         ========================================== */
 
         #reviewList {
@@ -662,25 +764,25 @@
 
             margin-top: 10px;
 
-            background: #f5f5f5;
-
             border-radius: 8px;
+
+            background: #f5f5f5;
         }
 
 
         .review-item-name {
-            font-weight: bold;
-
             margin-bottom: 4px;
+
+            font-weight: bold;
         }
 
 
         .review-item-stars {
+            color: #ffc107;
+
             font-size: 18px;
 
             letter-spacing: 2px;
-
-            color: #ffc107;
         }
 
 
@@ -689,7 +791,7 @@
 
             line-height: 1.5;
 
-            word-wrap: break-word;
+            overflow-wrap: anywhere;
         }
 
 
@@ -700,11 +802,13 @@
         @media (max-width: 500px) {
 
             body {
-                background-size: 600px;
+                min-height: 100vh;
 
                 align-items: flex-start;
 
                 padding-top: 80px;
+
+                background-size: 600px;
 
                 background-attachment: scroll;
             }
@@ -729,18 +833,13 @@
             }
 
 
-            /* EVEN EASIER ON MOBILE */
-
             .review-stars {
                 gap: 2px;
-
-                justify-content: center;
             }
 
 
             .review-star {
                 width: 54px;
-
                 height: 54px;
 
                 font-size: 40px;
@@ -772,6 +871,7 @@
         }
 
     </style>
+
 </head>
 
 
@@ -806,7 +906,7 @@
 
 
     <!-- ==========================================
-         INFORMATION BLUR BACKDROP
+         INFORMATION BACKDROP
     ========================================== -->
 
     <div
@@ -876,6 +976,7 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="aboutMeTitle"
+        aria-hidden="true"
     >
 
         <button
@@ -928,6 +1029,7 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="aboutCompanyTitle"
+        aria-hidden="true"
     >
 
         <button
@@ -987,6 +1089,7 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="contactTitle"
+        aria-hidden="true"
     >
 
         <button
@@ -1047,6 +1150,7 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="reviewsTitle"
+        aria-hidden="true"
     >
 
         <button
@@ -1084,6 +1188,7 @@
         role="dialog"
         aria-modal="true"
         aria-labelledby="leaveReviewTitle"
+        aria-hidden="true"
     >
 
         <button
@@ -1100,18 +1205,22 @@
         </h2>
 
 
-        <label for="reviewName">
-            Your Name
-        </label>
+        <div class="field">
+
+            <label for="reviewName">
+                Your Name
+            </label>
 
 
-        <input
-            type="text"
-            id="reviewName"
-            placeholder="Your name"
-            maxlength="100"
-            autocomplete="name"
-        >
+            <input
+                type="text"
+                id="reviewName"
+                placeholder="Your name"
+                maxlength="100"
+                autocomplete="name"
+            >
+
+        </div>
 
 
         <!-- STAR RATING -->
@@ -1125,59 +1234,64 @@
 
             <button
                 type="button"
-                class="review-star selected"
+                class="review-star"
                 data-rating="1"
                 role="radio"
                 aria-label="1 star"
                 aria-checked="false"
+                tabindex="-1"
             >
-                ★
+                ☆
             </button>
 
 
             <button
                 type="button"
-                class="review-star selected"
+                class="review-star"
                 data-rating="2"
                 role="radio"
                 aria-label="2 stars"
                 aria-checked="false"
+                tabindex="-1"
             >
-                ★
+                ☆
             </button>
 
 
             <button
                 type="button"
-                class="review-star selected"
+                class="review-star"
                 data-rating="3"
                 role="radio"
                 aria-label="3 stars"
                 aria-checked="false"
+                tabindex="-1"
             >
-                ★
+                ☆
             </button>
 
 
             <button
                 type="button"
-                class="review-star selected"
+                class="review-star"
                 data-rating="4"
                 role="radio"
                 aria-label="4 stars"
                 aria-checked="false"
+                tabindex="-1"
             >
-                ★
+                ☆
             </button>
 
 
             <button
                 type="button"
-                class="review-star selected"
+                class="review-star"
                 data-rating="5"
                 role="radio"
                 aria-label="5 stars"
                 aria-checked="true"
+                tabindex="0"
             >
                 ★
             </button>
@@ -1231,7 +1345,7 @@
          BOOKING FORM
     ========================================== -->
 
-    <div class="container">
+    <main class="container">
 
         <h1>
             World Oil Change
@@ -1312,7 +1426,6 @@
                     name="year"
                     inputmode="numeric"
                     min="1900"
-                    max="2026"
                     required
                     aria-required="true"
                     placeholder="Example: 2020"
@@ -1453,1147 +1566,907 @@
 
         </form>
 
-    </div>
+    </main>
 
 
     <script>
 
-    /* ==================================================
-       CONFIGURATION
-    ================================================== */
+        /* ==================================================
+           CONFIGURATION
+        ================================================== */
 
-    const API_URL =
-        "https://worldoil-render-backend.onrender.com";
-
-
-    /* ==================================================
-       MENU ELEMENTS
-    ================================================== */
-
-    const menuButton =
-        document.getElementById("menuButton");
-
-    const sideMenu =
-        document.getElementById("sideMenu");
-
-    const menuOverlay =
-        document.getElementById("menuOverlay");
-
-    const infoBackdrop =
-        document.getElementById("infoBackdrop");
-
-    const infoPanels =
-        document.querySelectorAll(".info-panel");
+        const API_URL =
+            "https://worldoil-render-backend.onrender.com";
 
 
-    /* ==================================================
-       CLOSE MENU
-    ================================================== */
+        /* ==================================================
+           ELEMENTS
+        ================================================== */
 
-    function closeMenu() {
+        const menuButton =
+            document.getElementById("menuButton");
 
-        sideMenu.classList.remove("open");
+        const sideMenu =
+            document.getElementById("sideMenu");
 
-        menuOverlay.classList.remove("show");
+        const menuOverlay =
+            document.getElementById("menuOverlay");
 
-        menuButton.setAttribute(
-            "aria-expanded",
-            "false"
-        );
+        const infoBackdrop =
+            document.getElementById("infoBackdrop");
 
-        menuButton.textContent =
-            "☰";
-
-    }
-
-
-    /* ==================================================
-       CLOSE PANELS
-    ================================================== */
-
-    function closePanels() {
-
-        infoPanels.forEach(
-            function(panel) {
-
-                panel.classList.remove("show");
-
-            }
-        );
-
-        infoBackdrop.classList.remove("show");
-
-    }
+        const infoPanels =
+            document.querySelectorAll(".info-panel");
 
 
-    /* ==================================================
-       OPEN / CLOSE MENU
-    ================================================== */
+        /* ==================================================
+           BODY SCROLL LOCK
+        ================================================== */
 
-    menuButton.addEventListener(
-        "click",
-        function() {
+        function updateBodyScroll() {
 
-            const isOpen =
-                sideMenu.classList.toggle("open");
+            const menuOpen =
+                sideMenu.classList.contains("open");
 
+            const panelOpen =
+                document.querySelector(
+                    ".info-panel.show"
+                );
 
-            menuOverlay.classList.toggle(
-                "show",
-                isOpen
+            document.body.classList.toggle(
+                "no-scroll",
+                menuOpen || Boolean(panelOpen)
             );
 
+        }
+
+
+        /* ==================================================
+           CLOSE MENU
+        ================================================== */
+
+        function closeMenu() {
+
+            sideMenu.classList.remove("open");
+
+            menuOverlay.classList.remove("show");
+
+            sideMenu.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            menuOverlay.setAttribute(
+                "aria-hidden",
+                "true"
+            );
 
             menuButton.setAttribute(
                 "aria-expanded",
-                String(isOpen)
+                "false"
             );
 
+            menuButton.setAttribute(
+                "aria-label",
+                "Open menu"
+            );
 
-            menuButton.textContent =
-                isOpen ? "×" : "☰";
+            menuButton.textContent = "☰";
+
+            updateBodyScroll();
 
         }
-    );
 
 
-    /* ==================================================
-       MENU OVERLAY
-    ================================================== */
+        /* ==================================================
+           OPEN MENU
+        ================================================== */
 
-    menuOverlay.addEventListener(
-        "click",
-        function() {
+        function openMenu() {
+
+            sideMenu.classList.add("open");
+
+            menuOverlay.classList.add("show");
+
+            sideMenu.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            menuOverlay.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            menuButton.setAttribute(
+                "aria-label",
+                "Close menu"
+            );
+
+            menuButton.textContent = "×";
+
+            updateBodyScroll();
+
+        }
+
+
+        /* ==================================================
+           CLOSE PANELS
+        ================================================== */
+
+        function closePanels() {
+
+            infoPanels.forEach(
+                function(panel) {
+
+                    panel.classList.remove("show");
+
+                    panel.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+                }
+            );
+
+            infoBackdrop.classList.remove("show");
+
+            infoBackdrop.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            updateBodyScroll();
+
+        }
+
+
+        /* ==================================================
+           OPEN PANEL
+        ================================================== */
+
+        function openPanel(panel) {
 
             closeMenu();
 
             closePanels();
 
-        }
-    );
+            infoBackdrop.classList.add("show");
 
+            infoBackdrop.setAttribute(
+                "aria-hidden",
+                "false"
+            );
 
-    /* ==================================================
-       INFORMATION BACKDROP
-    ================================================== */
+            panel.classList.add("show");
 
-    infoBackdrop.addEventListener(
-        "click",
-        function() {
+            panel.setAttribute(
+                "aria-hidden",
+                "false"
+            );
 
-            closePanels();
+            updateBodyScroll();
 
-        }
-    );
-
-
-    /* ==================================================
-       MENU LINKS
-    ================================================== */
-
-    document
-        .querySelectorAll(".side-menu a")
-        .forEach(
-            function(link) {
-
-                link.addEventListener(
-                    "click",
-                    function(event) {
-
-                        event.preventDefault();
-
-
-                        if (
-                            link.dataset.action === "book"
-                        ) {
-
-                            closeMenu();
-
-                            closePanels();
-
-
-                            document
-                                .querySelector(".container")
-                                .scrollIntoView({
-                                    behavior: "smooth",
-                                    block: "center"
-                                });
-
-
-                            return;
-
-                        }
-
-
-                        const panelId =
-                            link.dataset.panel;
-
-
-                        const panel =
-                            document.getElementById(
-                                panelId
-                            );
-
-
-                        if (!panel) {
-                            return;
-                        }
-
-
-                        closeMenu();
-
-                        closePanels();
-
-
-                        infoBackdrop.classList.add("show");
-
-                        panel.classList.add("show");
-
-
-                        if (
-                            panelId === "reviews"
-                        ) {
-
-                            loadReviews();
-
-                        }
-
-                    }
+            const firstInput =
+                panel.querySelector(
+                    "input, textarea, button"
                 );
 
-            }
-        );
+            if (firstInput) {
 
-
-    /* ==================================================
-       CLOSE BUTTONS
-    ================================================== */
-
-    document
-        .querySelectorAll(".close-panel")
-        .forEach(
-            function(button) {
-
-                button.addEventListener(
-                    "click",
+                setTimeout(
                     function() {
 
-                        closePanels();
+                        firstInput.focus();
 
-                    }
+                    },
+                    50
                 );
+
+            }
+
+        }
+
+
+        /* ==================================================
+           MENU BUTTON
+        ================================================== */
+
+        menuButton.addEventListener(
+            "click",
+            function() {
+
+                if (
+                    sideMenu.classList.contains("open")
+                ) {
+
+                    closeMenu();
+
+                } else {
+
+                    closePanels();
+
+                    openMenu();
+
+                }
 
             }
         );
 
 
-    /* ==================================================
-       ESCAPE
-    ================================================== */
+        /* ==================================================
+           MENU OVERLAY
+        ================================================== */
 
-    document.addEventListener(
-        "keydown",
-        function(event) {
-
-            if (event.key === "Escape") {
+        menuOverlay.addEventListener(
+            "click",
+            function() {
 
                 closeMenu();
+
+            }
+        );
+
+
+        /* ==================================================
+           INFORMATION BACKDROP
+        ================================================== */
+
+        infoBackdrop.addEventListener(
+            "click",
+            function() {
 
                 closePanels();
 
             }
-
-        }
-    );
-
-
-    /* ==================================================
-       REVIEW ELEMENTS
-    ================================================== */
-
-    const reviewName =
-        document.getElementById(
-            "reviewName"
-        );
-
-    const reviewText =
-        document.getElementById(
-            "reviewText"
-        );
-
-    const reviewSubmit =
-        document.getElementById(
-            "reviewSubmit"
-        );
-
-    const reviewMessage =
-        document.getElementById(
-            "reviewMessage"
         );
 
 
-    /* ==================================================
-       STAR RATING
-    ================================================== */
+        /* ==================================================
+           MENU LINKS
+        ================================================== */
 
-    let selectedRating = 5;
+        document
+            .querySelectorAll(".side-menu a")
+            .forEach(
+                function(link) {
 
+                    link.addEventListener(
+                        "click",
+                        function(event) {
 
-    const reviewStars =
-        document.querySelectorAll(
-            ".review-star"
-        );
-
-
-    const ratingLabel =
-        document.getElementById(
-            "ratingLabel"
-        );
+                            event.preventDefault();
 
 
-    /* ==================================================
-       UPDATE STAR DISPLAY
-    ================================================== */
+                            if (
+                                link.dataset.action === "book"
+                            ) {
 
-    function updateRatingStars() {
+                                closeMenu();
 
-        reviewStars.forEach(
-            function(star) {
+                                closePanels();
 
-                const rating =
-                    Number(
-                        star.dataset.rating
+
+                                document
+                                    .querySelector(".container")
+                                    .scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "center"
+                                    });
+
+                                return;
+
+                            }
+
+
+                            const panelId =
+                                link.dataset.panel;
+
+
+                            const panel =
+                                document.getElementById(
+                                    panelId
+                                );
+
+
+                            if (!panel) {
+                                return;
+                            }
+
+
+                            openPanel(panel);
+
+
+                            if (
+                                panelId === "reviews"
+                            ) {
+
+                                loadReviews();
+
+                            }
+
+                        }
                     );
 
-
-                const selected =
-                    rating <= selectedRating;
-
-
-                star.classList.toggle(
-                    "selected",
-                    selected
-                );
+                }
+            );
 
 
-                star.textContent =
-                    selected
-                        ? "★"
-                        : "☆";
+        /* ==================================================
+           CLOSE BUTTONS
+        ================================================== */
+
+        document
+            .querySelectorAll(".close-panel")
+            .forEach(
+                function(button) {
+
+                    button.addEventListener(
+                        "click",
+                        function() {
+
+                            closePanels();
+
+                            menuButton.focus();
+
+                        }
+                    );
+
+                }
+            );
 
 
-                star.setAttribute(
-                    "aria-checked",
-                    String(
-                        rating === selectedRating
+        /* ==================================================
+           ESCAPE KEY
+        ================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key !== "Escape"
+                ) {
+                    return;
+                }
+
+
+                if (
+                    sideMenu.classList.contains("open")
+                ) {
+
+                    closeMenu();
+
+                    menuButton.focus();
+
+                    return;
+
+                }
+
+
+                if (
+                    document.querySelector(
+                        ".info-panel.show"
                     )
-                );
+                ) {
+
+                    closePanels();
+
+                    menuButton.focus();
+
+                }
 
             }
         );
 
 
-        if (ratingLabel) {
+        /* ==================================================
+           REVIEW ELEMENTS
+        ================================================== */
+
+        const reviewName =
+            document.getElementById(
+                "reviewName"
+            );
+
+        const reviewText =
+            document.getElementById(
+                "reviewText"
+            );
+
+        const reviewSubmit =
+            document.getElementById(
+                "reviewSubmit"
+            );
+
+        const reviewMessage =
+            document.getElementById(
+                "reviewMessage"
+            );
+
+        const reviewStars =
+            document.querySelectorAll(
+                ".review-star"
+            );
+
+        const ratingLabel =
+            document.getElementById(
+                "ratingLabel"
+            );
+
+
+        /* ==================================================
+           REVIEW RATING
+        ================================================== */
+
+        let selectedRating = 5;
+
+
+        /* ==================================================
+           UPDATE STARS
+        ================================================== */
+
+        function updateRatingStars() {
+
+            reviewStars.forEach(
+                function(star) {
+
+                    const rating =
+                        Number(
+                            star.dataset.rating
+                        );
+
+
+                    const selected =
+                        rating <= selectedRating;
+
+
+                    star.classList.toggle(
+                        "selected",
+                        selected
+                    );
+
+
+                    star.textContent =
+                        selected
+                            ? "★"
+                            : "☆";
+
+
+                    star.setAttribute(
+                        "aria-checked",
+                        String(
+                            rating === selectedRating
+                        )
+                    );
+
+
+                    star.tabIndex =
+                        rating === selectedRating
+                            ? 0
+                            : -1;
+
+                }
+            );
+
 
             ratingLabel.textContent =
                 `${selectedRating} out of 5 stars`;
 
         }
 
-    }
+
+        /* ==================================================
+           SELECT RATING
+        ================================================== */
+
+        function selectRating(rating) {
+
+            selectedRating =
+                Math.min(
+                    5,
+                    Math.max(
+                        1,
+                        Number(rating)
+                    )
+                );
 
 
-    /* ==================================================
-       STAR CLICK
-    ================================================== */
+            updateRatingStars();
 
-    reviewStars.forEach(
-        function(star) {
+        }
 
-            star.addEventListener(
-                "click",
-                function() {
 
-                    selectedRating =
-                        Number(
+        /* ==================================================
+           STAR EVENTS
+        ================================================== */
+
+        reviewStars.forEach(
+            function(star) {
+
+                star.addEventListener(
+                    "click",
+                    function() {
+
+                        selectRating(
                             star.dataset.rating
                         );
 
-
-                    updateRatingStars();
-
-                }
-            );
-
-
-            /* --------------------------------------
-               HOVER PREVIEW
-            -------------------------------------- */
-
-            star.addEventListener(
-                "mouseenter",
-                function() {
-
-                    const hoverRating =
-                        Number(
-                            star.dataset.rating
-                        );
-
-
-                    reviewStars.forEach(
-                        function(item) {
-
-                            const rating =
-                                Number(
-                                    item.dataset.rating
-                                );
-
-
-                            item.textContent =
-                                rating <= hoverRating
-                                    ? "★"
-                                    : "☆";
-
-                        }
-                    );
-
-                }
-            );
-
-
-            /* --------------------------------------
-               RESTORE AFTER HOVER
-            -------------------------------------- */
-
-            star.addEventListener(
-                "mouseleave",
-                function() {
-
-                    updateRatingStars();
-
-                }
-            );
-
-        }
-    );
-
-
-    /* ==================================================
-       INITIAL STAR STATE
-    ================================================== */
-
-    updateRatingStars();
-
-
-    /* ==================================================
-       SUBMIT REVIEW
-    ================================================== */
-
-    reviewSubmit.addEventListener(
-        "click",
-        async function() {
-
-            const name =
-                reviewName.value.trim();
-
-            const review =
-                reviewText.value.trim();
-
-
-            if (!name) {
-
-                reviewMessage.textContent =
-                    "Please enter your name.";
-
-                reviewMessage.style.color =
-                    "#b00020";
-
-                return;
-
-            }
-
-
-            if (!review) {
-
-                reviewMessage.textContent =
-                    "Please enter your review.";
-
-                reviewMessage.style.color =
-                    "#b00020";
-
-                return;
-
-            }
-
-
-            reviewSubmit.disabled =
-                true;
-
-            reviewSubmit.textContent =
-                "Submitting...";
-
-
-            reviewMessage.textContent =
-                "Submitting your review...";
-
-            reviewMessage.style.color =
-                "#666";
-
-
-            try {
-
-                const response =
-                    await fetch(
-                        `${API_URL}/reviews`,
-                        {
-                            method: "POST",
-
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify({
-
-                                    name:
-                                        name,
-
-                                    rating:
-                                        selectedRating,
-
-                                    review:
-                                        review
-
-                                })
-
-                        }
-                    );
-
-
-                let result = {};
-
-
-                try {
-
-                    result =
-                        await response.json();
-
-                } catch {
-
-                    result = {};
-
-                }
-
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        result.error ||
-                        "Could not submit your review."
-                    );
-
-                }
-
-
-                reviewMessage.textContent =
-                    "Thank you for your review!";
-
-                reviewMessage.style.color =
-                    "#146c2e";
-
-
-                reviewName.value =
-                    "";
-
-                reviewText.value =
-                    "";
-
-
-                selectedRating =
-                    5;
-
-
-                updateRatingStars();
-
-
-                await loadReviews();
-
-
-            } catch (error) {
-
-                console.error(
-                    "Review error:",
-                    error
+                    }
                 );
 
 
-                reviewMessage.textContent =
-                    error.message ||
-                    "Could not submit your review. Please try again.";
-
-                reviewMessage.style.color =
-                    "#b00020";
-
-            } finally {
-
-                reviewSubmit.disabled =
-                    false;
-
-                reviewSubmit.textContent =
-                    "Submit Review";
-
-            }
-
-        }
-    );
-
-
-    /* ==================================================
-       LOAD REVIEWS
-    ================================================== */
-
-    async function loadReviews() {
-
-        const reviewContainer =
-            document.getElementById(
-                "reviewList"
-            );
-
-
-        if (!reviewContainer) {
-            return;
-        }
-
-
-        reviewContainer.innerHTML =
-            `
-                <p class="review-note">
-                    Loading reviews...
-                </p>
-            `;
-
-
-        try {
-
-            const response =
-                await fetch(
-                    `${API_URL}/reviews`
-                );
-
-
-            const result =
-                await response.json();
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    result.error ||
-                    "Could not load reviews."
-                );
-
-            }
-
-
-            const reviews =
-                result.reviews || [];
-
-
-            if (reviews.length === 0) {
-
-                reviewContainer.innerHTML =
-                    `
-                        <p>
-                            No customer reviews yet.
-                        </p>
-
-                        <p class="review-note">
-                            Be the first to leave a review!
-                        </p>
-                    `;
-
-                return;
-
-            }
-
-
-            reviewContainer.innerHTML =
-                "";
-
-
-            reviews.forEach(
-                function(item) {
-
-                    const reviewBox =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    reviewBox.className =
-                        "review-item";
-
-
-                    const stars =
-                        Math.min(
-                            5,
-                            Math.max(
-                                1,
-                                Number(
-                                    item.rating
-                                ) || 5
-                            )
-                        );
-
-
-                    const starsElement =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    starsElement.className =
-                        "review-item-stars";
-
-
-                    starsElement.textContent =
-                        "★".repeat(stars) +
-                        "☆".repeat(
-                            5 - stars
-                        );
-
-
-                    const nameElement =
-                        document.createElement(
-                            "div"
-                        );
-
-
-                    nameElement.className =
-                        "review-item-name";
-
-
-                    nameElement.textContent =
-                        item.name ||
-                        "Customer";
-
-
-                    const textElement =
-                        document.createElement(
-                            "p"
-                        );
-
-
-                    textElement.className =
-                        "review-item-text";
-
-
-                    textElement.textContent =
-                        item.review ||
-                        "";
-
-
-                    reviewBox.appendChild(
-                        starsElement
-                    );
-
-
-                    reviewBox.appendChild(
-                        nameElement
-                    );
-
-
-                    reviewBox.appendChild(
-                        textElement
-                    );
-
-
-                    if (item.createdAt) {
-
-                        const dateElement =
-                            document.createElement(
-                                "small"
+                star.addEventListener(
+                    "mouseenter",
+                    function() {
+
+                        const hoverRating =
+                            Number(
+                                star.dataset.rating
                             );
 
 
-                        const date =
-                            new Date(
-                                item.createdAt
-                            );
+                        reviewStars.forEach(
+                            function(item) {
+
+                                const rating =
+                                    Number(
+                                        item.dataset.rating
+                                    );
+
+
+                                item.textContent =
+                                    rating <= hoverRating
+                                        ? "★"
+                                        : "☆";
+
+                            }
+                        );
+
+                    }
+                );
+
+
+                star.addEventListener(
+                    "mouseleave",
+                    function() {
+
+                        updateRatingStars();
+
+                    }
+                );
+
+
+                star.addEventListener(
+                    "keydown",
+                    function(event) {
+
+                        let newRating =
+                            selectedRating;
 
 
                         if (
-                            !Number.isNaN(
-                                date.getTime()
-                            )
+                            event.key === "ArrowRight" ||
+                            event.key === "ArrowUp"
                         ) {
 
-                            dateElement.textContent =
-                                date.toLocaleDateString();
+                            newRating =
+                                Math.min(
+                                    5,
+                                    selectedRating + 1
+                                );
 
-                            dateElement.style.color =
-                                "#666";
+                        }
 
-                            reviewBox.appendChild(
-                                dateElement
-                            );
+
+                        if (
+                            event.key === "ArrowLeft" ||
+                            event.key === "ArrowDown"
+                        ) {
+
+                            newRating =
+                                Math.max(
+                                    1,
+                                    selectedRating - 1
+                                );
+
+                        }
+
+
+                        if (
+                            event.key === "Home"
+                        ) {
+
+                            newRating = 1;
+
+                        }
+
+
+                        if (
+                            event.key === "End"
+                        ) {
+
+                            newRating = 5;
+
+                        }
+
+
+                        if (
+                            newRating !== selectedRating
+                        ) {
+
+                            event.preventDefault();
+
+                            selectRating(newRating);
+
+                            const nextStar =
+                                document.querySelector(
+                                    `.review-star[data-rating="${newRating}"]`
+                                );
+
+                            if (nextStar) {
+                                nextStar.focus();
+                            }
 
                         }
 
                     }
+                );
+
+            }
+        );
 
 
-                    reviewContainer.appendChild(
-                        reviewBox
+        updateRatingStars();
+
+
+        /* ==================================================
+           REVIEW MESSAGE
+        ================================================== */
+
+        function showReviewMessage(
+            text,
+            type
+        ) {
+
+            reviewMessage.textContent =
+                text;
+
+
+            reviewMessage.className =
+                type || "review-note";
+
+        }
+
+
+        /* ==================================================
+           REVIEW SUBMISSION
+        ================================================== */
+
+        reviewSubmit.addEventListener(
+            "click",
+            async function() {
+
+                const name =
+                    reviewName.value.trim();
+
+                const review =
+                    reviewText.value.trim();
+
+
+                if (!name) {
+
+                    showReviewMessage(
+                        "Please enter your name.",
+                        "review-error"
                     );
 
+                    return;
+
                 }
-            );
 
 
-        } catch (error) {
+                if (!review) {
 
-            console.error(
-                "Load reviews error:",
-                error
-            );
+                    showReviewMessage(
+                        "Please enter your review.",
+                        "review-error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    review.length < 3
+                ) {
+
+                    showReviewMessage(
+                        "Your review must be at least 3 characters.",
+                        "review-error"
+                    );
+
+                    return;
+
+                }
+
+
+                reviewSubmit.disabled =
+                    true;
+
+                reviewSubmit.textContent =
+                    "Submitting...";
+
+
+                showReviewMessage(
+                    "Submitting your review...",
+                    "review-loading"
+                );
+
+
+                const controller =
+                    new AbortController();
+
+
+                const timeout =
+                    setTimeout(
+                        function() {
+
+                            controller.abort();
+
+                        },
+                        15000
+                    );
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            `${API_URL}/reviews`,
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        name:
+                                            name,
+
+                                        rating:
+                                            selectedRating,
+
+                                        review:
+                                            review
+                                    }),
+
+                                signal:
+                                    controller.signal
+                            }
+                        );
+
+
+                    clearTimeout(timeout);
+
+
+                    let result = {};
+
+
+                    try {
+
+                        result =
+                            await response.json();
+
+                    } catch {
+
+                        result = {};
+
+                    }
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            result.error ||
+                            "Could not submit your review."
+                        );
+
+                    }
+
+
+                    showReviewMessage(
+                        "Thank you for your review!",
+                        "review-success"
+                    );
+
+
+                    reviewName.value = "";
+
+                    reviewText.value = "";
+
+
+                    selectRating(5);
+
+
+                    await loadReviews();
+
+                } catch (error) {
+
+                    clearTimeout(timeout);
+
+
+                    console.error(
+                        "Review error:",
+                        error
+                    );
+
+
+                    if (
+                        error.name === "AbortError"
+                    ) {
+
+                        showReviewMessage(
+                            "The server took too long to respond. Please try again.",
+                            "review-error"
+                        );
+
+                    } else {
+
+                        showReviewMessage(
+                            error.message ||
+                            "Could not submit your review. Please try again.",
+                            "review-error"
+                        );
+
+                    }
+
+                } finally {
+
+                    reviewSubmit.disabled =
+                        false;
+
+                    reviewSubmit.textContent =
+                        "Submit Review";
+
+                }
+
+            }
+        );
+
+
+        /* ==================================================
+           LOAD REVIEWS
+        ================================================== */
+
+        async function loadReviews() {
+
+            const reviewContainer =
+                document.getElementById(
+                    "reviewList"
+                );
+
+
+            if (!reviewContainer) {
+                return;
+            }
 
 
             reviewContainer.innerHTML =
                 `
                     <p class="review-note">
-                        Unable to load reviews right now.
-                        Please try again later.
+                        Loading reviews...
                     </p>
                 `;
-
-        }
-
-    }
-
-
-    /* ==================================================
-       BOOKING SYSTEM
-    ================================================== */
-
-    const form =
-        document.getElementById(
-            "bookingForm"
-        );
-
-    const submitButton =
-        document.getElementById(
-            "submitButton"
-        );
-
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    /* ==================================================
-       TODAY
-    ================================================== */
-
-    function getTodayString() {
-
-        const today =
-            new Date();
-
-
-        const year =
-            today.getFullYear();
-
-
-        const month =
-            String(
-                today.getMonth() + 1
-            ).padStart(
-                2,
-                "0"
-            );
-
-
-        const day =
-            String(
-                today.getDate()
-            ).padStart(
-                2,
-                "0"
-            );
-
-
-        return `${year}-${month}-${day}`;
-
-    }
-
-
-    const dateInput =
-        document.getElementById(
-            "date"
-        );
-
-
-    dateInput.min =
-        getTodayString();
-
-
-    /* ==================================================
-       PHONE
-    ================================================== */
-
-    function normalizePhone(phone) {
-
-        return phone.replace(
-            /\D/g,
-            ""
-        );
-
-    }
-
-
-    /* ==================================================
-       BOOKING MESSAGE
-    ================================================== */
-
-    function showMessage(
-        text,
-        type
-    ) {
-
-        message.textContent =
-            text;
-
-        message.className =
-            type;
-
-    }
-
-
-    /* ==================================================
-       BOOKING SUBMISSION
-    ================================================== */
-
-    form.addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-
-            showMessage(
-                "",
-                ""
-            );
-
-
-            if (!form.checkValidity()) {
-
-                form.reportValidity();
-
-
-                showMessage(
-                    "Please fill out all required fields.",
-                    "error"
-                );
-
-
-                return;
-
-            }
-
-
-            const name =
-                document
-                    .getElementById("name")
-                    .value
-                    .trim();
-
-
-            const phone =
-                document
-                    .getElementById("phone")
-                    .value
-                    .trim();
-
-
-            const year =
-                document
-                    .getElementById("year")
-                    .value
-                    .trim();
-
-
-            const make =
-                document
-                    .getElementById("make")
-                    .value
-                    .trim();
-
-
-            const model =
-                document
-                    .getElementById("model")
-                    .value
-                    .trim();
-
-
-            const appointmentDate =
-                dateInput.value;
-
-
-            const time =
-                document
-                    .getElementById("time")
-                    .value;
-
-
-            if (name.length < 2) {
-
-                showMessage(
-                    "Please enter your full name.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            const normalizedPhone =
-                normalizePhone(
-                    phone
-                );
-
-
-            if (
-                normalizedPhone.length !== 10
-            ) {
-
-                showMessage(
-                    "Please enter a valid 10-digit phone number.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            const vehicleYear =
-                Number(year);
-
-
-            const currentYear =
-                new Date().getFullYear();
-
-
-            if (
-                !Number.isInteger(vehicleYear) ||
-                vehicleYear < 1900 ||
-                vehicleYear > currentYear
-            ) {
-
-                showMessage(
-                    "Please enter a valid vehicle year.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (!make || !model) {
-
-                showMessage(
-                    "Please enter the vehicle make and model.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (!appointmentDate) {
-
-                showMessage(
-                    "Please select an appointment date.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (
-                appointmentDate <
-                getTodayString()
-            ) {
-
-                showMessage(
-                    "Please select today or a future date.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            if (!time) {
-
-                showMessage(
-                    "Please select an appointment time.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            const data = {
-
-                name:
-                    name,
-
-                phone:
-                    normalizedPhone,
-
-                year:
-                    vehicleYear,
-
-                make:
-                    make,
-
-                model:
-                    model,
-
-                rawDate:
-                    appointmentDate,
-
-                time:
-                    time
-
-            };
-
-
-            submitButton.disabled =
-                true;
-
-            submitButton.textContent =
-                "Submitting...";
-
-
-            showMessage(
-                "Submitting your request...",
-                "loading"
-            );
 
 
             const controller =
@@ -2615,34 +2488,15 @@
 
                 const response =
                     await fetch(
-                        `${API_URL}/book`,
+                        `${API_URL}/reviews`,
                         {
-
-                            method:
-                                "POST",
-
-                            headers: {
-
-                                "Content-Type":
-                                    "application/json"
-
-                            },
-
-                            body:
-                                JSON.stringify(
-                                    data
-                                ),
-
                             signal:
                                 controller.signal
-
                         }
                     );
 
 
-                clearTimeout(
-                    timeout
-                );
+                clearTimeout(timeout);
 
 
                 let result = {};
@@ -2662,9 +2516,468 @@
 
                 if (!response.ok) {
 
-                    showMessage(
+                    throw new Error(
                         result.error ||
-                        "This request could not be submitted.",
+                        "Could not load reviews."
+                    );
+
+                }
+
+
+                const reviews =
+                    Array.isArray(
+                        result.reviews
+                    )
+                        ? result.reviews
+                        : [];
+
+
+                if (
+                    reviews.length === 0
+                ) {
+
+                    reviewContainer.innerHTML =
+                        `
+                            <p>
+                                No customer reviews yet.
+                            </p>
+
+                            <p class="review-note">
+                                Be the first to leave a review!
+                            </p>
+                        `;
+
+                    return;
+
+                }
+
+
+                reviewContainer.innerHTML =
+                    "";
+
+
+                reviews.forEach(
+                    function(item) {
+
+                        const reviewBox =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        reviewBox.className =
+                            "review-item";
+
+
+                        const stars =
+                            Math.min(
+                                5,
+                                Math.max(
+                                    1,
+                                    Number(
+                                        item.rating
+                                    ) || 5
+                                )
+                            );
+
+
+                        const starsElement =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        starsElement.className =
+                            "review-item-stars";
+
+
+                        starsElement.textContent =
+                            "★".repeat(stars) +
+                            "☆".repeat(
+                                5 - stars
+                            );
+
+
+                        const nameElement =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        nameElement.className =
+                            "review-item-name";
+
+
+                        nameElement.textContent =
+                            item.name ||
+                            "Customer";
+
+
+                        const textElement =
+                            document.createElement(
+                                "p"
+                            );
+
+
+                        textElement.className =
+                            "review-item-text";
+
+
+                        textElement.textContent =
+                            item.review ||
+                            "";
+
+
+                        reviewBox.appendChild(
+                            starsElement
+                        );
+
+
+                        reviewBox.appendChild(
+                            nameElement
+                        );
+
+
+                        reviewBox.appendChild(
+                            textElement
+                        );
+
+
+                        if (
+                            item.createdAt
+                        ) {
+
+                            const date =
+                                new Date(
+                                    item.createdAt
+                                );
+
+
+                            if (
+                                !Number.isNaN(
+                                    date.getTime()
+                                )
+                            ) {
+
+                                const dateElement =
+                                    document.createElement(
+                                        "small"
+                                    );
+
+
+                                dateElement.textContent =
+                                    date.toLocaleDateString();
+
+
+                                dateElement.style.color =
+                                    "#666";
+
+
+                                reviewBox.appendChild(
+                                    dateElement
+                                );
+
+                            }
+
+                        }
+
+
+                        reviewContainer.appendChild(
+                            reviewBox
+                        );
+
+                    }
+                );
+
+            } catch (error) {
+
+                clearTimeout(timeout);
+
+
+                console.error(
+                    "Load reviews error:",
+                    error
+                );
+
+
+                reviewContainer.innerHTML =
+                    `
+                        <p class="review-note">
+                            Unable to load reviews right now.
+                            Please try again later.
+                        </p>
+                    `;
+
+            }
+
+        }
+
+
+        /* ==================================================
+           REVIEW MESSAGE STYLES
+        ================================================== */
+
+        const reviewMessageStyle =
+            document.createElement("style");
+
+
+        reviewMessageStyle.textContent = `
+
+            .review-error {
+                color: #b00020;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .review-success {
+                color: #146c2e;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .review-loading {
+                color: #666;
+                font-size: 14px;
+                text-align: center;
+            }
+
+        `;
+
+
+        document.head.appendChild(
+            reviewMessageStyle
+        );
+
+
+        /* ==================================================
+           BOOKING ELEMENTS
+        ================================================== */
+
+        const form =
+            document.getElementById(
+                "bookingForm"
+            );
+
+        const submitButton =
+            document.getElementById(
+                "submitButton"
+            );
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+        const dateInput =
+            document.getElementById(
+                "date"
+            );
+
+        const yearInput =
+            document.getElementById(
+                "year"
+            );
+
+
+        /* ==================================================
+           TODAY
+        ================================================== */
+
+        function getTodayString() {
+
+            const today =
+                new Date();
+
+
+            const year =
+                today.getFullYear();
+
+
+            const month =
+                String(
+                    today.getMonth() + 1
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+
+            const day =
+                String(
+                    today.getDate()
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+
+            return `${year}-${month}-${day}`;
+
+        }
+
+
+        /* ==================================================
+           UPDATE DATE/YEAR
+        ================================================== */
+
+        function updateDateLimit() {
+
+            dateInput.min =
+                getTodayString();
+
+        }
+
+
+        function updateYearLimit() {
+
+            yearInput.max =
+                String(
+                    new Date().getFullYear()
+                );
+
+        }
+
+
+        updateDateLimit();
+
+        updateYearLimit();
+
+
+        setInterval(
+            function() {
+
+                updateDateLimit();
+
+                updateYearLimit();
+
+            },
+            60 * 60 * 1000
+        );
+
+
+        /* ==================================================
+           PHONE
+        ================================================== */
+
+        function normalizePhone(phone) {
+
+            return phone.replace(
+                /\D/g,
+                ""
+            );
+
+        }
+
+
+        /* ==================================================
+           BOOKING MESSAGE
+        ================================================== */
+
+        function showMessage(
+            text,
+            type
+        ) {
+
+            message.textContent =
+                text;
+
+            message.className =
+                type || "";
+
+        }
+
+
+        /* ==================================================
+           BOOKING SUBMISSION
+        ================================================== */
+
+        form.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                showMessage(
+                    "",
+                    ""
+                );
+
+
+                if (
+                    !form.checkValidity()
+                ) {
+
+                    form.reportValidity();
+
+
+                    showMessage(
+                        "Please fill out all required fields.",
+                        "error"
+                    );
+
+
+                    return;
+
+                }
+
+
+                const name =
+                    document
+                        .getElementById("name")
+                        .value
+                        .trim();
+
+
+                const phone =
+                    document
+                        .getElementById("phone")
+                        .value
+                        .trim();
+
+
+                const year =
+                    yearInput
+                        .value
+                        .trim();
+
+
+                const make =
+                    document
+                        .getElementById("make")
+                        .value
+                        .trim();
+
+
+                const model =
+                    document
+                        .getElementById("model")
+                        .value
+                        .trim();
+
+
+                const appointmentDate =
+                    dateInput.value;
+
+
+                const time =
+                    document
+                        .getElementById("time")
+                        .value;
+
+
+                /* ------------------------------------------
+                   NAME
+                ------------------------------------------ */
+
+                if (
+                    name.length < 2
+                ) {
+
+                    showMessage(
+                        "Please enter your full name.",
                         "error"
                     );
 
@@ -2673,94 +2986,302 @@
                 }
 
 
-                showMessage(
-                    "Appointment request submitted successfully!",
-                    "success"
-                );
+                /* ------------------------------------------
+                   PHONE
+                ------------------------------------------ */
 
-
-                form.reset();
-
-
-                dateInput.min =
-                    getTodayString();
-
-
-            } catch (error) {
-
-                clearTimeout(
-                    timeout
-                );
-
-
-                console.error(
-                    "Booking error:",
-                    error
-                );
+                const normalizedPhone =
+                    normalizePhone(phone);
 
 
                 if (
-                    error.name ===
-                    "AbortError"
+                    normalizedPhone.length !== 10
                 ) {
 
                     showMessage(
-                        "The server took too long to respond. Please try again.",
+                        "Please enter a valid 10-digit phone number.",
                         "error"
                     );
 
-                } else {
-
-                    showMessage(
-                        "Could not submit request. Please try again.",
-                        "error"
-                    );
+                    return;
 
                 }
 
-            } finally {
+
+                /* ------------------------------------------
+                   YEAR
+                ------------------------------------------ */
+
+                const vehicleYear =
+                    Number(year);
+
+
+                const currentYear =
+                    new Date().getFullYear();
+
+
+                if (
+                    !Number.isInteger(
+                        vehicleYear
+                    ) ||
+                    vehicleYear < 1900 ||
+                    vehicleYear > currentYear
+                ) {
+
+                    showMessage(
+                        "Please enter a valid vehicle year.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ------------------------------------------
+                   VEHICLE
+                ------------------------------------------ */
+
+                if (
+                    make.length < 2 ||
+                    model.length < 1
+                ) {
+
+                    showMessage(
+                        "Please enter the vehicle make and model.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ------------------------------------------
+                   DATE
+                ------------------------------------------ */
+
+                if (!appointmentDate) {
+
+                    showMessage(
+                        "Please select an appointment date.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    appointmentDate <
+                    getTodayString()
+                ) {
+
+                    showMessage(
+                        "Please select today or a future date.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ------------------------------------------
+                   TIME
+                ------------------------------------------ */
+
+                if (!time) {
+
+                    showMessage(
+                        "Please select an appointment time.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ------------------------------------------
+                   DATA
+                ------------------------------------------ */
+
+                const data = {
+
+                    name:
+                        name,
+
+                    phone:
+                        normalizedPhone,
+
+                    year:
+                        vehicleYear,
+
+                    make:
+                        make,
+
+                    model:
+                        model,
+
+                    rawDate:
+                        appointmentDate,
+
+                    time:
+                        time
+
+                };
+
+
+                /* ------------------------------------------
+                   SUBMIT
+                ------------------------------------------ */
 
                 submitButton.disabled =
-                    false;
+                    true;
 
                 submitButton.textContent =
-                    "Submit Request";
+                    "Submitting...";
+
+
+                showMessage(
+                    "Submitting your request...",
+                    "loading"
+                );
+
+
+                const controller =
+                    new AbortController();
+
+
+                const timeout =
+                    setTimeout(
+                        function() {
+
+                            controller.abort();
+
+                        },
+                        15000
+                    );
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            `${API_URL}/book`,
+                            {
+
+                                method:
+                                    "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        data
+                                    ),
+
+                                signal:
+                                    controller.signal
+
+                            }
+                        );
+
+
+                    clearTimeout(timeout);
+
+
+                    let result = {};
+
+
+                    try {
+
+                        result =
+                            await response.json();
+
+                    } catch {
+
+                        result = {};
+
+                    }
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            result.error ||
+                            "This request could not be submitted."
+                        );
+
+                    }
+
+
+                    showMessage(
+                        "Appointment request submitted successfully!",
+                        "success"
+                    );
+
+
+                    form.reset();
+
+
+                    updateDateLimit();
+
+                    updateYearLimit();
+
+
+                } catch (error) {
+
+                    clearTimeout(timeout);
+
+
+                    console.error(
+                        "Booking error:",
+                        error
+                    );
+
+
+                    if (
+                        error.name ===
+                        "AbortError"
+                    ) {
+
+                        showMessage(
+                            "The server took too long to respond. Please try again.",
+                            "error"
+                        );
+
+                    } else {
+
+                        showMessage(
+                            error.message ||
+                            "Could not submit request. Please try again.",
+                            "error"
+                        );
+
+                    }
+
+                } finally {
+
+                    submitButton.disabled =
+                        false;
+
+                    submitButton.textContent =
+                        "Submit Request";
+
+                }
 
             }
-
-        }
-    );
-
-
-    /* ==================================================
-       UPDATE YEAR LIMIT
-    ================================================== */
-
-    const yearInput =
-        document.getElementById(
-            "year"
         );
 
-
-    function updateYearLimit() {
-
-        yearInput.max =
-            String(
-                new Date().getFullYear()
-            );
-
-    }
-
-
-    updateYearLimit();
-
-
-    setInterval(
-        updateYearLimit,
-        60 * 60 * 1000
-    );
 
     </script>
 
 </body>
+
 </html>
