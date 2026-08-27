@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Technician Login | World OIL</title>
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        font-family:
+            Arial,
+            Helvetica,
+            sans-serif;
+        background: #f5f6f8;
+        color: #151a20;
+    }
+
+    /* ================================
+       HEADER
+    ================================ */
+
+    header {
+        background: #11161c;
+        padding: 20px;
+    }
+
+    .header-inner {
+        max-width: 1000px;
+        margin: auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .logo {
+        color: white;
+        font-size: 25px;
+        font-weight: 900;
+        letter-spacing: 2px;
+    }
+
+    .logo span {
+        color: #f4b400;
+    }
+
+    .signup-link {
+        color: white;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .signup-link:hover {
+        text-decoration: underline;
+    }
+
+    /* ================================
+       HERO
+    ================================ */
+
+    .hero {
+        background: #11161c;
+        color: white;
+        text-align: center;
+        padding: 45px 20px;
+    }
+
+    .hero h1 {
+        margin: 0 0 10px;
+        font-size: 40px;
+    }
+
+    .hero h1 span {
+        color: #f4b400;
+    }
+
+    .hero p {
+        margin: 0 auto;
+        max-width: 550px;
+        color: #c8cdd2;
+        line-height: 1.6;
+    }
+
+    /* ================================
+       LOGIN CONTAINER
+    ================================ */
+
+    .container {
+        width: min(
+            500px,
+            calc(100% - 30px)
+        );
+
+        margin: 40px auto 70px;
+    }
+
+    .card {
+        background: white;
+        border-radius: 14px;
+        border: 1px solid #e0e3e7;
+        box-shadow:
+            0 8px 30px rgba(
+                0,
+                0,
+                0,
+                .06
+            );
+
+        overflow: hidden;
+    }
+
+    .section {
+        padding: 30px;
+    }
+
+    .section h2 {
+        margin: 0 0 8px;
+        font-size: 22px;
+    }
+
+    .description {
+        color: #707981;
+        font-size: 14px;
+        line-height: 1.6;
+        margin: 0 0 25px;
+    }
+
+    /* ================================
+       FORM
+    ================================ */
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 18px;
+    }
+
+    label {
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 7px;
+    }
+
+    input {
+        width: 100%;
+        padding: 13px;
+        border:
+            1px solid #ccd1d6;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #f4b400;
+        box-shadow:
+            0 0 0 3px
+            rgba(
+                244,
+                180,
+                0,
+                .15
+            );
+    }
+
+    /* ================================
+       FORGOT PASSWORD
+    ================================ */
+
+    .forgot {
+        text-align: right;
+        margin-top: -8px;
+        margin-bottom: 20px;
+    }
+
+    .forgot a {
+        color: #1769aa;
+        font-size: 13px;
+        text-decoration: none;
+    }
+
+    .forgot a:hover {
+        text-decoration: underline;
+    }
+
+    /* ================================
+       BUTTON
+    ================================ */
+
+    #loginButton {
+        width: 100%;
+        border: none;
+        border-radius: 9px;
+        padding: 17px;
+        background: #f4b400;
+        color: #11161c;
+        font-size: 17px;
+        font-weight: 900;
+        cursor: pointer;
+    }
+
+    #loginButton:hover {
+        background: #dfa500;
+    }
+
+    #loginButton:disabled {
+        opacity: .65;
+        cursor: not-allowed;
+    }
+
+    /* ================================
+       MESSAGE
+    ================================ */
+
+    #message {
+        display: none;
+        margin-bottom: 18px;
+        padding: 13px;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.5;
+        text-align: center;
+        font-weight: 700;
+    }
+
+    #message.error {
+        display: block;
+        color: #b00020;
+        background: #ffe5e5;
+    }
+
+    #message.success {
+        display: block;
+        color: #146c2e;
+        background: #e5f7e9;
+    }
+
+    #message.loading {
+        display: block;
+        color: #444;
+        background: #eeeeee;
+    }
+
+    /* ================================
+       ACCOUNT LINK
+    ================================ */
+
+    .create-account {
+        text-align: center;
+        margin-top: 22px;
+        font-size: 14px;
+        color: #707981;
+    }
+
+    .create-account a {
+        color: #1769aa;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    .create-account a:hover {
+        text-decoration: underline;
+    }
+
+    /* ================================
+       SECURITY
+    ================================ */
+
+    .secure {
+        text-align: center;
+        margin-top: 18px;
+        color: #7b838a;
+        font-size: 12px;
+    }
+
+    /* ================================
+       FOOTER
+    ================================ */
+
+    footer {
+        background: #11161c;
+        color: #aab1b8;
+        text-align: center;
+        padding: 30px 20px;
+        font-size: 12px;
+    }
+
+    footer strong {
+        color: white;
+    }
+
+    /* ================================
+       MOBILE
+    ================================ */
+
+    @media (max-width: 600px) {
+
+        .hero h1 {
+            font-size: 32px;
+        }
+
+        .section {
+            padding: 22px;
+        }
+
+        .header-inner {
+            gap: 15px;
+        }
+
+        .signup-link {
+            font-size: 12px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
+<header>
+
+```
+<div class="header-inner">
+
+    <div class="logo">
+        WORLD <span>OIL</span>
+    </div>
+
+    <a
+        href="technician-signup.html"
+        class="signup-link"
+    >
+        Create Account
+    </a>
+
+</div>
+```
+
+</header>
+
+<!-- =========================================
+     HERO
+========================================= -->
+
+<section class="hero">
+
+```
+<h1>
+    Technician <span>Login</span>
+</h1>
+
+<p>
+    Sign in to your World OIL technician account
+    to access your dashboard.
+</p>
+```
+
+</section>
+
+<!-- =========================================
+     MAIN
+========================================= -->
+
+<main class="container">
+
+```
+<div class="card">
+
+    <section class="section">
+
+        <h2>
+            Sign In
+        </h2>
+
+        <p class="description">
+            Enter the email address and password
+            you used when creating your technician
+            account.
+        </p>
+
+
+        <!-- MESSAGE -->
+
+        <div
+            id="message"
+            role="alert"
+            aria-live="polite"
+        ></div>
+
+
+        <!-- LOGIN FORM -->
+
+        <form id="loginForm">
+
+            <div class="form-group">
+
+                <label for="email">
+                    Email Address
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    autocomplete="email"
+                    placeholder="john@example.com"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="password">
+                    Password
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    autocomplete="current-password"
+                    placeholder="Enter your password"
+                    required
+                >
+
+            </div>
+
+
+            <div class="forgot">
+
+                <a
+                    href="#"
+                    id="forgotPassword"
+                >
+                    Forgot password?
+                </a>
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="loginButton"
+            >
+                Sign In
+            </button>
+
+        </form>
+
+
+        <div class="create-account">
+
+            Don't have a technician account?
+
+            <a href="technician-signup.html">
+                Create one
+            </a>
+
+        </div>
+
+
+        <div class="secure">
+
+            🔒 Your login is securely handled
+            by Firebase Authentication.
+
+        </div>
+
+    </section>
+
+</div>
+```
+
+</main>
+
+<!-- =========================================
+     FOOTER
+========================================= -->
+
+<footer>
+
+```
+<strong>
+    WORLD OIL
+</strong>
+
+<br><br>
+
+Connecting customers with
+automotive service providers.
+
+<br><br>
+
+© 2026 World OIL.
+All rights reserved.
+```
+
+</footer>
+
+<!-- =========================================
+     FIREBASE
+========================================= -->
+
+<script type="module">
+
+
+    /* =========================================
+       FIREBASE IMPORTS
+    ========================================= */
+
+    import {
+        initializeApp
+    }
+    from
+        "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+
+
+    import {
+        getAuth,
+        signInWithEmailAndPassword,
+        sendPasswordResetEmail
+    }
+    from
+        "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+
+
+    import {
+        getFirestore,
+        doc,
+        getDoc
+    }
+    from
+        "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    /* =========================================
+       FIREBASE CONFIG
+    ========================================= */
+
+    const firebaseConfig = {
+
+        apiKey:
+            "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
+
+        authDomain:
+            "worldoilllc.firebaseapp.com",
+
+        projectId:
+            "worldoilllc",
+
+        storageBucket:
+            "worldoilllc.firebasestorage.app",
+
+        messagingSenderId:
+            "769325331754",
+
+        appId:
+            "1:769325331754:web:234d7c3ffa9a6424779a53",
+
+        measurementId:
+            "G-3DFP2FFYN0"
+
+    };
+
+
+    /* =========================================
+       INITIALIZE FIREBASE
+    ========================================= */
+
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
+
+
+    const auth =
+        getAuth(app);
+
+
+    const db =
+        getFirestore(app);
+
+
+    /* =========================================
+       ELEMENTS
+    ========================================= */
+
+    const form =
+        document.getElementById(
+            "loginForm"
+        );
+
+
+    const emailInput =
+        document.getElementById(
+            "email"
+        );
+
+
+    const passwordInput =
+        document.getElementById(
+            "password"
+        );
+
+
+    const loginButton =
+        document.getElementById(
+            "loginButton"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    const forgotPassword =
+        document.getElementById(
+            "forgotPassword"
+        );
+
+
+    /* =========================================
+       MESSAGE
+    ========================================= */
+
+    function showMessage(
+        text,
+        type
+    ) {
+
+        message.textContent =
+            text;
+
+        message.className =
+            type || "";
+
+    }
+
+
+    /* =========================================
+       FIREBASE ERROR MESSAGE
+    ========================================= */
+
+    function firebaseErrorMessage(
+        error
+    ) {
+
+        console.error(
+            "Firebase login error:",
+            error
+        );
+
+
+        switch (
+            error.code
+        ) {
+
+            case
+                "auth/invalid-credential":
+
+                return "Incorrect email or password.";
+
+            case
+                "auth/invalid-email":
+
+                return "Please enter a valid email address.";
+
+            case
+                "auth/user-disabled":
+
+                return "This account has been disabled. Please contact World OIL.";
+
+            case
+                "auth/too-many-requests":
+
+                return "Too many login attempts. Please wait and try again.";
+
+            case
+                "auth/network-request-failed":
+
+                return "Network error. Please check your internet connection.";
+
+            default:
+
+                return (
+                    "Unable to sign in. Please check your information and try again."
+                );
+
+        }
+
+    }
+
+
+    /* =========================================
+       LOGIN
+    ========================================= */
+
+    form.addEventListener(
+        "submit",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const email =
+                emailInput
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+            const password =
+                passwordInput
+                    .value;
+
+
+            if (
+                !email ||
+                !password
+            ) {
+
+                showMessage(
+                    "Please enter your email and password.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            loginButton.disabled =
+                true;
+
+
+            loginButton.textContent =
+                "Signing In...";
+
+
+            showMessage(
+                "Signing you in...",
+                "loading"
+            );
+
+
+            try {
+
+
+                /* =================================
+                   FIREBASE AUTHENTICATION
+                ================================= */
+
+                const userCredential =
+                    await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+                /* =================================
+                   GET TECHNICIAN RECORD
+                ================================= */
+
+                const technicianRef =
+                    doc(
+                        db,
+                        "technicians",
+                        user.uid
+                    );
+
+
+                const technicianSnapshot =
+                    await getDoc(
+                        technicianRef
+                    );
+
+
+                if (
+                    !technicianSnapshot.exists()
+                ) {
+
+                    await auth.signOut();
+
+                    showMessage(
+                        "Your technician profile could not be found. Please contact World OIL.",
+                        "error"
+                    );
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Sign In";
+
+                    return;
+
+                }
+
+
+                const technician =
+                    technicianSnapshot.data();
+
+
+                /* =================================
+                   CHECK SUBSCRIPTION
+                ================================= */
+
+                if (
+                    technician.subscriptionStatus !==
+                    "active"
+                ) {
+
+                    await auth.signOut();
+
+
+                    if (
+                        technician.subscriptionStatus ===
+                        "pending_payment"
+                    ) {
+
+                        showMessage(
+                            "Your account has not been activated yet. Please complete your subscription payment.",
+                            "error"
+                        );
+
+                    } else {
+
+                        showMessage(
+                            "Your technician account is not currently active. Please contact World OIL.",
+                            "error"
+                        );
+
+                    }
+
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Sign In";
+
+                    return;
+
+                }
+
+
+                /* =================================
+                   CHECK MARKETPLACE ACCESS
+                ================================= */
+
+                if (
+                    technician.marketplaceAccess !==
+                    true
+                ) {
+
+                    await auth.signOut();
+
+                    showMessage(
+                        "Your account is active, but marketplace access has not been enabled yet.",
+                        "error"
+                    );
+
+                    loginButton.disabled =
+                        false;
+
+                    loginButton.textContent =
+                        "Sign In";
+
+                    return;
+
+                }
+
+
+                /* =================================
+                   SUCCESS
+                ================================= */
+
+                showMessage(
+                    "Login successful. Opening your dashboard...",
+                    "success"
+                );
+
+
+                setTimeout(
+                    function() {
+
+                        window.location.href =
+                            "technician-dashboard.html";
+
+                    },
+                    700
+                );
+
+
+            } catch (error) {
+
+
+                showMessage(
+                    firebaseErrorMessage(
+                        error
+                    ),
+                    "error"
+                );
+
+
+                loginButton.disabled =
+                    false;
+
+
+                loginButton.textContent =
+                    "Sign In";
+
+            }
+
+        }
+    );
+
+
+    /* =========================================
+       FORGOT PASSWORD
+    ========================================= */
+
+    forgotPassword.addEventListener(
+        "click",
+        async function(event) {
+
+            event.preventDefault();
+
+
+            const email =
+                emailInput
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+            if (!email) {
+
+                showMessage(
+                    "Enter your email address first, then click Forgot password.",
+                    "error"
+                );
+
+                emailInput.focus();
+
+                return;
+
+            }
+
+
+            try {
+
+                await sendPasswordResetEmail(
+                    auth,
+                    email
+                );
+
+
+                showMessage(
+                    "Password reset instructions have been sent to your email.",
+                    "success"
+                );
+
+
+            } catch (error) {
+
+                showMessage(
+                    "Unable to send the password reset email. Please check your email address.",
+                    "error"
+                );
+
+            }
+
+        }
+    );
+
+
+</script>
+
+</body>
+
+</html>
