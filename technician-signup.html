@@ -1,361 +1,697 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Technician Sign Up | World OIL</title>
 
+
     <style>
+
         * {
             box-sizing: border-box;
         }
 
+
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
             background: #f5f6f8;
+
             color: #151a20;
         }
 
-        /* HEADER */
+
+        /* ================================
+           HEADER
+        ================================ */
+
         header {
             background: #11161c;
+
             padding: 20px;
         }
 
+
         .header-inner {
             max-width: 1000px;
+
             margin: auto;
+
             display: flex;
+
             justify-content: space-between;
+
             align-items: center;
         }
 
+
         .logo {
             color: white;
+
             font-size: 25px;
+
             font-weight: 900;
+
             letter-spacing: 2px;
         }
+
 
         .logo span {
             color: #f4b400;
         }
 
+
         .login {
             color: white;
+
             text-decoration: none;
+
             font-size: 14px;
         }
+
 
         .login:hover {
             text-decoration: underline;
         }
 
-        /* HERO */
+
+        /* ================================
+           HERO
+        ================================ */
+
         .hero {
             background: #11161c;
+
             color: white;
+
             text-align: center;
+
             padding: 50px 20px;
         }
 
+
         .hero h1 {
             margin: 0 0 10px;
+
             font-size: 40px;
         }
+
 
         .hero h1 span {
             color: #f4b400;
         }
 
+
         .hero p {
             margin: 0 auto;
+
             max-width: 600px;
+
             color: #c8cdd2;
+
             line-height: 1.6;
         }
 
-        /* CONTAINER */
+
+        /* ================================
+           CONTAINER
+        ================================ */
+
         .container {
-            width: min(850px, calc(100% - 30px));
+            width: min(
+                850px,
+                calc(100% - 30px)
+            );
+
             margin: 35px auto 70px;
         }
 
+
         .card {
             background: white;
+
             border-radius: 14px;
+
             border: 1px solid #e0e3e7;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, .06);
+
+            box-shadow:
+                0 8px 30px rgba(
+                    0,
+                    0,
+                    0,
+                    .06
+                );
+
             overflow: hidden;
         }
 
+
         .section {
             padding: 30px;
-            border-bottom: 1px solid #e6e9ec;
+
+            border-bottom:
+                1px solid #e6e9ec;
         }
+
 
         .section:last-child {
             border-bottom: none;
         }
 
+
         .section h2 {
             margin: 0 0 8px;
+
             font-size: 22px;
         }
 
+
         .description {
             color: #707981;
+
             font-size: 14px;
+
             line-height: 1.6;
+
             margin: 0 0 25px;
         }
 
-        /* FORM */
+
+        /* ================================
+           FORM
+        ================================ */
+
         .form-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
+
             gap: 18px;
         }
 
+
         .form-group {
             display: flex;
+
             flex-direction: column;
         }
 
+
         .full {
-            grid-column: 1 / -1;
+            grid-column:
+                1 / -1;
         }
+
 
         label {
             font-size: 14px;
+
             font-weight: 700;
+
             margin-bottom: 7px;
         }
+
 
         .required {
             color: #d93025;
         }
 
+
         input {
             width: 100%;
+
             padding: 13px;
-            border: 1px solid #ccd1d6;
+
+            border:
+                1px solid #ccd1d6;
+
             border-radius: 8px;
+
             font-size: 15px;
+
             outline: none;
         }
 
+
         input:focus {
             border-color: #f4b400;
-            box-shadow: 0 0 0 3px rgba(244, 180, 0, .15);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    244,
+                    180,
+                    0,
+                    .15
+                );
         }
 
-        /* PLANS */
+
+        /* ================================
+           PLANS
+        ================================ */
+
         .plans {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
+
             gap: 20px;
         }
 
+
         .plan {
             position: relative;
-            border: 2px solid #dce1e5;
+
+            border:
+                2px solid #dce1e5;
+
             border-radius: 12px;
+
             padding: 25px;
+
             cursor: pointer;
+
             transition: .2s;
         }
 
+
         .plan:hover {
-            border-color: #f4b400;
+            border-color:
+                #f4b400;
         }
 
+
         .plan.selected {
-            border-color: #f4b400;
-            background: #fffdf5;
+            border-color:
+                #f4b400;
+
+            background:
+                #fffdf5;
         }
+
 
         .plan input {
             position: absolute;
+
             opacity: 0;
+
+            pointer-events: none;
         }
+
 
         .plan-name {
             font-size: 20px;
+
             font-weight: 900;
+
             margin-bottom: 8px;
         }
 
+
         .price {
             font-size: 34px;
+
             font-weight: 900;
+
             margin-bottom: 18px;
         }
 
+
         .price small {
             font-size: 13px;
+
             color: #747c84;
+
             font-weight: normal;
         }
 
+
         .plan ul {
             margin: 0;
+
             padding-left: 20px;
+
             color: #606970;
+
             font-size: 14px;
+
             line-height: 1.9;
         }
 
+
         .recommended {
             position: absolute;
+
             top: -12px;
+
             right: 15px;
-            background: #f4b400;
-            color: #11161c;
+
+            background:
+                #f4b400;
+
+            color:
+                #11161c;
+
             font-size: 10px;
+
             font-weight: 900;
+
             padding: 5px 9px;
+
             border-radius: 20px;
         }
 
-        /* TERMS */
+
+        /* ================================
+           TERMS
+        ================================ */
+
         .terms {
             display: flex;
+
             gap: 10px;
-            align-items: flex-start;
+
+            align-items:
+                flex-start;
+
             margin-top: 20px;
         }
 
+
         .terms input {
             width: auto;
+
             margin-top: 3px;
-            accent-color: #f4b400;
+
+            accent-color:
+                #f4b400;
         }
+
 
         .terms label {
             font-size: 13px;
+
             font-weight: 500;
+
             line-height: 1.6;
+
             margin: 0;
         }
+
 
         .terms a {
             color: #1769aa;
         }
 
-        /* BUTTON */
-        .submit-section {
-            padding: 30px;
-            background: #fafbfc;
+
+        /* ================================
+           MESSAGE
+        ================================ */
+
+        #message {
+            display: none;
+
+            margin-top: 15px;
+
+            padding: 13px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            text-align: center;
+
+            font-weight: 700;
         }
 
+
+        #message.error {
+            display: block;
+
+            color: #b00020;
+
+            background: #ffe5e5;
+        }
+
+
+        #message.success {
+            display: block;
+
+            color: #146c2e;
+
+            background: #e5f7e9;
+        }
+
+
+        #message.loading {
+            display: block;
+
+            color: #444;
+
+            background: #eeeeee;
+        }
+
+
+        /* ================================
+           BUTTON
+        ================================ */
+
+        .submit-section {
+            padding: 30px;
+
+            background:
+                #fafbfc;
+        }
+
+
         button {
+            font-family: inherit;
+        }
+
+
+        #submitButton {
             width: 100%;
+
             border: none;
+
             border-radius: 9px;
+
             padding: 17px;
-            background: #f4b400;
-            color: #11161c;
+
+            background:
+                #f4b400;
+
+            color:
+                #11161c;
+
             font-size: 17px;
+
             font-weight: 900;
+
             cursor: pointer;
         }
 
-        button:hover {
-            background: #dfa500;
+
+        #submitButton:hover {
+            background:
+                #dfa500;
         }
+
+
+        #submitButton:disabled {
+            opacity: .65;
+
+            cursor:
+                not-allowed;
+        }
+
 
         .secure {
             text-align: center;
+
             margin-top: 12px;
+
             color: #7b838a;
+
             font-size: 12px;
         }
 
-        /* SUCCESS */
+
+        /* ================================
+           SUCCESS
+        ================================ */
+
         .success {
             display: none;
+
             text-align: center;
+
             padding: 60px 25px;
         }
 
+
         .success-icon {
             width: 65px;
+
             height: 65px;
+
             margin: 0 auto 20px;
+
             border-radius: 50%;
-            background: #e5f5e9;
-            color: #16803a;
+
+            background:
+                #e5f5e9;
+
+            color:
+                #16803a;
+
             display: grid;
+
             place-items: center;
+
             font-size: 32px;
         }
+
 
         .success h2 {
             margin: 0 0 10px;
         }
 
+
         .success p {
             max-width: 550px;
+
             margin: auto;
+
             color: #6d767e;
+
             line-height: 1.6;
         }
 
-        /* FOOTER */
-        footer {
-            background: #11161c;
-            color: #aab1b8;
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 12px;
+
+        .payment-button {
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 14px 25px;
+
+            border-radius: 8px;
+
+            background:
+                #f4b400;
+
+            color:
+                #11161c;
+
+            font-weight: 900;
+
+            text-decoration: none;
         }
+
+
+        /* ================================
+           FOOTER
+        ================================ */
+
+        footer {
+            background:
+                #11161c;
+
+            color:
+                #aab1b8;
+
+            text-align:
+                center;
+
+            padding:
+                30px 20px;
+
+            font-size:
+                12px;
+        }
+
 
         footer strong {
             color: white;
         }
 
-        /* MOBILE */
+
+        /* ================================
+           MOBILE
+        ================================ */
+
         @media (max-width: 700px) {
 
             .hero h1 {
                 font-size: 32px;
             }
 
+
             .form-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
+
 
             .full {
-                grid-column: auto;
+                grid-column:
+                    auto;
             }
 
+
             .plans {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
+
 
             .section,
             .submit-section {
                 padding: 22px;
             }
 
+
             .header-inner {
                 gap: 15px;
             }
 
+
             .login {
                 font-size: 12px;
             }
+
         }
+
     </style>
+
 </head>
+
 
 <body>
 
 
-<!-- HEADER -->
+<!-- =========================================
+     HEADER
+========================================= -->
 
 <header>
 
@@ -365,7 +701,11 @@
             WORLD <span>OIL</span>
         </div>
 
-        <a href="technician-login.html" class="login">
+
+        <a
+            href="technician-login.html"
+            class="login"
+        >
             Already have an account? Sign in
         </a>
 
@@ -374,7 +714,9 @@
 </header>
 
 
-<!-- HERO -->
+<!-- =========================================
+     HERO
+========================================= -->
 
 <section class="hero">
 
@@ -382,25 +724,32 @@
         Join <span>World OIL</span>
     </h1>
 
+
     <p>
-        Create your technician account and choose the membership
-        plan that works best for you.
+        Create your technician account and choose
+        the membership plan that works best for you.
     </p>
 
 </section>
 
 
-<!-- MAIN -->
+<!-- =========================================
+     MAIN
+========================================= -->
 
 <main class="container">
 
     <div class="card">
 
 
-        <!-- SIGN UP -->
+        <!-- =====================================
+             SIGNUP FORM
+        ====================================== -->
 
         <form id="signupForm">
 
+
+            <!-- ACCOUNT -->
 
             <section class="section">
 
@@ -408,9 +757,10 @@
                     Create Your Account
                 </h2>
 
+
                 <p class="description">
-                    Enter your information to create your World OIL
-                    technician account.
+                    Enter your information to create
+                    your World OIL technician account.
                 </p>
 
 
@@ -420,15 +770,22 @@
                     <div class="form-group">
 
                         <label for="firstName">
-                            First Name <span class="required">*</span>
+
+                            First Name
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
+
 
                         <input
                             type="text"
                             id="firstName"
-                            name="firstName"
+                            autocomplete="given-name"
                             placeholder="John"
-                            required>
+                            required
+                        >
 
                     </div>
 
@@ -436,15 +793,22 @@
                     <div class="form-group">
 
                         <label for="lastName">
-                            Last Name <span class="required">*</span>
+
+                            Last Name
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
+
 
                         <input
                             type="text"
                             id="lastName"
-                            name="lastName"
+                            autocomplete="family-name"
                             placeholder="Smith"
-                            required>
+                            required
+                        >
 
                     </div>
 
@@ -452,15 +816,22 @@
                     <div class="form-group full">
 
                         <label for="email">
-                            Email Address <span class="required">*</span>
+
+                            Email Address
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
+
 
                         <input
                             type="email"
                             id="email"
-                            name="email"
+                            autocomplete="email"
                             placeholder="john@example.com"
-                            required>
+                            required
+                        >
 
                     </div>
 
@@ -468,15 +839,22 @@
                     <div class="form-group">
 
                         <label for="phone">
-                            Phone Number <span class="required">*</span>
+
+                            Phone Number
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
+
 
                         <input
                             type="tel"
                             id="phone"
-                            name="phone"
+                            autocomplete="tel"
                             placeholder="(555) 555-5555"
-                            required>
+                            required
+                        >
 
                     </div>
 
@@ -484,16 +862,23 @@
                     <div class="form-group">
 
                         <label for="password">
-                            Password <span class="required">*</span>
+
+                            Password
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
+
 
                         <input
                             type="password"
                             id="password"
-                            name="password"
                             minlength="8"
+                            autocomplete="new-password"
                             placeholder="Minimum 8 characters"
-                            required>
+                            required
+                        >
 
                     </div>
 
@@ -501,16 +886,23 @@
                     <div class="form-group full">
 
                         <label for="confirmPassword">
-                            Confirm Password <span class="required">*</span>
+
+                            Confirm Password
+                            <span class="required">
+                                *
+                            </span>
+
                         </label>
+
 
                         <input
                             type="password"
                             id="confirmPassword"
-                            name="confirmPassword"
                             minlength="8"
+                            autocomplete="new-password"
                             placeholder="Re-enter your password"
-                            required>
+                            required
+                        >
 
                     </div>
 
@@ -520,7 +912,9 @@
             </section>
 
 
-            <!-- SUBSCRIPTION -->
+            <!-- =================================
+                 SUBSCRIPTION
+            ================================== -->
 
             <section class="section">
 
@@ -528,9 +922,13 @@
                     Choose Your Subscription
                 </h2>
 
+
                 <p class="description">
-                    Select the membership you want to use to access
-                    available World OIL customer jobs.
+
+                    Select the membership you want
+                    to use to access available
+                    World OIL customer jobs.
+
                 </p>
 
 
@@ -544,23 +942,46 @@
                         <input
                             type="radio"
                             name="subscription"
-                            value="149.99"
-                            required>
+                            value="standard"
+                            data-price="149.99"
+                            required
+                        >
+
 
                         <div class="plan-name">
                             Standard
                         </div>
 
+
                         <div class="price">
+
                             $149.99
-                            <small>/ month</small>
+
+                            <small>
+                                / month
+                            </small>
+
                         </div>
 
+
                         <ul>
-                            <li>Access to available customer jobs</li>
-                            <li>Customer job notifications</li>
-                            <li>Standard service area</li>
-                            <li>Technician dashboard</li>
+
+                            <li>
+                                Access to available customer jobs
+                            </li>
+
+                            <li>
+                                Customer job notifications
+                            </li>
+
+                            <li>
+                                Standard service area
+                            </li>
+
+                            <li>
+                                Technician dashboard
+                            </li>
+
                         </ul>
 
                     </label>
@@ -568,33 +989,63 @@
 
                     <!-- PRIORITY -->
 
-                    <label class="plan selected">
+                    <label
+                        class="plan selected"
+                    >
 
                         <div class="recommended">
                             RECOMMENDED
                         </div>
 
+
                         <input
                             type="radio"
                             name="subscription"
-                            value="200.00"
+                            value="priority"
+                            data-price="200.00"
                             checked
-                            required>
+                            required
+                        >
+
 
                         <div class="plan-name">
                             Priority
                         </div>
 
+
                         <div class="price">
+
                             $200.00
-                            <small>/ month</small>
+
+                            <small>
+                                / month
+                            </small>
+
                         </div>
 
+
                         <ul>
-                            <li>Access to available customer jobs</li>
-                            <li>Customer job notifications</li>
-                            <li><strong>Expanded service area</strong></li>
-                            <li><strong>Priority job notifications</strong></li>
+
+                            <li>
+                                Access to available customer jobs
+                            </li>
+
+                            <li>
+                                Customer job notifications
+                            </li>
+
+                            <li>
+                                <strong>
+                                    Expanded service area
+                                </strong>
+                            </li>
+
+                            <li>
+                                <strong>
+                                    Priority job notifications
+                                </strong>
+                            </li>
+
                         </ul>
 
                     </label>
@@ -605,7 +1056,9 @@
             </section>
 
 
-            <!-- TERMS -->
+            <!-- =================================
+                 AGREEMENT
+            ================================== -->
 
             <section class="section">
 
@@ -613,40 +1066,65 @@
                     Agreement
                 </h2>
 
+
                 <div class="terms">
 
                     <input
                         type="checkbox"
                         id="terms"
-                        required>
+                        required
+                    >
+
 
                     <label for="terms">
 
                         I agree to the
-                        <a href="provider-terms.html">
+
+                        <a
+                            href="provider-terms.html"
+                        >
                             World OIL Provider Terms
                         </a>
-                        and understand that my subscription provides
-                        access to the World OIL marketplace and does not
-                        guarantee a specific number of jobs or earnings.
+
+                        and understand that my
+                        subscription provides access
+                        to the World OIL marketplace
+                        and does not guarantee a specific
+                        number of jobs or earnings.
 
                     </label>
 
                 </div>
 
+
+                <div
+                    id="message"
+                    role="alert"
+                    aria-live="polite"
+                ></div>
+
             </section>
 
 
-            <!-- SUBMIT -->
+            <!-- =================================
+                 SUBMIT
+            ================================== -->
 
             <section class="submit-section">
 
-                <button type="submit">
+                <button
+                    type="submit"
+                    id="submitButton"
+                >
                     Create Technician Account
                 </button>
 
+
                 <div class="secure">
-                    🔒 Your account information is securely submitted.
+
+                    🔒 Your account information
+                    is securely submitted.
+
                 </div>
 
             </section>
@@ -655,22 +1133,60 @@
         </form>
 
 
-        <!-- SUCCESS -->
+        <!-- =====================================
+             SUCCESS
+        ====================================== -->
 
-        <div class="success" id="successMessage">
+        <div
+            class="success"
+            id="successMessage"
+        >
 
             <div class="success-icon">
                 ✓
             </div>
 
+
             <h2>
                 Account Created
             </h2>
 
+
             <p>
-                Your World OIL technician account has been created.
-                Your selected subscription is ready for activation.
+
+                Your World OIL technician account
+                has been created successfully.
+
+                <br><br>
+
+                Your selected subscription is:
+
+                <strong id="selectedPlanText">
+                    -
+                </strong>
+
+                <br><br>
+
+                Your account is currently waiting
+                for subscription payment.
+
             </p>
+
+
+            <!--
+
+                THIS WILL BE CONNECTED TO STRIPE
+                IN THE NEXT STEP.
+
+            -->
+
+            <a
+                id="paymentButton"
+                class="payment-button"
+                href="#"
+            >
+                Continue to Payment
+            </a>
 
         </div>
 
@@ -680,109 +1196,645 @@
 </main>
 
 
-<!-- FOOTER -->
+<!-- =========================================
+     FOOTER
+========================================= -->
 
 <footer>
 
-    <strong>WORLD OIL</strong>
+    <strong>
+        WORLD OIL
+    </strong>
+
 
     <br><br>
 
-    Connecting customers with automotive service providers.
+
+    Connecting customers with
+    automotive service providers.
+
 
     <br><br>
 
-    © 2026 World OIL. All rights reserved.
+
+    © 2026 World OIL.
+    All rights reserved.
 
 </footer>
 
 
-<script>
+<!-- =========================================
+     FIREBASE
+========================================= -->
 
-    /* PLAN SELECTION */
+<script type="module">
 
-    const plans = document.querySelectorAll(".plan");
 
-    plans.forEach(plan => {
+    /* =========================================
+       FIREBASE IMPORTS
+    ========================================= */
 
-        const radio = plan.querySelector("input");
+    import {
+        initializeApp
+    }
+    from
+        "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-        radio.addEventListener("change", function() {
 
-            plans.forEach(item => {
-                item.classList.remove("selected");
-            });
+    import {
+        getAuth,
+        createUserWithEmailAndPassword,
+        updateProfile
+    }
+    from
+        "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-            if (this.checked) {
-                plan.classList.add("selected");
+
+    import {
+        getFirestore,
+        doc,
+        setDoc,
+        serverTimestamp
+    }
+    from
+        "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+
+
+    /* =========================================
+       FIREBASE CONFIG
+    ========================================= */
+
+    const firebaseConfig = {
+
+        apiKey:
+            "PASTE_YOUR_FULL_FIREBASE_API_KEY_HERE",
+
+        authDomain:
+            "worldoilllc.firebaseapp.com",
+
+        projectId:
+            "worldoilllc",
+
+        storageBucket:
+            "worldoilllc.firebasestorage.app",
+
+        messagingSenderId:
+            "769325331754",
+
+        appId:
+            "PASTE_YOUR_FULL_FIREBASE_APP_ID_HERE",
+
+        measurementId:
+            "G-3DFP2FFYN0"
+
+    };
+
+
+    /* =========================================
+       INITIALIZE FIREBASE
+    ========================================= */
+
+    const app =
+        initializeApp(
+            firebaseConfig
+        );
+
+
+    const auth =
+        getAuth(app);
+
+
+    const db =
+        getFirestore(app);
+
+
+    /* =========================================
+       ELEMENTS
+    ========================================= */
+
+    const form =
+        document.getElementById(
+            "signupForm"
+        );
+
+
+    const submitButton =
+        document.getElementById(
+            "submitButton"
+        );
+
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    const successMessage =
+        document.getElementById(
+            "successMessage"
+        );
+
+
+    const selectedPlanText =
+        document.getElementById(
+            "selectedPlanText"
+        );
+
+
+    const paymentButton =
+        document.getElementById(
+            "paymentButton"
+        );
+
+
+    const plans =
+        document.querySelectorAll(
+            ".plan"
+        );
+
+
+    /* =========================================
+       PLAN SELECTION
+    ========================================= */
+
+    plans.forEach(
+        function(plan) {
+
+            const radio =
+                plan.querySelector(
+                    "input"
+                );
+
+
+            radio.addEventListener(
+                "change",
+                function() {
+
+                    plans.forEach(
+                        function(item) {
+
+                            item.classList.remove(
+                                "selected"
+                            );
+
+                        }
+                    );
+
+
+                    if (
+                        radio.checked
+                    ) {
+
+                        plan.classList.add(
+                            "selected"
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+
+    /* =========================================
+       MESSAGE
+    ========================================= */
+
+    function showMessage(
+        text,
+        type
+    ) {
+
+        message.textContent =
+            text;
+
+        message.className =
+            type || "";
+
+    }
+
+
+    /* =========================================
+       FIREBASE ERROR MESSAGE
+    ========================================= */
+
+    function firebaseErrorMessage(
+        error
+    ) {
+
+        console.error(
+            "Firebase error:",
+            error
+        );
+
+
+        switch (
+            error.code
+        ) {
+
+            case
+                "auth/email-already-in-use":
+
+                return "An account with this email already exists.";
+
+            case
+                "auth/invalid-email":
+
+                return "Please enter a valid email address.";
+
+            case
+                "auth/weak-password":
+
+                return "Your password is too weak. Please use a stronger password.";
+
+            case
+                "auth/operation-not-allowed":
+
+                return "Email/password sign-up is not enabled in Firebase Authentication.";
+
+            case
+                "auth/network-request-failed":
+
+                return "Network error. Please check your internet connection.";
+
+            default:
+
+                return (
+                    error.message ||
+                    "Unable to create your account."
+                );
+
             }
 
-        });
-
-    });
+    }
 
 
-    /* FORM */
+    /* =========================================
+       FORM SUBMISSION
+    ========================================= */
 
-    document
-        .getElementById("signupForm")
-        .addEventListener("submit", function(event) {
+    form.addEventListener(
+        "submit",
+        async function(event) {
 
             event.preventDefault();
 
+
+            showMessage(
+                "",
+                ""
+            );
+
+
+            /* ---------------------------------
+               GET VALUES
+            --------------------------------- */
+
+            const firstName =
+                document
+                    .getElementById(
+                        "firstName"
+                    )
+                    .value
+                    .trim();
+
+
+            const lastName =
+                document
+                    .getElementById(
+                        "lastName"
+                    )
+                    .value
+                    .trim();
+
+
+            const email =
+                document
+                    .getElementById(
+                        "email"
+                    )
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+            const phone =
+                document
+                    .getElementById(
+                        "phone"
+                    )
+                    .value
+                    .trim();
+
+
             const password =
-                document.getElementById("password").value;
+                document
+                    .getElementById(
+                        "password"
+                    )
+                    .value;
+
 
             const confirmPassword =
-                document.getElementById("confirmPassword").value;
-
-
-            if (password !== confirmPassword) {
-
-                alert("Passwords do not match.");
-
                 document
-                    .getElementById("confirmPassword")
-                    .focus();
+                    .getElementById(
+                        "confirmPassword"
+                    )
+                    .value;
+
+
+            const terms =
+                document
+                    .getElementById(
+                        "terms"
+                    );
+
+
+            const selectedSubscription =
+                document.querySelector(
+                    'input[name="subscription"]:checked'
+                );
+
+
+            /* ---------------------------------
+               VALIDATION
+            --------------------------------- */
+
+            if (
+                !firstName ||
+                !lastName ||
+                !email ||
+                !phone ||
+                !password ||
+                !confirmPassword
+            ) {
+
+                showMessage(
+                    "Please fill out all required fields.",
+                    "error"
+                );
 
                 return;
+
             }
 
 
-            if (password.length < 8) {
+            if (
+                password.length < 8
+            ) {
 
-                alert("Password must contain at least 8 characters.");
+                showMessage(
+                    "Password must contain at least 8 characters.",
+                    "error"
+                );
 
                 return;
+
             }
 
 
-            /*
-                FRONT-END DEMO
+            if (
+                password !==
+                confirmPassword
+            ) {
 
-                Later connect this form to your backend
-                and payment system.
-            */
+                showMessage(
+                    "Passwords do not match.",
+                    "error"
+                );
 
+                return;
 
-            document
-                .getElementById("signupForm")
-                .style.display = "none";
-
-
-            document
-                .getElementById("successMessage")
-                .style.display = "block";
+            }
 
 
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
+            if (
+                !selectedSubscription
+            ) {
 
-        });
+                showMessage(
+                    "Please choose a subscription plan.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            if (
+                !terms.checked
+            ) {
+
+                showMessage(
+                    "You must agree to the Provider Terms.",
+                    "error"
+                );
+
+                return;
+
+            }
+
+
+            /* ---------------------------------
+               PLAN
+            --------------------------------- */
+
+            const plan =
+                selectedSubscription.value;
+
+
+            const price =
+                selectedSubscription.dataset.price;
+
+
+            const planName =
+                plan === "priority"
+                    ? "Priority"
+                    : "Standard";
+
+
+            /* ---------------------------------
+               DISABLE BUTTON
+            --------------------------------- */
+
+            submitButton.disabled =
+                true;
+
+
+            submitButton.textContent =
+                "Creating Account...";
+
+
+            showMessage(
+                "Creating your technician account...",
+                "loading"
+            );
+
+
+            try {
+
+
+                /* =============================
+                   CREATE FIREBASE AUTH USER
+                ============================= */
+
+                const userCredential =
+                    await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+
+
+                const user =
+                    userCredential.user;
+
+
+                /* =============================
+                   SET DISPLAY NAME
+                ============================= */
+
+                await updateProfile(
+                    user,
+                    {
+                        displayName:
+                            `${firstName} ${lastName}`
+                    }
+                );
+
+
+                /* =============================
+                   SAVE TECHNICIAN
+                   TO FIRESTORE
+                ============================= */
+
+                await setDoc(
+                    doc(
+                        db,
+                        "technicians",
+                        user.uid
+                    ),
+                    {
+
+                        uid:
+                            user.uid,
+
+                        firstName:
+                            firstName,
+
+                        lastName:
+                            lastName,
+
+                        email:
+                            email,
+
+                        phone:
+                            phone,
+
+                        plan:
+                            plan,
+
+                        planName:
+                            planName,
+
+                        monthlyPrice:
+                            Number(price),
+
+                        subscriptionStatus:
+                            "pending_payment",
+
+                        marketplaceAccess:
+                            false,
+
+                        priorityNotifications:
+                            plan === "priority",
+
+                        expandedServiceArea:
+                            plan === "priority",
+
+                        createdAt:
+                            serverTimestamp()
+
+                    }
+                );
+
+
+                /* =============================
+                   SHOW SUCCESS
+                ============================= */
+
+                selectedPlanText.textContent =
+                    `${planName} — $${price}/month`;
+
+
+                /*
+                    PAYMENT URL IS INTENTIONALLY
+                    NOT HARD-CODED YET.
+
+                    We will connect this button
+                    to your Stripe Checkout endpoint.
+                */
+
+                paymentButton.href =
+                    "#";
+
+
+                paymentButton.onclick =
+                    function(event) {
+
+                        event.preventDefault();
+
+                        alert(
+                            "Your Firebase account was created. Stripe payment is the next step."
+                        );
+
+                    };
+
+
+                form.style.display =
+                    "none";
+
+
+                successMessage.style.display =
+                    "block";
+
+
+                window.scrollTo(
+                    {
+                        top: 0,
+                        behavior: "smooth"
+                    }
+                );
+
+
+            } catch (error) {
+
+                showMessage(
+                    firebaseErrorMessage(
+                        error
+                    ),
+                    "error"
+                );
+
+
+                submitButton.disabled =
+                    false;
+
+
+                submitButton.textContent =
+                    "Create Technician Account";
+
+            }
+
+        }
+    );
 
 </script>
 
 </body>
+
 </html>
