@@ -1,0 +1,1540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mechanic Sign Up | World OIL</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f6f8;
+            color: #18202a;
+        }
+
+        /* ==============================
+           HEADER
+        ============================== */
+
+        header {
+            background: #111820;
+            color: white;
+            padding: 18px 30px;
+            border-bottom: 1px solid #29323c;
+        }
+
+        .header-inner {
+            max-width: 1150px;
+            margin: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #f4b400;
+        }
+
+        .login-link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .login-link:hover {
+            text-decoration: underline;
+        }
+
+        /* ==============================
+           HERO
+        ============================== */
+
+        .hero {
+            background:
+                linear-gradient(rgba(17, 24, 32, 0.94), rgba(17, 24, 32, 0.94)),
+                radial-gradient(circle at center, #36424e, #111820);
+
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            margin: 0 0 12px;
+            font-size: clamp(32px, 5vw, 52px);
+            font-weight: 900;
+        }
+
+        .hero h1 span {
+            color: #f4b400;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: auto;
+            color: #cbd2d9;
+            line-height: 1.7;
+            font-size: 17px;
+        }
+
+        /* ==============================
+           MAIN
+        ============================== */
+
+        .container {
+            width: min(1100px, calc(100% - 30px));
+            margin: 40px auto 80px;
+        }
+
+        .progress {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .progress-step {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #8b949e;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .progress-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #dce1e6;
+            color: #59636e;
+        }
+
+        .progress-step.active {
+            color: #111820;
+        }
+
+        .progress-step.active .progress-number {
+            background: #f4b400;
+            color: #111820;
+        }
+
+        .progress-line {
+            width: 50px;
+            height: 2px;
+            background: #dce1e6;
+        }
+
+        /* ==============================
+           FORM CARD
+        ============================== */
+
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e0e4e8;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+        }
+
+        .section {
+            padding: 32px;
+            border-bottom: 1px solid #e8ebee;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            margin: 0 0 7px;
+            font-size: 21px;
+            color: #111820;
+        }
+
+        .section-description {
+            margin: 0 0 25px;
+            color: #68737e;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .section-number {
+            display: inline-block;
+            margin-right: 8px;
+            width: 27px;
+            height: 27px;
+            text-align: center;
+            line-height: 27px;
+            border-radius: 50%;
+            background: #111820;
+            color: white;
+            font-size: 12px;
+        }
+
+        /* ==============================
+           FORM GRID
+        ============================== */
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #252e38;
+        }
+
+        .required {
+            color: #d93025;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #ccd2d8;
+            border-radius: 9px;
+            background: #fff;
+            color: #18202a;
+            font-size: 15px;
+            outline: none;
+            transition: border-color .2s, box-shadow .2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #f4b400;
+            box-shadow: 0 0 0 3px rgba(244, 180, 0, .15);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .help-text {
+            margin-top: 6px;
+            color: #7a838c;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        /* ==============================
+           CHECKBOXES
+        ============================== */
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 12px;
+            border: 1px solid #dce1e6;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background .2s, border-color .2s;
+        }
+
+        .checkbox-item:hover {
+            background: #fafafa;
+            border-color: #c6ccd2;
+        }
+
+        .checkbox-item input {
+            width: auto;
+            accent-color: #f4b400;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        /* ==============================
+           NOTICE
+        ============================== */
+
+        .notice {
+            padding: 18px;
+            border-radius: 10px;
+            background: #fff8df;
+            border: 1px solid #f2d477;
+            margin-top: 20px;
+            line-height: 1.6;
+            font-size: 13px;
+            color: #5c4a0b;
+        }
+
+        .notice strong {
+            color: #3e3205;
+        }
+
+        .info-box {
+            background: #f4f7f9;
+            border: 1px solid #dce2e7;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 22px;
+            font-size: 13px;
+            line-height: 1.7;
+            color: #58636d;
+        }
+
+        /* ==============================
+           SUBSCRIPTION
+        ============================== */
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .plan {
+            position: relative;
+            border: 2px solid #dfe4e8;
+            border-radius: 13px;
+            padding: 23px;
+            cursor: pointer;
+            transition: .2s;
+            background: white;
+        }
+
+        .plan:hover {
+            border-color: #f4b400;
+            transform: translateY(-2px);
+        }
+
+        .plan.selected {
+            border-color: #f4b400;
+            background: #fffdf5;
+        }
+
+        .plan input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .popular {
+            position: absolute;
+            top: -12px;
+            right: 15px;
+            padding: 5px 9px;
+            background: #f4b400;
+            color: #111820;
+            border-radius: 20px;
+            font-size: 10px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .plan-name {
+            font-size: 18px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .plan-price {
+            font-size: 30px;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+
+        .plan-price small {
+            font-size: 13px;
+            font-weight: 500;
+            color: #69737c;
+        }
+
+        .plan ul {
+            padding-left: 18px;
+            margin: 0;
+            color: #606b75;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        /* ==============================
+           AGREEMENT
+        ============================== */
+
+        .agreement {
+            background: #f7f9fa;
+            border: 1px solid #dce2e7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .agreement-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .agreement-row input {
+            width: auto;
+            margin-top: 4px;
+            accent-color: #f4b400;
+        }
+
+        .agreement-row label {
+            margin: 0;
+            line-height: 1.6;
+            font-weight: 500;
+            font-size: 13px;
+        }
+
+        .agreement-row a {
+            color: #1a5fb4;
+        }
+
+        /* ==============================
+           SUBMIT
+        ============================== */
+
+        .submit-section {
+            padding: 32px;
+            background: #fafbfc;
+        }
+
+        .submit-button {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            padding: 17px 25px;
+            background: #f4b400;
+            color: #111820;
+            font-size: 17px;
+            font-weight: 900;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .submit-button:hover {
+            background: #e2a700;
+            transform: translateY(-1px);
+        }
+
+        .submit-button:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .secure-text {
+            text-align: center;
+            color: #78828c;
+            font-size: 12px;
+            margin-top: 13px;
+        }
+
+        /* ==============================
+           FOOTER
+        ============================== */
+
+        footer {
+            background: #111820;
+            color: #aeb7c0;
+            padding: 30px 20px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        footer strong {
+            color: white;
+        }
+
+        /* ==============================
+           SUCCESS
+        ============================== */
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 70px 30px;
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: #e6f6e9;
+            color: #188038;
+            font-size: 35px;
+        }
+
+        .success-message h2 {
+            margin: 0 0 10px;
+            font-size: 30px;
+        }
+
+        .success-message p {
+            color: #68737e;
+            max-width: 550px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        /* ==============================
+           RESPONSIVE
+        ============================== */
+
+        @media (max-width: 800px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: auto;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .plans {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 24px 20px;
+            }
+
+            .submit-section {
+                padding: 24px 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            header {
+                padding: 16px 18px;
+            }
+
+            .hero {
+                padding: 45px 18px;
+            }
+
+            .checkbox-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .progress-line {
+                width: 20px;
+            }
+
+            .progress-step {
+                font-size: 11px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-inner">
+        <div class="logo">WORLD <span>OIL</span></div>
+        <a href="#" class="login-link">Already have an account? Sign in</a>
+    </div>
+</header>
+
+
+<section class="hero">
+    <h1>Become a <span>World OIL</span> Provider</h1>
+
+    <p>
+        Join the marketplace that connects independent mobile automotive
+        service providers with customers looking for convenient vehicle service.
+    </p>
+</section>
+
+
+<main class="container">
+
+    <div class="progress">
+        <div class="progress-step active">
+            <div class="progress-number">1</div>
+            Account
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-step active">
+            <div class="progress-number">2</div>
+            Business
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-step active">
+            <div class="progress-number">3</div>
+            Verification
+        </div>
+
+        <div class="progress-line"></div>
+
+        <div class="progress-step active">
+            <div class="progress-number">4</div>
+            Plan
+        </div>
+    </div>
+
+
+    <div class="form-card" id="signupCard">
+
+        <form id="mechanicForm">
+
+            <!-- ==============================
+                 ACCOUNT
+            ============================== -->
+
+            <section class="section">
+
+                <h2 class="section-title">
+                    <span class="section-number">1</span>
+                    Create Your Account
+                </h2>
+
+                <p class="section-description">
+                    Create the account you will use to receive customer service requests.
+                </p>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="firstName">
+                            First Name <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="firstName"
+                            name="firstName"
+                            required
+                            autocomplete="given-name"
+                            placeholder="John">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="lastName">
+                            Last Name <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="lastName"
+                            name="lastName"
+                            required
+                            autocomplete="family-name"
+                            placeholder="Smith">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="email">
+                            Email Address <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            required
+                            autocomplete="email"
+                            placeholder="john@example.com">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="phone">
+                            Phone Number <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            required
+                            autocomplete="tel"
+                            placeholder="(555) 555-5555">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="password">
+                            Password <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            minlength="8"
+                            required
+                            autocomplete="new-password"
+                            placeholder="Minimum 8 characters">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="confirmPassword">
+                            Confirm Password <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            minlength="8"
+                            required
+                            autocomplete="new-password"
+                            placeholder="Re-enter password">
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==============================
+                 BUSINESS
+            ============================== -->
+
+            <section class="section">
+
+                <h2 class="section-title">
+                    <span class="section-number">2</span>
+                    Business Information
+                </h2>
+
+                <p class="section-description">
+                    Tell customers who they are booking with.
+                </p>
+
+                <div class="form-grid">
+
+                    <div class="form-group full">
+                        <label for="businessName">
+                            Legal Business Name <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="businessName"
+                            name="businessName"
+                            required
+                            placeholder="Example: ABC Mobile Auto LLC">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="dba">
+                            DBA / Business Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="dba"
+                            name="dba"
+                            placeholder="Example: ABC Mobile Auto">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="businessPhone">
+                            Business Phone
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="businessPhone"
+                            name="businessPhone"
+                            placeholder="(555) 555-5555">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="address">
+                            Business Address <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="address"
+                            name="address"
+                            required
+                            placeholder="Street address">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="city">
+                            City <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="city"
+                            name="city"
+                            required
+                            placeholder="Los Angeles">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="state">
+                            State <span class="required">*</span>
+                        </label>
+
+                        <select id="state" name="state" required>
+                            <option value="">Select state</option>
+                            <option value="CA">California</option>
+                            <option value="AZ">Arizona</option>
+                            <option value="NV">Nevada</option>
+                            <option value="OR">Oregon</option>
+                            <option value="WA">Washington</option>
+                            <option value="TX">Texas</option>
+                            <option value="FL">Florida</option>
+                            <option value="NY">New York</option>
+                            <option value="OTHER">Other</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="zip">
+                            ZIP Code <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="zip"
+                            name="zip"
+                            required
+                            inputmode="numeric"
+                            placeholder="90001">
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==============================
+                 SERVICES
+            ============================== -->
+
+            <section class="section">
+
+                <h2 class="section-title">
+                    <span class="section-number">3</span>
+                    Services You Offer
+                </h2>
+
+                <p class="section-description">
+                    Select the services you are qualified and authorized to provide.
+                </p>
+
+                <div class="checkbox-grid">
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="oilChange" name="services" value="Oil Change">
+                        <label for="oilChange">Oil Change</label>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="filter" name="services" value="Filters">
+                        <label for="filter">Filters</label>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="battery" name="services" value="Battery">
+                        <label for="battery">Battery Service</label>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="brakes" name="services" value="Brakes">
+                        <label for="brakes">Brake Service</label>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="tires" name="services" value="Tires">
+                        <label for="tires">Tire Service</label>
+                    </div>
+
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="diagnostics" name="services" value="Diagnostics">
+                        <label for="diagnostics">Diagnostics</label>
+                    </div>
+
+                </div>
+
+                <div class="notice">
+                    <strong>Important:</strong>
+                    Only select services that you are legally permitted,
+                    properly trained, and adequately insured to perform.
+                </div>
+
+            </section>
+
+
+            <!-- ==============================
+                 BAR
+            ============================== -->
+
+            <section class="section">
+
+                <h2 class="section-title">
+                    <span class="section-number">4</span>
+                    Automotive Registration
+                </h2>
+
+                <p class="section-description">
+                    Provide applicable automotive repair registration information.
+                </p>
+
+                <div class="info-box">
+                    World OIL is a marketplace. Registration requirements may
+                    depend on the services you provide and how your business
+                    operates. Provide accurate information and maintain all
+                    registrations required for your business.
+                </div>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="ardNumber">
+                            BAR / ARD Registration Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="ardNumber"
+                            name="ardNumber"
+                            placeholder="Example: ARD123456">
+                            
+                        <div class="help-text">
+                            Enter your Automotive Repair Dealer registration
+                            number if applicable.
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="ardStatus">
+                            Registration Status
+                        </label>
+
+                        <select id="ardStatus" name="ardStatus">
+                            <option value="">Select status</option>
+                            <option value="active">Active</option>
+                            <option value="pending">Pending</option>
+                            <option value="not-applicable">Not Applicable</option>
+                        </select>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="licenseNumber">
+                            Local Business License / Tax Certificate
+                        </label>
+
+                        <input
+                            type="text"
+                            id="licenseNumber"
+                            name="licenseNumber"
+                            placeholder="License number">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="licenseCity">
+                            Issuing City / Agency
+                        </label>
+
+                        <input
+                            type="text"
+                            id="licenseCity"
+                            name="licenseCity"
+                            placeholder="City or agency name">
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==============================
+                 INSURANCE
+            ============================== -->
+
+            <section class="section">
+
+                <h2 class="section-title">
+                    <span class="section-number">5</span>
+                    Insurance
+                </h2>
+
+                <p class="section-description">
+                    Provide information about your business insurance.
+                </p>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="insuranceCompany">
+                            Insurance Company
+                        </label>
+
+                        <input
+                            type="text"
+                            id="insuranceCompany"
+                            name="insuranceCompany"
+                            placeholder="Insurance company">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="policyNumber">
+                            Policy Number
+                        </label>
+
+                        <input
+                            type="text"
+                            id="policyNumber"
+                            name="policyNumber"
+                            placeholder="Policy number">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="coverageAmount">
+                            Coverage Amount
+                        </label>
+
+                        <input
+                            type="text"
+                            id="coverageAmount"
+                            name="coverageAmount"
+                            placeholder="Example: $1,000,000">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="expirationDate">
+                            Policy Expiration Date
+                        </label>
+
+                        <input
+                            type="date"
+                            id="expirationDate"
+                            name="expirationDate">
+                    </div>
+
+                </div>
+
+                <div class="notice">
+                    World OIL may require proof of insurance before a provider
+                    is allowed to receive customer requests.
+                </div>
+
+            </section>
+
+
+            <!-- ==============================
+                 SERVICE AREA
+            ============================== -->
+
+            <section class="section">
+
+                <h2 class="section-title">
+                    <span class="section-number">6</span>
+                    Your Service Area
+                </h2>
+
+                <p class="section-description">
+                    Tell us where you want to receive customer requests.
+                </p>
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="serviceCity">
+                            Primary Service City <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="text"
+                            id="serviceCity"
+                            name="serviceCity"
+                            required
+                            placeholder="Los Angeles">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="serviceRadius">
+                            Service Radius <span class="required">*</span>
+                        </label>
+
+                        <select id="serviceRadius" name="serviceRadius" required>
+                            <option value="">Select radius</option>
+                            <option value="5">5 miles</option>
+                            <option value="10">10 miles</option>
+                            <option value="15">15 miles</option>
+                            <option value="20">20 miles</option>
+                            <option value="30">30 miles</option>
+                            <option value="50">50 miles</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==============================
+                 SUBSCRIPTION
+            ============================== -->
+
+            <section class="section">
+
+                <h2 class="section-title">
+                    <span class="section-number">7</span>
+                    Choose Your Subscription
+                </h2>
+
+                <p class="section-description">
+                    Your subscription gives you access to available customer
+                    requests within your selected service area.
+                </p>
+
+                <div class="plans">
+
+                    <label class="plan">
+
+                        <input
+                            type="radio"
+                            name="plan"
+                            value="starter"
+                            required>
+
+                        <div class="plan-name">Starter</div>
+
+                        <div class="plan-price">
+                            $49 <small>/ month</small>
+                        </div>
+
+                        <ul>
+                            <li>Access to customer requests</li>
+                            <li>Service-area matching</li>
+                            <li>Job notifications</li>
+                            <li>Provider dashboard</li>
+                        </ul>
+
+                    </label>
+
+
+                    <label class="plan selected">
+
+                        <div class="popular">Popular</div>
+
+                        <input
+                            type="radio"
+                            name="plan"
+                            value="pro"
+                            checked
+                            required>
+
+                        <div class="plan-name">Pro</div>
+
+                        <div class="plan-price">
+                            $99 <small>/ month</small>
+                        </div>
+
+                        <ul>
+                            <li>Everything in Starter</li>
+                            <li>Expanded service area</li>
+                            <li>Priority job notifications</li>
+                            <li>Advanced provider tools</li>
+                        </ul>
+
+                    </label>
+
+
+                    <label class="plan">
+
+                        <input
+                            type="radio"
+                            name="plan"
+                            value="business"
+                            required>
+
+                        <div class="plan-name">Business</div>
+
+                        <div class="plan-price">
+                            $199 <small>/ month</small>
+                        </div>
+
+                        <ul>
+                            <li>Everything in Pro</li>
+                            <li>Larger service area</li>
+                            <li>Advanced marketplace tools</li>
+                            <li>Business account features</li>
+                        </ul>
+
+                    </label>
+
+                </div>
+
+                <div class="notice">
+                    <strong>Important:</strong>
+                    A subscription provides access to the World OIL marketplace.
+                    It does not guarantee a specific number of customer requests,
+                    appointments, or earnings.
+                </div>
+
+            </section>
+
+
+            <!-- ==============================
+                 PROVIDER RESPONSIBILITY
+            ============================== -->
+
+            <section class="section">
+
+                <h2 class="section-title">
+                    <span class="section-number">8</span>
+                    Provider Responsibilities
+                </h2>
+
+                <p class="section-description">
+                    Please read these requirements carefully before joining
+                    the World OIL marketplace.
+                </p>
+
+
+                <div class="info-box">
+
+                    <strong>World OIL Marketplace</strong><br><br>
+
+                    World OIL is a marketplace that connects customers with
+                    independent automotive service providers. World OIL does
+                    not perform the automotive repair service on behalf of the
+                    provider.
+
+                    <br><br>
+
+                    Providers are responsible for complying with all applicable
+                    federal, state, and local laws, licenses, registrations,
+                    insurance requirements, and professional requirements
+                    applicable to the services they provide.
+
+                    <br><br>
+
+                    Providers are responsible for the quality, safety, legality,
+                    and performance of the automotive services they personally
+                    perform for customers.
+                </div>
+
+
+                <div class="agreement">
+
+                    <div class="agreement-row">
+
+                        <input
+                            type="checkbox"
+                            id="responsibility"
+                            name="responsibility"
+                            required>
+
+                        <label for="responsibility">
+                            I understand that I am responsible for the automotive
+                            services I perform for customers through the World OIL
+                            marketplace, including maintaining all licenses,
+                            registrations, permits, insurance, training, and
+                            qualifications required for my business.
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="agreement">
+
+                    <div class="agreement-row">
+
+                        <input
+                            type="checkbox"
+                            id="independent"
+                            name="independent"
+                            required>
+
+                        <label for="independent">
+                            I understand that World OIL is a marketplace platform
+                            and that my relationship with World OIL is governed by
+                            the Provider Agreement and applicable law.
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="agreement">
+
+                    <div class="agreement-row">
+
+                        <input
+                            type="checkbox"
+                            id="customerPayment"
+                            name="customerPayment"
+                            required>
+
+                        <label for="customerPayment">
+                            I understand that World OIL does not collect payment
+                            from customers for the automotive repair service under
+                            this marketplace model. Customer service payments are
+                            handled directly between the customer and the service
+                            provider.
+                        </label>
+
+                    </div>
+
+                </div>
+
+
+                <div class="agreement">
+
+                    <div class="agreement-row">
+
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            name="terms"
+                            required>
+
+                        <label for="terms">
+                            I agree to the
+                            <a href="#" target="_blank">World OIL Provider Terms</a>,
+                            <a href="#" target="_blank">Privacy Policy</a>,
+                            and applicable marketplace rules.
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==============================
+                 SUBMIT
+            ============================== -->
+
+            <section class="submit-section">
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                    id="submitButton">
+
+                    Create Mechanic Account
+
+                </button>
+
+                <div class="secure-text">
+                    🔒 Your information is protected and used to create your
+                    World OIL provider account.
+                </div>
+
+            </section>
+
+        </form>
+
+
+        <!-- SUCCESS -->
+        <div class="success-message" id="successMessage">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+            <h2>Application Received</h2>
+
+            <p>
+                Thank you for applying to become a World OIL service provider.
+                Your information has been submitted for review. Once your
+                provider information is verified, you can begin receiving
+                available customer requests according to your selected plan.
+            </p>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    <strong>WORLD OIL</strong><br>
+
+    Marketplace connecting customers with independent automotive
+    service providers.
+
+    <br><br>
+
+    © 2026 World OIL. All rights reserved.
+
+</footer>
+
+
+<script>
+
+    /* ==========================================
+       SUBSCRIPTION PLAN VISUAL SELECTION
+    ========================================== */
+
+    const plans = document.querySelectorAll(".plan");
+
+    plans.forEach(plan => {
+
+        const radio = plan.querySelector("input[type='radio']");
+
+        radio.addEventListener("change", () => {
+
+            plans.forEach(item => {
+                item.classList.remove("selected");
+            });
+
+            if (radio.checked) {
+                plan.classList.add("selected");
+            }
+
+        });
+
+    });
+
+
+    /* ==========================================
+       PASSWORD VALIDATION
+    ========================================== */
+
+    const form = document.getElementById("mechanicForm");
+
+    form.addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+        const password =
+            document.getElementById("password").value;
+
+        const confirmPassword =
+            document.getElementById("confirmPassword").value;
+
+        if (password !== confirmPassword) {
+
+            alert("Your passwords do not match.");
+
+            document
+                .getElementById("confirmPassword")
+                .focus();
+
+            return;
+        }
+
+
+        if (password.length < 8) {
+
+            alert("Your password must contain at least 8 characters.");
+
+            document
+                .getElementById("password")
+                .focus();
+
+            return;
+        }
+
+
+        /*
+            FRONT-END DEMO ONLY
+
+            This is where the form would normally be sent
+            to your backend/API.
+
+            Example:
+
+            fetch("/api/providers/register", {
+                method: "POST",
+                body: new FormData(form)
+            });
+        */
+
+
+        document.getElementById("mechanicForm").style.display = "none";
+
+        document.getElementById("successMessage").style.display = "block";
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    });
+
+</script>
+
+</body>
+</html>
