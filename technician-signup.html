@@ -15,18 +15,17 @@
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
             background: #f5f6f8;
-            color: #171b21;
+            color: #151a20;
         }
 
         /* HEADER */
         header {
-            background: #11151a;
-            color: white;
+            background: #11161c;
             padding: 20px;
         }
 
         .header-inner {
-            max-width: 1050px;
+            max-width: 1000px;
             margin: auto;
             display: flex;
             justify-content: space-between;
@@ -34,6 +33,7 @@
         }
 
         .logo {
+            color: white;
             font-size: 25px;
             font-weight: 900;
             letter-spacing: 2px;
@@ -55,15 +55,15 @@
 
         /* HERO */
         .hero {
-            background: #11151a;
+            background: #11161c;
             color: white;
             text-align: center;
-            padding: 55px 20px;
+            padding: 50px 20px;
         }
 
         .hero h1 {
-            margin: 0 0 12px;
-            font-size: 42px;
+            margin: 0 0 10px;
+            font-size: 40px;
         }
 
         .hero h1 span {
@@ -71,30 +71,29 @@
         }
 
         .hero p {
-            max-width: 650px;
-            margin: auto;
-            color: #c7cdd3;
+            margin: 0 auto;
+            max-width: 600px;
+            color: #c8cdd2;
             line-height: 1.6;
-            font-size: 16px;
         }
 
-        /* MAIN */
+        /* CONTAINER */
         .container {
-            width: min(1000px, calc(100% - 30px));
+            width: min(850px, calc(100% - 30px));
             margin: 35px auto 70px;
         }
 
         .card {
             background: white;
-            border: 1px solid #e0e3e7;
             border-radius: 14px;
+            border: 1px solid #e0e3e7;
             box-shadow: 0 8px 30px rgba(0, 0, 0, .06);
             overflow: hidden;
         }
 
         .section {
             padding: 30px;
-            border-bottom: 1px solid #e7e9ec;
+            border-bottom: 1px solid #e6e9ec;
         }
 
         .section:last-child {
@@ -102,15 +101,15 @@
         }
 
         .section h2 {
-            margin: 0 0 7px;
-            font-size: 21px;
+            margin: 0 0 8px;
+            font-size: 22px;
         }
 
-        .section-description {
-            margin: 0 0 24px;
-            color: #737c85;
+        .description {
+            color: #707981;
             font-size: 14px;
             line-height: 1.6;
+            margin: 0 0 25px;
         }
 
         /* FORM */
@@ -130,36 +129,27 @@
         }
 
         label {
-            margin-bottom: 7px;
             font-size: 14px;
             font-weight: 700;
+            margin-bottom: 7px;
         }
 
         .required {
             color: #d93025;
         }
 
-        input,
-        select {
+        input {
             width: 100%;
             padding: 13px;
             border: 1px solid #ccd1d6;
             border-radius: 8px;
             font-size: 15px;
             outline: none;
-            background: white;
         }
 
-        input:focus,
-        select:focus {
+        input:focus {
             border-color: #f4b400;
             box-shadow: 0 0 0 3px rgba(244, 180, 0, .15);
-        }
-
-        .help {
-            margin-top: 6px;
-            font-size: 12px;
-            color: #7d858d;
         }
 
         /* PLANS */
@@ -172,15 +162,14 @@
         .plan {
             position: relative;
             border: 2px solid #dce1e5;
-            border-radius: 13px;
-            padding: 27px;
+            border-radius: 12px;
+            padding: 25px;
             cursor: pointer;
             transition: .2s;
         }
 
         .plan:hover {
             border-color: #f4b400;
-            transform: translateY(-2px);
         }
 
         .plan.selected {
@@ -202,19 +191,19 @@
         .price {
             font-size: 34px;
             font-weight: 900;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .price small {
             font-size: 13px;
+            color: #747c84;
             font-weight: normal;
-            color: #737b83;
         }
 
         .plan ul {
-            padding-left: 20px;
             margin: 0;
-            color: #5e6871;
+            padding-left: 20px;
+            color: #606970;
             font-size: 14px;
             line-height: 1.9;
         }
@@ -222,53 +211,41 @@
         .recommended {
             position: absolute;
             top: -12px;
-            right: 18px;
+            right: 15px;
             background: #f4b400;
-            color: #11151a;
+            color: #11161c;
             font-size: 10px;
             font-weight: 900;
             padding: 5px 9px;
             border-radius: 20px;
-            text-transform: uppercase;
         }
 
-        /* RESPONSIBILITY */
-        .notice {
-            padding: 18px;
-            background: #f7f8f9;
-            border: 1px solid #dfe3e7;
-            border-radius: 9px;
-            color: #59636c;
-            font-size: 13px;
-            line-height: 1.7;
-            margin-bottom: 18px;
-        }
-
-        .notice strong {
-            color: #222930;
-        }
-
-        .check {
+        /* TERMS */
+        .terms {
             display: flex;
-            align-items: flex-start;
             gap: 10px;
-            margin-top: 15px;
+            align-items: flex-start;
+            margin-top: 20px;
         }
 
-        .check input {
+        .terms input {
             width: auto;
-            margin-top: 4px;
+            margin-top: 3px;
             accent-color: #f4b400;
         }
 
-        .check label {
-            margin: 0;
+        .terms label {
+            font-size: 13px;
             font-weight: 500;
             line-height: 1.6;
-            font-size: 13px;
+            margin: 0;
         }
 
-        /* SUBMIT */
+        .terms a {
+            color: #1769aa;
+        }
+
+        /* BUTTON */
         .submit-section {
             padding: 30px;
             background: #fafbfc;
@@ -276,24 +253,24 @@
 
         button {
             width: 100%;
-            padding: 17px;
             border: none;
             border-radius: 9px;
+            padding: 17px;
             background: #f4b400;
-            color: #11151a;
+            color: #11161c;
             font-size: 17px;
             font-weight: 900;
             cursor: pointer;
         }
 
         button:hover {
-            background: #e2a600;
+            background: #dfa500;
         }
 
         .secure {
             text-align: center;
             margin-top: 12px;
-            color: #7b848c;
+            color: #7b838a;
             font-size: 12px;
         }
 
@@ -301,40 +278,39 @@
         .success {
             display: none;
             text-align: center;
-            padding: 70px 30px;
+            padding: 60px 25px;
         }
 
         .success-icon {
             width: 65px;
             height: 65px;
+            margin: 0 auto 20px;
             border-radius: 50%;
-            background: #e7f6ea;
-            color: #16833b;
+            background: #e5f5e9;
+            color: #16803a;
             display: grid;
             place-items: center;
-            margin: 0 auto 20px;
             font-size: 32px;
         }
 
         .success h2 {
-            margin-bottom: 10px;
+            margin: 0 0 10px;
         }
 
         .success p {
-            max-width: 600px;
+            max-width: 550px;
             margin: auto;
-            color: #69737c;
-            line-height: 1.7;
+            color: #6d767e;
+            line-height: 1.6;
         }
 
         /* FOOTER */
         footer {
-            background: #11151a;
-            color: #aab2ba;
+            background: #11161c;
+            color: #aab1b8;
             text-align: center;
             padding: 30px 20px;
             font-size: 12px;
-            line-height: 1.7;
         }
 
         footer strong {
@@ -378,6 +354,9 @@
 
 <body>
 
+
+<!-- HEADER -->
+
 <header>
 
     <div class="header-inner">
@@ -387,13 +366,15 @@
         </div>
 
         <a href="technician-login.html" class="login">
-            Already a provider? Sign in
+            Already have an account? Sign in
         </a>
 
     </div>
 
 </header>
 
+
+<!-- HERO -->
 
 <section class="hero">
 
@@ -402,32 +383,39 @@
     </h1>
 
     <p>
-        Create your provider account and get access to customer
-        service requests in your selected service area.
+        Create your technician account and choose the membership
+        plan that works best for you.
     </p>
 
 </section>
 
 
+<!-- MAIN -->
+
 <main class="container">
 
     <div class="card">
 
+
+        <!-- SIGN UP -->
+
         <form id="signupForm">
 
 
-            <!-- ACCOUNT INFORMATION -->
-
             <section class="section">
 
-                <h2>Account Information</h2>
+                <h2>
+                    Create Your Account
+                </h2>
 
-                <p class="section-description">
-                    Create the account you will use to access the
-                    World OIL provider marketplace.
+                <p class="description">
+                    Enter your information to create your World OIL
+                    technician account.
                 </p>
 
+
                 <div class="form-grid">
+
 
                     <div class="form-group">
 
@@ -461,10 +449,10 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group full">
 
                         <label for="email">
-                            Email <span class="required">*</span>
+                            Email Address <span class="required">*</span>
                         </label>
 
                         <input
@@ -510,7 +498,7 @@
                     </div>
 
 
-                    <div class="form-group">
+                    <div class="form-group full">
 
                         <label for="confirmPassword">
                             Confirm Password <span class="required">*</span>
@@ -521,179 +509,11 @@
                             id="confirmPassword"
                             name="confirmPassword"
                             minlength="8"
-                            placeholder="Re-enter password"
+                            placeholder="Re-enter your password"
                             required>
 
                     </div>
 
-                </div>
-
-            </section>
-
-
-            <!-- BUSINESS INFORMATION -->
-
-            <section class="section">
-
-                <h2>Business Information</h2>
-
-                <p class="section-description">
-                    Provide information about the automotive business
-                    that will provide services through World OIL.
-                </p>
-
-                <div class="form-grid">
-
-                    <div class="form-group full">
-
-                        <label for="businessName">
-                            Business Name <span class="required">*</span>
-                        </label>
-
-                        <input
-                            type="text"
-                            id="businessName"
-                            name="businessName"
-                            placeholder="ABC Mobile Auto"
-                            required>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="businessPhone">
-                            Business Phone
-                        </label>
-
-                        <input
-                            type="tel"
-                            id="businessPhone"
-                            name="businessPhone"
-                            placeholder="(555) 555-5555">
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="businessCity">
-                            Business City <span class="required">*</span>
-                        </label>
-
-                        <input
-                            type="text"
-                            id="businessCity"
-                            name="businessCity"
-                            placeholder="Los Angeles"
-                            required>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="ardNumber">
-                            BAR / ARD Number
-                        </label>
-
-                        <input
-                            type="text"
-                            id="ardNumber"
-                            name="ardNumber"
-                            placeholder="ARD123456">
-
-                        <div class="help">
-                            Enter your applicable Automotive Repair
-                            Dealer registration number.
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="licenseNumber">
-                            Business License Number
-                        </label>
-
-                        <input
-                            type="text"
-                            id="licenseNumber"
-                            name="licenseNumber"
-                            placeholder="License number">
-
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- SERVICE AREA -->
-
-            <section class="section">
-
-                <h2>Service Area</h2>
-
-                <p class="section-description">
-                    Choose where you want to receive available
-                    customer requests.
-                </p>
-
-                <div class="form-grid">
-
-                    <div class="form-group">
-
-                        <label for="serviceCity">
-                            Primary City <span class="required">*</span>
-                        </label>
-
-                        <input
-                            type="text"
-                            id="serviceCity"
-                            name="serviceCity"
-                            placeholder="Los Angeles"
-                            required>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="radius">
-                            Service Radius <span class="required">*</span>
-                        </label>
-
-                        <select id="radius" name="radius" required>
-
-                            <option value="">
-                                Select radius
-                            </option>
-
-                            <option value="5">
-                                5 miles
-                            </option>
-
-                            <option value="10">
-                                10 miles
-                            </option>
-
-                            <option value="20">
-                                20 miles
-                            </option>
-
-                            <option value="30">
-                                30 miles
-                            </option>
-
-                            <option value="50">
-                                50 miles
-                            </option>
-
-                        </select>
-
-                    </div>
 
                 </div>
 
@@ -704,25 +524,26 @@
 
             <section class="section">
 
-                <h2>Choose Your Membership</h2>
+                <h2>
+                    Choose Your Subscription
+                </h2>
 
-                <p class="section-description">
-                    Choose the World OIL membership that fits your
-                    business. Your membership provides access to
-                    available customer requests.
+                <p class="description">
+                    Select the membership you want to use to access
+                    available World OIL customer jobs.
                 </p>
 
 
                 <div class="plans">
 
 
-                    <!-- $149.99 -->
+                    <!-- STANDARD -->
 
                     <label class="plan">
 
                         <input
                             type="radio"
-                            name="plan"
+                            name="subscription"
                             value="149.99"
                             required>
 
@@ -736,27 +557,26 @@
                         </div>
 
                         <ul>
-                            <li>Access to customer requests</li>
+                            <li>Access to available customer jobs</li>
+                            <li>Customer job notifications</li>
                             <li>Standard service area</li>
-                            <li>Customer request notifications</li>
-                            <li>Provider dashboard</li>
-                            <li>Accept or decline available jobs</li>
+                            <li>Technician dashboard</li>
                         </ul>
 
                     </label>
 
 
-                    <!-- $200 -->
+                    <!-- PRIORITY -->
 
                     <label class="plan selected">
 
                         <div class="recommended">
-                            Recommended
+                            RECOMMENDED
                         </div>
 
                         <input
                             type="radio"
-                            name="plan"
+                            name="subscription"
                             value="200.00"
                             checked
                             required>
@@ -771,108 +591,29 @@
                         </div>
 
                         <ul>
-                            <li>Everything in Standard</li>
+                            <li>Access to available customer jobs</li>
+                            <li>Customer job notifications</li>
                             <li><strong>Expanded service area</strong></li>
                             <li><strong>Priority job notifications</strong></li>
-                            <li>More marketplace exposure</li>
-                            <li>Advanced provider tools</li>
                         </ul>
 
                     </label>
 
-                </div>
-
-
-                <div class="notice">
-
-                    <strong>Membership notice:</strong>
-
-                    A World OIL membership provides access to the
-                    marketplace. Membership does not guarantee a
-                    specific number of customer requests, appointments,
-                    jobs, or earnings.
 
                 </div>
 
             </section>
 
 
-            <!-- PROVIDER RESPONSIBILITY -->
+            <!-- TERMS -->
 
             <section class="section">
 
-                <h2>Provider Responsibility</h2>
+                <h2>
+                    Agreement
+                </h2>
 
-                <p class="section-description">
-                    Please review these important marketplace
-                    requirements before creating your account.
-                </p>
-
-
-                <div class="notice">
-
-                    <strong>World OIL Marketplace</strong><br><br>
-
-                    World OIL is a marketplace platform that connects
-                    customers with independent automotive service
-                    providers. World OIL does not perform the automotive
-                    repair service.
-
-                    <br><br>
-
-                    The provider is responsible for the automotive
-                    services they perform and for maintaining any
-                    licenses, registrations, permits, insurance,
-                    training, and qualifications required for their
-                    business and services.
-
-                    <br><br>
-
-                    Customer payment for automotive services is handled
-                    directly between the customer and the provider
-                    under the marketplace model.
-
-                </div>
-
-
-                <div class="check">
-
-                    <input
-                        type="checkbox"
-                        id="responsibility"
-                        required>
-
-                    <label for="responsibility">
-
-                        I understand that I am responsible for the
-                        automotive services I perform for customers
-                        through the World OIL marketplace.
-
-                    </label>
-
-                </div>
-
-
-                <div class="check">
-
-                    <input
-                        type="checkbox"
-                        id="licenses"
-                        required>
-
-                    <label for="licenses">
-
-                        I confirm that I will maintain all licenses,
-                        registrations, permits, insurance, and
-                        qualifications required for the services
-                        I provide.
-
-                    </label>
-
-                </div>
-
-
-                <div class="check">
+                <div class="terms">
 
                     <input
                         type="checkbox"
@@ -885,10 +626,9 @@
                         <a href="provider-terms.html">
                             World OIL Provider Terms
                         </a>
-                        and
-                        <a href="privacy.html">
-                            Privacy Policy
-                        </a>.
+                        and understand that my subscription provides
+                        access to the World OIL marketplace and does not
+                        guarantee a specific number of jobs or earnings.
 
                     </label>
 
@@ -902,14 +642,15 @@
             <section class="submit-section">
 
                 <button type="submit">
-                    Create Provider Account
+                    Create Technician Account
                 </button>
 
                 <div class="secure">
-                    🔒 Your information is securely submitted to World OIL.
+                    🔒 Your account information is securely submitted.
                 </div>
 
             </section>
+
 
         </form>
 
@@ -923,30 +664,31 @@
             </div>
 
             <h2>
-                Application Submitted
+                Account Created
             </h2>
 
             <p>
-                Your World OIL provider application has been received.
-                Your provider information may need to be reviewed and
-                verified before you can receive customer requests.
+                Your World OIL technician account has been created.
+                Your selected subscription is ready for activation.
             </p>
 
         </div>
+
 
     </div>
 
 </main>
 
 
+<!-- FOOTER -->
+
 <footer>
 
     <strong>WORLD OIL</strong>
 
-    <br>
+    <br><br>
 
-    Marketplace connecting customers with independent
-    automotive service providers.
+    Connecting customers with automotive service providers.
 
     <br><br>
 
@@ -957,9 +699,7 @@
 
 <script>
 
-    /* ==========================================
-       PLAN SELECTION
-    ========================================== */
+    /* PLAN SELECTION */
 
     const plans = document.querySelectorAll(".plan");
 
@@ -982,16 +722,13 @@
     });
 
 
-    /* ==========================================
-       FORM SUBMISSION
-    ========================================== */
+    /* FORM */
 
     document
         .getElementById("signupForm")
         .addEventListener("submit", function(event) {
 
             event.preventDefault();
-
 
             const password =
                 document.getElementById("password").value;
@@ -1009,7 +746,6 @@
                     .focus();
 
                 return;
-
             }
 
 
@@ -1018,22 +754,14 @@
                 alert("Password must contain at least 8 characters.");
 
                 return;
-
             }
 
 
             /*
-                DEMO ONLY
+                FRONT-END DEMO
 
-                Later this form can be connected to:
-
-                - Database
-                - User authentication
-                - Stripe subscription
-                - Provider verification
-                - BAR verification
-                - Insurance verification
-                - Email verification
+                Later connect this form to your backend
+                and payment system.
             */
 
 
