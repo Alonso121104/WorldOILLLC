@@ -19,625 +19,381 @@
             box-sizing: border-box;
         }
 
-
         body {
             margin: 0;
-
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-
+            font-family: Arial, Helvetica, sans-serif;
             background: #f5f6f8;
-
             color: #151a20;
         }
 
-
-        /* ================================
-           HEADER
-        ================================ */
+        /* HEADER */
 
         header {
             background: #11161c;
-
             padding: 20px;
         }
 
-
         .header-inner {
             max-width: 1000px;
-
             margin: auto;
-
             display: flex;
-
             justify-content: space-between;
-
             align-items: center;
         }
 
-
         .logo {
             color: white;
-
             font-size: 25px;
-
             font-weight: 900;
-
             letter-spacing: 2px;
         }
-
 
         .logo span {
             color: #f4b400;
         }
 
-
         .login {
             color: white;
-
             text-decoration: none;
-
             font-size: 14px;
         }
-
 
         .login:hover {
             text-decoration: underline;
         }
 
-
-        /* ================================
-           HERO
-        ================================ */
+        /* HERO */
 
         .hero {
             background: #11161c;
-
             color: white;
-
             text-align: center;
-
             padding: 50px 20px;
         }
 
-
         .hero h1 {
             margin: 0 0 10px;
-
             font-size: 40px;
         }
-
 
         .hero h1 span {
             color: #f4b400;
         }
 
-
         .hero p {
             margin: 0 auto;
-
             max-width: 600px;
-
             color: #c8cdd2;
-
             line-height: 1.6;
         }
 
-
-        /* ================================
-           CONTAINER
-        ================================ */
+        /* CONTAINER */
 
         .container {
-            width: min(
-                850px,
-                calc(100% - 30px)
-            );
-
+            width: min(850px, calc(100% - 30px));
             margin: 35px auto 70px;
         }
 
-
         .card {
             background: white;
-
             border-radius: 14px;
-
             border: 1px solid #e0e3e7;
-
-            box-shadow:
-                0 8px 30px rgba(
-                    0,
-                    0,
-                    0,
-                    .06
-                );
-
+            box-shadow: 0 8px 30px rgba(0, 0, 0, .06);
             overflow: hidden;
         }
 
-
         .section {
             padding: 30px;
-
-            border-bottom:
-                1px solid #e6e9ec;
+            border-bottom: 1px solid #e6e9ec;
         }
-
 
         .section:last-child {
             border-bottom: none;
         }
 
-
         .section h2 {
             margin: 0 0 8px;
-
             font-size: 22px;
         }
 
-
         .description {
             color: #707981;
-
             font-size: 14px;
-
             line-height: 1.6;
-
             margin: 0 0 25px;
         }
 
-
-        /* ================================
-           FORM
-        ================================ */
+        /* FORM */
 
         .form-grid {
             display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
+            grid-template-columns: 1fr 1fr;
             gap: 18px;
         }
 
-
         .form-group {
             display: flex;
-
             flex-direction: column;
         }
 
-
         .full {
-            grid-column:
-                1 / -1;
+            grid-column: 1 / -1;
         }
-
 
         label {
             font-size: 14px;
-
             font-weight: 700;
-
             margin-bottom: 7px;
         }
-
 
         .required {
             color: #d93025;
         }
 
-
         input {
             width: 100%;
-
             padding: 13px;
-
-            border:
-                1px solid #ccd1d6;
-
+            border: 1px solid #ccd1d6;
             border-radius: 8px;
-
             font-size: 15px;
-
             outline: none;
         }
 
-
         input:focus {
             border-color: #f4b400;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(
-                    244,
-                    180,
-                    0,
-                    .15
-                );
+            box-shadow: 0 0 0 3px rgba(244, 180, 0, .15);
         }
 
-
-        /* ================================
-           PLANS
-        ================================ */
+        /* PLANS */
 
         .plans {
             display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
 
-
         .plan {
             position: relative;
-
-            border:
-                2px solid #dce1e5;
-
+            border: 2px solid #dce1e5;
             border-radius: 12px;
-
             padding: 25px;
-
             cursor: pointer;
-
             transition: .2s;
         }
 
-
         .plan:hover {
-            border-color:
-                #f4b400;
+            border-color: #f4b400;
         }
-
 
         .plan.selected {
-            border-color:
-                #f4b400;
-
-            background:
-                #fffdf5;
+            border-color: #f4b400;
+            background: #fffdf5;
         }
-
 
         .plan input {
             position: absolute;
-
             opacity: 0;
-
             pointer-events: none;
         }
 
-
         .plan-name {
             font-size: 20px;
-
             font-weight: 900;
-
             margin-bottom: 8px;
         }
 
-
         .price {
             font-size: 34px;
-
             font-weight: 900;
-
             margin-bottom: 18px;
         }
 
-
         .price small {
             font-size: 13px;
-
             color: #747c84;
-
             font-weight: normal;
         }
 
-
         .plan ul {
             margin: 0;
-
             padding-left: 20px;
-
             color: #606970;
-
             font-size: 14px;
-
             line-height: 1.9;
         }
 
-
         .recommended {
             position: absolute;
-
             top: -12px;
-
             right: 15px;
-
-            background:
-                #f4b400;
-
-            color:
-                #11161c;
-
+            background: #f4b400;
+            color: #11161c;
             font-size: 10px;
-
             font-weight: 900;
-
             padding: 5px 9px;
-
             border-radius: 20px;
         }
 
-
-        /* ================================
-           TERMS
-        ================================ */
+        /* TERMS */
 
         .terms {
             display: flex;
-
             gap: 10px;
-
-            align-items:
-                flex-start;
-
+            align-items: flex-start;
             margin-top: 20px;
         }
 
-
         .terms input {
             width: auto;
-
             margin-top: 3px;
-
-            accent-color:
-                #f4b400;
+            accent-color: #f4b400;
         }
-
 
         .terms label {
             font-size: 13px;
-
             font-weight: 500;
-
             line-height: 1.6;
-
             margin: 0;
         }
-
 
         .terms a {
             color: #1769aa;
         }
 
-
-        /* ================================
-           MESSAGE
-        ================================ */
+        /* MESSAGE */
 
         #message {
             display: none;
-
             margin-top: 15px;
-
             padding: 13px;
-
             border-radius: 8px;
-
             font-size: 14px;
-
             line-height: 1.5;
-
             text-align: center;
-
             font-weight: 700;
         }
 
-
         #message.error {
             display: block;
-
             color: #b00020;
-
             background: #ffe5e5;
         }
 
-
         #message.success {
             display: block;
-
             color: #146c2e;
-
             background: #e5f7e9;
         }
 
-
         #message.loading {
             display: block;
-
             color: #444;
-
             background: #eeeeee;
         }
 
-
-        /* ================================
-           BUTTON
-        ================================ */
+        /* BUTTON */
 
         .submit-section {
             padding: 30px;
-
-            background:
-                #fafbfc;
+            background: #fafbfc;
         }
-
 
         button {
             font-family: inherit;
         }
 
-
         #submitButton {
             width: 100%;
-
             border: none;
-
             border-radius: 9px;
-
             padding: 17px;
-
-            background:
-                #f4b400;
-
-            color:
-                #11161c;
-
+            background: #f4b400;
+            color: #11161c;
             font-size: 17px;
-
             font-weight: 900;
-
             cursor: pointer;
         }
 
-
         #submitButton:hover {
-            background:
-                #dfa500;
+            background: #dfa500;
         }
-
 
         #submitButton:disabled {
             opacity: .65;
-
-            cursor:
-                not-allowed;
+            cursor: not-allowed;
         }
-
 
         .secure {
             text-align: center;
-
             margin-top: 12px;
-
             color: #7b838a;
-
             font-size: 12px;
         }
 
-
-        /* ================================
-           SUCCESS
-        ================================ */
+        /* SUCCESS */
 
         .success {
             display: none;
-
             text-align: center;
-
             padding: 60px 25px;
         }
 
-
         .success-icon {
             width: 65px;
-
             height: 65px;
-
             margin: 0 auto 20px;
-
             border-radius: 50%;
-
-            background:
-                #e5f5e9;
-
-            color:
-                #16803a;
-
+            background: #e5f5e9;
+            color: #16803a;
             display: grid;
-
             place-items: center;
-
             font-size: 32px;
         }
-
 
         .success h2 {
             margin: 0 0 10px;
         }
 
-
         .success p {
             max-width: 550px;
-
             margin: auto;
-
             color: #6d767e;
-
             line-height: 1.6;
         }
 
-
         .payment-button {
             display: inline-block;
-
             margin-top: 25px;
-
             padding: 14px 25px;
-
             border-radius: 8px;
-
-            background:
-                #f4b400;
-
-            color:
-                #11161c;
-
+            background: #f4b400;
+            color: #11161c;
             font-weight: 900;
-
             text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
         }
 
+        .payment-button:hover {
+            background: #dfa500;
+        }
 
-        /* ================================
-           FOOTER
-        ================================ */
+        /* FOOTER */
 
         footer {
-            background:
-                #11161c;
-
-            color:
-                #aab1b8;
-
-            text-align:
-                center;
-
-            padding:
-                30px 20px;
-
-            font-size:
-                12px;
+            background: #11161c;
+            color: #aab1b8;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 12px;
         }
-
 
         footer strong {
             color: white;
         }
 
-
-        /* ================================
-           MOBILE
-        ================================ */
+        /* MOBILE */
 
         @media (max-width: 700px) {
 
@@ -645,35 +401,26 @@
                 font-size: 32px;
             }
 
-
             .form-grid {
-                grid-template-columns:
-                    1fr;
+                grid-template-columns: 1fr;
             }
-
 
             .full {
-                grid-column:
-                    auto;
+                grid-column: auto;
             }
-
 
             .plans {
-                grid-template-columns:
-                    1fr;
+                grid-template-columns: 1fr;
             }
-
 
             .section,
             .submit-section {
                 padding: 22px;
             }
 
-
             .header-inner {
                 gap: 15px;
             }
-
 
             .login {
                 font-size: 12px;
@@ -689,10 +436,6 @@
 <body>
 
 
-<!-- =========================================
-     HEADER
-========================================= -->
-
 <header>
 
     <div class="header-inner">
@@ -700,7 +443,6 @@
         <div class="logo">
             WORLD <span>OIL</span>
         </div>
-
 
         <a
             href="tech_login.html"
@@ -714,16 +456,11 @@
 </header>
 
 
-<!-- =========================================
-     HERO
-========================================= -->
-
 <section class="hero">
 
     <h1>
         Join <span>World OIL</span>
     </h1>
-
 
     <p>
         Create your technician account and choose
@@ -733,18 +470,10 @@
 </section>
 
 
-<!-- =========================================
-     MAIN
-========================================= -->
-
 <main class="container">
 
     <div class="card">
 
-
-        <!-- =====================================
-             SIGNUP FORM
-        ====================================== -->
 
         <form id="signupForm">
 
@@ -756,7 +485,6 @@
                 <h2>
                     Create Your Account
                 </h2>
-
 
                 <p class="description">
                     Enter your information to create
@@ -770,14 +498,9 @@
                     <div class="form-group">
 
                         <label for="firstName">
-
                             First Name
-                            <span class="required">
-                                *
-                            </span>
-
+                            <span class="required">*</span>
                         </label>
-
 
                         <input
                             type="text"
@@ -793,14 +516,9 @@
                     <div class="form-group">
 
                         <label for="lastName">
-
                             Last Name
-                            <span class="required">
-                                *
-                            </span>
-
+                            <span class="required">*</span>
                         </label>
-
 
                         <input
                             type="text"
@@ -816,14 +534,9 @@
                     <div class="form-group full">
 
                         <label for="email">
-
                             Email Address
-                            <span class="required">
-                                *
-                            </span>
-
+                            <span class="required">*</span>
                         </label>
-
 
                         <input
                             type="email"
@@ -839,14 +552,9 @@
                     <div class="form-group">
 
                         <label for="phone">
-
                             Phone Number
-                            <span class="required">
-                                *
-                            </span>
-
+                            <span class="required">*</span>
                         </label>
-
 
                         <input
                             type="tel"
@@ -862,14 +570,9 @@
                     <div class="form-group">
 
                         <label for="password">
-
                             Password
-                            <span class="required">
-                                *
-                            </span>
-
+                            <span class="required">*</span>
                         </label>
-
 
                         <input
                             type="password"
@@ -886,14 +589,9 @@
                     <div class="form-group full">
 
                         <label for="confirmPassword">
-
                             Confirm Password
-                            <span class="required">
-                                *
-                            </span>
-
+                            <span class="required">*</span>
                         </label>
-
 
                         <input
                             type="password"
@@ -912,9 +610,7 @@
             </section>
 
 
-            <!-- =================================
-                 SUBSCRIPTION
-            ================================== -->
+            <!-- SUBSCRIPTION -->
 
             <section class="section">
 
@@ -922,13 +618,10 @@
                     Choose Your Subscription
                 </h2>
 
-
                 <p class="description">
-
-                    Select the membership you want
-                    to use to access available
-                    World OIL customer jobs.
-
+                    Your subscription gives you access
+                    to the World OIL marketplace and
+                    available customer oil-change offers.
                 </p>
 
 
@@ -947,22 +640,14 @@
                             required
                         >
 
-
                         <div class="plan-name">
                             Standard
                         </div>
 
-
                         <div class="price">
-
                             $149.99
-
-                            <small>
-                                / month
-                            </small>
-
+                            <small>/ month</small>
                         </div>
-
 
                         <ul>
 
@@ -989,14 +674,11 @@
 
                     <!-- PRIORITY -->
 
-                    <label
-                        class="plan selected"
-                    >
+                    <label class="plan selected">
 
                         <div class="recommended">
                             RECOMMENDED
                         </div>
-
 
                         <input
                             type="radio"
@@ -1007,22 +689,14 @@
                             required
                         >
 
-
                         <div class="plan-name">
                             Priority
                         </div>
 
-
                         <div class="price">
-
                             $200.00
-
-                            <small>
-                                / month
-                            </small>
-
+                            <small>/ month</small>
                         </div>
-
 
                         <ul>
 
@@ -1056,9 +730,7 @@
             </section>
 
 
-            <!-- =================================
-                 AGREEMENT
-            ================================== -->
+            <!-- AGREEMENT -->
 
             <section class="section">
 
@@ -1074,7 +746,6 @@
                         id="terms"
                         required
                     >
-
 
                     <label for="terms">
 
@@ -1106,9 +777,7 @@
             </section>
 
 
-            <!-- =================================
-                 SUBMIT
-            ================================== -->
+            <!-- SUBMIT -->
 
             <section class="submit-section">
 
@@ -1119,12 +788,9 @@
                     Create Technician Account
                 </button>
 
-
                 <div class="secure">
-
                     🔒 Your account information
                     is securely submitted.
-
                 </div>
 
             </section>
@@ -1133,9 +799,7 @@
         </form>
 
 
-        <!-- =====================================
-             SUCCESS
-        ====================================== -->
+        <!-- SUCCESS -->
 
         <div
             class="success"
@@ -1146,11 +810,9 @@
                 ✓
             </div>
 
-
             <h2>
                 Account Created
             </h2>
-
 
             <p>
 
@@ -1167,26 +829,19 @@
 
                 <br><br>
 
-                Your account is currently waiting
-                for subscription payment.
+                Click below to securely complete
+                your monthly subscription payment.
 
             </p>
 
 
-            <!--
-
-                THIS WILL BE CONNECTED TO STRIPE
-                IN THE NEXT STEP.
-
-            -->
-
-            <a
+            <button
                 id="paymentButton"
                 class="payment-button"
-                href="#"
+                type="button"
             >
                 Continue to Payment
-            </a>
+            </button>
 
         </div>
 
@@ -1196,26 +851,18 @@
 </main>
 
 
-<!-- =========================================
-     FOOTER
-========================================= -->
-
 <footer>
 
     <strong>
         WORLD OIL
     </strong>
 
-
     <br><br>
-
 
     Connecting customers with
     automotive service providers.
 
-
     <br><br>
-
 
     © 2026 World OIL.
     All rights reserved.
@@ -1223,265 +870,517 @@
 </footer>
 
 
-<!-- =========================================
-     FIREBASE
-========================================= -->
-
 <script type="module">
 
 
-    /* =========================================
-       FIREBASE IMPORTS
-    ========================================= */
+/* =========================================
+   FIREBASE IMPORTS
+========================================= */
 
-    import {
-        initializeApp
-    }
-    from
-        "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
-
-    import {
-        getAuth,
-        createUserWithEmailAndPassword,
-        updateProfile
-    }
-    from
-        "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+import {
+    initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
 
-    import {
-        getFirestore,
-        doc,
-        setDoc,
-        serverTimestamp
-    }
-    from
-        "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    updateProfile
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
 
-    /* =========================================
-       FIREBASE CONFIG
-    ========================================= */
-
-    const firebaseConfig = {
-
-        apiKey:
-            "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
-
-        authDomain:
-            "worldoilllc.firebaseapp.com",
-
-        projectId:
-            "worldoilllc",
-
-        storageBucket:
-            "worldoilllc.firebasestorage.app",
-
-        messagingSenderId:
-            "769325331754",
-
-        appId:
-            "1:769325331754:web:234d7c3ffa9a6424779a53",
-
-        measurementId:
-            "G-3DFP2FFYN0"
-
-    };
+import {
+    getFirestore,
+    doc,
+    setDoc,
+    serverTimestamp
+}
+from
+"https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-    /* =========================================
-       INITIALIZE FIREBASE
-    ========================================= */
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
 
-    const app =
-        initializeApp(
-            firebaseConfig
-        );
+const firebaseConfig = {
 
+    apiKey:
+        "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
 
-    const auth =
-        getAuth(app);
+    authDomain:
+        "worldoilllc.firebaseapp.com",
 
+    projectId:
+        "worldoilllc",
 
-    const db =
-        getFirestore(app);
+    storageBucket:
+        "worldoilllc.firebasestorage.app",
 
+    messagingSenderId:
+        "769325331754",
 
-    /* =========================================
-       ELEMENTS
-    ========================================= */
+    appId:
+        "1:769325331754:web:234d7c3ffa9a6424779a53",
 
-    const form =
-        document.getElementById(
-            "signupForm"
-        );
+    measurementId:
+        "G-3DFP2FFYN0"
 
-
-    const submitButton =
-        document.getElementById(
-            "submitButton"
-        );
+};
 
 
-    const message =
-        document.getElementById(
-            "message"
-        );
+/* =========================================
+   INITIALIZE FIREBASE
+========================================= */
+
+const app =
+    initializeApp(firebaseConfig);
 
 
-    const successMessage =
-        document.getElementById(
-            "successMessage"
-        );
+const auth =
+    getAuth(app);
 
 
-    const selectedPlanText =
-        document.getElementById(
-            "selectedPlanText"
-        );
+const db =
+    getFirestore(app);
 
 
-    const paymentButton =
-        document.getElementById(
-            "paymentButton"
-        );
+/* =========================================
+   ELEMENTS
+========================================= */
+
+const form =
+    document.getElementById("signupForm");
 
 
-    const plans =
-        document.querySelectorAll(
-            ".plan"
-        );
+const submitButton =
+    document.getElementById("submitButton");
 
 
-    /* =========================================
-       PLAN SELECTION
-    ========================================= */
+const message =
+    document.getElementById("message");
 
-    plans.forEach(
-        function(plan) {
 
-            const radio =
-                plan.querySelector(
-                    "input"
+const successMessage =
+    document.getElementById("successMessage");
+
+
+const selectedPlanText =
+    document.getElementById("selectedPlanText");
+
+
+const paymentButton =
+    document.getElementById("paymentButton");
+
+
+const plans =
+    document.querySelectorAll(".plan");
+
+
+/*
+    IMPORTANT:
+
+    This is your deployed Firebase
+    createCheckoutSession function.
+*/
+
+const CHECKOUT_FUNCTION_URL =
+    "https://createcheckoutsession-j7bwecnq5a-uc.a.run.app";
+
+
+/* =========================================
+   PLAN SELECTION
+========================================= */
+
+plans.forEach(function(plan) {
+
+    const radio =
+        plan.querySelector("input");
+
+
+    radio.addEventListener(
+        "change",
+        function() {
+
+            plans.forEach(function(item) {
+
+                item.classList.remove(
+                    "selected"
                 );
 
-
-            radio.addEventListener(
-                "change",
-                function() {
-
-                    plans.forEach(
-                        function(item) {
-
-                            item.classList.remove(
-                                "selected"
-                            );
-
-                        }
-                    );
+            });
 
 
-                    if (
-                        radio.checked
-                    ) {
+            if (radio.checked) {
 
-                        plan.classList.add(
-                            "selected"
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-    );
-
-
-    /* =========================================
-       MESSAGE
-    ========================================= */
-
-    function showMessage(
-        text,
-        type
-    ) {
-
-        message.textContent =
-            text;
-
-        message.className =
-            type || "";
-
-    }
-
-
-    /* =========================================
-       FIREBASE ERROR MESSAGE
-    ========================================= */
-
-    function firebaseErrorMessage(
-        error
-    ) {
-
-        console.error(
-            "Firebase error:",
-            error
-        );
-
-
-        switch (
-            error.code
-        ) {
-
-            case
-                "auth/email-already-in-use":
-
-                return "An account with this email already exists.";
-
-            case
-                "auth/invalid-email":
-
-                return "Please enter a valid email address.";
-
-            case
-                "auth/weak-password":
-
-                return "Your password is too weak. Please use a stronger password.";
-
-            case
-                "auth/operation-not-allowed":
-
-                return "Email/password sign-up is not enabled in Firebase Authentication.";
-
-            case
-                "auth/network-request-failed":
-
-                return "Network error. Please check your internet connection.";
-
-            default:
-
-                return (
-                    error.message ||
-                    "Unable to create your account."
+                plan.classList.add(
+                    "selected"
                 );
 
             }
 
+        }
+    );
+
+});
+
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showMessage(
+    text,
+    type
+) {
+
+    message.textContent =
+        text;
+
+    message.className =
+        type || "";
+
+}
+
+
+/* =========================================
+   FIREBASE ERROR
+========================================= */
+
+function firebaseErrorMessage(error) {
+
+    console.error(
+        "Firebase error:",
+        error
+    );
+
+
+    switch (error.code) {
+
+        case "auth/email-already-in-use":
+
+            return "An account with this email already exists. Please sign in instead.";
+
+        case "auth/invalid-email":
+
+            return "Please enter a valid email address.";
+
+        case "auth/weak-password":
+
+            return "Your password is too weak. Please use at least 8 characters.";
+
+        case "auth/operation-not-allowed":
+
+            return "Email/password sign-up is not enabled in Firebase Authentication.";
+
+        case "auth/network-request-failed":
+
+            return "Network error. Please check your internet connection.";
+
+        default:
+
+            return (
+                error.message ||
+                "Unable to create your account."
+            );
+
     }
 
+}
 
-    /* =========================================
-       FORM SUBMISSION
-    ========================================= */
 
-    form.addEventListener(
-        "submit",
-        async function(event) {
+/* =========================================
+   FORM SUBMISSION
+========================================= */
 
-            event.preventDefault();
+form.addEventListener(
+    "submit",
+    async function(event) {
 
+        event.preventDefault();
+
+
+        showMessage(
+            "",
+            ""
+        );
+
+
+        /* GET VALUES */
+
+        const firstName =
+            document
+                .getElementById("firstName")
+                .value
+                .trim();
+
+
+        const lastName =
+            document
+                .getElementById("lastName")
+                .value
+                .trim();
+
+
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim()
+                .toLowerCase();
+
+
+        const phone =
+            document
+                .getElementById("phone")
+                .value
+                .trim();
+
+
+        const password =
+            document
+                .getElementById("password")
+                .value;
+
+
+        const confirmPassword =
+            document
+                .getElementById("confirmPassword")
+                .value;
+
+
+        const terms =
+            document
+                .getElementById("terms");
+
+
+        const selectedSubscription =
+            document.querySelector(
+                'input[name="subscription"]:checked'
+            );
+
+
+        /* VALIDATION */
+
+        if (
+            !firstName ||
+            !lastName ||
+            !email ||
+            !phone ||
+            !password ||
+            !confirmPassword
+        ) {
+
+            showMessage(
+                "Please fill out all required fields.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (password.length < 8) {
+
+            showMessage(
+                "Password must contain at least 8 characters.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            password !==
+            confirmPassword
+        ) {
+
+            showMessage(
+                "Passwords do not match.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!selectedSubscription) {
+
+            showMessage(
+                "Please choose a subscription plan.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!terms.checked) {
+
+            showMessage(
+                "You must agree to the Provider Terms.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* PLAN */
+
+        const plan =
+            selectedSubscription.value;
+
+
+        const price =
+            selectedSubscription.dataset.price;
+
+
+        const planName =
+            plan === "priority"
+                ? "Priority"
+                : "Standard";
+
+
+        /* DISABLE BUTTON */
+
+        submitButton.disabled =
+            true;
+
+
+        submitButton.textContent =
+            "Creating Account...";
+
+
+        showMessage(
+            "Creating your technician account...",
+            "loading"
+        );
+
+
+        try {
+
+
+            /* =================================
+               CREATE FIREBASE ACCOUNT
+            ================================= */
+
+            const userCredential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+            const user =
+                userCredential.user;
+
+
+            /* =================================
+               SET DISPLAY NAME
+            ================================= */
+
+            await updateProfile(
+                user,
+                {
+                    displayName:
+                        `${firstName} ${lastName}`
+                }
+            );
+
+
+            /* =================================
+               SAVE TECHNICIAN
+            ================================= */
+
+            await setDoc(
+                doc(
+                    db,
+                    "technicians",
+                    user.uid
+                ),
+                {
+
+                    uid:
+                        user.uid,
+
+                    firstName:
+                        firstName,
+
+                    lastName:
+                        lastName,
+
+                    email:
+                        email,
+
+                    phone:
+                        phone,
+
+                    plan:
+                        plan,
+
+                    planName:
+                        planName,
+
+                    monthlyPrice:
+                        Number(price),
+
+                    subscriptionStatus:
+                        "pending_payment",
+
+                    marketplaceAccess:
+                        false,
+
+                    priorityNotifications:
+                        plan === "priority",
+
+                    expandedServiceArea:
+                        plan === "priority",
+
+                    createdAt:
+                        serverTimestamp()
+
+                }
+            );
+
+
+            /* =================================
+               SHOW PAYMENT STEP
+            ================================= */
+
+            selectedPlanText.textContent =
+                `${planName} — $${price}/month`;
+
+
+            form.style.display =
+                "none";
+
+
+            successMessage.style.display =
+                "block";
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+
+            /*
+                Clear the message because
+                the account has been created.
+            */
 
             showMessage(
                 "",
@@ -1489,351 +1388,155 @@
             );
 
 
-            /* ---------------------------------
-               GET VALUES
-            --------------------------------- */
+            /* =================================
+               STRIPE PAYMENT BUTTON
+            ================================= */
 
-            const firstName =
-                document
-                    .getElementById(
-                        "firstName"
-                    )
-                    .value
-                    .trim();
+            paymentButton.onclick =
+                async function() {
 
 
-            const lastName =
-                document
-                    .getElementById(
-                        "lastName"
-                    )
-                    .value
-                    .trim();
+                    paymentButton.disabled =
+                        true;
 
 
-            const email =
-                document
-                    .getElementById(
-                        "email"
-                    )
-                    .value
-                    .trim()
-                    .toLowerCase();
+                    paymentButton.textContent =
+                        "Opening Payment...";
 
 
-            const phone =
-                document
-                    .getElementById(
-                        "phone"
-                    )
-                    .value
-                    .trim();
+                    try {
 
 
-            const password =
-                document
-                    .getElementById(
-                        "password"
-                    )
-                    .value;
+                        const response =
+                            await fetch(
+                                CHECKOUT_FUNCTION_URL,
+                                {
+
+                                    method:
+                                        "POST",
+
+                                    headers:
+                                        {
+                                            "Content-Type":
+                                                "application/json"
+                                        },
+
+                                    body:
+                                        JSON.stringify(
+                                            {
+
+                                                uid:
+                                                    user.uid,
+
+                                                email:
+                                                    email,
+
+                                                plan:
+                                                    plan
+
+                                            }
+                                        )
+
+                                }
+                            );
 
 
-            const confirmPassword =
-                document
-                    .getElementById(
-                        "confirmPassword"
-                    )
-                    .value;
+                        const data =
+                            await response.json();
 
 
-            const terms =
-                document
-                    .getElementById(
-                        "terms"
-                    );
+                        console.log(
+                            "Checkout response:",
+                            data
+                        );
 
 
-            const selectedSubscription =
-                document.querySelector(
-                    'input[name="subscription"]:checked'
-                );
+                        if (!response.ok) {
+
+                            throw new Error(
+                                data.error ||
+                                "Unable to create Stripe payment session."
+                            );
+
+                        }
 
 
-            /* ---------------------------------
-               VALIDATION
-            --------------------------------- */
+                        if (!data.url) {
 
-            if (
-                !firstName ||
-                !lastName ||
-                !email ||
-                !phone ||
-                !password ||
-                !confirmPassword
-            ) {
+                            throw new Error(
+                                "Stripe Checkout URL was not returned."
+                            );
 
-                showMessage(
-                    "Please fill out all required fields.",
-                    "error"
-                );
-
-                return;
-
-            }
+                        }
 
 
-            if (
-                password.length < 8
-            ) {
+                        /*
+                            SEND TECHNICIAN
+                            TO STRIPE
+                        */
 
-                showMessage(
-                    "Password must contain at least 8 characters.",
-                    "error"
-                );
-
-                return;
-
-            }
+                        window.location.href =
+                            data.url;
 
 
-            if (
-                password !==
-                confirmPassword
-            ) {
+                    }
+                    catch (paymentError) {
 
-                showMessage(
-                    "Passwords do not match.",
-                    "error"
-                );
-
-                return;
-
-            }
+                        console.error(
+                            "Stripe payment error:",
+                            paymentError
+                        );
 
 
-            if (
-                !selectedSubscription
-            ) {
-
-                showMessage(
-                    "Please choose a subscription plan.",
-                    "error"
-                );
-
-                return;
-
-            }
+                        paymentButton.disabled =
+                            false;
 
 
-            if (
-                !terms.checked
-            ) {
-
-                showMessage(
-                    "You must agree to the Provider Terms.",
-                    "error"
-                );
-
-                return;
-
-            }
+                        paymentButton.textContent =
+                            "Continue to Payment";
 
 
-            /* ---------------------------------
-               PLAN
-            --------------------------------- */
+                        alert(
+                            paymentError.message ||
+                            "Unable to open payment. Please try again."
+                        );
 
-            const plan =
-                selectedSubscription.value;
+                    }
 
-
-            const price =
-                selectedSubscription.dataset.price;
+                };
 
 
-            const planName =
-                plan === "priority"
-                    ? "Priority"
-                    : "Standard";
+        }
+        catch (error) {
 
 
-            /* ---------------------------------
-               DISABLE BUTTON
-            --------------------------------- */
-
-            submitButton.disabled =
-                true;
-
-
-            submitButton.textContent =
-                "Creating Account...";
-
-
-            showMessage(
-                "Creating your technician account...",
-                "loading"
+            console.error(
+                "Account creation error:",
+                error
             );
 
 
-            try {
+            showMessage(
+                firebaseErrorMessage(error),
+                "error"
+            );
 
 
-                /* =============================
-                   CREATE FIREBASE AUTH USER
-                ============================= */
-
-                const userCredential =
-                    await createUserWithEmailAndPassword(
-                        auth,
-                        email,
-                        password
-                    );
+            submitButton.disabled =
+                false;
 
 
-                const user =
-                    userCredential.user;
-
-
-                /* =============================
-                   SET DISPLAY NAME
-                ============================= */
-
-                await updateProfile(
-                    user,
-                    {
-                        displayName:
-                            `${firstName} ${lastName}`
-                    }
-                );
-
-
-                /* =============================
-                   SAVE TECHNICIAN
-                   TO FIRESTORE
-                ============================= */
-
-                await setDoc(
-                    doc(
-                        db,
-                        "technicians",
-                        user.uid
-                    ),
-                    {
-
-                        uid:
-                            user.uid,
-
-                        firstName:
-                            firstName,
-
-                        lastName:
-                            lastName,
-
-                        email:
-                            email,
-
-                        phone:
-                            phone,
-
-                        plan:
-                            plan,
-
-                        planName:
-                            planName,
-
-                        monthlyPrice:
-                            Number(price),
-
-                        subscriptionStatus:
-                            "pending_payment",
-
-                        marketplaceAccess:
-                            false,
-
-                        priorityNotifications:
-                            plan === "priority",
-
-                        expandedServiceArea:
-                            plan === "priority",
-
-                        createdAt:
-                            serverTimestamp()
-
-                    }
-                );
-
-
-                /* =============================
-                   SHOW SUCCESS
-                ============================= */
-
-                selectedPlanText.textContent =
-                    `${planName} — $${price}/month`;
-
-
-                /*
-                    PAYMENT URL IS INTENTIONALLY
-                    NOT HARD-CODED YET.
-
-                    We will connect this button
-                    to your Stripe Checkout endpoint.
-                */
-
-                paymentButton.href =
-                    "#";
-
-
-                paymentButton.onclick =
-                    function(event) {
-
-                        event.preventDefault();
-
-                        alert(
-                            "Your Firebase account was created. Stripe payment is the next step."
-                        );
-
-                    };
-
-
-                form.style.display =
-                    "none";
-
-
-                successMessage.style.display =
-                    "block";
-
-
-                window.scrollTo(
-                    {
-                        top: 0,
-                        behavior: "smooth"
-                    }
-                );
-
-
-            } catch (error) {
-
-                showMessage(
-                    firebaseErrorMessage(
-                        error
-                    ),
-                    "error"
-                );
-
-
-                submitButton.disabled =
-                    false;
-
-
-                submitButton.textContent =
-                    "Create Technician Account";
-
-            }
+            submitButton.textContent =
+                "Create Technician Account";
 
         }
-    );
+
+    }
+);
+
 
 </script>
+
 
 </body>
 
