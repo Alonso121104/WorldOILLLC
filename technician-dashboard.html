@@ -651,9 +651,42 @@ logoutButton.addEventListener(
 
 onAuthStateChanged(
     auth,
-    function(user) {
+    async function(user) {
 
-        if (user) {
+        if (!user) {
+
+            loginBox.style.display =
+                "block";
+
+            dashboard.style.display =
+                "none";
+
+            return;
+        }
+
+        try {
+
+            const tokenResult =
+                await user.getIdTokenResult(true);
+
+            const paidTechnician =
+                tokenResult.claims.paidTechnician === true;
+
+            if (!paidTechnician) {
+
+                await signOut(auth);
+
+                loginMessage.textContent =
+                    "An active technician subscription is required to access this dashboard.";
+
+                loginBox.style.display =
+                    "block";
+
+                dashboard.style.display =
+                    "none";
+
+                return;
+            }
 
             loginBox.style.display =
                 "none";
@@ -662,23 +695,31 @@ onAuthStateChanged(
                 "block";
 
             userEmail.textContent =
-                user.email;
+                user.email || "";
 
             loadTickets();
 
-        } else {
+        } catch (error) {
+
+            console.error(
+                "Technician authorization error:",
+                error
+            );
+
+            await signOut(auth);
+
+            loginMessage.textContent =
+                "Unable to verify your technician subscription.";
 
             loginBox.style.display =
                 "block";
 
             dashboard.style.display =
                 "none";
-
         }
 
     }
 );
-
 
 // -----------------------------------------
 // REFRESH
