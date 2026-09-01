@@ -1,209 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>World Oil Technician Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Oil Technician Dashboard</title>
 
-<style>
-body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
-  margin: 0;
-}
+  <style>
+    * { box-sizing: border-box; }
 
-header {
-  background: #111;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      color: #111;
+      margin: 0;
+      padding: 20px;
+    }
 
-.container {
-  max-width: 1100px;
-  margin: 30px auto;
-  padding: 20px;
-}
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
 
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 10px;
-}
+    h2 { margin-top: 0; }
 
-button {
-  border: none;
-  padding: 10px 15px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
+    .card, .ticket {
+      background: white;
+      max-width: 650px;
+      margin: 15px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    }
 
-.logout-btn {
-  background: #d32f2f;
-  color: white;
-}
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
 
-.refresh-btn {
-  background: #1976d2;
-  color: white;
-}
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      border: 2px solid #777;
+      border-radius: 6px;
+    }
 
-.job {
-  background: white;
-  border-radius: 10px;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 2px 8px rgba(0,0,0,.08);
-}
+    button {
+      padding: 11px 15px;
+      margin: 5px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: bold;
+    }
 
-.job h3 {
-  margin-top: 0;
-}
+    button:hover {
+      filter: brightness(0.9);
+    }
 
-.job p {
-  margin: 7px 0;
-}
+    .login {
+      background: #111;
+      width: 100%;
+      margin: 0;
+    }
 
-.status {
-  display: inline-block;
-  padding: 6px 10px;
-  border-radius: 5px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
+    .logout, .cancel {
+      background: #b00020;
+    }
 
-.pending {
-  background: #fff3cd;
-  color: #856404;
-}
+    .refresh {
+      background: #005fcc;
+    }
 
-.accepted {
-  background: #d1ecf1;
-  color: #0c5460;
-}
+    .accept {
+      background: #187a35;
+    }
 
-.actions {
-  margin-top: 15px;
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
+    .complete {
+      background: #111;
+    }
 
-.accept-btn {
-  background: #2e7d32;
-  color: white;
-}
+    .status {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
 
-.complete-btn {
-  background: #1565c0;
-  color: white;
-}
+    .top-bar {
+      max-width: 650px;
+      margin: 0 auto 20px;
+      text-align: center;
+    }
 
-.cancel-btn {
-  background: #c62828;
-  color: white;
-}
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 5px;
+    }
 
-#loading {
-  text-align: center;
-  padding: 30px;
-  font-size: 18px;
-}
+    .error {
+      color: #8b0000;
+      background: #ffe5e5;
+      border: 2px solid #b00020;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
 
-#message {
-  background: white;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  display: none;
-}
-</style>
+    .success {
+      color: #145c2a;
+      background: #e5f7e9;
+      border: 2px solid #217a3c;
+      padding: 10px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .empty {
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .ticket-actions {
+      margin-top: 15px;
+      border-top: 1px solid #ddd;
+      padding-top: 10px;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 10px; }
+
+      .card, .ticket {
+        padding: 15px;
+      }
+
+      .button-row {
+        flex-direction: column;
+      }
+
+      button {
+        width: 100%;
+        margin: 4px 0;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-<header>
 <h1>World Oil Technician Dashboard</h1>
-</header>
 
-<div class="container">
+<!-- LOGIN -->
+<div id="loginBox" class="card">
 
-<div class="top-bar">
+  <h2>Technician Login</h2>
 
-<div>
-<strong id="technicianEmail"></strong>
+  <p>Log in with your technician account.</p>
+
+  <form id="loginForm">
+
+    <label for="email">Email</label>
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Technician email"
+      autocomplete="username"
+      required
+    >
+
+    <label for="password">Password</label>
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+      autocomplete="current-password"
+      required
+    >
+
+    <button type="submit" class="login">
+      Login
+    </button>
+
+  </form>
+
+  <p id="loginMessage" class="error"></p>
+
 </div>
 
-<div>
-<button class="refresh-btn" id="refreshBtn">
-Refresh Jobs
-</button>
 
-<button class="logout-btn" id="logoutBtn">
-Logout
-</button>
+<!-- DASHBOARD -->
+<div id="dashboard" style="display:none;">
+
+  <div class="top-bar">
+
+    <p>
+      Logged in as:
+      <strong id="userEmail"></strong>
+    </p>
+
+    <div class="button-row">
+
+      <button
+        type="button"
+        class="refresh"
+        id="refreshButton"
+      >
+        Refresh Tickets
+      </button>
+
+      <button
+        type="button"
+        class="logout"
+        id="logoutButton"
+      >
+        Logout
+      </button>
+
+    </div>
+
+    <p>Showing pending and accepted jobs only.</p>
+
+    <div id="dashboardMessage"></div>
+
+  </div>
+
+  <div id="tickets">
+    Loading tickets...
+  </div>
+
 </div>
 
-</div>
-
-<div id="message"></div>
-
-<div id="loading">
-Loading jobs...
-</div>
-
-<div id="jobs"></div>
-
-</div>
 
 <script type="module">
 
-import {
-initializeApp
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
 import {
-getAuth,
-onAuthStateChanged,
-signOut
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 import {
-getFirestore,
-collection,
-getDocs,
-doc,
-updateDoc
-} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
-
-apiKey:
-"AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
-
-authDomain:
-"worldoilllc.firebaseapp.com",
-
-projectId:
-"worldoilllc",
-
-storageBucket:
-"worldoilllc.firebasestorage.app",
-
-messagingSenderId:
-"769325331754",
-
-appId:
-"1:769325331754:web:234d7c3ffa9a6424779a53",
-
-measurementId:
-"G-3DFP2FFYN0"
-
+  apiKey: "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
+  authDomain: "worldoilllc.firebaseapp.com",
+  projectId: "worldoilllc",
+  storageBucket: "worldoilllc.appspot.com",
+  messagingSenderId: "769325331754",
+  appId: "1:769325331754:web:234d7c3ffa9a6424779a53"
 };
 
 
@@ -214,450 +277,447 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 
-const SIGNUP_URL =
-"https://alonso121104.github.io/WorldOILLLC/technician-signup.html";
+const loginBox =
+  document.getElementById("loginBox");
+
+const dashboard =
+  document.getElementById("dashboard");
+
+const ticketsDiv =
+  document.getElementById("tickets");
+
+const userEmail =
+  document.getElementById("userEmail");
+
+const loginForm =
+  document.getElementById("loginForm");
+
+const loginMessage =
+  document.getElementById("loginMessage");
+
+const dashboardMessage =
+  document.getElementById("dashboardMessage");
+
+const refreshButton =
+  document.getElementById("refreshButton");
+
+const logoutButton =
+  document.getElementById("logoutButton");
 
 
-const technicianEmail =
-document.getElementById("technicianEmail");
+// LOGIN
 
-const jobsContainer =
-document.getElementById("jobs");
+loginForm.addEventListener("submit", async function(event) {
 
-const loading =
-document.getElementById("loading");
+  event.preventDefault();
 
-const message =
-document.getElementById("message");
+  const email =
+    document.getElementById("email").value.trim();
 
-const logoutBtn =
-document.getElementById("logoutBtn");
+  const password =
+    document.getElementById("password").value;
 
-const refreshBtn =
-document.getElementById("refreshBtn");
+  loginMessage.textContent = "";
 
+  try {
 
-function showMessage(text) {
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-message.textContent = text;
+  } catch (error) {
 
-message.style.display = "block";
+    console.error(error);
 
-}
+    loginMessage.textContent =
+      "Login failed. Check your email and password.";
 
-
-function escapeHtml(value) {
-
-return String(value ?? "")
-.replace(/&/g, "&amp;")
-.replace(/</g, "&lt;")
-.replace(/>/g, "&gt;")
-.replace(/"/g, "&quot;")
-.replace(/'/g, "&#039;");
-
-}
-
-
-/* LOGIN ONLY — NO paidTechnician REDIRECT */
-
-onAuthStateChanged(auth, async (user) => {
-
-if (!user) {
-
-window.location.href = SIGNUP_URL;
-
-return;
-
-}
-
-technicianEmail.textContent =
-user.email || "";
-
-await loadTickets();
+  }
 
 });
 
+
+// LOGOUT
+
+logoutButton.addEventListener("click", async function() {
+
+  await signOut(auth);
+
+});
+
+
+// AUTH STATE
+
+onAuthStateChanged(auth, function(user) {
+
+  if (user) {
+
+    loginBox.style.display = "none";
+
+    dashboard.style.display = "block";
+
+    userEmail.textContent = user.email;
+
+    loadTickets();
+
+  } else {
+
+    loginBox.style.display = "block";
+
+    dashboard.style.display = "none";
+
+  }
+
+});
+
+
+// REFRESH
+
+refreshButton.addEventListener(
+  "click",
+  loadTickets
+);
+
+
+// LOAD TICKETS
 
 async function loadTickets() {
 
-loading.style.display = "block";
+  ticketsDiv.innerHTML =
+    "<p>Loading tickets...</p>";
 
-jobsContainer.innerHTML = "";
+  try {
 
-message.style.display = "none";
+    const snapshot =
+      await getDocs(
+        collection(db, "oilChanges")
+      );
+
+    let tickets = [];
+
+    snapshot.forEach(function(docSnap) {
+
+      const data = docSnap.data();
+
+      const status =
+        data.status || "pending";
+
+      if (
+        status === "pending" ||
+        status === "accepted"
+      ) {
+
+        tickets.push({
+          id: docSnap.id,
+          ...data
+        });
+
+      }
+
+    });
 
 
-const user = auth.currentUser;
+    tickets.sort(function(a, b) {
+
+      return new Date(
+        b.createdAt || 0
+      ) - new Date(
+        a.createdAt || 0
+      );
+
+    });
 
 
-if (!user) {
+    ticketsDiv.innerHTML = "";
 
-window.location.href = SIGNUP_URL;
 
-return;
+    if (tickets.length === 0) {
+
+      ticketsDiv.innerHTML =
+        "<p class='empty'>No active tickets.</p>";
+
+      return;
+
+    }
+
+
+    tickets.forEach(function(data) {
+
+      const vehicle =
+        `${data.year || ""} ${data.make || ""} ${data.model || ""}`
+        .trim();
+
+
+      const ticket =
+        document.createElement("article");
+
+      ticket.className = "ticket";
+
+
+      ticket.innerHTML = `
+
+        <h2>
+          Ticket:
+          ${escapeHtml(
+            data.ticketNumber || data.id
+          )}
+        </h2>
+
+        <p>
+          <strong>Status:</strong>
+          <span class="status">
+            ${escapeHtml(data.status || "pending")}
+          </span>
+        </p>
+
+        <p>
+          <strong>Customer:</strong>
+          ${escapeHtml(data.name || "Not provided")}
+        </p>
+
+        <p>
+          <strong>Phone:</strong>
+          ${escapeHtml(data.phone || "Not provided")}
+        </p>
+
+        <p>
+          <strong>Vehicle:</strong>
+          ${escapeHtml(vehicle || "Not provided")}
+        </p>
+
+        <p>
+          <strong>Date:</strong>
+          ${escapeHtml(
+            data.rawDate ||
+            data.date ||
+            "Not provided"
+          )}
+        </p>
+
+        <p>
+          <strong>Time:</strong>
+          ${escapeHtml(
+            data.time ||
+            "Not provided"
+          )}
+        </p>
+
+        <div class="ticket-actions"></div>
+      `;
+
+
+      const actions =
+        ticket.querySelector(
+          ".ticket-actions"
+        );
+
+
+      actions.appendChild(
+        createButton(
+          "Accept appointment",
+          "accept",
+          function() {
+            updateStatus(
+              data.id,
+              "accepted"
+            );
+          }
+        )
+      );
+
+
+      actions.appendChild(
+        createButton(
+          "Complete appointment",
+          "complete",
+          function() {
+            updateStatus(
+              data.id,
+              "completed"
+            );
+          }
+        )
+      );
+
+
+      actions.appendChild(
+        createButton(
+          "Cancel appointment",
+          "cancel",
+          function() {
+            updateStatus(
+              data.id,
+              "cancelled"
+            );
+          }
+        )
+      );
+
+
+      ticketsDiv.appendChild(ticket);
+
+    });
+
+
+  } catch (error) {
+
+    console.error(
+      "Firestore error:",
+      error
+    );
+
+    ticketsDiv.innerHTML = `
+
+      <div class="error">
+
+        Error loading tickets:
+        ${escapeHtml(error.message)}
+
+      </div>
+
+    `;
+
+  }
 
 }
 
 
-try {
+// CREATE BUTTON
 
-const snapshot =
-await getDocs(
-collection(db, "oilChanges")
-);
-
-
-const jobs = [];
-
-
-snapshot.forEach((document) => {
-
-const data = document.data();
-
-
-if (
-data.status === "pending" ||
-data.status === "accepted"
+function createButton(
+  text,
+  className,
+  action
 ) {
 
-jobs.push({
-id: document.id,
-...data
-});
+  const button =
+    document.createElement("button");
 
-}
+  button.type = "button";
 
-});
+  button.textContent = text;
 
+  button.className = className;
 
-jobs.sort((a, b) => {
+  button.addEventListener(
+    "click",
+    action
+  );
 
-const dateA =
-new Date(a.createdAt || 0);
-
-const dateB =
-new Date(b.createdAt || 0);
-
-return dateB - dateA;
-
-});
-
-
-loading.style.display = "none";
-
-
-if (jobs.length === 0) {
-
-jobsContainer.innerHTML = `
-<div class="job">
-<h3>No available jobs</h3>
-<p>
-There are currently no pending oil change requests.
-</p>
-</div>
-`;
-
-return;
+  return button;
 
 }
 
 
-jobs.forEach((job) => {
-
-const jobElement =
-document.createElement("div");
-
-jobElement.className = "job";
-
-
-const status =
-job.status || "pending";
-
-
-let actions = "";
-
-
-if (status === "pending") {
-
-actions = `
-<button
-class="accept-btn"
-data-action="accept"
-data-id="${escapeHtml(job.id)}">
-Accept Job
-</button>
-
-<button
-class="cancel-btn"
-data-action="cancel"
-data-id="${escapeHtml(job.id)}">
-Cancel
-</button>
-`;
-
-}
-
-
-if (status === "accepted") {
-
-actions = `
-<button
-class="complete-btn"
-data-action="complete"
-data-id="${escapeHtml(job.id)}">
-Mark Complete
-</button>
-
-<button
-class="cancel-btn"
-data-action="cancel"
-data-id="${escapeHtml(job.id)}">
-Cancel
-</button>
-`;
-
-}
-
-
-jobElement.innerHTML = `
-
-<h3>Oil Change Request</h3>
-
-<div class="status ${escapeHtml(status)}">
-${escapeHtml(status.toUpperCase())}
-</div>
-
-<p>
-<strong>Customer:</strong>
-${escapeHtml(job.name || job.customerName)}
-</p>
-
-<p>
-<strong>Phone:</strong>
-${escapeHtml(job.phone)}
-</p>
-
-<p>
-<strong>Email:</strong>
-${escapeHtml(job.email || job.customerEmail)}
-</p>
-
-<p>
-<strong>Vehicle:</strong>
-${escapeHtml(job.vehicle)}
-</p>
-
-<p>
-<strong>Service:</strong>
-${escapeHtml(job.service || "Oil Change")}
-</p>
-
-<p>
-<strong>Location:</strong>
-${escapeHtml(job.location || job.address)}
-</p>
-
-<p>
-<strong>Preferred Date:</strong>
-${escapeHtml(job.preferredDate)}
-</p>
-
-<p>
-<strong>Preferred Time:</strong>
-${escapeHtml(job.preferredTime)}
-</p>
-
-<p>
-<strong>Price:</strong>
-$${escapeHtml(job.price)}
-</p>
-
-<p>
-<strong>Notes:</strong>
-${escapeHtml(job.notes)}
-</p>
-
-<div class="actions">
-${actions}
-</div>
-
-`;
-
-
-jobsContainer.appendChild(jobElement);
-
-});
-
-
-document
-.querySelectorAll("[data-action]")
-.forEach((button) => {
-
-button.addEventListener("click", () => {
-
-updateStatus(
-button.dataset.id,
-button.dataset.action
-);
-
-});
-
-});
-
-
-}
-
-catch (error) {
-
-console.error(
-"Error loading jobs:",
-error
-);
-
-loading.style.display = "none";
-
-showMessage(
-"Unable to load jobs: " + error.message
-);
-
-}
-
-}
-
-
-async function updateStatus(id, action) {
-
-const user = auth.currentUser;
-
-if (!user) {
-
-window.location.href = SIGNUP_URL;
-
-return;
-
-}
-
-
-let newStatus;
-
-
-if (action === "accept") {
-
-newStatus = "accepted";
-
-}
-
-else if (action === "complete") {
-
-newStatus = "completed";
-
-}
-
-else if (action === "cancel") {
-
-newStatus = "cancelled";
-
-}
-
-else {
-
-return;
-
-}
-
-
-if (
-!confirm(
-`Are you sure you want to ${action} this job?`
-)
+// UPDATE STATUS
+
+async function updateStatus(
+  id,
+  status
 ) {
 
-return;
+  if (
+    !confirm(
+      "Change this appointment to " +
+      status +
+      "?"
+    )
+  ) {
+    return;
+  }
+
+
+  try {
+
+    const user =
+      auth.currentUser;
+
+
+    const updateData = {
+
+      status: status,
+
+      updatedAt:
+        new Date().toISOString(),
+
+      technicianEmail:
+        user?.email || "unknown"
+
+    };
+
+
+    if (status === "accepted") {
+
+      updateData.technicianAcceptedAt =
+        new Date().toISOString();
+
+    }
+
+
+    if (status === "completed") {
+
+      updateData.completedAt =
+        new Date().toISOString();
+
+    }
+
+
+    if (status === "cancelled") {
+
+      updateData.cancelledAt =
+        new Date().toISOString();
+
+    }
+
+
+    await updateDoc(
+      doc(db, "oilChanges", id),
+      updateData
+    );
+
+
+    dashboardMessage.className =
+      "success";
+
+    dashboardMessage.textContent =
+      "Appointment updated successfully.";
+
+
+    await loadTickets();
+
+
+  } catch (error) {
+
+    console.error(
+      "Update error:",
+      error
+    );
+
+    dashboardMessage.className =
+      "error";
+
+    dashboardMessage.textContent =
+      "Could not update the appointment.";
+
+  }
 
 }
 
 
-try {
+// SECURITY
 
-const updateData = {
+function escapeHtml(value) {
 
-status: newStatus,
-
-updatedAt:
-new Date().toISOString(),
-
-technicianEmail:
-user.email || ""
-
-};
-
-
-if (newStatus === "accepted") {
-
-updateData.acceptedAt =
-new Date().toISOString();
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 
 }
-
-if (newStatus === "completed") {
-
-updateData.completedAt =
-new Date().toISOString();
-
-}
-
-if (newStatus === "cancelled") {
-
-updateData.cancelledAt =
-new Date().toISOString();
-
-}
-
-
-await updateDoc(
-doc(db, "oilChanges", id),
-updateData
-);
-
-
-await loadTickets();
-
-}
-
-catch (error) {
-
-console.error(
-"Error updating job:",
-error
-);
-
-alert(
-"Unable to update this job: " +
-error.message
-);
-
-}
-
-}
-
-
-logoutBtn.addEventListener(
-"click",
-async () => {
-
-await signOut(auth);
-
-window.location.href =
-SIGNUP_URL;
-
-}
-);
-
-
-refreshBtn.addEventListener(
-"click",
-loadTickets
-);
 
 </script>
 
