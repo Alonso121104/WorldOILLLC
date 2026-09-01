@@ -1,717 +1,663 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>World Oil Technician Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Oil Technician Dashboard</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f8;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+  margin: 0;
+}
 
-    header {
-      background: #111;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+header {
+  background: #111;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
 
-    .container {
-      max-width: 1100px;
-      margin: 30px auto;
-      padding: 20px;
-    }
+.container {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 20px;
+}
 
-    .top-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 
-    button {
-      border: none;
-      padding: 10px 15px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-    }
+button {
+  border: none;
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
 
-    .logout-btn {
-      background: #d32f2f;
-      color: white;
-    }
+.logout-btn {
+  background: #d32f2f;
+  color: white;
+}
 
-    .refresh-btn {
-      background: #1976d2;
-      color: white;
-    }
+.refresh-btn {
+  background: #1976d2;
+  color: white;
+}
 
-    .job {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    }
+.job {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+}
 
-    .job h3 {
-      margin-top: 0;
-    }
+.job h3 {
+  margin-top: 0;
+}
 
-    .job p {
-      margin: 7px 0;
-    }
+.job p {
+  margin: 7px 0;
+}
 
-    .status {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 5px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
+.status {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 5px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
-    .pending {
-      background: #fff3cd;
-      color: #856404;
-    }
+.pending {
+  background: #fff3cd;
+  color: #856404;
+}
 
-    .accepted {
-      background: #d1ecf1;
-      color: #0c5460;
-    }
+.accepted {
+  background: #d1ecf1;
+  color: #0c5460;
+}
 
-    .completed {
-      background: #d4edda;
-      color: #155724;
-    }
+.actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 
-    .cancelled {
-      background: #f8d7da;
-      color: #721c24;
-    }
+.accept-btn {
+  background: #2e7d32;
+  color: white;
+}
 
-    .actions {
-      margin-top: 15px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+.complete-btn {
+  background: #1565c0;
+  color: white;
+}
 
-    .accept-btn {
-      background: #2e7d32;
-      color: white;
-    }
+.cancel-btn {
+  background: #c62828;
+  color: white;
+}
 
-    .complete-btn {
-      background: #1565c0;
-      color: white;
-    }
+#loading {
+  text-align: center;
+  padding: 30px;
+  font-size: 18px;
+}
 
-    .cancel-btn {
-      background: #c62828;
-      color: white;
-    }
-
-    #loading {
-      text-align: center;
-      padding: 30px;
-      font-size: 18px;
-    }
-
-    #message {
-      background: white;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      display: none;
-    }
-  </style>
+#message {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  display: none;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <h1>World Oil Technician Dashboard</h1>
+<h1>World Oil Technician Dashboard</h1>
 </header>
 
 <div class="container">
 
-  <div class="top-bar">
-    <div>
-      <strong id="technicianEmail"></strong>
-    </div>
+<div class="top-bar">
 
-    <div>
-      <button class="refresh-btn" id="refreshBtn">
-        Refresh Jobs
-      </button>
+<div>
+<strong id="technicianEmail"></strong>
+</div>
 
-      <button class="logout-btn" id="logoutBtn">
-        Logout
-      </button>
-    </div>
-  </div>
+<div>
+<button class="refresh-btn" id="refreshBtn">
+Refresh Jobs
+</button>
 
-  <div id="message"></div>
+<button class="logout-btn" id="logoutBtn">
+Logout
+</button>
+</div>
 
-  <div id="loading">
-    Loading jobs...
-  </div>
+</div>
 
-  <div id="jobs"></div>
+<div id="message"></div>
+
+<div id="loading">
+Loading jobs...
+</div>
+
+<div id="jobs"></div>
 
 </div>
 
 <script type="module">
 
-  import {
-    initializeApp
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import {
+initializeApp
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-  import {
-    getAuth,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-  import {
-    getFirestore,
-    collection,
-    getDocs,
-    doc,
-    updateDoc,
-    serverTimestamp
-  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import {
+getFirestore,
+collection,
+getDocs,
+doc,
+updateDoc
+} from "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
-    authDomain: "worldoilllc.firebaseapp.com",
-    projectId: "worldoilllc",
-    storageBucket: "worldoilllc.appspot.com",
-    messagingSenderId: "769325331754",
-    appId: "1:769325331754:web:234d7c3ffa9a6424779a53"
-  };
+const firebaseConfig = {
 
+apiKey:
+"AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
 
-  const app = initializeApp(firebaseConfig);
+authDomain:
+"worldoilllc.firebaseapp.com",
 
-  const auth = getAuth(app);
+projectId:
+"worldoilllc",
 
-  const db = getFirestore(app);
+storageBucket:
+"worldoilllc.firebasestorage.app",
 
+messagingSenderId:
+"769325331754",
 
-  const SIGNUP_URL =
-    "https://alonso121104.github.io/WorldOILLLC/technician-signup.html";
+appId:
+"1:769325331754:web:234d7c3ffa9a6424779a53",
 
+measurementId:
+"G-3DFP2FFYN0"
 
-  const technicianEmail =
-    document.getElementById("technicianEmail");
+};
 
-  const jobsContainer =
-    document.getElementById("jobs");
 
-  const loading =
-    document.getElementById("loading");
+const app = initializeApp(firebaseConfig);
 
-  const message =
-    document.getElementById("message");
+const auth = getAuth(app);
 
-  const logoutBtn =
-    document.getElementById("logoutBtn");
+const db = getFirestore(app);
 
-  const refreshBtn =
-    document.getElementById("refreshBtn");
 
+const SIGNUP_URL =
+"https://alonso121104.github.io/WorldOILLLC/technician-signup.html";
 
-  function showMessage(text) {
 
-    message.textContent = text;
+const technicianEmail =
+document.getElementById("technicianEmail");
 
-    message.style.display = "block";
+const jobsContainer =
+document.getElementById("jobs");
 
-  }
+const loading =
+document.getElementById("loading");
 
+const message =
+document.getElementById("message");
 
-  function hideMessage() {
+const logoutBtn =
+document.getElementById("logoutBtn");
 
-    message.style.display = "none";
+const refreshBtn =
+document.getElementById("refreshBtn");
 
-  }
 
+function showMessage(text) {
 
-  function escapeHtml(value) {
+message.textContent = text;
 
-    return String(value ?? "")
-      .replace(/&/g, "&amp;")
-      .replace(/</g, "&lt;")
-      .replace(/>/g, "&gt;")
-      .replace(/"/g, "&quot;")
-      .replace(/'/g, "&#039;");
+message.style.display = "block";
 
-  }
+}
 
 
-  onAuthStateChanged(auth, async (user) => {
+function escapeHtml(value) {
 
-    if (!user) {
+return String(value ?? "")
+.replace(/&/g, "&amp;")
+.replace(/</g, "&lt;")
+.replace(/>/g, "&gt;")
+.replace(/"/g, "&quot;")
+.replace(/'/g, "&#039;");
 
-      window.location.href = SIGNUP_URL;
+}
 
-      return;
 
-    }
+/* LOGIN ONLY — NO paidTechnician REDIRECT */
 
+onAuthStateChanged(auth, async (user) => {
 
-    technicianEmail.textContent = user.email || "";
+if (!user) {
 
+window.location.href = SIGNUP_URL;
 
-    try {
+return;
 
-      const tokenResult =
-        await user.getIdTokenResult(true);
+}
 
+technicianEmail.textContent =
+user.email || "";
 
-      if (tokenResult.claims.paidTechnician !== true) {
+await loadTickets();
 
-        await signOut(auth);
+});
 
-        window.location.href = SIGNUP_URL;
 
-        return;
+async function loadTickets() {
 
-      }
+loading.style.display = "block";
 
+jobsContainer.innerHTML = "";
 
-      await loadTickets();
+message.style.display = "none";
 
-    } catch (error) {
 
-      console.error(error);
+const user = auth.currentUser;
 
-      showMessage(
-        "Unable to verify technician access."
-      );
 
-      loading.style.display = "none";
+if (!user) {
 
-    }
+window.location.href = SIGNUP_URL;
 
-  });
+return;
 
+}
 
-  async function loadTickets() {
 
-    loading.style.display = "block";
+try {
 
-    jobsContainer.innerHTML = "";
+const snapshot =
+await getDocs(
+collection(db, "oilChanges")
+);
 
-    hideMessage();
 
+const jobs = [];
 
-    const user = auth.currentUser;
 
+snapshot.forEach((document) => {
 
-    if (!user) {
+const data = document.data();
 
-      window.location.href = SIGNUP_URL;
 
-      return;
+if (
+data.status === "pending" ||
+data.status === "accepted"
+) {
 
-    }
+jobs.push({
+id: document.id,
+...data
+});
 
+}
 
-    try {
+});
 
-      const tokenResult =
-        await user.getIdTokenResult(true);
 
+jobs.sort((a, b) => {
 
-      if (tokenResult.claims.paidTechnician !== true) {
+const dateA =
+new Date(a.createdAt || 0);
 
-        await signOut(auth);
+const dateB =
+new Date(b.createdAt || 0);
 
-        window.location.href = SIGNUP_URL;
+return dateB - dateA;
 
-        return;
+});
 
-      }
 
+loading.style.display = "none";
 
-      const snapshot =
-        await getDocs(
-          collection(db, "oilChanges")
-        );
 
+if (jobs.length === 0) {
 
-      const jobs = [];
+jobsContainer.innerHTML = `
+<div class="job">
+<h3>No available jobs</h3>
+<p>
+There are currently no pending oil change requests.
+</p>
+</div>
+`;
 
+return;
 
-      snapshot.forEach((document) => {
+}
 
-        const data = document.data();
 
+jobs.forEach((job) => {
 
-        if (
-          data.status === "pending" ||
-          data.status === "accepted"
-        ) {
+const jobElement =
+document.createElement("div");
 
-          jobs.push({
-            id: document.id,
-            ...data
-          });
+jobElement.className = "job";
 
-        }
 
-      });
+const status =
+job.status || "pending";
 
 
-      jobs.sort((a, b) => {
+let actions = "";
 
-        const dateA =
-          new Date(a.createdAt || 0);
 
-        const dateB =
-          new Date(b.createdAt || 0);
+if (status === "pending") {
 
-        return dateB - dateA;
+actions = `
+<button
+class="accept-btn"
+data-action="accept"
+data-id="${escapeHtml(job.id)}">
+Accept Job
+</button>
 
-      });
+<button
+class="cancel-btn"
+data-action="cancel"
+data-id="${escapeHtml(job.id)}">
+Cancel
+</button>
+`;
 
+}
 
-      loading.style.display = "none";
 
+if (status === "accepted") {
 
-      if (jobs.length === 0) {
+actions = `
+<button
+class="complete-btn"
+data-action="complete"
+data-id="${escapeHtml(job.id)}">
+Mark Complete
+</button>
 
-        jobsContainer.innerHTML = `
-          <div class="job">
-            <h3>No available jobs</h3>
-            <p>There are currently no pending oil change requests.</p>
-          </div>
-        `;
+<button
+class="cancel-btn"
+data-action="cancel"
+data-id="${escapeHtml(job.id)}">
+Cancel
+</button>
+`;
 
-        return;
+}
 
-      }
 
+jobElement.innerHTML = `
 
-      jobs.forEach((job) => {
+<h3>Oil Change Request</h3>
 
-        const jobElement =
-          document.createElement("div");
+<div class="status ${escapeHtml(status)}">
+${escapeHtml(status.toUpperCase())}
+</div>
 
-        jobElement.className = "job";
+<p>
+<strong>Customer:</strong>
+${escapeHtml(job.name || job.customerName)}
+</p>
 
+<p>
+<strong>Phone:</strong>
+${escapeHtml(job.phone)}
+</p>
 
-        const status =
-          job.status || "pending";
+<p>
+<strong>Email:</strong>
+${escapeHtml(job.email || job.customerEmail)}
+</p>
 
+<p>
+<strong>Vehicle:</strong>
+${escapeHtml(job.vehicle)}
+</p>
 
-        let actions = "";
+<p>
+<strong>Service:</strong>
+${escapeHtml(job.service || "Oil Change")}
+</p>
 
+<p>
+<strong>Location:</strong>
+${escapeHtml(job.location || job.address)}
+</p>
 
-        if (status === "pending") {
+<p>
+<strong>Preferred Date:</strong>
+${escapeHtml(job.preferredDate)}
+</p>
 
-          actions = `
-            <button
-              class="accept-btn"
-              data-action="accept"
-              data-id="${escapeHtml(job.id)}">
-              Accept Job
-            </button>
+<p>
+<strong>Preferred Time:</strong>
+${escapeHtml(job.preferredTime)}
+</p>
 
-            <button
-              class="cancel-btn"
-              data-action="cancel"
-              data-id="${escapeHtml(job.id)}">
-              Cancel
-            </button>
-          `;
+<p>
+<strong>Price:</strong>
+$${escapeHtml(job.price)}
+</p>
 
-        } else if (status === "accepted") {
+<p>
+<strong>Notes:</strong>
+${escapeHtml(job.notes)}
+</p>
 
-          actions = `
-            <button
-              class="complete-btn"
-              data-action="complete"
-              data-id="${escapeHtml(job.id)}">
-              Mark Complete
-            </button>
+<div class="actions">
+${actions}
+</div>
 
-            <button
-              class="cancel-btn"
-              data-action="cancel"
-              data-id="${escapeHtml(job.id)}">
-              Cancel
-            </button>
-          `;
+`;
 
-        }
 
+jobsContainer.appendChild(jobElement);
 
-        jobElement.innerHTML = `
+});
 
-          <h3>
-            Oil Change Request
-          </h3>
 
-          <div class="status ${escapeHtml(status)}">
-            ${escapeHtml(status.toUpperCase())}
-          </div>
+document
+.querySelectorAll("[data-action]")
+.forEach((button) => {
 
-          <p>
-            <strong>Customer:</strong>
-            ${escapeHtml(job.name || job.customerName || "")}
-          </p>
+button.addEventListener("click", () => {
 
-          <p>
-            <strong>Phone:</strong>
-            ${escapeHtml(job.phone || "")}
-          </p>
+updateStatus(
+button.dataset.id,
+button.dataset.action
+);
 
-          <p>
-            <strong>Email:</strong>
-            ${escapeHtml(job.email || job.customerEmail || "")}
-          </p>
+});
 
-          <p>
-            <strong>Vehicle:</strong>
-            ${escapeHtml(job.vehicle || "")}
-          </p>
+});
 
-          <p>
-            <strong>Service:</strong>
-            ${escapeHtml(job.service || "Oil Change")}
-          </p>
 
-          <p>
-            <strong>Location:</strong>
-            ${escapeHtml(job.location || job.address || "")}
-          </p>
+}
 
-          <p>
-            <strong>Preferred Date:</strong>
-            ${escapeHtml(job.preferredDate || "")}
-          </p>
+catch (error) {
 
-          <p>
-            <strong>Preferred Time:</strong>
-            ${escapeHtml(job.preferredTime || "")}
-          </p>
+console.error(
+"Error loading jobs:",
+error
+);
 
-          <p>
-            <strong>Price:</strong>
-            $${escapeHtml(job.price || "")}
-          </p>
+loading.style.display = "none";
 
-          <p>
-            <strong>Notes:</strong>
-            ${escapeHtml(job.notes || "")}
-          </p>
+showMessage(
+"Unable to load jobs: " + error.message
+);
 
-          <div class="actions">
-            ${actions}
-          </div>
+}
 
-        `;
+}
 
 
-        jobsContainer.appendChild(jobElement);
+async function updateStatus(id, action) {
 
-      });
+const user = auth.currentUser;
 
+if (!user) {
 
-      document
-        .querySelectorAll("[data-action]")
-        .forEach((button) => {
+window.location.href = SIGNUP_URL;
 
-          button.addEventListener("click", () => {
+return;
 
-            const action =
-              button.dataset.action;
+}
 
-            const id =
-              button.dataset.id;
 
+let newStatus;
 
-            updateStatus(id, action);
 
-          });
+if (action === "accept") {
 
-        });
+newStatus = "accepted";
 
+}
 
-    } catch (error) {
+else if (action === "complete") {
 
-      console.error(
-        "Error loading jobs:",
-        error
-      );
+newStatus = "completed";
 
+}
 
-      loading.style.display = "none";
+else if (action === "cancel") {
 
+newStatus = "cancelled";
 
-      showMessage(
-        "Unable to load jobs. Your account may not have technician access yet."
-      );
+}
 
-    }
+else {
 
-  }
+return;
 
+}
 
-  async function updateStatus(id, action) {
 
-    const user = auth.currentUser;
+if (
+!confirm(
+`Are you sure you want to ${action} this job?`
+)
+) {
 
+return;
 
-    if (!user) {
+}
 
-      window.location.href = SIGNUP_URL;
 
-      return;
+try {
 
-    }
+const updateData = {
 
+status: newStatus,
 
-    let newStatus;
+updatedAt:
+new Date().toISOString(),
 
+technicianEmail:
+user.email || ""
 
-    if (action === "accept") {
+};
 
-      newStatus = "accepted";
 
-    } else if (action === "complete") {
+if (newStatus === "accepted") {
 
-      newStatus = "completed";
+updateData.acceptedAt =
+new Date().toISOString();
 
-    } else if (action === "cancel") {
+}
 
-      newStatus = "cancelled";
+if (newStatus === "completed") {
 
-    } else {
+updateData.completedAt =
+new Date().toISOString();
 
-      return;
+}
 
-    }
+if (newStatus === "cancelled") {
 
+updateData.cancelledAt =
+new Date().toISOString();
 
-    const confirmed =
-      confirm(
-        `Are you sure you want to ${action} this job?`
-      );
+}
 
 
-    if (!confirmed) return;
+await updateDoc(
+doc(db, "oilChanges", id),
+updateData
+);
 
 
-    try {
+await loadTickets();
 
-      const tokenResult =
-        await user.getIdTokenResult(true);
+}
 
+catch (error) {
 
-      if (
-        tokenResult.claims.paidTechnician !== true
-      ) {
+console.error(
+"Error updating job:",
+error
+);
 
-        await signOut(auth);
+alert(
+"Unable to update this job: " +
+error.message
+);
 
-        window.location.href = SIGNUP_URL;
+}
 
-        return;
+}
 
-      }
 
+logoutBtn.addEventListener(
+"click",
+async () => {
 
-      const updateData = {
+await signOut(auth);
 
-        status: newStatus,
+window.location.href =
+SIGNUP_URL;
 
-        updatedAt: new Date().toISOString(),
+}
+);
 
-        technicianEmail:
-          user.email || ""
 
-      };
-
-
-      if (newStatus === "accepted") {
-
-        updateData.acceptedAt =
-          new Date().toISOString();
-
-      }
-
-
-      if (newStatus === "completed") {
-
-        updateData.completedAt =
-          new Date().toISOString();
-
-      }
-
-
-      if (newStatus === "cancelled") {
-
-        updateData.cancelledAt =
-          new Date().toISOString();
-
-      }
-
-
-      await updateDoc(
-        doc(db, "oilChanges", id),
-        updateData
-      );
-
-
-      await loadTickets();
-
-
-    } catch (error) {
-
-      console.error(
-        "Error updating job:",
-        error
-      );
-
-
-      alert(
-        "Unable to update this job. Please try again."
-      );
-
-    }
-
-  }
-
-
-  logoutBtn.addEventListener(
-    "click",
-    async () => {
-
-      await signOut(auth);
-
-      window.location.href = SIGNUP_URL;
-
-    }
-  );
-
-
-  refreshBtn.addEventListener(
-    "click",
-    loadTickets
-  );
+refreshBtn.addEventListener(
+"click",
+loadTickets
+);
 
 </script>
 
