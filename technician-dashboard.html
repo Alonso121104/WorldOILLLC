@@ -1,1015 +1,719 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>World Oil Technician Dashboard</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      margin: 0;
+      padding: 0;
+    }
 
-    <title>World Oil Technician Dashboard</title>
+    header {
+      background: #111;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      padding: 20px;
+    }
 
-        body {
-            margin: 0;
-            padding: 20px;
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
-            color: #222;
-        }
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
 
-        .container {
-            width: 100%;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
+    button {
+      border: none;
+      padding: 10px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
 
-        h1 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
+    .logout-btn {
+      background: #d32f2f;
+      color: white;
+    }
 
-        .top-bar,
-        .ticket {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
+    .refresh-btn {
+      background: #1976d2;
+      color: white;
+    }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
+    .job {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
 
-        .account {
-            margin: 0;
-        }
+    .job h3 {
+      margin-top: 0;
+    }
 
-        .account strong {
-            display: block;
-            margin-top: 5px;
-        }
+    .job p {
+      margin: 7px 0;
+    }
 
-        button {
-            border: 0;
-            border-radius: 8px;
-            padding: 12px 18px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    .status {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
 
-        .refresh {
-            background: #222;
-            color: white;
-        }
+    .pending {
+      background: #fff3cd;
+      color: #856404;
+    }
 
-        .logout {
-            background: #c62828;
-            color: white;
-        }
+    .accepted {
+      background: #d1ecf1;
+      color: #0c5460;
+    }
 
-        .accept {
-            background: #1976d2;
-            color: white;
-        }
+    .completed {
+      background: #d4edda;
+      color: #155724;
+    }
 
-        .complete {
-            background: #2e7d32;
-            color: white;
-        }
+    .cancelled {
+      background: #f8d7da;
+      color: #721c24;
+    }
 
-        .cancel {
-            background: #c62828;
-            color: white;
-        }
+    .actions {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
 
-        button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
+    .accept-btn {
+      background: #2e7d32;
+      color: white;
+    }
 
-        .ticket h2 {
-            margin-top: 0;
-        }
+    .complete-btn {
+      background: #1565c0;
+      color: white;
+    }
 
-        .ticket p {
-            margin: 8px 0;
-        }
+    .cancel-btn {
+      background: #c62828;
+      color: white;
+    }
 
-        .status {
-            font-weight: bold;
-            text-transform: capitalize;
-        }
+    #loading {
+      text-align: center;
+      padding: 30px;
+      font-size: 18px;
+    }
 
-        .ticket-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-top: 18px;
-            padding-top: 15px;
-            border-top: 1px solid #ddd;
-        }
-
-        .message {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .success {
-            background: #e8f5e9;
-            color: #1b5e20;
-        }
-
-        .error {
-            background: #ffebee;
-            color: #b71c1c;
-        }
-
-        .empty {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-        }
-
-        .loading {
-            text-align: center;
-            padding: 30px;
-        }
-
-        @media (max-width: 600px) {
-            body {
-                padding: 10px;
-            }
-
-            .top-bar {
-                display: block;
-            }
-
-            .top-bar button {
-                width: 100%;
-                margin-top: 10px;
-            }
-
-            .ticket-actions {
-                display: block;
-            }
-
-            .ticket-actions button {
-                width: 100%;
-                margin: 5px 0;
-            }
-        }
-    </style>
+    #message {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
 
+<header>
+  <h1>World Oil Technician Dashboard</h1>
+</header>
+
 <div class="container">
 
-    <h1>World Oil Technician Dashboard</h1>
-
-    <div id="authMessage" class="message" style="display:none;"></div>
-
-    <div id="dashboard" style="display:none;">
-
-        <div class="top-bar">
-
-            <div>
-                <p class="account">
-                    Logged in as:
-                    <strong id="userEmail"></strong>
-                </p>
-            </div>
-
-            <div>
-                <button
-                    type="button"
-                    class="refresh"
-                    id="refreshButton"
-                >
-                    Refresh Jobs
-                </button>
-
-                <button
-                    type="button"
-                    class="logout"
-                    id="logoutButton"
-                >
-                    Logout
-                </button>
-            </div>
-
-        </div>
-
-        <div
-            id="dashboardMessage"
-            class="message"
-            style="display:none;"
-        ></div>
-
-        <div
-            id="tickets"
-            aria-live="polite"
-        >
-            <div class="loading">
-                Loading jobs...
-            </div>
-        </div>
-
+  <div class="top-bar">
+    <div>
+      <strong id="technicianEmail"></strong>
     </div>
+
+    <div>
+      <button class="refresh-btn" id="refreshBtn">
+        Refresh Jobs
+      </button>
+
+      <button class="logout-btn" id="logoutBtn">
+        Logout
+      </button>
+    </div>
+  </div>
+
+  <div id="message"></div>
+
+  <div id="loading">
+    Loading jobs...
+  </div>
+
+  <div id="jobs"></div>
 
 </div>
 
-
 <script type="module">
 
-    // =========================================
-    // FIREBASE
-    // =========================================
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 
-    import {
-        initializeApp
-    } from
-    "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import {
+    getAuth,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-
-    import {
-        getAuth,
-        onAuthStateChanged,
-        signOut
-    } from
-    "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-
-    import {
-        getFirestore,
-        collection,
-        getDocs,
-        doc,
-        updateDoc
-    } from
-    "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import {
+    getFirestore,
+    collection,
+    getDocs,
+    doc,
+    updateDoc,
+    serverTimestamp
+  } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 
-    const firebaseConfig = {
-
-        apiKey:
-            "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
-
-        authDomain:
-            "worldoilllc.firebaseapp.com",
-
-        projectId:
-            "worldoilllc",
-
-        storageBucket:
-            "worldoilllc.appspot.com",
-
-        messagingSenderId:
-            "769325331754",
-
-        appId:
-            "1:769325331754:web:234d7c3ffa9a6424779a53"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
+    authDomain: "worldoilllc.firebaseapp.com",
+    projectId: "worldoilllc",
+    storageBucket: "worldoilllc.appspot.com",
+    messagingSenderId: "769325331754",
+    appId: "1:769325331754:web:234d7c3ffa9a6424779a53"
+  };
 
 
-    const app =
-        initializeApp(firebaseConfig);
+  const app = initializeApp(firebaseConfig);
+
+  const auth = getAuth(app);
+
+  const db = getFirestore(app);
 
 
-    const auth =
-        getAuth(app);
+  const SIGNUP_URL =
+    "https://alonso121104.github.io/WorldOILLLC/technician-signup.html";
 
 
-    const db =
-        getFirestore(app);
+  const technicianEmail =
+    document.getElementById("technicianEmail");
+
+  const jobsContainer =
+    document.getElementById("jobs");
+
+  const loading =
+    document.getElementById("loading");
+
+  const message =
+    document.getElementById("message");
+
+  const logoutBtn =
+    document.getElementById("logoutBtn");
+
+  const refreshBtn =
+    document.getElementById("refreshBtn");
 
 
-    // =========================================
-    // SETTINGS
-    // =========================================
+  function showMessage(text) {
 
-    const SIGNUP_URL =
-        "https://alonso121104.github.io/WorldOILLLC/technician-signup.html";
+    message.textContent = text;
 
+    message.style.display = "block";
 
-    // =========================================
-    // ELEMENTS
-    // =========================================
-
-    const dashboard =
-        document.getElementById("dashboard");
+  }
 
 
-    const ticketsDiv =
-        document.getElementById("tickets");
+  function hideMessage() {
+
+    message.style.display = "none";
+
+  }
 
 
-    const userEmail =
-        document.getElementById("userEmail");
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+
+  }
 
 
-    const refreshButton =
-        document.getElementById("refreshButton");
+  onAuthStateChanged(auth, async (user) => {
 
+    if (!user) {
 
-    const logoutButton =
-        document.getElementById("logoutButton");
+      window.location.href = SIGNUP_URL;
 
+      return;
 
-    const authMessage =
-        document.getElementById("authMessage");
-
-
-    const dashboardMessage =
-        document.getElementById("dashboardMessage");
-
-
-    // =========================================
-    // SHOW MESSAGE
-    // =========================================
-
-    function showAuthMessage(
-        message,
-        type = "error"
-    ) {
-
-        authMessage.textContent =
-            message;
-
-        authMessage.className =
-            "message " + type;
-
-        authMessage.style.display =
-            "block";
     }
 
 
-    function showDashboardMessage(
-        message,
-        type = "success"
-    ) {
+    technicianEmail.textContent = user.email || "";
 
-        dashboardMessage.textContent =
-            message;
 
-        dashboardMessage.className =
-            "message " + type;
+    try {
 
-        dashboardMessage.style.display =
-            "block";
+      const tokenResult =
+        await user.getIdTokenResult(true);
+
+
+      if (tokenResult.claims.paidTechnician !== true) {
+
+        await signOut(auth);
+
+        window.location.href = SIGNUP_URL;
+
+        return;
+
+      }
+
+
+      await loadTickets();
+
+    } catch (error) {
+
+      console.error(error);
+
+      showMessage(
+        "Unable to verify technician access."
+      );
+
+      loading.style.display = "none";
+
+    }
+
+  });
+
+
+  async function loadTickets() {
+
+    loading.style.display = "block";
+
+    jobsContainer.innerHTML = "";
+
+    hideMessage();
+
+
+    const user = auth.currentUser;
+
+
+    if (!user) {
+
+      window.location.href = SIGNUP_URL;
+
+      return;
+
     }
 
 
-    // =========================================
-    // SECURITY CHECK
-    // =========================================
+    try {
 
-    onAuthStateChanged(
-        auth,
-        async function(user) {
-
-            // ---------------------------------
-            // NO LOGIN
-            // ---------------------------------
-
-            if (!user) {
-
-                dashboard.style.display =
-                    "none";
-
-                window.location.replace(
-                    SIGNUP_URL
-                );
-
-                return;
-            }
+      const tokenResult =
+        await user.getIdTokenResult(true);
 
 
-            // ---------------------------------
-            // CHECK PAID STATUS
-            // ---------------------------------
+      if (tokenResult.claims.paidTechnician !== true) {
 
-            try {
+        await signOut(auth);
 
-                const tokenResult =
-                    await user.getIdTokenResult(
-                        true
-                    );
+        window.location.href = SIGNUP_URL;
 
+        return;
 
-                const paidTechnician =
-                    tokenResult.claims
-                        .paidTechnician === true;
+      }
 
 
-                // ---------------------------------
-                // USER HAS NOT PAID
-                // ---------------------------------
-
-                if (!paidTechnician) {
-
-                    await signOut(auth);
-
-                    window.location.replace(
-                        SIGNUP_URL
-                    );
-
-                    return;
-                }
+      const snapshot =
+        await getDocs(
+          collection(db, "oilChanges")
+        );
 
 
-                // ---------------------------------
-                // USER IS PAID
-                // ---------------------------------
+      const jobs = [];
 
-                dashboard.style.display =
-                    "block";
 
-                authMessage.style.display =
-                    "none";
+      snapshot.forEach((document) => {
 
-                userEmail.textContent =
-                    user.email || "Technician";
+        const data = document.data();
 
-                await loadTickets();
 
-            }
+        if (
+          data.status === "pending" ||
+          data.status === "accepted"
+        ) {
 
-            catch (error) {
-
-                console.error(
-                    "Authorization error:",
-                    error
-                );
-
-                await signOut(auth);
-
-                window.location.replace(
-                    SIGNUP_URL
-                );
-            }
+          jobs.push({
+            id: document.id,
+            ...data
+          });
 
         }
-    );
+
+      });
 
 
-    // =========================================
-    // LOGOUT
-    // =========================================
+      jobs.sort((a, b) => {
 
-    logoutButton.addEventListener(
-        "click",
-        async function() {
+        const dateA =
+          new Date(a.createdAt || 0);
 
-            try {
+        const dateB =
+          new Date(b.createdAt || 0);
 
-                await signOut(auth);
+        return dateB - dateA;
 
-                window.location.replace(
-                    SIGNUP_URL
-                );
+      });
 
-            }
 
-            catch (error) {
+      loading.style.display = "none";
 
-                console.error(
-                    "Logout error:",
-                    error
-                );
-            }
+
+      if (jobs.length === 0) {
+
+        jobsContainer.innerHTML = `
+          <div class="job">
+            <h3>No available jobs</h3>
+            <p>There are currently no pending oil change requests.</p>
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      jobs.forEach((job) => {
+
+        const jobElement =
+          document.createElement("div");
+
+        jobElement.className = "job";
+
+
+        const status =
+          job.status || "pending";
+
+
+        let actions = "";
+
+
+        if (status === "pending") {
+
+          actions = `
+            <button
+              class="accept-btn"
+              data-action="accept"
+              data-id="${escapeHtml(job.id)}">
+              Accept Job
+            </button>
+
+            <button
+              class="cancel-btn"
+              data-action="cancel"
+              data-id="${escapeHtml(job.id)}">
+              Cancel
+            </button>
+          `;
+
+        } else if (status === "accepted") {
+
+          actions = `
+            <button
+              class="complete-btn"
+              data-action="complete"
+              data-id="${escapeHtml(job.id)}">
+              Mark Complete
+            </button>
+
+            <button
+              class="cancel-btn"
+              data-action="cancel"
+              data-id="${escapeHtml(job.id)}">
+              Cancel
+            </button>
+          `;
+
         }
-    );
 
 
-    // =========================================
-    // REFRESH
-    // =========================================
+        jobElement.innerHTML = `
 
-    refreshButton.addEventListener(
-        "click",
-        async function() {
+          <h3>
+            Oil Change Request
+          </h3>
 
-            dashboardMessage.style.display =
-                "none";
+          <div class="status ${escapeHtml(status)}">
+            ${escapeHtml(status.toUpperCase())}
+          </div>
 
-            await loadTickets();
-        }
-    );
+          <p>
+            <strong>Customer:</strong>
+            ${escapeHtml(job.name || job.customerName || "")}
+          </p>
 
+          <p>
+            <strong>Phone:</strong>
+            ${escapeHtml(job.phone || "")}
+          </p>
 
-    // =========================================
-    // LOAD JOBS
-    // =========================================
+          <p>
+            <strong>Email:</strong>
+            ${escapeHtml(job.email || job.customerEmail || "")}
+          </p>
 
-    async function loadTickets() {
+          <p>
+            <strong>Vehicle:</strong>
+            ${escapeHtml(job.vehicle || "")}
+          </p>
 
-        ticketsDiv.innerHTML = `
-            <div class="loading">
-                Loading jobs...
-            </div>
+          <p>
+            <strong>Service:</strong>
+            ${escapeHtml(job.service || "Oil Change")}
+          </p>
+
+          <p>
+            <strong>Location:</strong>
+            ${escapeHtml(job.location || job.address || "")}
+          </p>
+
+          <p>
+            <strong>Preferred Date:</strong>
+            ${escapeHtml(job.preferredDate || "")}
+          </p>
+
+          <p>
+            <strong>Preferred Time:</strong>
+            ${escapeHtml(job.preferredTime || "")}
+          </p>
+
+          <p>
+            <strong>Price:</strong>
+            $${escapeHtml(job.price || "")}
+          </p>
+
+          <p>
+            <strong>Notes:</strong>
+            ${escapeHtml(job.notes || "")}
+          </p>
+
+          <div class="actions">
+            ${actions}
+          </div>
+
         `;
 
 
-        try {
+        jobsContainer.appendChild(jobElement);
 
-            // ---------------------------------
-            // CHECK USER
-            // ---------------------------------
+      });
 
-            const user =
-                auth.currentUser;
 
+      document
+        .querySelectorAll("[data-action]")
+        .forEach((button) => {
 
-            if (!user) {
+          button.addEventListener("click", () => {
 
-                window.location.replace(
-                    SIGNUP_URL
-                );
+            const action =
+              button.dataset.action;
 
-                return;
-            }
+            const id =
+              button.dataset.id;
 
 
-            // ---------------------------------
-            // CHECK PAID CLAIM AGAIN
-            // ---------------------------------
+            updateStatus(id, action);
 
-            const tokenResult =
-                await user.getIdTokenResult(
-                    true
-                );
+          });
 
+        });
 
-            if (
-                tokenResult.claims
-                    .paidTechnician !== true
-            ) {
 
-                await signOut(auth);
+    } catch (error) {
 
-                window.location.replace(
-                    SIGNUP_URL
-                );
+      console.error(
+        "Error loading jobs:",
+        error
+      );
 
-                return;
-            }
 
+      loading.style.display = "none";
 
-            // ---------------------------------
-            // GET APPOINTMENTS
-            // ---------------------------------
 
-            const snapshot =
-                await getDocs(
-                    collection(
-                        db,
-                        "oilChanges"
-                    )
-                );
+      showMessage(
+        "Unable to load jobs. Your account may not have technician access yet."
+      );
 
+    }
 
-            const tickets = [];
+  }
 
 
-            snapshot.forEach(
-                function(docSnap) {
+  async function updateStatus(id, action) {
 
-                    const data =
-                        docSnap.data();
+    const user = auth.currentUser;
 
 
-                    const status =
-                        data.status ||
-                        "pending";
+    if (!user) {
 
+      window.location.href = SIGNUP_URL;
 
-                    if (
-                        status === "pending" ||
-                        status === "accepted"
-                    ) {
+      return;
 
-                        tickets.push({
-
-                            id:
-                                docSnap.id,
-
-                            ...data
-                        });
-                    }
-
-                }
-            );
-
-
-            // ---------------------------------
-            // SORT NEWEST FIRST
-            // ---------------------------------
-
-            tickets.sort(
-                function(a, b) {
-
-                    return (
-                        new Date(
-                            b.createdAt || 0
-                        ) -
-                        new Date(
-                            a.createdAt || 0
-                        )
-                    );
-                }
-            );
-
-
-            // ---------------------------------
-            // NO JOBS
-            // ---------------------------------
-
-            if (
-                tickets.length === 0
-            ) {
-
-                ticketsDiv.innerHTML = `
-                    <div class="empty">
-                        <strong>
-                            No active jobs.
-                        </strong>
-
-                        <p>
-                            There are currently no pending or accepted appointments.
-                        </p>
-                    </div>
-                `;
-
-                return;
-            }
-
-
-            // ---------------------------------
-            // DISPLAY JOBS
-            // ---------------------------------
-
-            ticketsDiv.innerHTML = "";
-
-
-            tickets.forEach(
-                function(data) {
-
-                    const ticket =
-                        document.createElement(
-                            "article"
-                        );
-
-
-                    ticket.className =
-                        "ticket";
-
-
-                    const vehicle =
-                        `${data.year || ""} ${data.make || ""} ${data.model || ""}`
-                        .trim();
-
-
-                    const ticketNumber =
-                        data.ticketNumber ||
-                        data.id;
-
-
-                    ticket.innerHTML = `
-
-                        <h2>
-                            Job #${escapeHtml(
-                                ticketNumber
-                            )}
-                        </h2>
-
-                        <p>
-                            <strong>Status:</strong>
-                            <span class="status">
-                                ${escapeHtml(
-                                    data.status ||
-                                    "pending"
-                                )}
-                            </span>
-                        </p>
-
-                        <p>
-                            <strong>Customer:</strong>
-                            ${escapeHtml(
-                                data.name ||
-                                "Not provided"
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>Phone:</strong>
-                            ${escapeHtml(
-                                data.phone ||
-                                "Not provided"
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>Vehicle:</strong>
-                            ${escapeHtml(
-                                vehicle ||
-                                "Not provided"
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>Date:</strong>
-                            ${escapeHtml(
-                                data.rawDate ||
-                                data.date ||
-                                "Not provided"
-                            )}
-                        </p>
-
-                        <p>
-                            <strong>Time:</strong>
-                            ${escapeHtml(
-                                data.time ||
-                                "Not provided"
-                            )}
-                        </p>
-
-                        <div class="ticket-actions">
-
-                            <button
-                                type="button"
-                                class="accept"
-                                data-id="${escapeHtml(
-                                    data.id
-                                )}"
-                                data-status="accepted"
-                            >
-                                Accept
-                            </button>
-
-                            <button
-                                type="button"
-                                class="complete"
-                                data-id="${escapeHtml(
-                                    data.id
-                                )}"
-                                data-status="completed"
-                            >
-                                Complete
-                            </button>
-
-                            <button
-                                type="button"
-                                class="cancel"
-                                data-id="${escapeHtml(
-                                    data.id
-                                )}"
-                                data-status="cancelled"
-                            >
-                                Cancel
-                            </button>
-
-                        </div>
-                    `;
-
-
-                    ticketsDiv.appendChild(
-                        ticket
-                    );
-
-
-                    const buttons =
-                        ticket.querySelectorAll(
-                            "button"
-                        );
-
-
-                    buttons.forEach(
-                        function(button) {
-
-                            button.addEventListener(
-                                "click",
-                                function() {
-
-                                    updateStatus(
-                                        button.dataset.id,
-                                        button.dataset.status
-                                    );
-                                }
-                            );
-                        }
-                    );
-
-                }
-            );
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Firestore error:",
-                error
-            );
-
-
-            ticketsDiv.innerHTML = `
-                <div class="message error">
-
-                    <strong>
-                        Unable to load jobs.
-                    </strong>
-
-                    <p>
-                        Your account may not have technician access yet.
-                    </p>
-
-                </div>
-            `;
-        }
     }
 
 
-    // =========================================
-    // UPDATE JOB STATUS
-    // =========================================
-
-    async function updateStatus(
-        id,
-        status
-    ) {
-
-        const confirmation =
-            confirm(
-                "Change this appointment to " +
-                status +
-                "?"
-            );
+    let newStatus;
 
 
-        if (!confirmation) {
-            return;
-        }
+    if (action === "accept") {
 
+      newStatus = "accepted";
 
-        try {
+    } else if (action === "complete") {
 
-            const user =
-                auth.currentUser;
+      newStatus = "completed";
 
+    } else if (action === "cancel") {
 
-            if (!user) {
+      newStatus = "cancelled";
 
-                window.location.replace(
-                    SIGNUP_URL
-                );
+    } else {
 
-                return;
-            }
+      return;
 
-
-            // ---------------------------------
-            // VERIFY PAYMENT AGAIN
-            // ---------------------------------
-
-            const tokenResult =
-                await user.getIdTokenResult(
-                    true
-                );
-
-
-            if (
-                tokenResult.claims
-                    .paidTechnician !== true
-            ) {
-
-                await signOut(auth);
-
-                window.location.replace(
-                    SIGNUP_URL
-                );
-
-                return;
-            }
-
-
-            // ---------------------------------
-            // UPDATE DATA
-            // ---------------------------------
-
-            const updateData = {
-
-                status:
-                    status,
-
-                updatedAt:
-                    new Date().toISOString(),
-
-                technicianEmail:
-                    user.email ||
-                    "unknown"
-            };
-
-
-            if (
-                status === "accepted"
-            ) {
-
-                updateData
-                    .technicianAcceptedAt =
-                    new Date()
-                        .toISOString();
-            }
-
-
-            if (
-                status === "completed"
-            ) {
-
-                updateData.completedAt =
-                    new Date()
-                        .toISOString();
-            }
-
-
-            if (
-                status === "cancelled"
-            ) {
-
-                updateData.cancelledAt =
-                    new Date()
-                        .toISOString();
-            }
-
-
-            await updateDoc(
-                doc(
-                    db,
-                    "oilChanges",
-                    id
-                ),
-                updateData
-            );
-
-
-            showDashboardMessage(
-                "Appointment updated successfully.",
-                "success"
-            );
-
-
-            await loadTickets();
-
-        }
-
-        catch (error) {
-
-            console.error(
-                "Update error:",
-                error
-            );
-
-
-            showDashboardMessage(
-                "Could not update the appointment.",
-                "error"
-            );
-        }
     }
 
 
-    // =========================================
-    // HTML ESCAPE
-    // =========================================
+    const confirmed =
+      confirm(
+        `Are you sure you want to ${action} this job?`
+      );
 
-    function escapeHtml(value) {
 
-        return String(value)
-            .replaceAll("&", "&amp;")
-            .replaceAll("<", "&lt;")
-            .replaceAll(">", "&gt;")
-            .replaceAll('"', "&quot;")
-            .replaceAll("'", "&#039;");
+    if (!confirmed) return;
+
+
+    try {
+
+      const tokenResult =
+        await user.getIdTokenResult(true);
+
+
+      if (
+        tokenResult.claims.paidTechnician !== true
+      ) {
+
+        await signOut(auth);
+
+        window.location.href = SIGNUP_URL;
+
+        return;
+
+      }
+
+
+      const updateData = {
+
+        status: newStatus,
+
+        updatedAt: new Date().toISOString(),
+
+        technicianEmail:
+          user.email || ""
+
+      };
+
+
+      if (newStatus === "accepted") {
+
+        updateData.acceptedAt =
+          new Date().toISOString();
+
+      }
+
+
+      if (newStatus === "completed") {
+
+        updateData.completedAt =
+          new Date().toISOString();
+
+      }
+
+
+      if (newStatus === "cancelled") {
+
+        updateData.cancelledAt =
+          new Date().toISOString();
+
+      }
+
+
+      await updateDoc(
+        doc(db, "oilChanges", id),
+        updateData
+      );
+
+
+      await loadTickets();
+
+
+    } catch (error) {
+
+      console.error(
+        "Error updating job:",
+        error
+      );
+
+
+      alert(
+        "Unable to update this job. Please try again."
+      );
+
     }
+
+  }
+
+
+  logoutBtn.addEventListener(
+    "click",
+    async () => {
+
+      await signOut(auth);
+
+      window.location.href = SIGNUP_URL;
+
+    }
+  );
+
+
+  refreshBtn.addEventListener(
+    "click",
+    loadTickets
+  );
 
 </script>
 
 </body>
 </html>
-```
