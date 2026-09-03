@@ -1,12 +1,12 @@
 const CACHE_NAME = "world-oil-v1";
 
 const APP_SHELL = [
-    "/",
-    "/index.html",
-    "/tech_login.html",
-    "/technician-signup.html",
-    "/technician-dashboard.html",
-    "/manifest.json"
+    "./",
+    "./index.html",
+    "./tech_login.html",
+    "./technician-signup.html",
+    "./technician-dashboard.html",
+    "./manifest.json"
 ];
 
 self.addEventListener("install", event => {
