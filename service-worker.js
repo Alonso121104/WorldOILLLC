@@ -93,7 +93,7 @@ self.addEventListener("fetch", event => {
                     .catch(() => {
 
                         return caches.match(
-                            "/technician-dashboard.html"
+                            "./technician-dashboard.html"
                         );
 
                     });
