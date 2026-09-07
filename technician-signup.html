@@ -3,2122 +3,2255 @@
 
 <head>
 
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>Technician Sign Up | World OIL</title>
-
-    <style>
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f6f8;
-            color: #151a20;
-        }
-
-        /* HEADER */
-
-        header {
-            background: #11161c;
-            padding: 20px;
-        }
-
-        .header-inner {
-            max-width: 1000px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            color: white;
-            font-size: 25px;
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
-
-        .logo span {
-            color: #f4b400;
-        }
-
-        .login {
-            color: white;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .login:hover {
-            text-decoration: underline;
-        }
-
-        /* HERO */
-
-        .hero {
-            background: #11161c;
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        .hero h1 {
-            margin: 0 0 10px;
-            font-size: 40px;
-        }
-
-        .hero h1 span {
-            color: #f4b400;
-        }
-
-        .hero p {
-            margin: 0 auto;
-            max-width: 600px;
-            color: #c8cdd2;
-            line-height: 1.6;
-        }
-
-        /* CONTAINER */
-
-        .container {
-            width: min(850px, calc(100% - 30px));
-            margin: 35px auto 70px;
-        }
-
-        .card {
-            background: white;
-            border-radius: 14px;
-            border: 1px solid #e0e3e7;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, .06);
-            overflow: hidden;
-        }
-
-        .section {
-            padding: 30px;
-            border-bottom: 1px solid #e6e9ec;
-        }
-
-        .section:last-child {
-            border-bottom: none;
-        }
-
-        .section h2 {
-            margin: 0 0 8px;
-            font-size: 22px;
-        }
-
-        .description {
-            color: #707981;
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0 0 25px;
-        }
-
-        /* FORM */
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 18px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .full {
-            grid-column: 1 / -1;
-        }
-
-        label {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
-
-        .required {
-            color: #d93025;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #ccd1d6;
-            border-radius: 8px;
-            font-size: 15px;
-            outline: none;
-            background: white;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #f4b400;
-            box-shadow: 0 0 0 3px rgba(244, 180, 0, .15);
-        }
-
-        /* AGE NOTICE */
-
-        .age-notice {
-            margin-top: 10px;
-            padding: 12px;
-            border-radius: 8px;
-            background: #f5f6f8;
-            color: #646c73;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-
-        /* PLANS */
-
-        .plans {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .plan {
-            position: relative;
-            border: 2px solid #dce1e5;
-            border-radius: 12px;
-            padding: 25px;
-            cursor: pointer;
-            transition: .2s;
-        }
-
-        .plan:hover {
-            border-color: #f4b400;
-        }
-
-        .plan.selected {
-            border-color: #f4b400;
-            background: #fffdf5;
-        }
-
-        .plan input {
-            position: absolute;
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .plan-name {
-            font-size: 20px;
-            font-weight: 900;
-            margin-bottom: 8px;
-        }
-
-        .price {
-            font-size: 34px;
-            font-weight: 900;
-            margin-bottom: 18px;
-        }
-
-        .price small {
-            font-size: 13px;
-            color: #747c84;
-            font-weight: normal;
-        }
-
-        .plan ul {
-            margin: 0;
-            padding-left: 20px;
-            color: #606970;
-            font-size: 14px;
-            line-height: 1.9;
-        }
-
-        .recommended {
-            position: absolute;
-            top: -12px;
-            right: 15px;
-            background: #f4b400;
-            color: #11161c;
-            font-size: 10px;
-            font-weight: 900;
-            padding: 5px 9px;
-            border-radius: 20px;
-        }
-
-        /* TECHNICIAN REQUIREMENTS */
-
-        .requirements-box {
-            background: #fafbfc;
-            border: 1px solid #e0e3e7;
-            border-radius: 10px;
-            padding: 18px;
-        }
-
-        .requirement {
-            display: flex;
-            align-items: flex-start;
-            gap: 11px;
-            margin-bottom: 16px;
-        }
-
-        .requirement:last-child {
-            margin-bottom: 0;
-        }
-
-        .requirement input {
-            width: auto;
-            flex: 0 0 auto;
-            margin-top: 3px;
-            accent-color: #f4b400;
-            cursor: pointer;
-        }
-
-        .requirement label {
-            font-size: 13px;
-            font-weight: 500;
-            line-height: 1.6;
-            margin: 0;
-            cursor: pointer;
-        }
-
-        .requirement label strong {
-            font-weight: 800;
-        }
-
-        /* TERMS */
-
-        .terms {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            margin-top: 20px;
-        }
-
-        .terms input {
-            width: auto;
-            margin-top: 3px;
-            accent-color: #f4b400;
-        }
-
-        .terms label {
-            font-size: 13px;
-            font-weight: 500;
-            line-height: 1.6;
-            margin: 0;
-        }
-
-        .terms a {
-            color: #1769aa;
-        }
-
-        /* MESSAGE */
-
-        #message {
-            display: none;
-            margin-top: 15px;
-            padding: 13px;
-            border-radius: 8px;
-            font-size: 14px;
-            line-height: 1.5;
-            text-align: center;
-            font-weight: 700;
-        }
-
-        #message.error {
-            display: block;
-            color: #b00020;
-            background: #ffe5e5;
-        }
-
-        #message.success {
-            display: block;
-            color: #146c2e;
-            background: #e5f7e9;
-        }
-
-        #message.loading {
-            display: block;
-            color: #444;
-            background: #eeeeee;
-        }
-
-        /* BUTTON */
-
-        .submit-section {
-            padding: 30px;
-            background: #fafbfc;
-        }
-
-        button {
-            font-family: inherit;
-        }
-
-        #submitButton {
-            width: 100%;
-            border: none;
-            border-radius: 9px;
-            padding: 17px;
-            background: #f4b400;
-            color: #11161c;
-            font-size: 17px;
-            font-weight: 900;
-            cursor: pointer;
-        }
-
-        #submitButton:hover {
-            background: #dfa500;
-        }
-
-        #submitButton:disabled {
-            opacity: .65;
-            cursor: not-allowed;
-        }
-
-        .secure {
-            text-align: center;
-            margin-top: 12px;
-            color: #7b838a;
-            font-size: 12px;
-        }
-
-        /* SUCCESS */
-
-        .success {
-            display: none;
-            text-align: center;
-            padding: 60px 25px;
-        }
-
-        .success-icon {
-            width: 65px;
-            height: 65px;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            background: #e5f5e9;
-            color: #16803a;
-            display: grid;
-            place-items: center;
-            font-size: 32px;
-        }
-
-        .success h2 {
-            margin: 0 0 10px;
-        }
-
-        .success p {
-            max-width: 550px;
-            margin: auto;
-            color: #6d767e;
-            line-height: 1.6;
-        }
-
-        .payment-button {
-            display: inline-block;
-            margin-top: 25px;
-            padding: 14px 25px;
-            border-radius: 8px;
-            background: #f4b400;
-            color: #11161c;
-            font-weight: 900;
-            text-decoration: none;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .payment-button:hover {
-            background: #dfa500;
-        }
-
-        /* FOOTER */
-
-        footer {
-            background: #11161c;
-            color: #aab1b8;
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 12px;
-        }
-
-        footer strong {
-            color: white;
-        }
-
-        /* MOBILE */
-
-        @media (max-width: 700px) {
-
-            .hero h1 {
-                font-size: 32px;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .full {
-                grid-column: auto;
-            }
-
-            .plans {
-                grid-template-columns: 1fr;
-            }
-
-            .section,
-            .submit-section {
-                padding: 22px;
-            }
-
-            .header-inner {
-                gap: 15px;
-            }
-
-            .login {
-                font-size: 12px;
-            }
-
-        }
-
-    </style>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Technician Subscription | World OIL</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f6f8;
+    color: #151a20;
+}
+
+header {
+    background: #11161c;
+    padding: 20px;
+}
+
+.header-inner {
+    max-width: 1000px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    color: white;
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    color: #f4b400;
+}
+
+.login {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.login:hover {
+    text-decoration: underline;
+}
+
+.hero {
+    background: #11161c;
+    color: white;
+    text-align: center;
+    padding: 50px 20px;
+}
+
+.hero h1 {
+    margin: 0 0 10px;
+    font-size: 40px;
+}
+
+.hero h1 span {
+    color: #f4b400;
+}
+
+.hero p {
+    margin: 0 auto;
+    max-width: 600px;
+    color: #c8cdd2;
+    line-height: 1.6;
+}
+
+.container {
+    width: min(850px, calc(100% - 30px));
+    margin: 35px auto 70px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    border: 1px solid #e0e3e7;
+    box-shadow: 0 8px 30px rgba(0,0,0,.06);
+    overflow: hidden;
+}
+
+.section {
+    padding: 30px;
+    border-bottom: 1px solid #e6e9ec;
+}
+
+.section:last-child {
+    border-bottom: none;
+}
+
+.section h2 {
+    margin: 0 0 8px;
+    font-size: 22px;
+}
+
+.description {
+    color: #707981;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 25px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.required {
+    color: #d93025;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #ccd1d6;
+    border-radius: 8px;
+    font-size: 15px;
+    outline: none;
+    background: white;
+}
+
+input:focus,
+select:focus {
+    border-color: #f4b400;
+    box-shadow: 0 0 0 3px rgba(244,180,0,.15);
+}
+
+.age-notice {
+    margin-top: 10px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #f5f6f8;
+    color: #646c73;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.plans {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.plan {
+    position: relative;
+    border: 2px solid #dce1e5;
+    border-radius: 12px;
+    padding: 25px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.plan:hover {
+    border-color: #f4b400;
+}
+
+.plan.selected {
+    border-color: #f4b400;
+    background: #fffdf5;
+}
+
+.plan input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.plan-name {
+    font-size: 20px;
+    font-weight: 900;
+    margin-bottom: 8px;
+}
+
+.price {
+    font-size: 34px;
+    font-weight: 900;
+    margin-bottom: 18px;
+}
+
+.price small {
+    font-size: 13px;
+    color: #747c84;
+    font-weight: normal;
+}
+
+.plan ul {
+    margin: 0;
+    padding-left: 20px;
+    color: #606970;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.recommended {
+    position: absolute;
+    top: -12px;
+    right: 15px;
+    background: #f4b400;
+    color: #11161c;
+    font-size: 10px;
+    font-weight: 900;
+    padding: 5px 9px;
+    border-radius: 20px;
+}
+
+.requirements-box {
+    background: #fafbfc;
+    border: 1px solid #e0e3e7;
+    border-radius: 10px;
+    padding: 18px;
+}
+
+.requirement {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    margin-bottom: 16px;
+}
+
+.requirement:last-child {
+    margin-bottom: 0;
+}
+
+.requirement input {
+    width: auto;
+    flex: 0 0 auto;
+    margin-top: 3px;
+    accent-color: #f4b400;
+    cursor: pointer;
+}
+
+.requirement label {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0;
+    cursor: pointer;
+}
+
+.requirement label strong {
+    font-weight: 800;
+}
+
+.terms {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-top: 20px;
+}
+
+.terms input {
+    width: auto;
+    margin-top: 3px;
+    accent-color: #f4b400;
+}
+
+.terms label {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.terms a {
+    color: #1769aa;
+}
+
+#message {
+    display: none;
+    margin-top: 15px;
+    padding: 13px;
+    border-radius: 8px;
+    font-size: 14px;
+    line-height: 1.5;
+    text-align: center;
+    font-weight: 700;
+}
+
+#message.error {
+    display: block;
+    color: #b00020;
+    background: #ffe5e5;
+}
+
+#message.success {
+    display: block;
+    color: #146c2e;
+    background: #e5f7e9;
+}
+
+#message.loading {
+    display: block;
+    color: #444;
+    background: #eeeeee;
+}
+
+.submit-section {
+    padding: 30px;
+    background: #fafbfc;
+}
+
+button {
+    font-family: inherit;
+}
+
+#submitButton {
+    width: 100%;
+    border: none;
+    border-radius: 9px;
+    padding: 17px;
+    background: #f4b400;
+    color: #11161c;
+    font-size: 17px;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+#submitButton:hover {
+    background: #dfa500;
+}
+
+#submitButton:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+}
+
+.secure {
+    text-align: center;
+    margin-top: 12px;
+    color: #7b838a;
+    font-size: 12px;
+}
+
+#existingAccountBox {
+    display: none;
+    background: #fff8df;
+    border: 1px solid #f4b400;
+    border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 25px;
+}
+
+#existingAccountBox h3 {
+    margin: 0 0 8px;
+}
+
+#existingAccountBox p {
+    margin: 0 0 15px;
+    color: #606970;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+#signInButton {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    background: #11161c;
+    color: white;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+#signInButton:hover {
+    background: #242b33;
+}
+
+#signInBox {
+    display: none;
+    background: #f5f6f8;
+    border: 1px solid #dfe3e7;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+
+#signInBox h3 {
+    margin-top: 0;
+}
+
+.signin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#existingSignInSubmit {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    background: #f4b400;
+    color: #11161c;
+    font-weight: 900;
+    cursor: pointer;
+}
+
+#cancelSignIn {
+    border: 1px solid #ccd1d6;
+    border-radius: 8px;
+    padding: 12px 20px;
+    background: white;
+    color: #11161c;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+#accountModeText {
+    text-align: center;
+    font-size: 13px;
+    color: #707981;
+    margin-top: 15px;
+}
+
+footer {
+    background: #11161c;
+    color: #aab1b8;
+    text-align: center;
+    padding: 30px 20px;
+    font-size: 12px;
+}
+
+footer strong {
+    color: white;
+}
+
+@media (max-width: 700px) {
+
+    .hero h1 {
+        font-size: 32px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .full {
+        grid-column: auto;
+    }
+
+    .plans {
+        grid-template-columns: 1fr;
+    }
+
+    .section,
+    .submit-section {
+        padding: 22px;
+    }
+
+    .header-inner {
+        gap: 15px;
+    }
+
+    .login {
+        font-size: 12px;
+    }
+
+    .signin-actions {
+        flex-direction: column;
+    }
+
+}
+
+</style>
 
 </head>
 
-
 <body>
-
 
 <header>
 
-    <div class="header-inner">
+<div class="header-inner">
 
-        <div class="logo">
-            WORLD <span>OIL</span>
-        </div>
+<div class="logo">
+WORLD <span>OIL</span>
+</div>
 
-        <a
-            href="technician-dashboard.html"
-            class="login"
-        >
-            Already have an account? Sign in
-        </a>
+<a
+href="technician-dashboard.html"
+class="login"
+>
+Back to Technician Dashboard
+</a>
 
-    </div>
+</div>
 
 </header>
 
-
 <section class="hero">
 
-    <h1>
-        Join <span>World OIL</span>
-    </h1>
+<h1>
+World <span>OIL</span> Technician Subscription
+</h1>
 
-    <p>
-        Create your technician account and choose
-        the membership plan that works best for you.
-    </p>
+<p>
+Choose your technician membership plan.
+Existing technicians can sign in and reactivate their subscription.
+</p>
 
 </section>
 
-
 <main class="container">
 
-    <div class="card">
+<div class="card">
 
+<form id="signupForm">
 
-        <form id="signupForm">
+<section class="section">
 
+<h2>
+Technician Account
+</h2>
 
-            <!-- ACCOUNT -->
+<p class="description">
+If you already have a World OIL technician account,
+sign in below to subscribe again. You do not need to create another account.
+</p>
 
-            <section class="section">
+<div id="existingAccountBox">
 
-                <h2>
-                    Create Your Account
-                </h2>
+<h3>
+Already have a World OIL account?
+</h3>
 
-                <p class="description">
-                    Enter your information to create
-                    your World OIL technician account.
-                </p>
+<p>
+Use your existing technician account to purchase a new subscription.
+</p>
 
+<button
+type="button"
+id="signInButton"
+>
+Sign In to Existing Account
+</button>
 
-                <div class="form-grid">
+</div>
 
+<div id="signInBox">
 
-                    <div class="form-group">
+<h3>
+Sign In
+</h3>
 
-                        <label for="firstName">
-                            First Name
-                            <span class="required">*</span>
-                        </label>
+<div class="form-grid">
 
-                        <input
-                            type="text"
-                            id="firstName"
-                            autocomplete="given-name"
-                            placeholder="John"
-                            required
-                        >
+<div class="form-group">
 
-                    </div>
+<label for="signInEmail">
+Email Address
+</label>
 
+<input
+type="email"
+id="signInEmail"
+placeholder="john@example.com"
+autocomplete="email"
+>
 
-                    <div class="form-group">
+</div>
 
-                        <label for="lastName">
-                            Last Name
-                            <span class="required">*</span>
-                        </label>
+<div class="form-group">
 
-                        <input
-                            type="text"
-                            id="lastName"
-                            autocomplete="family-name"
-                            placeholder="Smith"
-                            required
-                        >
+<label for="signInPassword">
+Password
+</label>
 
-                    </div>
+<input
+type="password"
+id="signInPassword"
+placeholder="Your password"
+autocomplete="current-password"
+>
 
+</div>
 
-                    <div class="form-group full">
+</div>
 
-                        <label for="email">
-                            Email Address
-                            <span class="required">*</span>
-                        </label>
+<div class="signin-actions">
 
-                        <input
-                            type="email"
-                            id="email"
-                            autocomplete="email"
-                            placeholder="john@example.com"
-                            required
-                        >
+<button
+type="button"
+id="existingSignInSubmit"
+>
+Sign In
+</button>
 
-                    </div>
+<button
+type="button"
+id="cancelSignIn"
+>
+Cancel
+</button>
 
+</div>
 
-                    <div class="form-group">
+</div>
 
-                        <label for="phone">
-                            Phone Number
-                            <span class="required">*</span>
-                        </label>
+<div id="newAccountFields">
 
-                        <input
-                            type="tel"
-                            id="phone"
-                            autocomplete="tel"
-                            placeholder="(555) 555-5555"
-                            required
-                        >
+<div class="form-grid">
 
-                    </div>
+<div class="form-group">
 
+<label for="firstName">
+First Name
+<span class="required">*</span>
+</label>
 
-                    <div class="form-group">
+<input
+type="text"
+id="firstName"
+placeholder="John"
+autocomplete="given-name"
+>
+
+</div>
+
+<div class="form-group">
 
-                        <label for="dateOfBirth">
-                            Date of Birth
-                            <span class="required">*</span>
-                        </label>
+<label for="lastName">
+Last Name
+<span class="required">*</span>
+</label>
 
-                        <input
-                            type="date"
-                            id="dateOfBirth"
-                            required
-                        >
+<input
+type="text"
+id="lastName"
+placeholder="Smith"
+autocomplete="family-name"
+>
 
-                        <div class="age-notice">
-                            You must be at least 18 years old to become a World OIL technician.
-                        </div>
+</div>
 
-                    </div>
+<div class="form-group full">
 
+<label for="email">
+Email Address
+<span class="required">*</span>
+</label>
 
-                    <div class="form-group">
+<input
+type="email"
+id="email"
+placeholder="john@example.com"
+autocomplete="email"
+>
 
-                        <label for="password">
-                            Password
-                            <span class="required">*</span>
-                        </label>
+</div>
 
-                        <input
-                            type="password"
-                            id="password"
-                            minlength="8"
-                            autocomplete="new-password"
-                            placeholder="Minimum 8 characters"
-                            required
-                        >
+<div class="form-group">
 
-                    </div>
+<label for="phone">
+Phone Number
+<span class="required">*</span>
+</label>
 
+<input
+type="tel"
+id="phone"
+placeholder="(555) 555-5555"
+autocomplete="tel"
+>
 
-                    <div class="form-group">
+</div>
 
-                        <label for="confirmPassword">
-                            Confirm Password
-                            <span class="required">*</span>
-                        </label>
+<div class="form-group">
 
-                        <input
-                            type="password"
-                            id="confirmPassword"
-                            minlength="8"
-                            autocomplete="new-password"
-                            placeholder="Re-enter your password"
-                            required
-                        >
+<label for="dateOfBirth">
+Date of Birth
+<span class="required">*</span>
+</label>
 
-                    </div>
+<input
+type="date"
+id="dateOfBirth"
+>
 
+<div class="age-notice">
+You must be at least 18 years old to become a World OIL technician.
+</div>
 
-                </div>
+</div>
 
-            </section>
+<div class="form-group">
 
+<label for="password">
+Password
+<span class="required">*</span>
+</label>
 
-            <!-- EXPERIENCE -->
+<input
+type="password"
+id="password"
+placeholder="Minimum 8 characters"
+autocomplete="new-password"
+>
 
-            <section class="section">
+</div>
 
-                <h2>
-                    Technician Experience
-                </h2>
+<div class="form-group">
 
-                <p class="description">
-                    Provide accurate information about your automotive experience.
-                </p>
+<label for="confirmPassword">
+Confirm Password
+<span class="required">*</span>
+</label>
 
+<input
+type="password"
+id="confirmPassword"
+placeholder="Re-enter your password"
+autocomplete="new-password"
+>
 
-                <div class="form-grid">
+</div>
 
+</div>
 
-                    <div class="form-group">
+</div>
 
-                        <label for="experience">
-                            Automotive Experience
-                            <span class="required">*</span>
-                        </label>
+</section>
 
-                        <select
-                            id="experience"
-                            required
-                        >
+<section class="section">
 
-                            <option value="">
-                                Select experience
-                            </option>
+<h2>
+Technician Experience
+</h2>
 
-                            <option value="less_than_1">
-                                Less than 1 year
-                            </option>
+<p class="description">
+Provide accurate information about your automotive experience.
+</p>
 
-                            <option value="1_to_2">
-                                1–2 years
-                            </option>
+<div class="form-grid">
 
-                            <option value="3_to_5">
-                                3–5 years
-                            </option>
+<div class="form-group">
 
-                            <option value="6_to_10">
-                                6–10 years
-                            </option>
+<label for="experience">
+Automotive Experience
+<span class="required">*</span>
+</label>
 
-                            <option value="over_10">
-                                Over 10 years
-                            </option>
+<select id="experience">
 
-                        </select>
+<option value="">
+Select experience
+</option>
 
-                    </div>
+<option value="less_than_1">
+Less than 1 year
+</option>
 
+<option value="1_to_2">
+1–2 years
+</option>
 
-                    <div class="form-group">
+<option value="3_to_5">
+3–5 years
+</option>
 
-                        <label for="previousAutomotiveJob">
-                            Previous Automotive Work
-                            <span class="required">*</span>
-                        </label>
+<option value="6_to_10">
+6–10 years
+</option>
 
-                        <select
-                            id="previousAutomotiveJob"
-                            required
-                        >
+<option value="over_10">
+Over 10 years
+</option>
 
-                            <option value="">
-                                Select one
-                            </option>
+</select>
 
-                            <option value="yes">
-                                Yes
-                            </option>
+</div>
 
-                            <option value="no">
-                                No
-                            </option>
+<div class="form-group">
 
-                        </select>
+<label for="previousAutomotiveJob">
+Previous Automotive Work
+<span class="required">*</span>
+</label>
 
-                    </div>
+<select id="previousAutomotiveJob">
 
+<option value="">
+Select one
+</option>
 
-                    <div class="form-group full">
+<option value="yes">
+Yes
+</option>
 
-                        <label for="experienceDetails">
-                            Experience Details
-                        </label>
+<option value="no">
+No
+</option>
 
-                        <input
-                            type="text"
-                            id="experienceDetails"
-                            placeholder="Describe your automotive experience"
-                        >
+</select>
 
-                    </div>
+</div>
 
+<div class="form-group full">
 
-                </div>
+<label for="experienceDetails">
+Experience Details
+</label>
 
-            </section>
+<input
+type="text"
+id="experienceDetails"
+placeholder="Describe your automotive experience"
+>
 
+</div>
 
-            <!-- SUBSCRIPTION -->
+</div>
 
-            <section class="section">
+</section>
 
-                <h2>
-                    Choose Your Subscription
-                </h2>
+<section class="section">
 
-                <p class="description">
-                    Your subscription gives you access
-                    to the World OIL marketplace and
-                    available customer oil-change offers.
-                </p>
+<h2>
+Choose Your Subscription
+</h2>
 
+<p class="description">
+Choose the monthly technician membership you want.
+</p>
 
-                <div class="plans">
+<div class="plans">
 
+<label class="plan">
 
-                    <!-- STANDARD -->
+<input
+type="radio"
+name="subscription"
+value="standard"
+data-price="149.99"
+required
+>
 
-                    <label class="plan">
+<div class="plan-name">
+Standard
+</div>
 
-                        <input
-                            type="radio"
-                            name="subscription"
-                            value="standard"
-                            data-price="149.99"
-                            required
-                        >
+<div class="price">
+$149.99
+<small>/ month</small>
+</div>
 
-                        <div class="plan-name">
-                            Standard
-                        </div>
+<ul>
 
-                        <div class="price">
-                            $149.99
-                            <small>/ month</small>
-                        </div>
+<li>Access to available customer jobs</li>
+<li>Customer job notifications</li>
+<li>Standard service area</li>
+<li>Technician dashboard</li>
 
-                        <ul>
+</ul>
 
-                            <li>
-                                Access to available customer jobs
-                            </li>
+</label>
 
-                            <li>
-                                Customer job notifications
-                            </li>
+<label class="plan selected">
 
-                            <li>
-                                Standard service area
-                            </li>
+<div class="recommended">
+RECOMMENDED
+</div>
 
-                            <li>
-                                Technician dashboard
-                            </li>
+<input
+type="radio"
+name="subscription"
+value="priority"
+data-price="200.00"
+checked
+required
+>
 
-                        </ul>
+<div class="plan-name">
+Priority
+</div>
 
-                    </label>
+<div class="price">
+$200.00
+<small>/ month</small>
+</div>
 
+<ul>
 
-                    <!-- PRIORITY -->
+<li>Access to available customer jobs</li>
+<li>Customer job notifications</li>
+<li><strong>Expanded service area</strong></li>
+<li><strong>Priority job notifications</strong></li>
 
-                    <label class="plan selected">
+</ul>
 
-                        <div class="recommended">
-                            RECOMMENDED
-                        </div>
+</label>
 
-                        <input
-                            type="radio"
-                            name="subscription"
-                            value="priority"
-                            data-price="200.00"
-                            checked
-                            required
-                        >
+</div>
 
-                        <div class="plan-name">
-                            Priority
-                        </div>
+</section>
 
-                        <div class="price">
-                            $200.00
-                            <small>/ month</small>
-                        </div>
+<section class="section">
 
-                        <ul>
+<h2>
+Technician Requirements & Responsibilities
+</h2>
 
-                            <li>
-                                Access to available customer jobs
-                            </li>
+<p class="description">
+You must acknowledge each requirement before subscribing.
+</p>
 
-                            <li>
-                                Customer job notifications
-                            </li>
+<div class="requirements-box">
 
-                            <li>
-                                <strong>
-                                    Expanded service area
-                                </strong>
-                            </li>
+<div class="requirement">
 
-                            <li>
-                                <strong>
-                                    Priority job notifications
-                                </strong>
-                            </li>
+<input
+type="checkbox"
+id="ageAgreement"
+>
 
-                        </ul>
+<label for="ageAgreement">
+I confirm that I am
+<strong>18 years of age or older</strong>.
+</label>
 
-                    </label>
+</div>
 
+<div class="requirement">
 
-                </div>
+<input
+type="checkbox"
+id="experienceAgreement"
+>
 
-            </section>
+<label for="experienceAgreement">
+I confirm that I have at least
+<strong>1 year of automotive or oil-change experience</strong>.
+</label>
 
+</div>
 
-            <!-- TECHNICIAN REQUIREMENTS -->
+<div class="requirement">
 
-            <section class="section">
+<input
+type="checkbox"
+id="equipmentAgreement"
+>
 
-                <h2>
-                    Technician Requirements & Responsibilities
-                </h2>
+<label for="equipmentAgreement">
+I confirm that I have the
+<strong>proper tools and equipment</strong>
+required to safely perform oil changes.
+</label>
 
-                <p class="description">
-                    You must read and acknowledge each requirement before creating your technician account.
-                </p>
+</div>
 
+<div class="requirement">
 
-                <div class="requirements-box">
+<input
+type="checkbox"
+id="damageAgreement"
+>
 
+<label for="damageAgreement">
+I understand that I am
+<strong>responsible for damage caused by my negligence, improper procedures, or failure to use proper equipment</strong>.
+</label>
 
-                    <div class="requirement">
+</div>
 
-                        <input
-                            type="checkbox"
-                            id="ageAgreement"
-                        >
+<div class="requirement">
 
-                        <label for="ageAgreement">
-                            I confirm that I am
-                            <strong>18 years of age or older</strong>.
-                        </label>
+<input
+type="checkbox"
+id="safetyAgreement"
+>
 
-                    </div>
+<label for="safetyAgreement">
+I agree to follow
+<strong>safe work practices and applicable manufacturer specifications</strong>.
+</label>
 
+</div>
 
-                    <div class="requirement">
+<div class="requirement">
 
-                        <input
-                            type="checkbox"
-                            id="experienceAgreement"
-                        >
+<input
+type="checkbox"
+id="accuracyAgreement"
+>
 
-                        <label for="experienceAgreement">
-                            I confirm that I have at least
-                            <strong>1 year of automotive or oil-change experience</strong>.
-                        </label>
+<label for="accuracyAgreement">
+I confirm that the information I provided about my
+<strong>age, experience, qualifications, and equipment</strong>
+is accurate.
+</label>
 
-                    </div>
+</div>
 
+</div>
 
-                    <div class="requirement">
+</section>
 
-                        <input
-                            type="checkbox"
-                            id="equipmentAgreement"
-                        >
+<section class="section">
 
-                        <label for="equipmentAgreement">
-                            I confirm that I have the
-                            <strong>proper tools and equipment</strong>
-                            required to safely perform oil changes.
-                        </label>
+<h2>
+Agreement
+</h2>
 
-                    </div>
+<div class="terms">
 
+<input
+type="checkbox"
+id="terms"
+>
 
-                    <div class="requirement">
+<label for="terms">
 
-                        <input
-                            type="checkbox"
-                            id="damageAgreement"
-                        >
+I agree to the
 
-                        <label for="damageAgreement">
-                            I understand that I am
-                            <strong>responsible for damage caused by my negligence, improper procedures, or failure to use proper equipment</strong>
-                            while performing an oil change.
-                        </label>
+<a
+href="provider-terms.html"
+target="_blank"
+>
+World OIL Provider Terms
+</a>
 
-                    </div>
+and understand that my subscription provides access
+to the World OIL marketplace and does not guarantee
+a specific number of jobs or earnings.
 
+</label>
 
-                    <div class="requirement">
+</div>
 
-                        <input
-                            type="checkbox"
-                            id="safetyAgreement"
-                        >
+<div
+id="message"
+role="alert"
+aria-live="polite"
+></div>
 
-                        <label for="safetyAgreement">
-                            I agree to follow
-                            <strong>safe work practices and applicable manufacturer specifications</strong>
-                            when performing oil-change services.
-                        </label>
+</section>
 
-                    </div>
+<section class="submit-section">
 
+<button
+type="submit"
+id="submitButton"
+>
+Create Technician Account
+</button>
 
-                    <div class="requirement">
+<div
+id="accountModeText"
+>
+New technician? Create your account below.
+</div>
 
-                        <input
-                            type="checkbox"
-                            id="accuracyAgreement"
-                        >
+<div class="secure">
+🔒 Your account information is securely submitted.
+</div>
 
-                        <label for="accuracyAgreement">
-                            I confirm that the information I provided about my
-                            <strong>age, experience, qualifications, and equipment</strong>
-                            is accurate.
-                        </label>
+</section>
 
-                    </div>
+</form>
 
-
-                </div>
-
-            </section>
-
-
-            <!-- PROVIDER TERMS -->
-
-            <section class="section">
-
-                <h2>
-                    Agreement
-                </h2>
-
-
-                <div class="terms">
-
-                    <input
-                        type="checkbox"
-                        id="terms"
-                        required
-                    >
-
-                    <label for="terms">
-
-                        I agree to the
-
-                        <a
-                            href="provider-terms.html"
-                            target="_blank"
-                        >
-                            World OIL Provider Terms
-                        </a>
-
-                        and understand that my
-                        subscription provides access
-                        to the World OIL marketplace
-                        and does not guarantee a specific
-                        number of jobs or earnings.
-
-                    </label>
-
-                </div>
-
-
-                <div
-                    id="message"
-                    role="alert"
-                    aria-live="polite"
-                ></div>
-
-            </section>
-
-
-            <!-- SUBMIT -->
-
-            <section class="submit-section">
-
-                <button
-                    type="submit"
-                    id="submitButton"
-                >
-                    Create Technician Account
-                </button>
-
-                <div class="secure">
-                    🔒 Your account information
-                    is securely submitted.
-                </div>
-
-            </section>
-
-
-        </form>
-
-
-        <!-- SUCCESS -->
-
-        <div
-            class="success"
-            id="successMessage"
-        >
-
-            <div class="success-icon">
-                ✓
-            </div>
-
-            <h2>
-                Account Created
-            </h2>
-
-            <p>
-
-                Your World OIL technician account
-                has been created successfully.
-
-                <br><br>
-
-                Your selected subscription is:
-
-                <strong id="selectedPlanText">
-                    -
-                </strong>
-
-                <br><br>
-
-                Click below to securely complete
-                your monthly subscription payment.
-
-            </p>
-
-
-            <button
-                id="paymentButton"
-                class="payment-button"
-                type="button"
-            >
-                Continue to Payment
-            </button>
-
-        </div>
-
-
-    </div>
+</div>
 
 </main>
 
-
 <footer>
 
-    <strong>
-        WORLD OIL
-    </strong>
+<strong>
+WORLD OIL
+</strong>
 
-    <br><br>
+<br><br>
 
-    Connecting customers with
-    automotive service providers.
+Connecting customers with automotive service providers.
 
-    <br><br>
+<br><br>
 
-    © 2026 World OIL.
-    All rights reserved.
+© 2026 World OIL. All rights reserved.
 
 </footer>
 
-
 <script type="module">
 
-
-/* =========================================
-   FIREBASE IMPORTS
-========================================= */
-
 import {
-    initializeApp
+initializeApp
 }
 from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
 
-
 import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    updateProfile
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+updateProfile
 }
 from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
 
-
 import {
-    getFirestore,
-    doc,
-    setDoc,
-    serverTimestamp
+getFirestore,
+doc,
+setDoc,
+serverTimestamp,
+getDoc
 }
 from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
 
-/* =========================================
-   FIREBASE CONFIG
-========================================= */
-
 const firebaseConfig = {
 
-    apiKey:
-        "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
+apiKey:
+"AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
 
-    authDomain:
-        "worldoilllc.firebaseapp.com",
+authDomain:
+"worldoilllc.firebaseapp.com",
 
-    projectId:
-        "worldoilllc",
+projectId:
+"worldoilllc",
 
-    storageBucket:
-        "worldoilllc.firebasestorage.app",
+storageBucket:
+"worldoilllc.firebasestorage.app",
 
-    messagingSenderId:
-        "769325331754",
+messagingSenderId:
+"769325331754",
 
-    appId:
-        "1:769325331754:web:234d7c3ffa9a6424779a53",
+appId:
+"1:769325331754:web:234d7c3ffa9a6424779a53",
 
-    measurementId:
-        "G-3DFP2FFYN0"
+measurementId:
+"G-3DFP2FFYN0"
 
 };
 
 
-/* =========================================
-   INITIALIZE FIREBASE
-========================================= */
-
 const app =
-    initializeApp(firebaseConfig);
-
+initializeApp(firebaseConfig);
 
 const auth =
-    getAuth(app);
-
+getAuth(app);
 
 const db =
-    getFirestore(app);
+getFirestore(app);
 
-
-/* =========================================
-   ELEMENTS
-========================================= */
 
 const form =
-    document.getElementById("signupForm");
+document.getElementById("signupForm");
 
 const submitButton =
-    document.getElementById("submitButton");
+document.getElementById("submitButton");
 
 const message =
-    document.getElementById("message");
-
-const successMessage =
-    document.getElementById("successMessage");
-
-const selectedPlanText =
-    document.getElementById("selectedPlanText");
-
-const paymentButton =
-    document.getElementById("paymentButton");
+document.getElementById("message");
 
 const plans =
-    document.querySelectorAll(".plan");
+document.querySelectorAll(".plan");
 
+const existingAccountBox =
+document.getElementById("existingAccountBox");
 
-/* =========================================
-   CHECKOUT FUNCTION
-========================================= */
+const signInBox =
+document.getElementById("signInBox");
+
+const signInButton =
+document.getElementById("signInButton");
+
+const cancelSignIn =
+document.getElementById("cancelSignIn");
+
+const existingSignInSubmit =
+document.getElementById("existingSignInSubmit");
+
+const newAccountFields =
+document.getElementById("newAccountFields");
+
+const accountModeText =
+document.getElementById("accountModeText");
+
 
 const CHECKOUT_FUNCTION_URL =
-    "https://us-central1-worldoilllc.cloudfunctions.net/createCheckoutSession";
+"https://us-central1-worldoilllc.cloudfunctions.net/createCheckoutSession";
 
 
-/* =========================================
-   PLAN SELECTION
-========================================= */
+let existingUser = null;
+
+
+function showMessage(text, type) {
+
+message.textContent =
+text;
+
+message.className =
+type || "";
+
+}
+
+
+function calculateAge(dateOfBirth) {
+
+const today =
+new Date();
+
+const birthDate =
+new Date(dateOfBirth + "T00:00:00");
+
+let age =
+today.getFullYear() -
+birthDate.getFullYear();
+
+const monthDifference =
+today.getMonth() -
+birthDate.getMonth();
+
+if (
+monthDifference < 0 ||
+(
+monthDifference === 0 &&
+today.getDate() < birthDate.getDate()
+)
+) {
+
+age--;
+
+}
+
+return age;
+
+}
+
+
+function firebaseErrorMessage(error) {
+
+console.error(error);
+
+switch (error.code) {
+
+case "auth/email-already-in-use":
+
+return "This email already has a World OIL account. Click Sign In to use that account.";
+
+case "auth/invalid-email":
+
+return "Please enter a valid email address.";
+
+case "auth/weak-password":
+
+return "Password must contain at least 8 characters.";
+
+case "auth/invalid-credential":
+
+case "auth/wrong-password":
+
+case "auth/user-not-found":
+
+return "The email or password is incorrect.";
+
+case "auth/too-many-requests":
+
+return "Too many sign-in attempts. Please wait and try again.";
+
+case "auth/network-request-failed":
+
+return "Network error. Please check your internet connection.";
+
+default:
+
+return error.message ||
+"Unable to complete your request.";
+
+}
+
+}
+
 
 plans.forEach(function(plan) {
 
-    const radio =
-        plan.querySelector("input");
+const radio =
+plan.querySelector("input");
 
-    radio.addEventListener(
-        "change",
-        function() {
+radio.addEventListener(
+"change",
+function() {
 
-            plans.forEach(function(item) {
+plans.forEach(function(item) {
 
-                item.classList.remove(
-                    "selected"
-                );
+item.classList.remove("selected");
 
-            });
+});
 
-            if (radio.checked) {
+if (radio.checked) {
 
-                plan.classList.add(
-                    "selected"
-                );
+plan.classList.add("selected");
 
-            }
+}
 
-        }
-    );
+}
+);
 
 });
 
 
-/* =========================================
-   MESSAGE
-========================================= */
+signInButton.addEventListener(
+"click",
+function() {
 
-function showMessage(
-    text,
-    type
-) {
+signInBox.style.display =
+"block";
 
-    message.textContent =
-        text;
+newAccountFields.style.display =
+"none";
 
-    message.className =
-        type || "";
+submitButton.style.display =
+"none";
 
-}
-
-
-/* =========================================
-   FIREBASE ERROR
-========================================= */
-
-function firebaseErrorMessage(error) {
-
-    console.error(
-        "Firebase error:",
-        error
-    );
-
-    switch (error.code) {
-
-        case "auth/email-already-in-use":
-
-            return "An account with this email already exists. Please sign in instead.";
-
-        case "auth/invalid-email":
-
-            return "Please enter a valid email address.";
-
-        case "auth/weak-password":
-
-            return "Your password is too weak. Please use at least 8 characters.";
-
-        case "auth/operation-not-allowed":
-
-            return "Email/password sign-up is not enabled in Firebase Authentication.";
-
-        case "auth/network-request-failed":
-
-            return "Network error. Please check your internet connection.";
-
-        default:
-
-            return (
-                error.message ||
-                "Unable to create your account."
-            );
-
-    }
+accountModeText.textContent =
+"Existing technician: sign in below to continue.";
 
 }
-
-
-/* =========================================
-   CALCULATE AGE
-========================================= */
-
-function calculateAge(dateOfBirth) {
-
-    const today =
-        new Date();
-
-    const birthDate =
-        new Date(
-            dateOfBirth + "T00:00:00"
-        );
-
-    let age =
-        today.getFullYear() -
-        birthDate.getFullYear();
-
-    const monthDifference =
-        today.getMonth() -
-        birthDate.getMonth();
-
-    if (
-        monthDifference < 0 ||
-        (
-            monthDifference === 0 &&
-            today.getDate() < birthDate.getDate()
-        )
-    ) {
-
-        age--;
-
-    }
-
-    return age;
-
-}
-
-
-/* =========================================
-   FORM SUBMISSION
-========================================= */
-
-form.addEventListener(
-    "submit",
-    async function(event) {
-
-        event.preventDefault();
-
-
-        showMessage(
-            "",
-            ""
-        );
-
-
-        /* =================================
-           GET VALUES
-        ================================= */
-
-        const firstName =
-            document
-                .getElementById("firstName")
-                .value
-                .trim();
-
-
-        const lastName =
-            document
-                .getElementById("lastName")
-                .value
-                .trim();
-
-
-        const email =
-            document
-                .getElementById("email")
-                .value
-                .trim()
-                .toLowerCase();
-
-
-        const phone =
-            document
-                .getElementById("phone")
-                .value
-                .trim();
-
-
-        const dateOfBirth =
-            document
-                .getElementById("dateOfBirth")
-                .value;
-
-
-        const password =
-            document
-                .getElementById("password")
-                .value;
-
-
-        const confirmPassword =
-            document
-                .getElementById("confirmPassword")
-                .value;
-
-
-        const experience =
-            document
-                .getElementById("experience")
-                .value;
-
-
-        const previousAutomotiveJob =
-            document
-                .getElementById("previousAutomotiveJob")
-                .value;
-
-
-        const experienceDetails =
-            document
-                .getElementById("experienceDetails")
-                .value
-                .trim();
-
-
-        const terms =
-            document
-                .getElementById("terms");
-
-
-        const ageAgreement =
-            document
-                .getElementById("ageAgreement");
-
-
-        const experienceAgreement =
-            document
-                .getElementById("experienceAgreement");
-
-
-        const equipmentAgreement =
-            document
-                .getElementById("equipmentAgreement");
-
-
-        const damageAgreement =
-            document
-                .getElementById("damageAgreement");
-
-
-        const safetyAgreement =
-            document
-                .getElementById("safetyAgreement");
-
-
-        const accuracyAgreement =
-            document
-                .getElementById("accuracyAgreement");
-
-
-        const selectedSubscription =
-            document.querySelector(
-                'input[name="subscription"]:checked'
-            );
-
-
-        /* =================================
-           BASIC VALIDATION
-        ================================= */
-
-        if (
-            !firstName ||
-            !lastName ||
-            !email ||
-            !phone ||
-            !dateOfBirth ||
-            !password ||
-            !confirmPassword
-        ) {
-
-            showMessage(
-                "Please fill out all required fields.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* =================================
-           AGE VALIDATION
-        ================================= */
-
-        const technicianAge =
-            calculateAge(dateOfBirth);
-
-
-        if (
-            technicianAge < 18 ||
-            technicianAge > 120
-        ) {
-
-            showMessage(
-                "You must be at least 18 years old to become a World OIL technician.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* =================================
-           PASSWORD
-        ================================= */
-
-        if (password.length < 8) {
-
-            showMessage(
-                "Password must contain at least 8 characters.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (
-            password !==
-            confirmPassword
-        ) {
-
-            showMessage(
-                "Passwords do not match.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* =================================
-           EXPERIENCE VALIDATION
-        ================================= */
-
-        if (!experience) {
-
-            showMessage(
-                "Please select your automotive experience.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (
-            experience === "less_than_1"
-        ) {
-
-            showMessage(
-                "You must have at least 1 year of automotive or oil-change experience.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (!previousAutomotiveJob) {
-
-            showMessage(
-                "Please answer the previous automotive work question.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* =================================
-           PLAN
-        ================================= */
-
-        if (!selectedSubscription) {
-
-            showMessage(
-                "Please choose a subscription plan.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* =================================
-           REQUIRED ACKNOWLEDGEMENTS
-        ================================= */
-
-        if (!ageAgreement.checked) {
-
-            showMessage(
-                "You must confirm that you are at least 18 years old.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (!experienceAgreement.checked) {
-
-            showMessage(
-                "You must confirm that you have at least 1 year of automotive or oil-change experience.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (!equipmentAgreement.checked) {
-
-            showMessage(
-                "You must confirm that you have the proper tools and equipment.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (!damageAgreement.checked) {
-
-            showMessage(
-                "You must accept the technician damage responsibility requirement.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (!safetyAgreement.checked) {
-
-            showMessage(
-                "You must agree to follow safe work practices.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (!accuracyAgreement.checked) {
-
-            showMessage(
-                "You must confirm that your information is accurate.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        if (!terms.checked) {
-
-            showMessage(
-                "You must agree to the Provider Terms.",
-                "error"
-            );
-
-            return;
-
-        }
-
-
-        /* =================================
-           PLAN DETAILS
-        ================================= */
-
-        const plan =
-            selectedSubscription.value;
-
-
-        const price =
-            selectedSubscription.dataset.price;
-
-
-        const planName =
-            plan === "priority"
-                ? "Priority"
-                : "Standard";
-
-
-        /* =================================
-           DISABLE BUTTON
-        ================================= */
-
-        submitButton.disabled =
-            true;
-
-
-        submitButton.textContent =
-            "Creating Account...";
-
-
-        showMessage(
-            "Creating your technician account...",
-            "loading"
-        );
-
-
-        try {
-
-
-            /* =================================
-               CREATE FIREBASE ACCOUNT
-            ================================= */
-
-            const userCredential =
-                await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-
-
-            const user =
-                userCredential.user;
-
-
-            /* =================================
-               SET DISPLAY NAME
-            ================================= */
-
-            await updateProfile(
-                user,
-                {
-                    displayName:
-                        `${firstName} ${lastName}`
-                }
-            );
-
-
-            /* =================================
-               SAVE TECHNICIAN
-            ================================= */
-
-            await setDoc(
-                doc(
-                    db,
-                    "technicians",
-                    user.uid
-                ),
-                {
-
-                    uid:
-                        user.uid,
-
-                    firstName:
-                        firstName,
-
-                    lastName:
-                        lastName,
-
-                    email:
-                        email,
-
-                    phone:
-                        phone,
-
-                    dateOfBirth:
-                        dateOfBirth,
-
-                    ageAtSignup:
-                        technicianAge,
-
-                    automotiveExperience:
-                        experience,
-
-                    previousAutomotiveJob:
-                        previousAutomotiveJob,
-
-                    experienceDetails:
-                        experienceDetails,
-
-                    // Security/payment state
-
-                    paidTechnician:
-                        false,
-
-                    marketplaceAccess:
-                        false,
-
-                    subscriptionStatus:
-                        "pending_payment",
-
-                    // Technician acknowledgements
-
-                    ageConfirmed:
-                        true,
-
-                    oneYearExperienceConfirmed:
-                        true,
-
-                    properEquipmentConfirmed:
-                        true,
-
-                    damageResponsibilityAccepted:
-                        true,
-
-                    safetyRequirementsAccepted:
-                        true,
-
-                    informationAccuracyConfirmed:
-                        true,
-
-                    providerTermsAccepted:
-                        true,
-
-                    // Subscription
-
-                    plan:
-                        plan,
-
-                    planName:
-                        planName,
-
-                    monthlyPrice:
-                        Number(price),
-
-                    priorityNotifications:
-                        plan === "priority",
-
-                    expandedServiceArea:
-                        plan === "priority",
-
-                    // Ticket controls
-
-                    activeTicketId:
-                        null,
-
-                    activeTicketStatus:
-                        null,
-
-                    lastCompletedAt:
-                        null,
-
-                    createdAt:
-                        serverTimestamp()
-
-                }
-            );
-
-
-            /* =================================
-               SHOW PAYMENT STEP
-            ================================= */
-
-            selectedPlanText.textContent =
-                `${planName} — $${price}/month`;
-
-
-            form.style.display =
-                "none";
-
-
-            successMessage.style.display =
-                "block";
-
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-
-
-            showMessage(
-                "",
-                ""
-            );
-
-
-            /* =================================
-               STRIPE PAYMENT BUTTON
-            ================================= */
-
-            paymentButton.onclick =
-                async function() {
-
-
-                    paymentButton.disabled =
-                        true;
-
-
-                    paymentButton.textContent =
-                        "Opening Payment...";
-
-
-                    try {
-
-
-                        const response =
-                            await fetch(
-                                CHECKOUT_FUNCTION_URL,
-                                {
-
-                                    method:
-                                        "POST",
-
-                                    headers:
-                                        {
-                                            "Content-Type":
-                                                "application/json"
-                                        },
-
-                                    body:
-                                        JSON.stringify(
-                                            {
-
-                                                uid:
-                                                    user.uid,
-
-                                                email:
-                                                    email,
-
-                                                plan:
-                                                    plan
-
-                                            }
-                                        )
-
-                                }
-                            );
-
-
-                        const data =
-                            await response.json();
-
-
-                        console.log(
-                            "Checkout response:",
-                            data
-                        );
-
-
-                        if (!response.ok) {
-
-                            throw new Error(
-                                data.error ||
-                                "Unable to create Stripe payment session."
-                            );
-
-                        }
-
-
-                        if (!data.url) {
-
-                            throw new Error(
-                                "Stripe Checkout URL was not returned."
-                            );
-
-                        }
-
-
-                        window.location.href =
-                            data.url;
-
-
-                    }
-                    catch (paymentError) {
-
-                        console.error(
-                            "Stripe payment error:",
-                            paymentError
-                        );
-
-
-                        paymentButton.disabled =
-                            false;
-
-
-                        paymentButton.textContent =
-                            "Continue to Payment";
-
-
-                        alert(
-                            paymentError.message ||
-                            "Unable to open payment. Please try again."
-                        );
-
-                    }
-
-                };
-
-
-        }
-        catch (error) {
-
-
-            console.error(
-                "Account creation error:",
-                error
-            );
-
-
-            showMessage(
-                firebaseErrorMessage(error),
-                "error"
-            );
-
-
-            submitButton.disabled =
-                false;
-
-
-            submitButton.textContent =
-                "Create Technician Account";
-
-        }
-
-    }
 );
 
 
-</script>
+cancelSignIn.addEventListener(
+"click",
+function() {
 
+signInBox.style.display =
+"none";
+
+newAccountFields.style.display =
+"block";
+
+submitButton.style.display =
+"block";
+
+accountModeText.textContent =
+"New technician? Create your account below.";
+
+showMessage("", "");
+
+}
+);
+
+
+existingSignInSubmit.addEventListener(
+"click",
+async function() {
+
+const email =
+document
+.getElementById("signInEmail")
+.value
+.trim()
+.toLowerCase();
+
+const password =
+document
+.getElementById("signInPassword")
+.value;
+
+if (!email || !password) {
+
+showMessage(
+"Enter your email and password.",
+"error"
+);
+
+return;
+
+}
+
+existingSignInSubmit.disabled =
+true;
+
+existingSignInSubmit.textContent =
+"Signing In...";
+
+showMessage(
+"Signing in...",
+"loading"
+);
+
+try {
+
+const credential =
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+existingUser =
+credential.user;
+
+
+/*
+Verify technician document exists.
+*/
+
+const technicianRef =
+doc(
+db,
+"technicians",
+existingUser.uid
+);
+
+const technicianSnap =
+await getDoc(technicianRef);
+
+if (!technicianSnap.exists()) {
+
+throw new Error(
+"This account is not registered as a World OIL technician."
+);
+
+}
+
+
+/*
+Hide account creation fields.
+*/
+
+signInBox.style.display =
+"none";
+
+newAccountFields.style.display =
+"none";
+
+existingAccountBox.style.display =
+"none";
+
+submitButton.style.display =
+"block";
+
+submitButton.textContent =
+"Continue to Subscription";
+
+accountModeText.textContent =
+`Signed in as ${existingUser.email}. Choose your plan below.`;
+
+showMessage(
+"Signed in successfully. Choose your subscription plan and continue.",
+"success"
+);
+
+}
+
+catch (error) {
+
+console.error(error);
+
+showMessage(
+firebaseErrorMessage(error),
+"error"
+);
+
+}
+
+finally {
+
+existingSignInSubmit.disabled =
+false;
+
+existingSignInSubmit.textContent =
+"Sign In";
+
+}
+
+}
+);
+
+
+/*
+Show the existing-account option.
+*/
+
+existingAccountBox.style.display =
+"block";
+
+
+form.addEventListener(
+"submit",
+async function(event) {
+
+event.preventDefault();
+
+showMessage("", "");
+
+
+/*
+=========================================
+EXISTING TECHNICIAN
+=========================================
+*/
+
+if (existingUser) {
+
+const selectedSubscription =
+document.querySelector(
+'input[name="subscription"]:checked'
+);
+
+if (!selectedSubscription) {
+
+showMessage(
+"Please choose a subscription plan.",
+"error"
+);
+
+return;
+
+}
+
+
+const terms =
+document.getElementById("terms");
+
+const ageAgreement =
+document.getElementById("ageAgreement");
+
+const experienceAgreement =
+document.getElementById("experienceAgreement");
+
+const equipmentAgreement =
+document.getElementById("equipmentAgreement");
+
+const damageAgreement =
+document.getElementById("damageAgreement");
+
+const safetyAgreement =
+document.getElementById("safetyAgreement");
+
+const accuracyAgreement =
+document.getElementById("accuracyAgreement");
+
+
+if (!ageAgreement.checked) {
+
+showMessage(
+"You must confirm that you are at least 18 years old.",
+"error"
+);
+
+return;
+
+}
+
+if (!experienceAgreement.checked) {
+
+showMessage(
+"You must confirm that you have at least 1 year of automotive experience.",
+"error"
+);
+
+return;
+
+}
+
+if (!equipmentAgreement.checked) {
+
+showMessage(
+"You must confirm that you have the proper tools and equipment.",
+"error"
+);
+
+return;
+
+}
+
+if (!damageAgreement.checked) {
+
+showMessage(
+"You must accept the damage responsibility requirement.",
+"error"
+);
+
+return;
+
+}
+
+if (!safetyAgreement.checked) {
+
+showMessage(
+"You must agree to follow safe work practices.",
+"error"
+);
+
+return;
+
+}
+
+if (!accuracyAgreement.checked) {
+
+showMessage(
+"You must confirm that your information is accurate.",
+"error"
+);
+
+return;
+
+}
+
+if (!terms.checked) {
+
+showMessage(
+"You must agree to the Provider Terms.",
+"error"
+);
+
+return;
+
+}
+
+
+const plan =
+selectedSubscription.value;
+
+
+submitButton.disabled =
+true;
+
+submitButton.textContent =
+"Opening Payment...";
+
+showMessage(
+"Preparing your subscription payment...",
+"loading"
+);
+
+
+try {
+
+const response =
+await fetch(
+CHECKOUT_FUNCTION_URL,
+{
+
+method: "POST",
+
+headers: {
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify({
+
+uid:
+existingUser.uid,
+
+email:
+existingUser.email,
+
+plan:
+plan
+
+})
+
+}
+);
+
+
+const data =
+await response.json();
+
+
+if (!response.ok) {
+
+throw new Error(
+data.error ||
+"Unable to create payment session."
+);
+
+}
+
+
+if (!data.url) {
+
+throw new Error(
+"Stripe Checkout URL was not returned."
+);
+
+}
+
+
+window.location.href =
+data.url;
+
+}
+
+catch (error) {
+
+console.error(error);
+
+showMessage(
+error.message ||
+"Unable to open payment.",
+"error"
+);
+
+submitButton.disabled =
+false;
+
+submitButton.textContent =
+"Continue to Subscription";
+
+}
+
+return;
+
+}
+
+
+/*
+=========================================
+NEW TECHNICIAN
+=========================================
+*/
+
+const firstName =
+document
+.getElementById("firstName")
+.value
+.trim();
+
+const lastName =
+document
+.getElementById("lastName")
+.value
+.trim();
+
+const email =
+document
+.getElementById("email")
+.value
+.trim()
+.toLowerCase();
+
+const phone =
+document
+.getElementById("phone")
+.value
+.trim();
+
+const dateOfBirth =
+document
+.getElementById("dateOfBirth")
+.value;
+
+const password =
+document
+.getElementById("password")
+.value;
+
+const confirmPassword =
+document
+.getElementById("confirmPassword")
+.value;
+
+const experience =
+document
+.getElementById("experience")
+.value;
+
+const previousAutomotiveJob =
+document
+.getElementById("previousAutomotiveJob")
+.value;
+
+const experienceDetails =
+document
+.getElementById("experienceDetails")
+.value
+.trim();
+
+const terms =
+document.getElementById("terms");
+
+const ageAgreement =
+document.getElementById("ageAgreement");
+
+const experienceAgreement =
+document.getElementById("experienceAgreement");
+
+const equipmentAgreement =
+document.getElementById("equipmentAgreement");
+
+const damageAgreement =
+document.getElementById("damageAgreement");
+
+const safetyAgreement =
+document.getElementById("safetyAgreement");
+
+const accuracyAgreement =
+document.getElementById("accuracyAgreement");
+
+const selectedSubscription =
+document.querySelector(
+'input[name="subscription"]:checked'
+);
+
+
+if (
+!firstName ||
+!lastName ||
+!email ||
+!phone ||
+!dateOfBirth ||
+!password ||
+!confirmPassword
+) {
+
+showMessage(
+"Please fill out all required fields.",
+"error"
+);
+
+return;
+
+}
+
+
+const technicianAge =
+calculateAge(dateOfBirth);
+
+
+if (
+technicianAge < 18 ||
+technicianAge > 120
+) {
+
+showMessage(
+"You must be at least 18 years old.",
+"error"
+);
+
+return;
+
+}
+
+
+if (password.length < 8) {
+
+showMessage(
+"Password must contain at least 8 characters.",
+"error"
+);
+
+return;
+
+}
+
+
+if (password !== confirmPassword) {
+
+showMessage(
+"Passwords do not match.",
+"error"
+);
+
+return;
+
+}
+
+
+if (!experience) {
+
+showMessage(
+"Please select your automotive experience.",
+"error"
+);
+
+return;
+
+}
+
+
+if (experience === "less_than_1") {
+
+showMessage(
+"You must have at least 1 year of automotive experience.",
+"error"
+);
+
+return;
+
+}
+
+
+if (!previousAutomotiveJob) {
+
+showMessage(
+"Please answer the previous automotive work question.",
+"error"
+);
+
+return;
+
+}
+
+
+if (!selectedSubscription) {
+
+showMessage(
+"Please choose a subscription plan.",
+"error"
+);
+
+return;
+
+}
+
+
+if (!ageAgreement.checked) {
+
+showMessage(
+"You must confirm that you are at least 18 years old.",
+"error"
+);
+
+return;
+
+}
+
+if (!experienceAgreement.checked) {
+
+showMessage(
+"You must confirm that you have at least 1 year of automotive experience.",
+"error"
+);
+
+return;
+
+}
+
+if (!equipmentAgreement.checked) {
+
+showMessage(
+"You must confirm that you have the proper tools and equipment.",
+"error"
+);
+
+return;
+
+}
+
+if (!damageAgreement.checked) {
+
+showMessage(
+"You must accept the damage responsibility requirement.",
+"error"
+);
+
+return;
+
+}
+
+if (!safetyAgreement.checked) {
+
+showMessage(
+"You must agree to follow safe work practices.",
+"error"
+);
+
+return;
+
+}
+
+if (!accuracyAgreement.checked) {
+
+showMessage(
+"You must confirm that your information is accurate.",
+"error"
+);
+
+return;
+
+}
+
+if (!terms.checked) {
+
+showMessage(
+"You must agree to the Provider Terms.",
+"error"
+);
+
+return;
+
+}
+
+
+const plan =
+selectedSubscription.value;
+
+const price =
+selectedSubscription.dataset.price;
+
+const planName =
+plan === "priority"
+? "Priority"
+: "Standard";
+
+
+submitButton.disabled =
+true;
+
+submitButton.textContent =
+"Creating Account...";
+
+showMessage(
+"Creating your technician account...",
+"loading"
+);
+
+
+try {
+
+const userCredential =
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+const user =
+userCredential.user;
+
+
+await updateProfile(
+user,
+{
+displayName:
+`${firstName} ${lastName}`
+}
+);
+
+
+await setDoc(
+doc(
+db,
+"technicians",
+user.uid
+),
+{
+
+uid:
+user.uid,
+
+firstName:
+firstName,
+
+lastName:
+lastName,
+
+email:
+email,
+
+phone:
+phone,
+
+dateOfBirth:
+dateOfBirth,
+
+ageAtSignup:
+technicianAge,
+
+automotiveExperience:
+experience,
+
+previousAutomotiveJob:
+previousAutomotiveJob,
+
+experienceDetails:
+experienceDetails,
+
+paidTechnician:
+false,
+
+marketplaceAccess:
+false,
+
+subscriptionStatus:
+"pending_payment",
+
+ageConfirmed:
+true,
+
+oneYearExperienceConfirmed:
+true,
+
+properEquipmentConfirmed:
+true,
+
+damageResponsibilityAccepted:
+true,
+
+safetyRequirementsAccepted:
+true,
+
+informationAccuracyConfirmed:
+true,
+
+providerTermsAccepted:
+true,
+
+plan:
+plan,
+
+planName:
+planName,
+
+monthlyPrice:
+Number(price),
+
+priorityNotifications:
+plan === "priority",
+
+expandedServiceArea:
+plan === "priority",
+
+activeTicketId:
+null,
+
+activeTicketStatus:
+null,
+
+lastCompletedAt:
+null,
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+
+/*
+Create Stripe Checkout session.
+*/
+
+submitButton.textContent =
+"Opening Payment...";
+
+showMessage(
+"Account created. Opening secure payment...",
+"loading"
+);
+
+
+const response =
+await fetch(
+CHECKOUT_FUNCTION_URL,
+{
+
+method: "POST",
+
+headers: {
+"Content-Type":
+"application/json"
+},
+
+body:
+JSON.stringify({
+
+uid:
+user.uid,
+
+email:
+email,
+
+plan:
+plan
+
+})
+
+}
+);
+
+
+const data =
+await response.json();
+
+
+if (!response.ok) {
+
+throw new Error(
+data.error ||
+"Unable to create payment session."
+);
+
+}
+
+
+if (!data.url) {
+
+throw new Error(
+"Stripe Checkout URL was not returned."
+);
+
+}
+
+
+window.location.href =
+data.url;
+
+}
+
+catch (error) {
+
+console.error(error);
+
+showMessage(
+firebaseErrorMessage(error),
+"error"
+);
+
+submitButton.disabled =
+false;
+
+submitButton.textContent =
+"Create Technician Account";
+
+}
+
+}
+);
+
+</script>
 
 </body>
 
