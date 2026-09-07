@@ -2,15 +2,22 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
+
 <title>World Oil Technician Dashboard</title>
 
 <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
 >
+
 <link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#0b0b0b">
+
+<meta
+    name="theme-color"
+    content="#0b0b0b"
+>
 
 <style>
 
@@ -42,7 +49,8 @@ h2 {
     margin: 15px auto;
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.15);
 }
 
 label {
@@ -83,8 +91,7 @@ button {
     margin: 0;
 }
 
-.logout,
-.cancel {
+.logout {
     background: #b00020;
 }
 
@@ -102,6 +109,11 @@ button {
 
 button:hover {
     filter: brightness(0.9);
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
 }
 
 .status {
@@ -151,12 +163,6 @@ button:hover {
     padding-top: 10px;
 }
 
-.subscription-required {
-    text-align: center;
-    max-width: 650px;
-    margin: 30px auto;
-}
-
 @media (max-width: 600px) {
 
     body {
@@ -176,6 +182,7 @@ button:hover {
         width: 100%;
         margin: 4px 0;
     }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -188,6 +195,7 @@ button:hover {
 }
 
 </style>
+
 </head>
 
 <body>
@@ -195,9 +203,14 @@ button:hover {
 <h1>World Oil Technician Dashboard</h1>
 
 
-<!-- LOGIN -->
+<!-- =========================
+     LOGIN
+========================= -->
 
-<div id="loginBox" class="card">
+<div
+    id="loginBox"
+    class="card"
+>
 
     <h2>Technician Login</h2>
 
@@ -218,6 +231,7 @@ button:hover {
             required
         >
 
+
         <label for="password">
             Technician Password
         </label>
@@ -229,12 +243,14 @@ button:hover {
             required
         >
 
+
         <button
             type="submit"
             class="login"
         >
             Login
         </button>
+
 
         <div
             id="loginMessage"
@@ -247,9 +263,14 @@ button:hover {
 </div>
 
 
-<!-- DASHBOARD -->
+<!-- =========================
+     DASHBOARD
+========================= -->
 
-<div id="dashboard" style="display:none;">
+<div
+    id="dashboard"
+    style="display:none;"
+>
 
     <div class="top-bar">
 
@@ -257,6 +278,7 @@ button:hover {
             Logged in as:
             <strong id="userEmail"></strong>
         </p>
+
 
         <div class="button-row">
 
@@ -268,6 +290,7 @@ button:hover {
                 Refresh Tickets
             </button>
 
+
             <button
                 type="button"
                 class="logout"
@@ -278,9 +301,11 @@ button:hover {
 
         </div>
 
+
         <p>
-            Showing pending and accepted jobs only.
+            Pending tickets hide customer contact information until accepted.
         </p>
+
 
         <div
             id="dashboardMessage"
@@ -289,6 +314,7 @@ button:hover {
         ></div>
 
     </div>
+
 
     <div
         id="tickets"
@@ -303,89 +329,148 @@ button:hover {
 
 <script type="module">
 
+
+/* =========================================
+   FIREBASE IMPORTS
+========================================= */
+
 import {
     initializeApp
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
 
 import {
     getAuth,
     signInWithEmailAndPassword,
     signOut,
     onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
 
 import {
-    getFirestore,
-    collection,
-    getDocs,
-    doc,
-    updateDoc
-} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+    getFunctions,
+    httpsCallable
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
 
 
-/* -----------------------------------------
-   FIREBASE
------------------------------------------ */
+/* =========================================
+   FIREBASE CONFIG
+========================================= */
 
 const firebaseConfig = {
 
-    apiKey: "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
+    apiKey:
+        "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
 
-    authDomain: "worldoilllc.firebaseapp.com",
+    authDomain:
+        "worldoilllc.firebaseapp.com",
 
-    projectId: "worldoilllc",
+    projectId:
+        "worldoilllc",
 
-    storageBucket: "worldoilllc.appspot.com",
+    storageBucket:
+        "worldoilllc.appspot.com",
 
-    messagingSenderId: "769325331754",
+    messagingSenderId:
+        "769325331754",
 
-    appId: "1:769325331754:web:234d7c3ffa9a6424779a53"
+    appId:
+        "1:769325331754:web:234d7c3ffa9a6424779a53"
 
 };
 
 
-const app = initializeApp(firebaseConfig);
+/* =========================================
+   INITIALIZE FIREBASE
+========================================= */
 
-const auth = getAuth(app);
+const app =
+    initializeApp(firebaseConfig);
 
-const db = getFirestore(app);
+
+const auth =
+    getAuth(app);
 
 
-/* -----------------------------------------
+/*
+    Your Cloud Functions were deployed
+    in us-central1.
+*/
+
+const functions =
+    getFunctions(
+        app,
+        "us-central1"
+    );
+
+
+/* =========================================
+   SECURE BACKEND FUNCTIONS
+========================================= */
+
+const getTechnicianTickets =
+    httpsCallable(
+        functions,
+        "getTechnicianTickets"
+    );
+
+
+const technicianTicketAction =
+    httpsCallable(
+        functions,
+        "technicianTicketAction"
+    );
+
+
+/* =========================================
    ELEMENTS
------------------------------------------ */
+========================================= */
 
 const loginBox =
     document.getElementById("loginBox");
 
+
 const dashboard =
     document.getElementById("dashboard");
+
 
 const ticketsDiv =
     document.getElementById("tickets");
 
+
 const userEmail =
     document.getElementById("userEmail");
+
 
 const loginForm =
     document.getElementById("loginForm");
 
+
 const loginMessage =
     document.getElementById("loginMessage");
+
 
 const dashboardMessage =
     document.getElementById("dashboardMessage");
 
+
 const refreshButton =
     document.getElementById("refreshButton");
+
 
 const logoutButton =
     document.getElementById("logoutButton");
 
 
-/* -----------------------------------------
+/* =========================================
    LOGIN
------------------------------------------ */
+========================================= */
 
 loginForm.addEventListener(
     "submit",
@@ -393,14 +478,27 @@ loginForm.addEventListener(
 
         event.preventDefault();
 
-        loginMessage.className = "";
-        loginMessage.textContent = "";
+
+        loginMessage.className =
+            "";
+
+
+        loginMessage.textContent =
+            "";
+
 
         const email =
-            document.getElementById("email").value.trim();
+            document
+                .getElementById("email")
+                .value
+                .trim();
+
 
         const password =
-            document.getElementById("password").value;
+            document
+                .getElementById("password")
+                .value;
+
 
         try {
 
@@ -410,44 +508,50 @@ loginForm.addEventListener(
                 password
             );
 
-        } catch (error) {
+        }
+        catch (error) {
 
             console.error(
                 "Firebase login error:",
                 error
             );
 
-            if (
-                error.code === "auth/user-not-found" ||
-                error.code === "auth/invalid-credential"
-            ) {
 
-                loginMessage.className = "error";
+            loginMessage.className =
+                "error";
+
+
+            if (
+                error.code ===
+                    "auth/user-not-found" ||
+
+                error.code ===
+                    "auth/invalid-credential"
+            ) {
 
                 loginMessage.textContent =
                     "The email or password is incorrect.";
 
-            } else if (
-                error.code === "auth/wrong-password"
+            }
+            else if (
+                error.code ===
+                "auth/wrong-password"
             ) {
-
-                loginMessage.className = "error";
 
                 loginMessage.textContent =
                     "The password is incorrect.";
 
-            } else if (
-                error.code === "auth/invalid-email"
+            }
+            else if (
+                error.code ===
+                "auth/invalid-email"
             ) {
-
-                loginMessage.className = "error";
 
                 loginMessage.textContent =
                     "Please enter a valid email address.";
 
-            } else {
-
-                loginMessage.className = "error";
+            }
+            else {
 
                 loginMessage.textContent =
                     "Login failed. Please try again.";
@@ -460,9 +564,9 @@ loginForm.addEventListener(
 );
 
 
-/* -----------------------------------------
+/* =========================================
    LOGOUT
------------------------------------------ */
+========================================= */
 
 logoutButton.addEventListener(
     "click",
@@ -474,9 +578,9 @@ logoutButton.addEventListener(
 );
 
 
-/* -----------------------------------------
+/* =========================================
    AUTH STATE
------------------------------------------ */
+========================================= */
 
 onAuthStateChanged(
     auth,
@@ -484,9 +588,13 @@ onAuthStateChanged(
 
         if (!user) {
 
-            loginBox.style.display = "block";
+            loginBox.style.display =
+                "block";
 
-            dashboard.style.display = "none";
+
+            dashboard.style.display =
+                "none";
+
 
             return;
 
@@ -494,12 +602,11 @@ onAuthStateChanged(
 
 
         /*
-         * IMPORTANT:
-         *
-         * Force Firebase to refresh the ID token.
-         * The Stripe webhook sets paidTechnician=true
-         * as a Firebase custom claim.
-         */
+            Check the paidTechnician claim.
+
+            This claim is set securely by your
+            Stripe webhook after successful payment.
+        */
 
         const paid =
             await checkPaidTechnician(user);
@@ -507,16 +614,24 @@ onAuthStateChanged(
 
         if (!paid) {
 
-            dashboard.style.display = "none";
+            dashboard.style.display =
+                "none";
 
-            loginBox.style.display = "block";
 
-            loginMessage.className = "error";
+            loginBox.style.display =
+                "block";
+
+
+            loginMessage.className =
+                "error";
+
 
             loginMessage.textContent =
                 "Your account does not have an active technician subscription. Please complete your subscription payment.";
 
+
             await signOut(auth);
+
 
             return;
 
@@ -525,12 +640,17 @@ onAuthStateChanged(
 
         /* PAID TECHNICIAN */
 
-        loginBox.style.display = "none";
+        loginBox.style.display =
+            "none";
 
-        dashboard.style.display = "block";
+
+        dashboard.style.display =
+            "block";
+
 
         userEmail.textContent =
-            user.email || "Technician";
+            user.email ||
+            "Technician";
 
 
         await loadTickets();
@@ -539,28 +659,35 @@ onAuthStateChanged(
 );
 
 
-/* -----------------------------------------
+/* =========================================
    CHECK PAID TECHNICIAN
------------------------------------------ */
+========================================= */
 
 async function checkPaidTechnician(user) {
 
-    /*
-     * Stripe webhook may take a few seconds
-     * to update the Firebase custom claim.
-     *
-     * Try for approximately 30 seconds.
-     */
 
-    for (let attempt = 1; attempt <= 12; attempt++) {
+    /*
+        Stripe can take a few seconds to
+        update the Firebase custom claim.
+
+        Try for about 30 seconds.
+    */
+
+    for (
+        let attempt = 1;
+        attempt <= 12;
+        attempt++
+    ) {
 
         try {
 
             const tokenResult =
                 await user.getIdTokenResult(true);
 
+
             const paid =
                 tokenResult.claims.paidTechnician === true;
+
 
             if (paid) {
 
@@ -568,7 +695,8 @@ async function checkPaidTechnician(user) {
 
             }
 
-        } catch (error) {
+        }
+        catch (error) {
 
             console.error(
                 "Paid technician check failed:",
@@ -578,34 +706,40 @@ async function checkPaidTechnician(user) {
         }
 
 
-        /*
-         * Wait 2.5 seconds before trying again.
-         */
-
         if (attempt < 12) {
 
             await new Promise(
-                resolve => setTimeout(resolve, 2500)
+                function(resolve) {
+
+                    setTimeout(
+                        resolve,
+                        2500
+                    );
+
+                }
             );
 
         }
 
     }
 
+
     return false;
 
 }
 
 
-/* -----------------------------------------
+/* =========================================
    REFRESH
------------------------------------------ */
+========================================= */
 
 refreshButton.addEventListener(
     "click",
     async function() {
 
-        const user = auth.currentUser;
+        const user =
+            auth.currentUser;
+
 
         if (!user) {
 
@@ -613,21 +747,28 @@ refreshButton.addEventListener(
 
         }
 
+
         const paid =
             await checkPaidTechnician(user);
 
+
         if (!paid) {
 
-            dashboardMessage.className = "error";
+            dashboardMessage.className =
+                "error";
+
 
             dashboardMessage.textContent =
                 "Your technician subscription is not active.";
 
+
             await signOut(auth);
+
 
             return;
 
         }
+
 
         await loadTickets();
 
@@ -635,80 +776,56 @@ refreshButton.addEventListener(
 );
 
 
-/* -----------------------------------------
+/* =========================================
    LOAD TICKETS
------------------------------------------ */
+========================================= */
 
 async function loadTickets() {
+
 
     ticketsDiv.setAttribute(
         "aria-busy",
         "true"
     );
 
+
     ticketsDiv.innerHTML =
         "<p>Loading tickets...</p>";
 
-    dashboardMessage.className = "";
 
-    dashboardMessage.textContent = "";
+    dashboardMessage.className =
+        "";
+
+
+    dashboardMessage.textContent =
+        "";
 
 
     try {
 
-        const snapshot =
-            await getDocs(
-                collection(db, "oilChanges")
-            );
+        /*
+            Calls your secure backend.
+
+            The browser does NOT directly
+            read the oilChanges collection.
+        */
+
+        const result =
+            await getTechnicianTickets();
 
 
-        let tickets = [];
+        const payload =
+            result.data || {};
 
 
-        snapshot.forEach(
-            function(docSnap) {
-
-                const data =
-                    docSnap.data();
-
-                const status =
-                    data.status || "pending";
+        const tickets =
+            Array.isArray(payload.tickets)
+                ? payload.tickets
+                : [];
 
 
-                if (
-                    status === "pending" ||
-                    status === "accepted"
-                ) {
-
-                    tickets.push({
-
-                        id: docSnap.id,
-
-                        ...data
-
-                    });
-
-                }
-
-            }
-        );
-
-
-        tickets.sort(
-            function(a, b) {
-
-                return new Date(
-                    b.createdAt || 0
-                ) -
-                new Date(
-                    a.createdAt || 0
-                );
-
-            }
-        );
-
-
-        ticketsDiv.innerHTML = "";
+        ticketsDiv.innerHTML =
+            "";
 
 
         if (tickets.length === 0) {
@@ -716,64 +833,146 @@ async function loadTickets() {
             ticketsDiv.innerHTML =
                 "<p class='empty'>No active tickets.</p>";
 
+
             return;
 
         }
 
 
+        tickets.sort(
+            function(a, b) {
+
+                return (
+                    new Date(
+                        b.createdAt ||
+                        b.date ||
+                        0
+                    )
+                    -
+                    new Date(
+                        a.createdAt ||
+                        a.date ||
+                        0
+                    )
+                );
+
+            }
+        );
+
+
         tickets.forEach(
             function(data) {
 
+
                 const vehicle =
-                    `${data.year || ""} ${data.make || ""} ${data.model || ""}`
+                    `
+${data.year || ""}
+${data.make || ""}
+${data.model || ""}
+                    `
                     .trim();
 
 
                 const ticket =
-                    document.createElement("article");
+                    document.createElement(
+                        "article"
+                    );
+
 
                 ticket.className =
                     "ticket";
 
 
+                /* TICKET TITLE */
+
                 const title =
-                    document.createElement("h2");
+                    document.createElement(
+                        "h2"
+                    );
+
 
                 title.textContent =
                     "Ticket: " +
-                    (data.ticketNumber || data.id);
+                    (
+                        data.ticketNumber ||
+                        data.id
+                    );
+
 
                 ticket.appendChild(title);
 
 
+                /* DETAILS */
+
                 const details =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
 
 
                 addDetail(
                     details,
                     "Status:",
-                    data.status || "pending",
+                    data.status ||
+                    "pending",
                     true
                 );
 
-                addDetail(
-                    details,
-                    "Customer:",
-                    data.name || "Not provided"
-                );
 
-                addDetail(
-                    details,
-                    "Phone:",
-                    data.phone || "Not provided"
-                );
+                /*
+                    IMPORTANT SECURITY:
+
+                    Pending tickets DO NOT show:
+
+                    - Customer name
+                    - Phone
+                    - Address
+                    - Email
+
+                    The backend should only return
+                    those details after the technician
+                    successfully accepts the ticket.
+                */
+
+                if (
+                    data.status ===
+                    "accepted"
+                ) {
+
+                    addDetail(
+                        details,
+                        "Customer:",
+                        data.name ||
+                        "Not provided"
+                    );
+
+
+                    addDetail(
+                        details,
+                        "Phone:",
+                        data.phone ||
+                        "Not provided"
+                    );
+
+
+                    addDetail(
+                        details,
+                        "Address:",
+                        data.address ||
+                        data.serviceAddress ||
+                        "Not provided"
+                    );
+
+                }
+
 
                 addDetail(
                     details,
                     "Vehicle:",
-                    vehicle || "Not provided"
+                    vehicle ||
+                    "Not provided"
                 );
+
 
                 addDetail(
                     details,
@@ -783,6 +982,7 @@ async function loadTickets() {
                     "Not provided"
                 );
 
+
                 addDetail(
                     details,
                     "Time:",
@@ -791,92 +991,124 @@ async function loadTickets() {
                 );
 
 
-                ticket.appendChild(details);
+                if (data.notes) {
 
+                    addDetail(
+                        details,
+                        "Notes:",
+                        data.notes
+                    );
+
+                }
+
+
+                ticket.appendChild(
+                    details
+                );
+
+
+                /* ACTIONS */
 
                 const actions =
-                    document.createElement("div");
+                    document.createElement(
+                        "div"
+                    );
+
 
                 actions.className =
                     "ticket-actions";
 
 
-                const acceptButton =
-                    createButton(
-                        "Accept",
-                        "accept",
-                        function() {
+                /*
+                    PENDING:
+                    Technician can only Accept.
+                */
 
-                            updateStatus(
-                                data.id,
-                                "accepted"
-                            );
+                if (
+                    data.status ===
+                    "pending"
+                ) {
 
-                        }
+                    const acceptButton =
+                        createButton(
+                            "Accept",
+                            "accept",
+                            function() {
+
+                                updateStatus(
+                                    data.id,
+                                    "accepted"
+                                );
+
+                            }
+                        );
+
+
+                    actions.appendChild(
+                        acceptButton
                     );
 
+                }
 
-                const completeButton =
-                    createButton(
-                        "Complete",
-                        "complete",
-                        function() {
 
-                            updateStatus(
-                                data.id,
-                                "completed"
-                            );
+                /*
+                    ACCEPTED:
+                    Technician can only Complete.
 
-                        }
+                    There is intentionally NO
+                    Cancel button.
+                */
+
+                if (
+                    data.status ===
+                    "accepted"
+                ) {
+
+                    const completeButton =
+                        createButton(
+                            "Complete",
+                            "complete",
+                            function() {
+
+                                updateStatus(
+                                    data.id,
+                                    "completed"
+                                );
+
+                            }
+                        );
+
+
+                    actions.appendChild(
+                        completeButton
                     );
 
-
-                const cancelButton =
-                    createButton(
-                        "Cancel",
-                        "cancel",
-                        function() {
-
-                            updateStatus(
-                                data.id,
-                                "cancelled"
-                            );
-
-                        }
-                    );
+                }
 
 
-                actions.appendChild(
-                    acceptButton
-                );
-
-                actions.appendChild(
-                    completeButton
-                );
-
-                actions.appendChild(
-                    cancelButton
+                ticket.appendChild(
+                    actions
                 );
 
 
-                ticket.appendChild(actions);
-
-                ticketsDiv.appendChild(ticket);
+                ticketsDiv.appendChild(
+                    ticket
+                );
 
             }
         );
 
-
-    } catch (error) {
+    }
+    catch (error) {
 
         console.error(
-            "Firestore error:",
+            "Technician ticket loading error:",
             error
         );
 
 
-        ticketsDiv.innerHTML = `
-
+        ticketsDiv.innerHTML =
+            `
             <div class="error">
 
                 <strong>
@@ -884,22 +1116,17 @@ async function loadTickets() {
                 </strong>
 
                 <p>
-                    Your account is signed in,
-                    but the dashboard could not
-                    read the oilChanges collection.
-                </p>
-
-                <p>
-                    Make sure your Firebase
-                    paid-technician security rules
-                    are deployed.
+                    ${escapeHtml(
+                        error?.message ||
+                        "The technician ticket service could not be reached."
+                    )}
                 </p>
 
             </div>
+            `;
 
-        `;
-
-    } finally {
+    }
+    finally {
 
         ticketsDiv.setAttribute(
             "aria-busy",
@@ -911,9 +1138,45 @@ async function loadTickets() {
 }
 
 
-/* -----------------------------------------
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(value) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+/* =========================================
    ADD DETAIL
------------------------------------------ */
+========================================= */
 
 function addDetail(
     container,
@@ -923,14 +1186,22 @@ function addDetail(
 ) {
 
     const p =
-        document.createElement("p");
+        document.createElement(
+            "p"
+        );
 
 
     const strong =
-        document.createElement("strong");
+        document.createElement(
+            "strong"
+        );
+
 
     strong.textContent =
-        " " + label + " ";
+        " " +
+        label +
+        " ";
+
 
     p.appendChild(strong);
 
@@ -938,20 +1209,29 @@ function addDetail(
     if (isStatus) {
 
         const span =
-            document.createElement("span");
+            document.createElement(
+                "span"
+            );
+
 
         span.className =
             "status";
 
+
         span.textContent =
             value;
 
+
         p.appendChild(span);
 
-    } else {
+    }
+    else {
 
         const text =
-            document.createTextNode(value);
+            document.createTextNode(
+                value
+            );
+
 
         p.appendChild(text);
 
@@ -963,9 +1243,9 @@ function addDetail(
 }
 
 
-/* -----------------------------------------
+/* =========================================
    CREATE BUTTON
------------------------------------------ */
+========================================= */
 
 function createButton(
     text,
@@ -974,41 +1254,71 @@ function createButton(
 ) {
 
     const button =
-        document.createElement("button");
+        document.createElement(
+            "button"
+        );
+
 
     button.type =
         "button";
 
+
     button.textContent =
         text;
 
+
     button.className =
         className;
+
 
     button.addEventListener(
         "click",
         action
     );
 
+
     return button;
 
 }
 
 
-/* -----------------------------------------
-   UPDATE STATUS
------------------------------------------ */
+/* =========================================
+   ACCEPT / COMPLETE TICKET
+========================================= */
 
 async function updateStatus(
     id,
     status
 ) {
 
+
+    /*
+        Browser only allows these two actions.
+    */
+
+    if (
+        status !== "accepted" &&
+        status !== "completed"
+    ) {
+
+        dashboardMessage.className =
+            "error";
+
+
+        dashboardMessage.textContent =
+            "This action is not available.";
+
+
+        return;
+
+    }
+
+
     const confirmation =
         confirm(
-            "Change this appointment to " +
-            status +
-            "?"
+            status === "accepted"
+                ? "Accept this appointment?"
+                : "Complete this appointment?"
         );
 
 
@@ -1027,15 +1337,18 @@ async function updateStatus(
 
         if (!user) {
 
+            dashboardMessage.className =
+                "error";
+
+
+            dashboardMessage.textContent =
+                "You must be logged in.";
+
+
             return;
 
         }
 
-
-        /*
-         * Verify paid status again before
-         * allowing an appointment update.
-         */
 
         const paid =
             await checkPaidTechnician(user);
@@ -1046,73 +1359,102 @@ async function updateStatus(
             dashboardMessage.className =
                 "error";
 
+
             dashboardMessage.textContent =
                 "Your technician subscription is not active.";
 
+
             await signOut(auth);
+
 
             return;
 
         }
 
 
-        const updateData = {
-
-            status: status,
-
-            updatedAt:
-                new Date().toISOString(),
-
-            technicianEmail:
-                user.email || "unknown"
-
-        };
+        dashboardMessage.className =
+            "";
 
 
-        if (status === "accepted") {
-
-            updateData.technicianAcceptedAt =
-                new Date().toISOString();
-
-        }
+        dashboardMessage.textContent =
+            status === "accepted"
+                ? "Accepting appointment..."
+                : "Completing appointment...";
 
 
-        if (status === "completed") {
+        /*
+            IMPORTANT:
 
-            updateData.completedAt =
-                new Date().toISOString();
+            The browser does NOT directly
+            update Firestore.
 
-        }
+            Your secure backend function
+            validates the action.
 
+            The backend should enforce:
 
-        if (status === "cancelled") {
+            ✓ Paid technician
 
-            updateData.cancelledAt =
-                new Date().toISOString();
+            ✓ Technician can only have
+              one active accepted ticket
 
-        }
+            ✓ Technician cannot take
+              another ticket until the
+              cooldown period expires
 
+            ✓ Only the technician who
+              accepted the ticket can
+              complete it
 
-        await updateDoc(
-            doc(db, "oilChanges", id),
-            updateData
-        );
+            ✓ Pending -> Accepted only
+
+            ✓ Accepted -> Completed only
+
+            ✓ No technician cancellation
+
+            ✓ Twilio notification can be
+              triggered by the backend
+        */
+
+        await technicianTicketAction({
+
+            action:
+                status === "accepted"
+                    ? "accept"
+                    : "complete",
+
+            ticketId:
+                id
+
+        });
 
 
         dashboardMessage.className =
             "success";
 
-        dashboardMessage.textContent =
-            "Appointment updated successfully.";
 
+        dashboardMessage.textContent =
+            status === "accepted"
+                ? "Appointment accepted successfully. The customer will be notified."
+                : "Appointment completed successfully. The customer will be notified.";
+
+
+        /*
+            Reload tickets.
+
+            After acceptance, the backend
+            can now return customer details
+            only for the technician who owns
+            that accepted ticket.
+        */
 
         await loadTickets();
 
-
-    } catch (error) {
+    }
+    catch (error) {
 
         console.error(
-            "Update error:",
+            "Technician ticket action error:",
             error
         );
 
@@ -1120,38 +1462,68 @@ async function updateStatus(
         dashboardMessage.className =
             "error";
 
+
         dashboardMessage.textContent =
+            error?.message ||
             "Could not update the appointment.";
 
     }
 
 }
 
+
 </script>
+
+
+<!-- =========================
+     PWA SERVICE WORKER
+========================= -->
+
 <script>
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function () {
 
-        navigator.serviceWorker.register("./service-worker.js")
-            .then(function (registration) {
+if (
+    "serviceWorker" in navigator
+) {
 
-                console.log(
-                    "World OIL service worker registered:",
-                    registration.scope
+    window.addEventListener(
+        "load",
+        function() {
+
+            navigator.serviceWorker
+                .register(
+                    "./service-worker.js"
+                )
+
+                .then(
+                    function(registration) {
+
+                        console.log(
+                            "World OIL service worker registered:",
+                            registration.scope
+                        );
+
+                    }
+                )
+
+                .catch(
+                    function(error) {
+
+                        console.error(
+                            "World OIL service worker registration failed:",
+                            error
+                        );
+
+                    }
                 );
 
-            })
-            .catch(function (error) {
+        }
+    );
 
-                console.error(
-                    "World OIL service worker registration failed:",
-                    error
-                );
-
-            });
-
-    });
 }
+
 </script>
+
+
 </body>
+
 </html>
