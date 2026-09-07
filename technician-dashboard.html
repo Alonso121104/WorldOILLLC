@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -8,15 +9,17 @@
 <title>World Oil Technician Dashboard</title>
 
 <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
+name="viewport"
+content="width=device-width, initial-scale=1.0"
+
 >
 
 <link rel="manifest" href="./manifest.json">
 
 <meta
-    name="theme-color"
-    content="#0b0b0b"
+name="theme-color"
+content="#0b0b0b"
+
 >
 
 <style>
@@ -50,8 +53,7 @@ h2 {
     margin: 15px auto;
     padding: 20px;
     border-radius: 12px;
-    box-shadow:
-        0 5px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
 label {
@@ -128,6 +130,30 @@ button:disabled {
     text-align: center;
 }
 
+/* =========================================
+   WELCOME MESSAGE
+========================================= */
+
+.welcome-message {
+    max-width: 650px;
+    margin: 0 auto 15px;
+    padding: 18px 20px;
+
+    background: white;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 15px rgba(0,0,0,0.15);
+
+    text-align: center;
+
+    font-size: 24px;
+    font-weight: bold;
+
+    color: #111;
+}
+
 .button-row {
     display: flex;
     flex-wrap: wrap;
@@ -164,6 +190,7 @@ button:disabled {
     padding-top: 10px;
 }
 
+
 /* =========================================
    HAMBURGER MENU
 ========================================= */
@@ -198,6 +225,7 @@ button:disabled {
 .hamburger-button:hover {
     filter: brightness(0.85);
 }
+
 
 /* =========================================
    MENU
@@ -301,6 +329,11 @@ button:disabled {
     color: #b00020;
 }
 
+.menu-subscription {
+    background: #e7f7ec;
+    color: #145c2a;
+}
+
 .menu-logout {
     background: #111;
     color: white;
@@ -339,6 +372,7 @@ button:disabled {
     display: block;
 }
 
+
 /* =========================================
    CANCEL CONFIRMATION
 ========================================= */
@@ -357,6 +391,7 @@ button:disabled {
     font-size: 14px;
 }
 
+
 /* =========================================
    MOBILE
 ========================================= */
@@ -371,6 +406,10 @@ button:disabled {
     .card,
     .ticket {
         padding: 15px;
+    }
+
+    .welcome-message {
+        font-size: 21px;
     }
 
     .button-row {
@@ -403,21 +442,24 @@ button:disabled {
 
 <body>
 
-
 <!-- =========================================
      HAMBURGER BUTTON
 ========================================= -->
 
 <button
-    type="button"
-    id="menuButton"
-    class="hamburger-button"
-    aria-label="Open menu"
-    aria-expanded="false"
->
-    ☰
-</button>
+type="button"
+id="menuButton"
+class="hamburger-button"
+aria-label="Open menu"
+aria-expanded="false"
 
+>
+
+```
+☰
+```
+
+</button>
 
 <!-- =========================================
      TECHNICIAN MENU
@@ -429,84 +471,96 @@ button:disabled {
     aria-label="Technician menu"
 >
 
-    <button
-        type="button"
-        id="menuClose"
-        class="menu-close"
-        aria-label="Close menu"
-    >
-        ×
-    </button>
+```
+<button
+    type="button"
+    id="menuClose"
+    class="menu-close"
+    aria-label="Close menu"
+>
+    ×
+</button>
 
 
-    <h2>
-        World Oil
-    </h2>
+<h2>
+    World Oil
+</h2>
 
 
-    <!-- HOME -->
+<!-- HOME -->
 
-    <button
-        type="button"
-        id="menuHome"
-        class="menu-item menu-home"
-    >
-        🏠 Home
-    </button>
-
-
-    <!-- CANCEL SUBSCRIPTION -->
-
-    <button
-        type="button"
-        id="menuCancel"
-        class="menu-item menu-cancel"
-    >
-        ❌ Cancel Subscription
-    </button>
+<button
+    type="button"
+    id="menuHome"
+    class="menu-item menu-home"
+>
+    🏠 Home
+</button>
 
 
-    <!-- LOG OUT -->
+<!-- CANCEL SUBSCRIPTION -->
 
-    <button
-        type="button"
-        id="menuLogout"
-        class="menu-item menu-logout"
-    >
-        🚪 Log Out
-    </button>
-
-
-    <!-- CUSTOMER SERVICE -->
-
-    <a
-        href="tel:+18001231234"
-        id="menuCustomerService"
-        class="menu-item menu-service"
-    >
-
-        📞 Customer Service
-
-        <span class="menu-service-number">
-            +1 800-123-1234
-        </span>
-
-    </a>
+<button
+    type="button"
+    id="menuCancel"
+    class="menu-item menu-cancel"
+>
+    ❌ Cancel Subscription
+</button>
 
 
-    <div class="cancel-warning">
+<!-- GET SUBSCRIPTION -->
 
-        <strong>Subscription cancellation</strong>
+<a
+    href="technician-signup.html"
+    id="menuSubscription"
+    class="menu-item menu-subscription"
+>
+    💳 Get Subscription
+</a>
 
-        <p>
-            Cancelling your subscription will remove
-            your paid technician access.
-        </p>
 
-    </div>
+<!-- LOG OUT -->
+
+<button
+    type="button"
+    id="menuLogout"
+    class="menu-item menu-logout"
+>
+    🚪 Log Out
+</button>
+
+
+<!-- CUSTOMER SERVICE -->
+
+<a
+    href="tel:+18001231234"
+    id="menuCustomerService"
+    class="menu-item menu-service"
+>
+
+    📞 Customer Service
+
+    <span class="menu-service-number">
+        +1 800-123-1234
+    </span>
+
+</a>
+
+
+<div class="cancel-warning">
+
+    <strong>Subscription cancellation</strong>
+
+    <p>
+        Cancelling your subscription will remove
+        your paid technician access.
+    </p>
+
+</div>
+```
 
 </nav>
-
 
 <!-- MENU OVERLAY -->
 
@@ -516,11 +570,9 @@ button:disabled {
 >
 </div>
 
-
 <h1>
     World Oil Technician Dashboard
 </h1>
-
 
 <!-- =========================================
      LOGIN
@@ -531,60 +583,61 @@ button:disabled {
     class="card"
 >
 
-    <h2>
-        Technician Login
-    </h2>
+```
+<h2>
+    Technician Login
+</h2>
 
-    <p>
-        Sign in with your technician account
-        to access customer appointments.
-    </p>
-
-
-    <form id="loginForm">
-
-        <label for="email">
-            Technician Email
-        </label>
-
-        <input
-            type="email"
-            id="email"
-            autocomplete="email"
-            required
-        >
+<p>
+    Sign in with your technician account
+    to access customer appointments.
+</p>
 
 
-        <label for="password">
-            Technician Password
-        </label>
+<form id="loginForm">
 
-        <input
-            type="password"
-            id="password"
-            autocomplete="current-password"
-            required
-        >
+    <label for="email">
+        Technician Email
+    </label>
 
-
-        <button
-            type="submit"
-            class="login"
-        >
-            Login
-        </button>
+    <input
+        type="email"
+        id="email"
+        autocomplete="email"
+        required
+    >
 
 
-        <div
-            id="loginMessage"
-            role="alert"
-            aria-live="assertive"
-        ></div>
+    <label for="password">
+        Technician Password
+    </label>
 
-    </form>
+    <input
+        type="password"
+        id="password"
+        autocomplete="current-password"
+        required
+    >
+
+
+    <button
+        type="submit"
+        class="login"
+    >
+        Login
+    </button>
+
+
+    <div
+        id="loginMessage"
+        role="alert"
+        aria-live="assertive"
+    ></div>
+
+</form>
+```
 
 </div>
-
 
 <!-- =========================================
      DASHBOARD
@@ -595,52 +648,63 @@ button:disabled {
     style="display:none;"
 >
 
-    <div class="top-bar">
+```
+<!-- WELCOME -->
 
-        <p>
-            Logged in as:
-            <strong id="userEmail"></strong>
-        </p>
-
-
-        <div class="button-row">
-
-            <button
-                type="button"
-                class="refresh"
-                id="refreshButton"
-            >
-                Refresh Tickets
-            </button>
-
-        </div>
+<div
+    id="welcomeMessage"
+    class="welcome-message"
+>
+    Hello, Technician! Welcome back.
+</div>
 
 
-        <p>
-            Pending tickets hide customer contact
-            information until accepted.
-        </p>
+<div class="top-bar">
+
+    <p>
+        Logged in as:
+        <strong id="userEmail"></strong>
+    </p>
 
 
-        <div
-            id="dashboardMessage"
-            role="status"
-            aria-live="polite"
-        ></div>
+    <div class="button-row">
+
+        <button
+            type="button"
+            class="refresh"
+            id="refreshButton"
+        >
+            Refresh Tickets
+        </button>
 
     </div>
+
+
+    <p>
+        Pending tickets hide customer contact
+        information until accepted.
+    </p>
 
 
     <div
-        id="tickets"
+        id="dashboardMessage"
+        role="status"
         aria-live="polite"
-        aria-busy="false"
-    >
-        Loading tickets...
-    </div>
+    ></div>
 
 </div>
 
+
+<div
+    id="tickets"
+    aria-live="polite"
+    aria-busy="false"
+>
+    Loading tickets...
+</div>
+```
+
+</div>
 
 <script type="module">
 
@@ -672,6 +736,15 @@ import {
 }
 from
 "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc
+}
+from
+"https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 
 /* =========================================
@@ -713,6 +786,10 @@ const auth =
     getAuth(app);
 
 
+const db =
+    getFirestore(app);
+
+
 const functions =
     getFunctions(
         app,
@@ -737,12 +814,6 @@ const technicianTicketAction =
         "technicianTicketAction"
     );
 
-
-/*
-    NEW:
-
-    Secure subscription cancellation
-*/
 
 const cancelTechnicianSubscription =
     httpsCallable(
@@ -785,6 +856,10 @@ const dashboardMessage =
 
 const refreshButton =
     document.getElementById("refreshButton");
+
+
+const welcomeMessage =
+    document.getElementById("welcomeMessage");
 
 
 /* =========================================
@@ -1025,6 +1100,81 @@ loginForm.addEventListener(
 
 
 /* =========================================
+   LOAD TECHNICIAN NAME
+========================================= */
+
+async function loadTechnicianName(user) {
+
+    try {
+
+        const technicianRef =
+            doc(
+                db,
+                "technicians",
+                user.uid
+            );
+
+
+        const technicianSnap =
+            await getDoc(
+                technicianRef
+            );
+
+
+        if (
+            technicianSnap.exists()
+        ) {
+
+            const technician =
+                technicianSnap.data();
+
+
+            /*
+             * Supports the normal firstName field.
+             * Also supports first_name or name if
+             * your existing technician document uses
+             * one of those fields.
+             */
+
+            const firstName =
+                technician.firstName ||
+                technician.first_name ||
+                "";
+
+
+            if (firstName) {
+
+                welcomeMessage.textContent =
+                    `Hello, ${firstName}! Welcome back.`;
+
+                return;
+
+            }
+
+        }
+
+
+        welcomeMessage.textContent =
+            "Hello, Technician! Welcome back.";
+
+    }
+    catch (error) {
+
+        console.error(
+            "Unable to load technician name:",
+            error
+        );
+
+
+        welcomeMessage.textContent =
+            "Hello, Technician! Welcome back.";
+
+    }
+
+}
+
+
+/* =========================================
    AUTH STATE
 ========================================= */
 
@@ -1085,6 +1235,16 @@ onAuthStateChanged(
 
         dashboard.style.display =
             "block";
+
+
+        /*
+         * Load the technician's first name
+         * from Firestore.
+         */
+
+        await loadTechnicianName(
+            user
+        );
 
 
         userEmail.textContent =
@@ -1209,6 +1369,11 @@ refreshButton.addEventListener(
         }
 
 
+        await loadTechnicianName(
+            user
+        );
+
+
         await loadTickets();
 
     }
@@ -1326,13 +1491,6 @@ async function loadTickets() {
                 );
 
 
-                /*
-                    Customer information is ONLY
-                    displayed after the backend
-                    confirms the technician owns
-                    the accepted ticket.
-                */
-
                 if (
                     data.status ===
                     "accepted"
@@ -1416,10 +1574,6 @@ async function loadTickets() {
                     "ticket-actions";
 
 
-                /*
-                    PENDING = ACCEPT ONLY
-                */
-
                 if (
                     data.status ===
                     "pending"
@@ -1446,10 +1600,6 @@ async function loadTickets() {
 
                 }
 
-
-                /*
-                    ACCEPTED = COMPLETE ONLY
-                */
 
                 if (
                     data.status ===
@@ -1814,10 +1964,6 @@ menuCancel.addEventListener(
         }
 
 
-        /*
-            First confirmation
-        */
-
         const firstConfirmation =
             confirm(
                 "Are you sure you want to cancel your World Oil technician subscription?"
@@ -1830,10 +1976,6 @@ menuCancel.addEventListener(
 
         }
 
-
-        /*
-            Second confirmation
-        */
 
         const secondConfirmation =
             confirm(
@@ -1868,14 +2010,6 @@ menuCancel.addEventListener(
                 "Cancelling your subscription...";
 
 
-            /*
-                Secure Firebase backend call.
-
-                The backend verifies the logged-in
-                technician and cancels ONLY that
-                technician's Stripe subscription.
-            */
-
             const result =
                 await cancelTechnicianSubscription();
 
@@ -1896,14 +2030,6 @@ menuCancel.addEventListener(
                 "Your World Oil technician subscription has been cancelled."
             );
 
-
-            /*
-                Sign out immediately.
-
-                Firebase custom claims may take
-                a short time to refresh, but the
-                backend has already removed access.
-            */
 
             await signOut(
                 auth
@@ -2023,7 +2149,6 @@ function escapeHtml(
 
 </script>
 
-
 <!-- =========================================
      PWA SERVICE WORKER
 ========================================= -->
@@ -2071,7 +2196,6 @@ if (
 }
 
 </script>
-
 
 </body>
 
