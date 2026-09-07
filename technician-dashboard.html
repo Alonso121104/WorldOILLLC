@@ -31,6 +31,7 @@ body {
     color: #111;
     margin: 0;
     padding: 20px;
+    padding-top: 85px;
 }
 
 h1 {
@@ -163,10 +164,208 @@ button:disabled {
     padding-top: 10px;
 }
 
+/* =========================================
+   HAMBURGER MENU
+========================================= */
+
+.hamburger-button {
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 2001;
+
+    width: 50px;
+    height: 50px;
+
+    padding: 0;
+    margin: 0;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #111;
+    color: white;
+
+    font-size: 28px;
+    line-height: 50px;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.25);
+}
+
+.hamburger-button:hover {
+    filter: brightness(0.85);
+}
+
+/* =========================================
+   MENU
+========================================= */
+
+.tech-menu {
+    position: fixed;
+
+    top: 0;
+    left: -330px;
+
+    width: 310px;
+    height: 100vh;
+
+    background: white;
+
+    z-index: 2003;
+
+    padding: 25px 20px;
+
+    box-shadow:
+        5px 0 20px rgba(0,0,0,0.30);
+
+    transition:
+        left 0.25s ease;
+
+    overflow-y: auto;
+}
+
+.tech-menu.open {
+    left: 0;
+}
+
+.tech-menu h2 {
+    margin-top: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-close {
+    position: absolute;
+
+    top: 12px;
+    right: 12px;
+
+    width: 42px;
+    height: 42px;
+
+    margin: 0;
+    padding: 0;
+
+    background: transparent;
+    color: #111;
+
+    font-size: 32px;
+    line-height: 42px;
+}
+
+.menu-close:hover {
+    background: #eee;
+}
+
+.menu-item {
+    display: flex;
+
+    width: 100%;
+
+    min-height: 50px;
+
+    margin: 8px 0;
+    padding: 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #f3f4f6;
+    color: #111827;
+
+    text-decoration: none;
+
+    text-align: left;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.menu-item:hover {
+    background: #e5e7eb;
+}
+
+.menu-home {
+    background: #e8f1ff;
+}
+
+.menu-cancel {
+    background: #ffe7e7;
+    color: #b00020;
+}
+
+.menu-logout {
+    background: #111;
+    color: white;
+}
+
+.menu-service {
+    background: #e7f7ec;
+    color: #145c2a;
+
+    flex-direction: column;
+}
+
+.menu-service-number {
+    margin-top: 5px;
+
+    font-size: 14px;
+    font-weight: normal;
+
+    color: #333;
+}
+
+.menu-overlay {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    background:
+        rgba(0,0,0,0.45);
+
+    z-index: 2002;
+}
+
+.menu-overlay.open {
+    display: block;
+}
+
+/* =========================================
+   CANCEL CONFIRMATION
+========================================= */
+
+.cancel-warning {
+    margin-top: 15px;
+    padding: 12px;
+
+    border-radius: 8px;
+
+    background: #fff4e5;
+    border: 1px solid #e0a000;
+
+    color: #663c00;
+
+    font-size: 14px;
+}
+
+/* =========================================
+   MOBILE
+========================================= */
+
 @media (max-width: 600px) {
 
     body {
         padding: 10px;
+        padding-top: 80px;
     }
 
     .card,
@@ -181,6 +380,10 @@ button:disabled {
     button {
         width: 100%;
         margin: 4px 0;
+    }
+
+    .tech-menu {
+        width: 285px;
     }
 
 }
@@ -200,23 +403,143 @@ button:disabled {
 
 <body>
 
-<h1>World Oil Technician Dashboard</h1>
+
+<!-- =========================================
+     HAMBURGER BUTTON
+========================================= -->
+
+<button
+    type="button"
+    id="menuButton"
+    class="hamburger-button"
+    aria-label="Open menu"
+    aria-expanded="false"
+>
+    ☰
+</button>
 
 
-<!-- =========================
+<!-- =========================================
+     TECHNICIAN MENU
+========================================= -->
+
+<nav
+    id="techMenu"
+    class="tech-menu"
+    aria-label="Technician menu"
+>
+
+    <button
+        type="button"
+        id="menuClose"
+        class="menu-close"
+        aria-label="Close menu"
+    >
+        ×
+    </button>
+
+
+    <h2>
+        World Oil
+    </h2>
+
+
+    <!-- HOME -->
+
+    <button
+        type="button"
+        id="menuHome"
+        class="menu-item menu-home"
+    >
+        🏠 Home
+    </button>
+
+
+    <!-- CANCEL SUBSCRIPTION -->
+
+    <button
+        type="button"
+        id="menuCancel"
+        class="menu-item menu-cancel"
+    >
+        ❌ Cancel Subscription
+    </button>
+
+
+    <!-- LOG OUT -->
+
+    <button
+        type="button"
+        id="menuLogout"
+        class="menu-item menu-logout"
+    >
+        🚪 Log Out
+    </button>
+
+
+    <!-- CUSTOMER SERVICE -->
+
+    <a
+        href="tel:+18001231234"
+        id="menuCustomerService"
+        class="menu-item menu-service"
+    >
+
+        📞 Customer Service
+
+        <span class="menu-service-number">
+            +1 800-123-1234
+        </span>
+
+    </a>
+
+
+    <div class="cancel-warning">
+
+        <strong>Subscription cancellation</strong>
+
+        <p>
+            Cancelling your subscription will remove
+            your paid technician access.
+        </p>
+
+    </div>
+
+</nav>
+
+
+<!-- MENU OVERLAY -->
+
+<div
+    id="menuOverlay"
+    class="menu-overlay"
+>
+</div>
+
+
+<h1>
+    World Oil Technician Dashboard
+</h1>
+
+
+<!-- =========================================
      LOGIN
-========================= -->
+========================================= -->
 
 <div
     id="loginBox"
     class="card"
 >
 
-    <h2>Technician Login</h2>
+    <h2>
+        Technician Login
+    </h2>
 
     <p>
-        Sign in with your technician account to access customer appointments.
+        Sign in with your technician account
+        to access customer appointments.
     </p>
+
 
     <form id="loginForm">
 
@@ -263,9 +586,9 @@ button:disabled {
 </div>
 
 
-<!-- =========================
+<!-- =========================================
      DASHBOARD
-========================= -->
+========================================= -->
 
 <div
     id="dashboard"
@@ -290,20 +613,12 @@ button:disabled {
                 Refresh Tickets
             </button>
 
-
-            <button
-                type="button"
-                class="logout"
-                id="logoutButton"
-            >
-                Logout
-            </button>
-
         </div>
 
 
         <p>
-            Pending tickets hide customer contact information until accepted.
+            Pending tickets hide customer contact
+            information until accepted.
         </p>
 
 
@@ -398,11 +713,6 @@ const auth =
     getAuth(app);
 
 
-/*
-    Your Cloud Functions were deployed
-    in us-central1.
-*/
-
 const functions =
     getFunctions(
         app,
@@ -425,6 +735,19 @@ const technicianTicketAction =
     httpsCallable(
         functions,
         "technicianTicketAction"
+    );
+
+
+/*
+    NEW:
+
+    Secure subscription cancellation
+*/
+
+const cancelTechnicianSubscription =
+    httpsCallable(
+        functions,
+        "cancelTechnicianSubscription"
     );
 
 
@@ -464,8 +787,142 @@ const refreshButton =
     document.getElementById("refreshButton");
 
 
-const logoutButton =
-    document.getElementById("logoutButton");
+/* =========================================
+   MENU ELEMENTS
+========================================= */
+
+const menuButton =
+    document.getElementById("menuButton");
+
+
+const techMenu =
+    document.getElementById("techMenu");
+
+
+const menuOverlay =
+    document.getElementById("menuOverlay");
+
+
+const menuClose =
+    document.getElementById("menuClose");
+
+
+const menuHome =
+    document.getElementById("menuHome");
+
+
+const menuCancel =
+    document.getElementById("menuCancel");
+
+
+const menuLogout =
+    document.getElementById("menuLogout");
+
+
+/* =========================================
+   OPEN MENU
+========================================= */
+
+function openTechMenu() {
+
+    techMenu.classList.add(
+        "open"
+    );
+
+    menuOverlay.classList.add(
+        "open"
+    );
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        "true"
+    );
+
+}
+
+
+/* =========================================
+   CLOSE MENU
+========================================= */
+
+function closeTechMenu() {
+
+    techMenu.classList.remove(
+        "open"
+    );
+
+    menuOverlay.classList.remove(
+        "open"
+    );
+
+    menuButton.setAttribute(
+        "aria-expanded",
+        "false"
+    );
+
+}
+
+
+/* =========================================
+   MENU BUTTON
+========================================= */
+
+menuButton.addEventListener(
+    "click",
+    function() {
+
+        if (
+            techMenu.classList.contains(
+                "open"
+            )
+        ) {
+
+            closeTechMenu();
+
+        }
+        else {
+
+            openTechMenu();
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   CLOSE BUTTON
+========================================= */
+
+menuClose.addEventListener(
+    "click",
+    closeTechMenu
+);
+
+
+menuOverlay.addEventListener(
+    "click",
+    closeTechMenu
+);
+
+
+/* =========================================
+   HOME
+========================================= */
+
+menuHome.addEventListener(
+    "click",
+    function() {
+
+        closeTechMenu();
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+);
 
 
 /* =========================================
@@ -533,6 +990,7 @@ loginForm.addEventListener(
                     "The email or password is incorrect.";
 
             }
+
             else if (
                 error.code ===
                 "auth/wrong-password"
@@ -542,6 +1000,7 @@ loginForm.addEventListener(
                     "The password is incorrect.";
 
             }
+
             else if (
                 error.code ===
                 "auth/invalid-email"
@@ -551,6 +1010,7 @@ loginForm.addEventListener(
                     "Please enter a valid email address.";
 
             }
+
             else {
 
                 loginMessage.textContent =
@@ -559,20 +1019,6 @@ loginForm.addEventListener(
             }
 
         }
-
-    }
-);
-
-
-/* =========================================
-   LOGOUT
-========================================= */
-
-logoutButton.addEventListener(
-    "click",
-    async function() {
-
-        await signOut(auth);
 
     }
 );
@@ -601,15 +1047,10 @@ onAuthStateChanged(
         }
 
 
-        /*
-            Check the paidTechnician claim.
-
-            This claim is set securely by your
-            Stripe webhook after successful payment.
-        */
-
         const paid =
-            await checkPaidTechnician(user);
+            await checkPaidTechnician(
+                user
+            );
 
 
         if (!paid) {
@@ -638,8 +1079,6 @@ onAuthStateChanged(
         }
 
 
-        /* PAID TECHNICIAN */
-
         loginBox.style.display =
             "none";
 
@@ -663,15 +1102,9 @@ onAuthStateChanged(
    CHECK PAID TECHNICIAN
 ========================================= */
 
-async function checkPaidTechnician(user) {
-
-
-    /*
-        Stripe can take a few seconds to
-        update the Firebase custom claim.
-
-        Try for about 30 seconds.
-    */
+async function checkPaidTechnician(
+    user
+) {
 
     for (
         let attempt = 1;
@@ -682,11 +1115,15 @@ async function checkPaidTechnician(user) {
         try {
 
             const tokenResult =
-                await user.getIdTokenResult(true);
+                await user.getIdTokenResult(
+                    true
+                );
 
 
             const paid =
-                tokenResult.claims.paidTechnician === true;
+                tokenResult
+                    .claims
+                    .paidTechnician === true;
 
 
             if (paid) {
@@ -749,7 +1186,9 @@ refreshButton.addEventListener(
 
 
         const paid =
-            await checkPaidTechnician(user);
+            await checkPaidTechnician(
+                user
+            );
 
 
         if (!paid) {
@@ -782,7 +1221,6 @@ refreshButton.addEventListener(
 
 async function loadTickets() {
 
-
     ticketsDiv.setAttribute(
         "aria-busy",
         "true"
@@ -803,13 +1241,6 @@ async function loadTickets() {
 
     try {
 
-        /*
-            Calls your secure backend.
-
-            The browser does NOT directly
-            read the oilChanges collection.
-        */
-
         const result =
             await getTechnicianTickets();
 
@@ -819,7 +1250,9 @@ async function loadTickets() {
 
 
         const tickets =
-            Array.isArray(payload.tickets)
+            Array.isArray(
+                payload.tickets
+            )
                 ? payload.tickets
                 : [];
 
@@ -828,7 +1261,9 @@ async function loadTickets() {
             "";
 
 
-        if (tickets.length === 0) {
+        if (
+            tickets.length === 0
+        ) {
 
             ticketsDiv.innerHTML =
                 "<p class='empty'>No active tickets.</p>";
@@ -839,38 +1274,12 @@ async function loadTickets() {
         }
 
 
-        tickets.sort(
-            function(a, b) {
-
-                return (
-                    new Date(
-                        b.createdAt ||
-                        b.date ||
-                        0
-                    )
-                    -
-                    new Date(
-                        a.createdAt ||
-                        a.date ||
-                        0
-                    )
-                );
-
-            }
-        );
-
-
         tickets.forEach(
             function(data) {
 
-
                 const vehicle =
-                    `
-${data.year || ""}
-${data.make || ""}
-${data.model || ""}
-                    `
-                    .trim();
+                    data.vehicle ||
+                    "Not provided";
 
 
                 const ticket =
@@ -882,8 +1291,6 @@ ${data.model || ""}
                 ticket.className =
                     "ticket";
 
-
-                /* TICKET TITLE */
 
                 const title =
                     document.createElement(
@@ -899,10 +1306,10 @@ ${data.model || ""}
                     );
 
 
-                ticket.appendChild(title);
+                ticket.appendChild(
+                    title
+                );
 
-
-                /* DETAILS */
 
                 const details =
                     document.createElement(
@@ -920,18 +1327,10 @@ ${data.model || ""}
 
 
                 /*
-                    IMPORTANT SECURITY:
-
-                    Pending tickets DO NOT show:
-
-                    - Customer name
-                    - Phone
-                    - Address
-                    - Email
-
-                    The backend should only return
-                    those details after the technician
-                    successfully accepts the ticket.
+                    Customer information is ONLY
+                    displayed after the backend
+                    confirms the technician owns
+                    the accepted ticket.
                 */
 
                 if (
@@ -969,15 +1368,13 @@ ${data.model || ""}
                 addDetail(
                     details,
                     "Vehicle:",
-                    vehicle ||
-                    "Not provided"
+                    vehicle
                 );
 
 
                 addDetail(
                     details,
                     "Date:",
-                    data.rawDate ||
                     data.date ||
                     "Not provided"
                 );
@@ -991,7 +1388,9 @@ ${data.model || ""}
                 );
 
 
-                if (data.notes) {
+                if (
+                    data.notes
+                ) {
 
                     addDetail(
                         details,
@@ -1007,8 +1406,6 @@ ${data.model || ""}
                 );
 
 
-                /* ACTIONS */
-
                 const actions =
                     document.createElement(
                         "div"
@@ -1020,8 +1417,7 @@ ${data.model || ""}
 
 
                 /*
-                    PENDING:
-                    Technician can only Accept.
+                    PENDING = ACCEPT ONLY
                 */
 
                 if (
@@ -1052,11 +1448,7 @@ ${data.model || ""}
 
 
                 /*
-                    ACCEPTED:
-                    Technician can only Complete.
-
-                    There is intentionally NO
-                    Cancel button.
+                    ACCEPTED = COMPLETE ONLY
                 */
 
                 if (
@@ -1139,42 +1531,6 @@ ${data.model || ""}
 
 
 /* =========================================
-   ESCAPE HTML
-========================================= */
-
-function escapeHtml(value) {
-
-    return String(value)
-
-        .replace(
-            /&/g,
-            "&amp;"
-        )
-
-        .replace(
-            /</g,
-            "&lt;"
-        )
-
-        .replace(
-            />/g,
-            "&gt;"
-        )
-
-        .replace(
-            /"/g,
-            "&quot;"
-        )
-
-        .replace(
-            /'/g,
-            "&#039;"
-        );
-
-}
-
-
-/* =========================================
    ADD DETAIL
 ========================================= */
 
@@ -1198,12 +1554,12 @@ function addDetail(
 
 
     strong.textContent =
-        " " +
-        label +
-        " ";
+        label + " ";
 
 
-    p.appendChild(strong);
+    p.appendChild(
+        strong
+    );
 
 
     if (isStatus) {
@@ -1222,7 +1578,9 @@ function addDetail(
             value;
 
 
-        p.appendChild(span);
+        p.appendChild(
+            span
+        );
 
     }
     else {
@@ -1233,12 +1591,16 @@ function addDetail(
             );
 
 
-        p.appendChild(text);
+        p.appendChild(
+            text
+        );
 
     }
 
 
-    container.appendChild(p);
+    container.appendChild(
+        p
+    );
 
 }
 
@@ -1283,18 +1645,13 @@ function createButton(
 
 
 /* =========================================
-   ACCEPT / COMPLETE TICKET
+   ACCEPT / COMPLETE
 ========================================= */
 
 async function updateStatus(
     id,
     status
 ) {
-
-
-    /*
-        Browser only allows these two actions.
-    */
 
     if (
         status !== "accepted" &&
@@ -1351,7 +1708,9 @@ async function updateStatus(
 
 
         const paid =
-            await checkPaidTechnician(user);
+            await checkPaidTechnician(
+                user
+            );
 
 
         if (!paid) {
@@ -1382,40 +1741,6 @@ async function updateStatus(
                 : "Completing appointment...";
 
 
-        /*
-            IMPORTANT:
-
-            The browser does NOT directly
-            update Firestore.
-
-            Your secure backend function
-            validates the action.
-
-            The backend should enforce:
-
-            ✓ Paid technician
-
-            ✓ Technician can only have
-              one active accepted ticket
-
-            ✓ Technician cannot take
-              another ticket until the
-              cooldown period expires
-
-            ✓ Only the technician who
-              accepted the ticket can
-              complete it
-
-            ✓ Pending -> Accepted only
-
-            ✓ Accepted -> Completed only
-
-            ✓ No technician cancellation
-
-            ✓ Twilio notification can be
-              triggered by the backend
-        */
-
         await technicianTicketAction({
 
             action:
@@ -1438,15 +1763,6 @@ async function updateStatus(
                 ? "Appointment accepted successfully. The customer will be notified."
                 : "Appointment completed successfully. The customer will be notified.";
 
-
-        /*
-            Reload tickets.
-
-            After acceptance, the backend
-            can now return customer details
-            only for the technician who owns
-            that accepted ticket.
-        */
 
         await loadTickets();
 
@@ -1472,12 +1788,245 @@ async function updateStatus(
 }
 
 
+/* =========================================
+   CANCEL SUBSCRIPTION
+========================================= */
+
+menuCancel.addEventListener(
+    "click",
+    async function() {
+
+        closeTechMenu();
+
+
+        const user =
+            auth.currentUser;
+
+
+        if (!user) {
+
+            alert(
+                "You must be logged in."
+            );
+
+            return;
+
+        }
+
+
+        /*
+            First confirmation
+        */
+
+        const firstConfirmation =
+            confirm(
+                "Are you sure you want to cancel your World Oil technician subscription?"
+            );
+
+
+        if (!firstConfirmation) {
+
+            return;
+
+        }
+
+
+        /*
+            Second confirmation
+        */
+
+        const secondConfirmation =
+            confirm(
+                "FINAL CONFIRMATION:\n\n" +
+                "Cancelling your subscription will remove your paid technician access.\n\n" +
+                "Do you want to continue?"
+            );
+
+
+        if (!secondConfirmation) {
+
+            return;
+
+        }
+
+
+        try {
+
+            menuCancel.disabled =
+                true;
+
+
+            menuCancel.textContent =
+                "Cancelling...";
+
+
+            dashboardMessage.className =
+                "";
+
+
+            dashboardMessage.textContent =
+                "Cancelling your subscription...";
+
+
+            /*
+                Secure Firebase backend call.
+
+                The backend verifies the logged-in
+                technician and cancels ONLY that
+                technician's Stripe subscription.
+            */
+
+            const result =
+                await cancelTechnicianSubscription();
+
+
+            if (
+                !result.data ||
+                result.data.success !== true
+            ) {
+
+                throw new Error(
+                    "The subscription could not be cancelled."
+                );
+
+            }
+
+
+            alert(
+                "Your World Oil technician subscription has been cancelled."
+            );
+
+
+            /*
+                Sign out immediately.
+
+                Firebase custom claims may take
+                a short time to refresh, but the
+                backend has already removed access.
+            */
+
+            await signOut(
+                auth
+            );
+
+
+            window.location.href =
+                "technician-signup.html";
+
+        }
+        catch (error) {
+
+            console.error(
+                "Subscription cancellation error:",
+                error
+            );
+
+
+            dashboardMessage.className =
+                "error";
+
+
+            dashboardMessage.textContent =
+                error?.message ||
+                "Unable to cancel your subscription.";
+
+
+            menuCancel.disabled =
+                false;
+
+
+            menuCancel.innerHTML =
+                "❌ Cancel Subscription";
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   LOG OUT
+========================================= */
+
+menuLogout.addEventListener(
+    "click",
+    async function() {
+
+        closeTechMenu();
+
+
+        try {
+
+            await signOut(
+                auth
+            );
+
+            window.location.href =
+                "technician-signup.html";
+
+        }
+        catch (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+
+            alert(
+                "Unable to log out."
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   ESCAPE HTML
+========================================= */
+
+function escapeHtml(
+    value
+) {
+
+    return String(value)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
 </script>
 
 
-<!-- =========================
+<!-- =========================================
      PWA SERVICE WORKER
-========================= -->
+========================================= -->
 
 <script>
 
@@ -1498,7 +2047,7 @@ if (
                     function(registration) {
 
                         console.log(
-                            "World OIL service worker registered:",
+                            "World Oil service worker registered:",
                             registration.scope
                         );
 
@@ -1509,7 +2058,7 @@ if (
                     function(error) {
 
                         console.error(
-                            "World OIL service worker registration failed:",
+                            "World Oil service worker registration failed:",
                             error
                         );
 
