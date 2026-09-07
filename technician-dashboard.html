@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -9,17 +8,15 @@
 <title>World Oil Technician Dashboard</title>
 
 <meta
-name="viewport"
-content="width=device-width, initial-scale=1.0"
-
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
 >
 
 <link rel="manifest" href="./manifest.json">
 
 <meta
-name="theme-color"
-content="#0b0b0b"
-
+    name="theme-color"
+    content="#0b0b0b"
 >
 
 <style>
@@ -130,27 +127,16 @@ button:disabled {
     text-align: center;
 }
 
-/* =========================================
-   WELCOME MESSAGE
-========================================= */
-
 .welcome-message {
     max-width: 650px;
     margin: 0 auto 15px;
     padding: 18px 20px;
-
     background: white;
-
     border-radius: 12px;
-
-    box-shadow:
-        0 5px 15px rgba(0,0,0,0.15);
-
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
     text-align: center;
-
     font-size: 24px;
     font-weight: bold;
-
     color: #111;
 }
 
@@ -190,10 +176,28 @@ button:disabled {
     padding-top: 10px;
 }
 
+.customer-details {
+    margin-top: 15px;
+    padding: 15px;
+    background: #f7f8fa;
+    border: 1px solid #d9dde2;
+    border-radius: 10px;
+}
 
-/* =========================================
-   HAMBURGER MENU
-========================================= */
+.customer-details h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.customer-details p {
+    margin: 9px 0;
+    line-height: 1.5;
+}
+
+.customer-details strong {
+    display: inline-block;
+    min-width: 90px;
+}
 
 .hamburger-button {
     position: fixed;
@@ -221,15 +225,6 @@ button:disabled {
     box-shadow:
         0 4px 12px rgba(0,0,0,0.25);
 }
-
-.hamburger-button:hover {
-    filter: brightness(0.85);
-}
-
-
-/* =========================================
-   MENU
-========================================= */
 
 .tech-menu {
     position: fixed;
@@ -263,7 +258,6 @@ button:disabled {
     margin-top: 15px;
     margin-bottom: 30px;
     padding-bottom: 15px;
-
     border-bottom: 1px solid #ddd;
 }
 
@@ -284,10 +278,6 @@ button:disabled {
 
     font-size: 32px;
     line-height: 42px;
-}
-
-.menu-close:hover {
-    background: #eee;
 }
 
 .menu-item {
@@ -316,10 +306,6 @@ button:disabled {
     cursor: pointer;
 }
 
-.menu-item:hover {
-    background: #e5e7eb;
-}
-
 .menu-home {
     background: #e8f1ff;
 }
@@ -342,16 +328,13 @@ button:disabled {
 .menu-service {
     background: #e7f7ec;
     color: #145c2a;
-
     flex-direction: column;
 }
 
 .menu-service-number {
     margin-top: 5px;
-
     font-size: 14px;
     font-weight: normal;
-
     color: #333;
 }
 
@@ -372,11 +355,6 @@ button:disabled {
     display: block;
 }
 
-
-/* =========================================
-   CANCEL CONFIRMATION
-========================================= */
-
 .cancel-warning {
     margin-top: 15px;
     padding: 12px;
@@ -390,11 +368,6 @@ button:disabled {
 
     font-size: 14px;
 }
-
-
-/* =========================================
-   MOBILE
-========================================= */
 
 @media (max-width: 600px) {
 
@@ -427,41 +400,22 @@ button:disabled {
 
 }
 
-@media (prefers-reduced-motion: reduce) {
-
-    * {
-        animation: none !important;
-        transition: none !important;
-    }
-
-}
-
 </style>
 
 </head>
 
 <body>
 
-<!-- =========================================
-     HAMBURGER BUTTON
-========================================= -->
-
 <button
-type="button"
-id="menuButton"
-class="hamburger-button"
-aria-label="Open menu"
-aria-expanded="false"
-
+    type="button"
+    id="menuButton"
+    class="hamburger-button"
+    aria-label="Open menu"
+    aria-expanded="false"
 >
-
-☰
-
+    ☰
 </button>
 
-<!-- =========================================
-     TECHNICIAN MENU
-========================================= -->
 
 <nav
     id="techMenu"
@@ -469,7 +423,6 @@ aria-expanded="false"
     aria-label="Technician menu"
 >
 
-```
 <button
     type="button"
     id="menuClose"
@@ -479,13 +432,9 @@ aria-expanded="false"
     ×
 </button>
 
-
 <h2>
     World Oil
 </h2>
-
-
-<!-- HOME -->
 
 <button
     type="button"
@@ -495,9 +444,6 @@ aria-expanded="false"
     🏠 Home
 </button>
 
-
-<!-- CANCEL SUBSCRIPTION -->
-
 <button
     type="button"
     id="menuCancel"
@@ -505,9 +451,6 @@ aria-expanded="false"
 >
     ❌ Cancel Subscription
 </button>
-
-
-<!-- GET SUBSCRIPTION -->
 
 <a
     href="technician-signup.html"
@@ -517,9 +460,6 @@ aria-expanded="false"
     💳 Get Subscription
 </a>
 
-
-<!-- LOG OUT -->
-
 <button
     type="button"
     id="menuLogout"
@@ -528,60 +468,50 @@ aria-expanded="false"
     🚪 Log Out
 </button>
 
-
-<!-- CUSTOMER SERVICE -->
-
 <a
     href="tel:+18001231234"
     id="menuCustomerService"
     class="menu-item menu-service"
 >
-
     📞 Customer Service
 
     <span class="menu-service-number">
         +1 800-123-1234
     </span>
-
 </a>
-
 
 <div class="cancel-warning">
 
-    <strong>Subscription cancellation</strong>
+<strong>
+    Subscription cancellation
+</strong>
 
-    <p>
-        Cancelling your subscription will remove
-        your paid technician access.
-    </p>
+<p>
+    Cancelling your subscription will remove
+    your paid technician access.
+</p>
 
 </div>
-```
 
 </nav>
 
-<!-- MENU OVERLAY -->
 
 <div
     id="menuOverlay"
     class="menu-overlay"
->
-</div>
+></div>
+
 
 <h1>
     World Oil Technician Dashboard
 </h1>
 
-<!-- =========================================
-     LOGIN
-========================================= -->
 
 <div
     id="loginBox"
     class="card"
 >
 
-```
 <h2>
     Technician Login
 </h2>
@@ -591,63 +521,52 @@ aria-expanded="false"
     to access customer appointments.
 </p>
 
-
 <form id="loginForm">
 
-    <label for="email">
-        Technician Email
-    </label>
+<label for="email">
+    Technician Email
+</label>
 
-    <input
-        type="email"
-        id="email"
-        autocomplete="email"
-        required
-    >
+<input
+    type="email"
+    id="email"
+    autocomplete="email"
+    required
+>
 
+<label for="password">
+    Technician Password
+</label>
 
-    <label for="password">
-        Technician Password
-    </label>
+<input
+    type="password"
+    id="password"
+    autocomplete="current-password"
+    required
+>
 
-    <input
-        type="password"
-        id="password"
-        autocomplete="current-password"
-        required
-    >
+<button
+    type="submit"
+    class="login"
+>
+    Login
+</button>
 
-
-    <button
-        type="submit"
-        class="login"
-    >
-        Login
-    </button>
-
-
-    <div
-        id="loginMessage"
-        role="alert"
-        aria-live="assertive"
-    ></div>
+<div
+    id="loginMessage"
+    role="alert"
+    aria-live="assertive"
+></div>
 
 </form>
-```
 
 </div>
 
-<!-- =========================================
-     DASHBOARD
-========================================= -->
 
 <div
     id="dashboard"
     style="display:none;"
 >
-
-```
-<!-- WELCOME -->
 
 <div
     id="welcomeMessage"
@@ -659,36 +578,33 @@ aria-expanded="false"
 
 <div class="top-bar">
 
-    <p>
-        Logged in as:
-        <strong id="userEmail"></strong>
-    </p>
+<p>
+    Logged in as:
+    <strong id="userEmail"></strong>
+</p>
 
+<div class="button-row">
 
-    <div class="button-row">
+<button
+    type="button"
+    class="refresh"
+    id="refreshButton"
+>
+    Refresh Tickets
+</button>
 
-        <button
-            type="button"
-            class="refresh"
-            id="refreshButton"
-        >
-            Refresh Tickets
-        </button>
+</div>
 
-    </div>
+<p>
+    Pending tickets hide customer contact
+    information until accepted.
+</p>
 
-
-    <p>
-        Pending tickets hide customer contact
-        information until accepted.
-    </p>
-
-
-    <div
-        id="dashboardMessage"
-        role="status"
-        aria-live="polite"
-    ></div>
+<div
+    id="dashboardMessage"
+    role="status"
+    aria-live="polite"
+></div>
 
 </div>
 
@@ -700,16 +616,11 @@ aria-expanded="false"
 >
     Loading tickets...
 </div>
-```
 
 </div>
 
+
 <script type="module">
-
-
-/* =========================================
-   FIREBASE IMPORTS
-========================================= */
 
 import {
     initializeApp
@@ -745,10 +656,6 @@ from
 "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 
-/* =========================================
-   FIREBASE CONFIG
-========================================= */
-
 const firebaseConfig = {
 
     apiKey:
@@ -772,10 +679,6 @@ const firebaseConfig = {
 };
 
 
-/* =========================================
-   INITIALIZE FIREBASE
-========================================= */
-
 const app =
     initializeApp(firebaseConfig);
 
@@ -794,10 +697,6 @@ const functions =
         "us-central1"
     );
 
-
-/* =========================================
-   SECURE BACKEND FUNCTIONS
-========================================= */
 
 const getTechnicianTickets =
     httpsCallable(
@@ -819,10 +718,6 @@ const cancelTechnicianSubscription =
         "cancelTechnicianSubscription"
     );
 
-
-/* =========================================
-   ELEMENTS
-========================================= */
 
 const loginBox =
     document.getElementById("loginBox");
@@ -860,10 +755,6 @@ const welcomeMessage =
     document.getElementById("welcomeMessage");
 
 
-/* =========================================
-   MENU ELEMENTS
-========================================= */
-
 const menuButton =
     document.getElementById("menuButton");
 
@@ -892,19 +783,11 @@ const menuLogout =
     document.getElementById("menuLogout");
 
 
-/* =========================================
-   OPEN MENU
-========================================= */
-
 function openTechMenu() {
 
-    techMenu.classList.add(
-        "open"
-    );
+    techMenu.classList.add("open");
 
-    menuOverlay.classList.add(
-        "open"
-    );
+    menuOverlay.classList.add("open");
 
     menuButton.setAttribute(
         "aria-expanded",
@@ -914,19 +797,11 @@ function openTechMenu() {
 }
 
 
-/* =========================================
-   CLOSE MENU
-========================================= */
-
 function closeTechMenu() {
 
-    techMenu.classList.remove(
-        "open"
-    );
+    techMenu.classList.remove("open");
 
-    menuOverlay.classList.remove(
-        "open"
-    );
+    menuOverlay.classList.remove("open");
 
     menuButton.setAttribute(
         "aria-expanded",
@@ -936,18 +811,12 @@ function closeTechMenu() {
 }
 
 
-/* =========================================
-   MENU BUTTON
-========================================= */
-
 menuButton.addEventListener(
     "click",
     function() {
 
         if (
-            techMenu.classList.contains(
-                "open"
-            )
+            techMenu.classList.contains("open")
         ) {
 
             closeTechMenu();
@@ -963,10 +832,6 @@ menuButton.addEventListener(
 );
 
 
-/* =========================================
-   CLOSE BUTTON
-========================================= */
-
 menuClose.addEventListener(
     "click",
     closeTechMenu
@@ -978,10 +843,6 @@ menuOverlay.addEventListener(
     closeTechMenu
 );
 
-
-/* =========================================
-   HOME
-========================================= */
 
 menuHome.addEventListener(
     "click",
@@ -998,24 +859,15 @@ menuHome.addEventListener(
 );
 
 
-/* =========================================
-   LOGIN
-========================================= */
-
 loginForm.addEventListener(
     "submit",
     async function(event) {
 
         event.preventDefault();
 
+        loginMessage.className = "";
 
-        loginMessage.className =
-            "";
-
-
-        loginMessage.textContent =
-            "";
-
+        loginMessage.textContent = "";
 
         const email =
             document
@@ -1023,12 +875,10 @@ loginForm.addEventListener(
                 .value
                 .trim();
 
-
         const password =
             document
                 .getElementById("password")
                 .value;
-
 
         try {
 
@@ -1046,15 +896,12 @@ loginForm.addEventListener(
                 error
             );
 
-
             loginMessage.className =
                 "error";
-
 
             if (
                 error.code ===
                     "auth/user-not-found" ||
-
                 error.code ===
                     "auth/invalid-credential"
             ) {
@@ -1063,7 +910,6 @@ loginForm.addEventListener(
                     "The email or password is incorrect.";
 
             }
-
             else if (
                 error.code ===
                 "auth/wrong-password"
@@ -1073,7 +919,6 @@ loginForm.addEventListener(
                     "The password is incorrect.";
 
             }
-
             else if (
                 error.code ===
                 "auth/invalid-email"
@@ -1083,7 +928,6 @@ loginForm.addEventListener(
                     "Please enter a valid email address.";
 
             }
-
             else {
 
                 loginMessage.textContent =
@@ -1097,10 +941,6 @@ loginForm.addEventListener(
 );
 
 
-/* =========================================
-   LOAD TECHNICIAN NAME
-========================================= */
-
 async function loadTechnicianName(user) {
 
     try {
@@ -1112,12 +952,10 @@ async function loadTechnicianName(user) {
                 user.uid
             );
 
-
         const technicianSnap =
             await getDoc(
                 technicianRef
             );
-
 
         if (
             technicianSnap.exists()
@@ -1126,19 +964,10 @@ async function loadTechnicianName(user) {
             const technician =
                 technicianSnap.data();
 
-
-            /*
-             * Supports the normal firstName field.
-             * Also supports first_name or name if
-             * your existing technician document uses
-             * one of those fields.
-             */
-
             const firstName =
                 technician.firstName ||
                 technician.first_name ||
                 "";
-
 
             if (firstName) {
 
@@ -1151,7 +980,6 @@ async function loadTechnicianName(user) {
 
         }
 
-
         welcomeMessage.textContent =
             "Hello, Technician! Welcome back.";
 
@@ -1163,7 +991,6 @@ async function loadTechnicianName(user) {
             error
         );
 
-
         welcomeMessage.textContent =
             "Hello, Technician! Welcome back.";
 
@@ -1171,10 +998,6 @@ async function loadTechnicianName(user) {
 
 }
 
-
-/* =========================================
-   AUTH STATE
-========================================= */
 
 onAuthStateChanged(
     auth,
@@ -1185,70 +1008,51 @@ onAuthStateChanged(
             loginBox.style.display =
                 "block";
 
-
             dashboard.style.display =
                 "none";
-
 
             return;
 
         }
-
 
         const paid =
             await checkPaidTechnician(
                 user
             );
 
-
         if (!paid) {
 
             dashboard.style.display =
                 "none";
 
-
             loginBox.style.display =
                 "block";
-
 
             loginMessage.className =
                 "error";
 
-
             loginMessage.textContent =
                 "Your account does not have an active technician subscription. Please complete your subscription payment.";
 
-
             await signOut(auth);
-
 
             return;
 
         }
 
-
         loginBox.style.display =
             "none";
 
-
         dashboard.style.display =
             "block";
-
-
-        /*
-         * Load the technician's first name
-         * from Firestore.
-         */
 
         await loadTechnicianName(
             user
         );
 
-
         userEmail.textContent =
             user.email ||
             "Technician";
-
 
         await loadTickets();
 
@@ -1256,13 +1060,7 @@ onAuthStateChanged(
 );
 
 
-/* =========================================
-   CHECK PAID TECHNICIAN
-========================================= */
-
-async function checkPaidTechnician(
-    user
-) {
+async function checkPaidTechnician(user) {
 
     for (
         let attempt = 1;
@@ -1277,12 +1075,10 @@ async function checkPaidTechnician(
                     true
                 );
 
-
             const paid =
                 tokenResult
                     .claims
                     .paidTechnician === true;
-
 
             if (paid) {
 
@@ -1299,7 +1095,6 @@ async function checkPaidTechnician(
             );
 
         }
-
 
         if (attempt < 12) {
 
@@ -1318,15 +1113,10 @@ async function checkPaidTechnician(
 
     }
 
-
     return false;
 
 }
 
-
-/* =========================================
-   REFRESH
-========================================= */
 
 refreshButton.addEventListener(
     "click",
@@ -1335,52 +1125,40 @@ refreshButton.addEventListener(
         const user =
             auth.currentUser;
 
-
         if (!user) {
 
             return;
 
         }
 
-
         const paid =
             await checkPaidTechnician(
                 user
             );
-
 
         if (!paid) {
 
             dashboardMessage.className =
                 "error";
 
-
             dashboardMessage.textContent =
                 "Your technician subscription is not active.";
 
-
             await signOut(auth);
-
 
             return;
 
         }
 
-
         await loadTechnicianName(
             user
         );
-
 
         await loadTickets();
 
     }
 );
 
-
-/* =========================================
-   LOAD TICKETS
-========================================= */
 
 async function loadTickets() {
 
@@ -1389,40 +1167,30 @@ async function loadTickets() {
         "true"
     );
 
-
     ticketsDiv.innerHTML =
         "<p>Loading tickets...</p>";
-
 
     dashboardMessage.className =
         "";
 
-
     dashboardMessage.textContent =
         "";
-
 
     try {
 
         const result =
             await getTechnicianTickets();
 
-
         const payload =
             result.data || {};
 
-
         const tickets =
-            Array.isArray(
-                payload.tickets
-            )
+            Array.isArray(payload.tickets)
                 ? payload.tickets
                 : [];
 
-
         ticketsDiv.innerHTML =
             "";
-
 
         if (
             tickets.length === 0
@@ -1431,25 +1199,17 @@ async function loadTickets() {
             ticketsDiv.innerHTML =
                 "<p class='empty'>No active tickets.</p>";
 
-
             return;
 
         }
 
-
         tickets.forEach(
             function(data) {
-
-                const vehicle =
-                    data.vehicle ||
-                    "Not provided";
-
 
                 const ticket =
                     document.createElement(
                         "article"
                     );
-
 
                 ticket.className =
                     "ticket";
@@ -1460,14 +1220,12 @@ async function loadTickets() {
                         "h2"
                     );
 
-
                 title.textContent =
                     "Ticket: " +
                     (
                         data.ticketNumber ||
                         data.id
                     );
-
 
                 ticket.appendChild(
                     title
@@ -1483,48 +1241,16 @@ async function loadTickets() {
                 addDetail(
                     details,
                     "Status:",
-                    data.status ||
-                    "pending",
+                    data.status || "pending",
                     true
                 );
-
-
-                if (
-                    data.status ===
-                    "accepted"
-                ) {
-
-                    addDetail(
-                        details,
-                        "Customer:",
-                        data.name ||
-                        "Not provided"
-                    );
-
-
-                    addDetail(
-                        details,
-                        "Phone:",
-                        data.phone ||
-                        "Not provided"
-                    );
-
-
-                    addDetail(
-                        details,
-                        "Address:",
-                        data.address ||
-                        data.serviceAddress ||
-                        "Not provided"
-                    );
-
-                }
 
 
                 addDetail(
                     details,
                     "Vehicle:",
-                    vehicle
+                    data.vehicle ||
+                    "Not provided"
                 );
 
 
@@ -1562,19 +1288,118 @@ async function loadTickets() {
                 );
 
 
+                /*
+                =====================================
+                CUSTOMER DETAILS AFTER ACCEPTANCE
+                =====================================
+                */
+
+                if (
+                    data.status === "accepted"
+                ) {
+
+                    const customerBox =
+                        document.createElement(
+                            "div"
+                        );
+
+                    customerBox.className =
+                        "customer-details";
+
+
+                    const customerHeading =
+                        document.createElement(
+                            "h3"
+                        );
+
+                    customerHeading.textContent =
+                        "Customer Information";
+
+                    customerBox.appendChild(
+                        customerHeading
+                    );
+
+
+                    addDetail(
+                        customerBox,
+                        "Customer:",
+                        data.name ||
+                        "Not provided"
+                    );
+
+
+                    addDetail(
+                        customerBox,
+                        "Phone:",
+                        data.phone ||
+                        "Not provided"
+                    );
+
+
+                    addDetail(
+                        customerBox,
+                        "Address:",
+                        data.address ||
+                        data.serviceAddress ||
+                        "Not provided"
+                    );
+
+
+                    addDetail(
+                        customerBox,
+                        "Vehicle:",
+                        data.vehicle ||
+                        "Not provided"
+                    );
+
+
+                    addDetail(
+                        customerBox,
+                        "Date:",
+                        data.date ||
+                        "Not provided"
+                    );
+
+
+                    addDetail(
+                        customerBox,
+                        "Time:",
+                        data.time ||
+                        "Not provided"
+                    );
+
+
+                    if (
+                        data.notes
+                    ) {
+
+                        addDetail(
+                            customerBox,
+                            "Notes:",
+                            data.notes
+                        );
+
+                    }
+
+
+                    ticket.appendChild(
+                        customerBox
+                    );
+
+                }
+
+
                 const actions =
                     document.createElement(
                         "div"
                     );
-
 
                 actions.className =
                     "ticket-actions";
 
 
                 if (
-                    data.status ===
-                    "pending"
+                    data.status === "pending"
                 ) {
 
                     const acceptButton =
@@ -1591,7 +1416,6 @@ async function loadTickets() {
                             }
                         );
 
-
                     actions.appendChild(
                         acceptButton
                     );
@@ -1600,8 +1424,7 @@ async function loadTickets() {
 
 
                 if (
-                    data.status ===
-                    "accepted"
+                    data.status === "accepted"
                 ) {
 
                     const completeButton =
@@ -1617,7 +1440,6 @@ async function loadTickets() {
 
                             }
                         );
-
 
                     actions.appendChild(
                         completeButton
@@ -1645,7 +1467,6 @@ async function loadTickets() {
             "Technician ticket loading error:",
             error
         );
-
 
         ticketsDiv.innerHTML =
             `
@@ -1678,10 +1499,6 @@ async function loadTickets() {
 }
 
 
-/* =========================================
-   ADD DETAIL
-========================================= */
-
 function addDetail(
     container,
     label,
@@ -1700,31 +1517,28 @@ function addDetail(
             "strong"
         );
 
-
     strong.textContent =
         label + " ";
-
 
     p.appendChild(
         strong
     );
 
 
-    if (isStatus) {
+    if (
+        isStatus
+    ) {
 
         const span =
             document.createElement(
                 "span"
             );
 
-
         span.className =
             "status";
 
-
         span.textContent =
             value;
-
 
         p.appendChild(
             span
@@ -1737,7 +1551,6 @@ function addDetail(
             document.createTextNode(
                 value
             );
-
 
         p.appendChild(
             text
@@ -1753,10 +1566,6 @@ function addDetail(
 }
 
 
-/* =========================================
-   CREATE BUTTON
-========================================= */
-
 function createButton(
     text,
     className,
@@ -1768,33 +1577,24 @@ function createButton(
             "button"
         );
 
-
     button.type =
         "button";
-
 
     button.textContent =
         text;
 
-
     button.className =
         className;
-
 
     button.addEventListener(
         "click",
         action
     );
 
-
     return button;
 
 }
 
-
-/* =========================================
-   ACCEPT / COMPLETE
-========================================= */
 
 async function updateStatus(
     id,
@@ -1809,10 +1609,8 @@ async function updateStatus(
         dashboardMessage.className =
             "error";
 
-
         dashboardMessage.textContent =
             "This action is not available.";
-
 
         return;
 
@@ -1845,10 +1643,8 @@ async function updateStatus(
             dashboardMessage.className =
                 "error";
 
-
             dashboardMessage.textContent =
                 "You must be logged in.";
-
 
             return;
 
@@ -1866,13 +1662,10 @@ async function updateStatus(
             dashboardMessage.className =
                 "error";
 
-
             dashboardMessage.textContent =
                 "Your technician subscription is not active.";
 
-
             await signOut(auth);
-
 
             return;
 
@@ -1881,7 +1674,6 @@ async function updateStatus(
 
         dashboardMessage.className =
             "";
-
 
         dashboardMessage.textContent =
             status === "accepted"
@@ -1905,7 +1697,6 @@ async function updateStatus(
         dashboardMessage.className =
             "success";
 
-
         dashboardMessage.textContent =
             status === "accepted"
                 ? "Appointment accepted successfully. The customer will be notified."
@@ -1922,10 +1713,8 @@ async function updateStatus(
             error
         );
 
-
         dashboardMessage.className =
             "error";
-
 
         dashboardMessage.textContent =
             error?.message ||
@@ -1935,10 +1724,6 @@ async function updateStatus(
 
 }
 
-
-/* =========================================
-   CANCEL SUBSCRIPTION
-========================================= */
 
 menuCancel.addEventListener(
     "click",
@@ -1995,14 +1780,12 @@ menuCancel.addEventListener(
             menuCancel.disabled =
                 true;
 
-
             menuCancel.textContent =
                 "Cancelling...";
 
 
             dashboardMessage.className =
                 "";
-
 
             dashboardMessage.textContent =
                 "Cancelling your subscription...";
@@ -2049,7 +1832,6 @@ menuCancel.addEventListener(
             dashboardMessage.className =
                 "error";
 
-
             dashboardMessage.textContent =
                 error?.message ||
                 "Unable to cancel your subscription.";
@@ -2057,7 +1839,6 @@ menuCancel.addEventListener(
 
             menuCancel.disabled =
                 false;
-
 
             menuCancel.innerHTML =
                 "❌ Cancel Subscription";
@@ -2067,10 +1848,6 @@ menuCancel.addEventListener(
     }
 );
 
-
-/* =========================================
-   LOG OUT
-========================================= */
 
 menuLogout.addEventListener(
     "click",
@@ -2085,6 +1862,7 @@ menuLogout.addEventListener(
                 auth
             );
 
+
             window.location.href =
                 "technician-signup.html";
 
@@ -2096,7 +1874,6 @@ menuLogout.addEventListener(
                 error
             );
 
-
             alert(
                 "Unable to log out."
             );
@@ -2106,10 +1883,6 @@ menuLogout.addEventListener(
     }
 );
 
-
-/* =========================================
-   ESCAPE HTML
-========================================= */
 
 function escapeHtml(
     value
@@ -2144,12 +1917,8 @@ function escapeHtml(
 
 }
 
-
 </script>
 
-<!-- =========================================
-     PWA SERVICE WORKER
-========================================= -->
 
 <script>
 
@@ -2165,7 +1934,6 @@ if (
                 .register(
                     "./service-worker.js"
                 )
-
                 .then(
                     function(registration) {
 
@@ -2176,7 +1944,6 @@ if (
 
                     }
                 )
-
                 .catch(
                     function(error) {
 
