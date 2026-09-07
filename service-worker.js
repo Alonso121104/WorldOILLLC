@@ -1,4 +1,4 @@
-const CACHE_NAME = "world-oil-v1";
+const CACHE_NAME = "world-oil-v2";
 
 const APP_SHELL = [
     "./",
