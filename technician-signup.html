@@ -12,7 +12,6 @@
 
     <title>Technician Sign Up | World OIL</title>
 
-
     <style>
 
         * {
@@ -150,18 +149,33 @@
             color: #d93025;
         }
 
-        input {
+        input,
+        select {
             width: 100%;
             padding: 13px;
             border: 1px solid #ccd1d6;
             border-radius: 8px;
             font-size: 15px;
             outline: none;
+            background: white;
         }
 
-        input:focus {
+        input:focus,
+        select:focus {
             border-color: #f4b400;
             box-shadow: 0 0 0 3px rgba(244, 180, 0, .15);
+        }
+
+        /* AGE NOTICE */
+
+        .age-notice {
+            margin-top: 10px;
+            padding: 12px;
+            border-radius: 8px;
+            background: #f5f6f8;
+            color: #646c73;
+            font-size: 13px;
+            line-height: 1.5;
         }
 
         /* PLANS */
@@ -232,6 +246,46 @@
             font-weight: 900;
             padding: 5px 9px;
             border-radius: 20px;
+        }
+
+        /* TECHNICIAN REQUIREMENTS */
+
+        .requirements-box {
+            background: #fafbfc;
+            border: 1px solid #e0e3e7;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .requirement {
+            display: flex;
+            align-items: flex-start;
+            gap: 11px;
+            margin-bottom: 16px;
+        }
+
+        .requirement:last-child {
+            margin-bottom: 0;
+        }
+
+        .requirement input {
+            width: auto;
+            flex: 0 0 auto;
+            margin-top: 3px;
+            accent-color: #f4b400;
+            cursor: pointer;
+        }
+
+        .requirement label {
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.6;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .requirement label strong {
+            font-weight: 800;
         }
 
         /* TERMS */
@@ -445,7 +499,7 @@
         </div>
 
         <a
-            href="tech_login.html"
+            href="technician-dashboard.html"
             class="login"
         >
             Already have an account? Sign in
@@ -569,6 +623,26 @@
 
                     <div class="form-group">
 
+                        <label for="dateOfBirth">
+                            Date of Birth
+                            <span class="required">*</span>
+                        </label>
+
+                        <input
+                            type="date"
+                            id="dateOfBirth"
+                            required
+                        >
+
+                        <div class="age-notice">
+                            You must be at least 18 years old to become a World OIL technician.
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
                         <label for="password">
                             Password
                             <span class="required">*</span>
@@ -586,7 +660,7 @@
                     </div>
 
 
-                    <div class="form-group full">
+                    <div class="form-group">
 
                         <label for="confirmPassword">
                             Confirm Password
@@ -600,6 +674,112 @@
                             autocomplete="new-password"
                             placeholder="Re-enter your password"
                             required
+                        >
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- EXPERIENCE -->
+
+            <section class="section">
+
+                <h2>
+                    Technician Experience
+                </h2>
+
+                <p class="description">
+                    Provide accurate information about your automotive experience.
+                </p>
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label for="experience">
+                            Automotive Experience
+                            <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="experience"
+                            required
+                        >
+
+                            <option value="">
+                                Select experience
+                            </option>
+
+                            <option value="less_than_1">
+                                Less than 1 year
+                            </option>
+
+                            <option value="1_to_2">
+                                1–2 years
+                            </option>
+
+                            <option value="3_to_5">
+                                3–5 years
+                            </option>
+
+                            <option value="6_to_10">
+                                6–10 years
+                            </option>
+
+                            <option value="over_10">
+                                Over 10 years
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="previousAutomotiveJob">
+                            Previous Automotive Work
+                            <span class="required">*</span>
+                        </label>
+
+                        <select
+                            id="previousAutomotiveJob"
+                            required
+                        >
+
+                            <option value="">
+                                Select one
+                            </option>
+
+                            <option value="yes">
+                                Yes
+                            </option>
+
+                            <option value="no">
+                                No
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group full">
+
+                        <label for="experienceDetails">
+                            Experience Details
+                        </label>
+
+                        <input
+                            type="text"
+                            id="experienceDetails"
+                            placeholder="Describe your automotive experience"
                         >
 
                     </div>
@@ -730,7 +910,122 @@
             </section>
 
 
-            <!-- AGREEMENT -->
+            <!-- TECHNICIAN REQUIREMENTS -->
+
+            <section class="section">
+
+                <h2>
+                    Technician Requirements & Responsibilities
+                </h2>
+
+                <p class="description">
+                    You must read and acknowledge each requirement before creating your technician account.
+                </p>
+
+
+                <div class="requirements-box">
+
+
+                    <div class="requirement">
+
+                        <input
+                            type="checkbox"
+                            id="ageAgreement"
+                        >
+
+                        <label for="ageAgreement">
+                            I confirm that I am
+                            <strong>18 years of age or older</strong>.
+                        </label>
+
+                    </div>
+
+
+                    <div class="requirement">
+
+                        <input
+                            type="checkbox"
+                            id="experienceAgreement"
+                        >
+
+                        <label for="experienceAgreement">
+                            I confirm that I have at least
+                            <strong>1 year of automotive or oil-change experience</strong>.
+                        </label>
+
+                    </div>
+
+
+                    <div class="requirement">
+
+                        <input
+                            type="checkbox"
+                            id="equipmentAgreement"
+                        >
+
+                        <label for="equipmentAgreement">
+                            I confirm that I have the
+                            <strong>proper tools and equipment</strong>
+                            required to safely perform oil changes.
+                        </label>
+
+                    </div>
+
+
+                    <div class="requirement">
+
+                        <input
+                            type="checkbox"
+                            id="damageAgreement"
+                        >
+
+                        <label for="damageAgreement">
+                            I understand that I am
+                            <strong>responsible for damage caused by my negligence, improper procedures, or failure to use proper equipment</strong>
+                            while performing an oil change.
+                        </label>
+
+                    </div>
+
+
+                    <div class="requirement">
+
+                        <input
+                            type="checkbox"
+                            id="safetyAgreement"
+                        >
+
+                        <label for="safetyAgreement">
+                            I agree to follow
+                            <strong>safe work practices and applicable manufacturer specifications</strong>
+                            when performing oil-change services.
+                        </label>
+
+                    </div>
+
+
+                    <div class="requirement">
+
+                        <input
+                            type="checkbox"
+                            id="accuracyAgreement"
+                        >
+
+                        <label for="accuracyAgreement">
+                            I confirm that the information I provided about my
+                            <strong>age, experience, qualifications, and equipment</strong>
+                            is accurate.
+                        </label>
+
+                    </div>
+
+
+                </div>
+
+            </section>
+
+
+            <!-- PROVIDER TERMS -->
 
             <section class="section">
 
@@ -753,6 +1048,7 @@
 
                         <a
                             href="provider-terms.html"
+                            target="_blank"
                         >
                             World OIL Provider Terms
                         </a>
@@ -956,41 +1252,31 @@ const db =
 const form =
     document.getElementById("signupForm");
 
-
 const submitButton =
     document.getElementById("submitButton");
-
 
 const message =
     document.getElementById("message");
 
-
 const successMessage =
     document.getElementById("successMessage");
-
 
 const selectedPlanText =
     document.getElementById("selectedPlanText");
 
-
 const paymentButton =
     document.getElementById("paymentButton");
-
 
 const plans =
     document.querySelectorAll(".plan");
 
 
-/*
-    IMPORTANT:
-
-    This is your deployed Firebase
-    createCheckoutSession function.
-*/
+/* =========================================
+   CHECKOUT FUNCTION
+========================================= */
 
 const CHECKOUT_FUNCTION_URL =
     "https://createcheckoutsession-j7bwecnq5a-uc.a.run.app/createCheckoutSession";
-
 
 
 /* =========================================
@@ -1001,7 +1287,6 @@ plans.forEach(function(plan) {
 
     const radio =
         plan.querySelector("input");
-
 
     radio.addEventListener(
         "change",
@@ -1014,7 +1299,6 @@ plans.forEach(function(plan) {
                 );
 
             });
-
 
             if (radio.checked) {
 
@@ -1059,7 +1343,6 @@ function firebaseErrorMessage(error) {
         error
     );
 
-
     switch (error.code) {
 
         case "auth/email-already-in-use":
@@ -1095,6 +1378,45 @@ function firebaseErrorMessage(error) {
 
 
 /* =========================================
+   CALCULATE AGE
+========================================= */
+
+function calculateAge(dateOfBirth) {
+
+    const today =
+        new Date();
+
+    const birthDate =
+        new Date(
+            dateOfBirth + "T00:00:00"
+        );
+
+    let age =
+        today.getFullYear() -
+        birthDate.getFullYear();
+
+    const monthDifference =
+        today.getMonth() -
+        birthDate.getMonth();
+
+    if (
+        monthDifference < 0 ||
+        (
+            monthDifference === 0 &&
+            today.getDate() < birthDate.getDate()
+        )
+    ) {
+
+        age--;
+
+    }
+
+    return age;
+
+}
+
+
+/* =========================================
    FORM SUBMISSION
 ========================================= */
 
@@ -1111,7 +1433,9 @@ form.addEventListener(
         );
 
 
-        /* GET VALUES */
+        /* =================================
+           GET VALUES
+        ================================= */
 
         const firstName =
             document
@@ -1142,6 +1466,12 @@ form.addEventListener(
                 .trim();
 
 
+        const dateOfBirth =
+            document
+                .getElementById("dateOfBirth")
+                .value;
+
+
         const password =
             document
                 .getElementById("password")
@@ -1154,9 +1484,58 @@ form.addEventListener(
                 .value;
 
 
+        const experience =
+            document
+                .getElementById("experience")
+                .value;
+
+
+        const previousAutomotiveJob =
+            document
+                .getElementById("previousAutomotiveJob")
+                .value;
+
+
+        const experienceDetails =
+            document
+                .getElementById("experienceDetails")
+                .value
+                .trim();
+
+
         const terms =
             document
                 .getElementById("terms");
+
+
+        const ageAgreement =
+            document
+                .getElementById("ageAgreement");
+
+
+        const experienceAgreement =
+            document
+                .getElementById("experienceAgreement");
+
+
+        const equipmentAgreement =
+            document
+                .getElementById("equipmentAgreement");
+
+
+        const damageAgreement =
+            document
+                .getElementById("damageAgreement");
+
+
+        const safetyAgreement =
+            document
+                .getElementById("safetyAgreement");
+
+
+        const accuracyAgreement =
+            document
+                .getElementById("accuracyAgreement");
 
 
         const selectedSubscription =
@@ -1165,13 +1544,16 @@ form.addEventListener(
             );
 
 
-        /* VALIDATION */
+        /* =================================
+           BASIC VALIDATION
+        ================================= */
 
         if (
             !firstName ||
             !lastName ||
             !email ||
             !phone ||
+            !dateOfBirth ||
             !password ||
             !confirmPassword
         ) {
@@ -1185,6 +1567,33 @@ form.addEventListener(
 
         }
 
+
+        /* =================================
+           AGE VALIDATION
+        ================================= */
+
+        const technicianAge =
+            calculateAge(dateOfBirth);
+
+
+        if (
+            technicianAge < 18 ||
+            technicianAge > 120
+        ) {
+
+            showMessage(
+                "You must be at least 18 years old to become a World OIL technician.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* =================================
+           PASSWORD
+        ================================= */
 
         if (password.length < 8) {
 
@@ -1213,10 +1622,132 @@ form.addEventListener(
         }
 
 
+        /* =================================
+           EXPERIENCE VALIDATION
+        ================================= */
+
+        if (!experience) {
+
+            showMessage(
+                "Please select your automotive experience.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (
+            experience === "less_than_1"
+        ) {
+
+            showMessage(
+                "You must have at least 1 year of automotive or oil-change experience.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!previousAutomotiveJob) {
+
+            showMessage(
+                "Please answer the previous automotive work question.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* =================================
+           PLAN
+        ================================= */
+
         if (!selectedSubscription) {
 
             showMessage(
                 "Please choose a subscription plan.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* =================================
+           REQUIRED ACKNOWLEDGEMENTS
+        ================================= */
+
+        if (!ageAgreement.checked) {
+
+            showMessage(
+                "You must confirm that you are at least 18 years old.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!experienceAgreement.checked) {
+
+            showMessage(
+                "You must confirm that you have at least 1 year of automotive or oil-change experience.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!equipmentAgreement.checked) {
+
+            showMessage(
+                "You must confirm that you have the proper tools and equipment.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!damageAgreement.checked) {
+
+            showMessage(
+                "You must accept the technician damage responsibility requirement.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!safetyAgreement.checked) {
+
+            showMessage(
+                "You must agree to follow safe work practices.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        if (!accuracyAgreement.checked) {
+
+            showMessage(
+                "You must confirm that your information is accurate.",
                 "error"
             );
 
@@ -1237,7 +1768,9 @@ form.addEventListener(
         }
 
 
-        /* PLAN */
+        /* =================================
+           PLAN DETAILS
+        ================================= */
 
         const plan =
             selectedSubscription.value;
@@ -1253,7 +1786,9 @@ form.addEventListener(
                 : "Standard";
 
 
-        /* DISABLE BUTTON */
+        /* =================================
+           DISABLE BUTTON
+        ================================= */
 
         submitButton.disabled =
             true;
@@ -1328,6 +1863,57 @@ form.addEventListener(
                     phone:
                         phone,
 
+                    dateOfBirth:
+                        dateOfBirth,
+
+                    ageAtSignup:
+                        technicianAge,
+
+                    automotiveExperience:
+                        experience,
+
+                    previousAutomotiveJob:
+                        previousAutomotiveJob,
+
+                    experienceDetails:
+                        experienceDetails,
+
+                    // Security/payment state
+
+                    paidTechnician:
+                        false,
+
+                    marketplaceAccess:
+                        false,
+
+                    subscriptionStatus:
+                        "pending_payment",
+
+                    // Technician acknowledgements
+
+                    ageConfirmed:
+                        true,
+
+                    oneYearExperienceConfirmed:
+                        true,
+
+                    properEquipmentConfirmed:
+                        true,
+
+                    damageResponsibilityAccepted:
+                        true,
+
+                    safetyRequirementsAccepted:
+                        true,
+
+                    informationAccuracyConfirmed:
+                        true,
+
+                    providerTermsAccepted:
+                        true,
+
+                    // Subscription
+
                     plan:
                         plan,
 
@@ -1337,17 +1923,22 @@ form.addEventListener(
                     monthlyPrice:
                         Number(price),
 
-                    subscriptionStatus:
-                        "pending_payment",
-
-                    marketplaceAccess:
-                        false,
-
                     priorityNotifications:
                         plan === "priority",
 
                     expandedServiceArea:
                         plan === "priority",
+
+                    // Ticket controls
+
+                    activeTicketId:
+                        null,
+
+                    activeTicketStatus:
+                        null,
+
+                    lastCompletedAt:
+                        null,
 
                     createdAt:
                         serverTimestamp()
@@ -1377,11 +1968,6 @@ form.addEventListener(
                 behavior: "smooth"
             });
 
-
-            /*
-                Clear the message because
-                the account has been created.
-            */
 
             showMessage(
                 "",
@@ -1470,11 +2056,6 @@ form.addEventListener(
 
                         }
 
-
-                        /*
-                            SEND TECHNICIAN
-                            TO STRIPE
-                        */
 
                         window.location.href =
                             data.url;
