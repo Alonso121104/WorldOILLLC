@@ -354,15 +354,9 @@ button {
     cursor: not-allowed;
 }
 
-.secure {
-    text-align: center;
-    margin-top: 12px;
-    color: #7b838a;
-    font-size: 12px;
-}
-
+/* FIXED: visible immediately */
 #existingAccountBox {
-    display: none;
+    display: block;
     background: #fff8df;
     border: 1px solid #f4b400;
     border-radius: 10px;
@@ -439,6 +433,13 @@ button {
     font-size: 13px;
     color: #707981;
     margin-top: 15px;
+}
+
+.secure {
+    text-align: center;
+    margin-top: 12px;
+    color: #7b838a;
+    font-size: 12px;
 }
 
 footer {
@@ -1419,10 +1420,6 @@ existingUser =
 credential.user;
 
 
-/*
-Verify technician document exists.
-*/
-
 const technicianRef =
 doc(
 db,
@@ -1441,10 +1438,6 @@ throw new Error(
 
 }
 
-
-/*
-Hide account creation fields.
-*/
 
 signInBox.style.display =
 "none";
@@ -1497,11 +1490,10 @@ existingSignInSubmit.textContent =
 
 
 /*
-Show the existing-account option.
+IMPORTANT:
+Do NOT hide existingAccountBox here.
+It is now visible immediately through CSS.
 */
-
-existingAccountBox.style.display =
-"block";
 
 
 form.addEventListener(
@@ -2159,10 +2151,6 @@ serverTimestamp()
 }
 );
 
-
-/*
-Create Stripe Checkout session.
-*/
 
 submitButton.textContent =
 "Opening Payment...";
