@@ -2,7 +2,7 @@
   "name": "World OIL",
   "short_name": "World OIL",
   "description": "World OIL automotive service marketplace",
-  "start_url": "./technician-dashboard.html",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
@@ -10,7 +10,7 @@
   "theme_color": "#0b0b0b",
   "icons": [
     {
-      "src": "./icons/primary.png",
+      "src": "./icons/white-on-black.png",
       "sizes": "1254x1254",
       "type": "image/png",
       "purpose": "any"
