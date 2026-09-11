@@ -828,9 +828,68 @@
                 background-attachment: scroll;
             }
 
+            /* ======================================
+               SMALLER BOOKING FORM ON PHONES
+            ====================================== */
+
             .container {
+                width: 320px;
+
+                max-width: calc(100% - 24px);
+
+                padding: 18px;
+
                 margin-bottom: 30px;
             }
+
+            .brand-title {
+                gap: 6px;
+
+                font-size: 19px;
+
+                margin-bottom: 16px;
+            }
+
+            .brand-gif {
+                width: 40px;
+
+                height: 40px;
+            }
+
+            .field {
+                margin-bottom: 10px;
+            }
+
+            label {
+                margin-bottom: 4px;
+
+                font-size: 13px;
+            }
+
+            input,
+            select,
+            textarea {
+                padding: 8px;
+
+                font-size: 15px;
+            }
+
+            .help {
+                margin-top: 3px;
+
+                font-size: 11px;
+            }
+
+            #submitButton {
+                padding: 10px;
+
+                font-size: 15px;
+            }
+
+
+            /* ======================================
+               INFORMATION PANELS
+            ====================================== */
 
             .info-panel {
                 width: calc(100% - 30px);
@@ -840,9 +899,19 @@
                 padding: 20px;
             }
 
+
+            /* ======================================
+               SIDE MENU
+            ====================================== */
+
             .side-menu {
                 width: 290px;
             }
+
+
+            /* ======================================
+               REVIEWS
+            ====================================== */
 
             .review-stars {
                 gap: 2px;
@@ -850,20 +919,10 @@
 
             .review-star {
                 width: 54px;
+
                 height: 54px;
 
                 font-size: 40px;
-            }
-
-            .brand-title {
-                gap: 8px;
-
-                font-size: 21px;
-            }
-
-            .brand-gif {
-                width: 46px;
-                height: 46px;
             }
 
         }
@@ -1338,14 +1397,19 @@
 
     <main class="container">
 
-    <h1 class="brand-title">
-        <img
-            src="./icons/animated-logo.gif"
-            alt="World Oil Change"
-            class="brand-gif"
-        >
-        <span>World Oil Change</span>
-    </h1>
+        <h1 class="brand-title">
+
+            <img
+                src="./icons/animated-logo.gif"
+                alt="World Oil Change"
+                class="brand-gif"
+            >
+
+            <span>
+                World Oil Change
+            </span>
+
+        </h1>
 
 
         <form
