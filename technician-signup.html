@@ -23,12 +23,28 @@
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: #f5f6f8;
+    background: #f5f8fb;
     color: #151a20;
 }
 
+/* ==============================
+   WORLD OIL COLORS
+============================== */
+
+:root {
+    --world-blue: #145A8D;
+    --world-dark-blue: #0B416A;
+    --world-light-blue: #EAF3F9;
+    --world-border: #D7E2EA;
+    --world-gray: #66737D;
+}
+
+/* ==============================
+   HEADER
+============================== */
+
 header {
-    background: #11161c;
+    background: var(--world-blue);
     padding: 20px;
 }
 
@@ -48,21 +64,26 @@ header {
 }
 
 .logo span {
-    color: #f4b400;
+    color: white;
 }
 
 .login {
     color: white;
     text-decoration: none;
     font-size: 14px;
+    font-weight: 700;
 }
 
 .login:hover {
     text-decoration: underline;
 }
 
+/* ==============================
+   HERO
+============================== */
+
 .hero {
-    background: #11161c;
+    background: var(--world-dark-blue);
     color: white;
     text-align: center;
     padding: 50px 20px;
@@ -74,15 +95,19 @@ header {
 }
 
 .hero h1 span {
-    color: #f4b400;
+    color: #FFFFFF;
 }
 
 .hero p {
     margin: 0 auto;
     max-width: 600px;
-    color: #c8cdd2;
+    color: #E3EDF4;
     line-height: 1.6;
 }
+
+/* ==============================
+   MAIN
+============================== */
 
 .container {
     width: min(850px, calc(100% - 30px));
@@ -92,14 +117,14 @@ header {
 .card {
     background: white;
     border-radius: 14px;
-    border: 1px solid #e0e3e7;
-    box-shadow: 0 8px 30px rgba(0,0,0,.06);
+    border: 1px solid var(--world-border);
+    box-shadow: 0 8px 30px rgba(20, 90, 141, .08);
     overflow: hidden;
 }
 
 .section {
     padding: 30px;
-    border-bottom: 1px solid #e6e9ec;
+    border-bottom: 1px solid #E2E9EE;
 }
 
 .section:last-child {
@@ -109,14 +134,19 @@ header {
 .section h2 {
     margin: 0 0 8px;
     font-size: 22px;
+    color: var(--world-dark-blue);
 }
 
 .description {
-    color: #707981;
+    color: var(--world-gray);
     font-size: 14px;
     line-height: 1.6;
     margin: 0 0 25px;
 }
+
+/* ==============================
+   FORM
+============================== */
 
 .form-grid {
     display: grid;
@@ -140,35 +170,44 @@ label {
 }
 
 .required {
-    color: #d93025;
+    color: #D93025;
 }
 
 input,
 select {
     width: 100%;
     padding: 13px;
-    border: 1px solid #ccd1d6;
+    border: 1px solid #C8D4DD;
     border-radius: 8px;
     font-size: 15px;
     outline: none;
     background: white;
+    color: #151A20;
 }
 
 input:focus,
 select:focus {
-    border-color: #f4b400;
-    box-shadow: 0 0 0 3px rgba(244,180,0,.15);
+    border-color: var(--world-blue);
+    box-shadow: 0 0 0 3px rgba(20, 90, 141, .14);
 }
+
+/* ==============================
+   ADDRESS / NOTICES
+============================== */
 
 .age-notice {
     margin-top: 10px;
     padding: 12px;
     border-radius: 8px;
-    background: #f5f6f8;
-    color: #646c73;
+    background: var(--world-light-blue);
+    color: #52616C;
     font-size: 13px;
     line-height: 1.5;
 }
+
+/* ==============================
+   PLANS
+============================== */
 
 .plans {
     display: grid;
@@ -178,20 +217,21 @@ select:focus {
 
 .plan {
     position: relative;
-    border: 2px solid #dce1e5;
+    border: 2px solid #D5E0E8;
     border-radius: 12px;
     padding: 25px;
     cursor: pointer;
     transition: .2s;
+    background: white;
 }
 
 .plan:hover {
-    border-color: #f4b400;
+    border-color: var(--world-blue);
 }
 
 .plan.selected {
-    border-color: #f4b400;
-    background: #fffdf5;
+    border-color: var(--world-blue);
+    background: var(--world-light-blue);
 }
 
 .plan input {
@@ -200,16 +240,16 @@ select:focus {
     pointer-events: none;
 }
 
-/* COMING SOON PLAN */
+/* COMING SOON */
 
 .plan.coming-soon {
     opacity: .65;
     cursor: not-allowed;
-    background: #f5f6f8;
+    background: #F5F7F9;
 }
 
 .plan.coming-soon:hover {
-    border-color: #dce1e5;
+    border-color: #D5E0E8;
 }
 
 .plan.coming-soon .recommended {
@@ -221,17 +261,19 @@ select:focus {
     font-size: 20px;
     font-weight: 900;
     margin-bottom: 8px;
+    color: var(--world-dark-blue);
 }
 
 .price {
     font-size: 34px;
     font-weight: 900;
     margin-bottom: 18px;
+    color: var(--world-blue);
 }
 
 .price small {
     font-size: 13px;
-    color: #747c84;
+    color: #747C84;
     font-weight: normal;
 }
 
@@ -247,17 +289,21 @@ select:focus {
     position: absolute;
     top: -12px;
     right: 15px;
-    background: #f4b400;
-    color: #11161c;
+    background: var(--world-blue);
+    color: white;
     font-size: 10px;
     font-weight: 900;
     padding: 5px 9px;
     border-radius: 20px;
 }
 
+/* ==============================
+   REQUIREMENTS
+============================== */
+
 .requirements-box {
-    background: #fafbfc;
-    border: 1px solid #e0e3e7;
+    background: #F8FAFC;
+    border: 1px solid var(--world-border);
     border-radius: 10px;
     padding: 18px;
 }
@@ -277,7 +323,7 @@ select:focus {
     width: auto;
     flex: 0 0 auto;
     margin-top: 3px;
-    accent-color: #f4b400;
+    accent-color: var(--world-blue);
     cursor: pointer;
 }
 
@@ -293,6 +339,10 @@ select:focus {
     font-weight: 800;
 }
 
+/* ==============================
+   TERMS
+============================== */
+
 .terms {
     display: flex;
     gap: 10px;
@@ -303,7 +353,7 @@ select:focus {
 .terms input {
     width: auto;
     margin-top: 3px;
-    accent-color: #f4b400;
+    accent-color: var(--world-blue);
 }
 
 .terms label {
@@ -314,8 +364,13 @@ select:focus {
 }
 
 .terms a {
-    color: #1769aa;
+    color: var(--world-blue);
+    font-weight: 700;
 }
+
+/* ==============================
+   MESSAGES
+============================== */
 
 #message {
     display: none;
@@ -330,25 +385,29 @@ select:focus {
 
 #message.error {
     display: block;
-    color: #b00020;
-    background: #ffe5e5;
+    color: #B00020;
+    background: #FFE5E5;
 }
 
 #message.success {
     display: block;
-    color: #146c2e;
-    background: #e5f7e9;
+    color: #146C2E;
+    background: #E5F7E9;
 }
 
 #message.loading {
     display: block;
     color: #444;
-    background: #eeeeee;
+    background: #EEF4F8;
 }
+
+/* ==============================
+   SUBMIT
+============================== */
 
 .submit-section {
     padding: 30px;
-    background: #fafbfc;
+    background: #F8FAFC;
 }
 
 button {
@@ -360,15 +419,16 @@ button {
     border: none;
     border-radius: 9px;
     padding: 17px;
-    background: #f4b400;
-    color: #11161c;
+    background: var(--world-blue);
+    color: white;
     font-size: 17px;
     font-weight: 900;
     cursor: pointer;
+    transition: .2s;
 }
 
 #submitButton:hover {
-    background: #dfa500;
+    background: var(--world-dark-blue);
 }
 
 #submitButton:disabled {
@@ -376,10 +436,14 @@ button {
     cursor: not-allowed;
 }
 
+/* ==============================
+   EXISTING ACCOUNT
+============================== */
+
 #existingAccountBox {
     display: block;
-    background: #fff8df;
-    border: 1px solid #f4b400;
+    background: var(--world-light-blue);
+    border: 1px solid #BFD5E4;
     border-radius: 10px;
     padding: 18px;
     margin-bottom: 25px;
@@ -387,6 +451,7 @@ button {
 
 #existingAccountBox h3 {
     margin: 0 0 8px;
+    color: var(--world-dark-blue);
 }
 
 #existingAccountBox p {
@@ -400,20 +465,24 @@ button {
     border: none;
     border-radius: 8px;
     padding: 12px 20px;
-    background: #11161c;
+    background: var(--world-blue);
     color: white;
     font-weight: 800;
     cursor: pointer;
 }
 
 #signInButton:hover {
-    background: #242b33;
+    background: var(--world-dark-blue);
 }
+
+/* ==============================
+   SIGN IN
+============================== */
 
 #signInBox {
     display: none;
-    background: #f5f6f8;
-    border: 1px solid #dfe3e7;
+    background: #F5F8FB;
+    border: 1px solid var(--world-border);
     border-radius: 10px;
     padding: 20px;
     margin-bottom: 25px;
@@ -421,6 +490,7 @@ button {
 
 #signInBox h3 {
     margin-top: 0;
+    color: var(--world-dark-blue);
 }
 
 .signin-actions {
@@ -433,21 +503,29 @@ button {
     border: none;
     border-radius: 8px;
     padding: 12px 20px;
-    background: #f4b400;
-    color: #11161c;
+    background: var(--world-blue);
+    color: white;
     font-weight: 900;
     cursor: pointer;
 }
 
+#existingSignInSubmit:hover {
+    background: var(--world-dark-blue);
+}
+
 #cancelSignIn {
-    border: 1px solid #ccd1d6;
+    border: 1px solid #CCD6DE;
     border-radius: 8px;
     padding: 12px 20px;
     background: white;
-    color: #11161c;
+    color: #151A20;
     font-weight: 800;
     cursor: pointer;
 }
+
+/* ==============================
+   FOOTER
+============================== */
 
 #accountModeText {
     text-align: center;
@@ -459,13 +537,13 @@ button {
 .secure {
     text-align: center;
     margin-top: 12px;
-    color: #7b838a;
+    color: #7B838A;
     font-size: 12px;
 }
 
 footer {
-    background: #11161c;
-    color: #aab1b8;
+    background: var(--world-dark-blue);
+    color: #B8C8D4;
     text-align: center;
     padding: 30px 20px;
     font-size: 12px;
@@ -474,6 +552,10 @@ footer {
 footer strong {
     color: white;
 }
+
+/* ==============================
+   MOBILE
+============================== */
 
 @media (max-width: 700px) {
 
@@ -511,7 +593,6 @@ footer strong {
     }
 
 }
-
 </style>
 
 </head>
