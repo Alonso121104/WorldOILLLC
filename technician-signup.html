@@ -714,6 +714,31 @@ autocomplete="tel"
 
 </div>
 
+
+<!-- TECHNICIAN SERVICE ADDRESS -->
+
+<div class="form-group full">
+
+<label for="serviceAddress">
+Technician Service Address
+<span class="required">*</span>
+</label>
+
+<input
+type="text"
+id="serviceAddress"
+placeholder="Street address, City, State, ZIP"
+autocomplete="street-address"
+>
+
+<div class="age-notice">
+Your service address is used to determine your service area
+and help match you with customer jobs. It will not be displayed publicly.
+</div>
+
+</div>
+
+
 <div class="form-group">
 
 <label for="dateOfBirth">
@@ -874,6 +899,7 @@ Choose the monthly technician membership you want.
 
 <div class="plans">
 
+
 <!-- STANDARD - AVAILABLE -->
 
 <label class="plan selected">
@@ -898,17 +924,28 @@ $149.99
 
 <ul>
 
-<li>Access to available customer jobs</li>
-<li>Customer job notifications</li>
-<li>Standard service area</li>
-<li>Technician dashboard</li>
+<li>
+Access to available customer jobs
+</li>
+
+<li>
+Customer job notifications
+</li>
+
+<li>
+Standard service area
+</li>
+
+<li>
+Technician dashboard
+</li>
 
 </ul>
 
 </label>
 
 
-<!-- PRIORITY - COMING SOON / NOT CLICKABLE -->
+<!-- PRIORITY - COMING SOON -->
 
 <div
 class="plan coming-soon"
@@ -930,10 +967,25 @@ $200.00
 
 <ul>
 
-<li>Access to available customer jobs</li>
-<li>Customer job notifications</li>
-<li><strong>Expanded service area</strong></li>
-<li><strong>Priority job notifications</strong></li>
+<li>
+Access to available customer jobs
+</li>
+
+<li>
+Customer job notifications
+</li>
+
+<li>
+<strong>
+Expanded service area
+</strong>
+</li>
+
+<li>
+<strong>
+Priority job notifications
+</strong>
+</li>
 
 </ul>
 
@@ -963,8 +1015,10 @@ id="ageAgreement"
 >
 
 <label for="ageAgreement">
+
 I confirm that I am
 <strong>18 years of age or older</strong>.
+
 </label>
 
 </div>
@@ -977,8 +1031,10 @@ id="experienceAgreement"
 >
 
 <label for="experienceAgreement">
+
 I confirm that I have at least
 <strong>1 year of automotive or oil-change experience</strong>.
+
 </label>
 
 </div>
@@ -991,9 +1047,11 @@ id="equipmentAgreement"
 >
 
 <label for="equipmentAgreement">
+
 I confirm that I have the
 <strong>proper tools and equipment</strong>
 required to safely perform oil changes.
+
 </label>
 
 </div>
@@ -1006,8 +1064,13 @@ id="damageAgreement"
 >
 
 <label for="damageAgreement">
+
 I understand that I am
-<strong>responsible for damage caused by my negligence, improper procedures, or failure to use proper equipment</strong>.
+<strong>
+responsible for damage caused by my negligence,
+improper procedures, or failure to use proper equipment
+</strong>.
+
 </label>
 
 </div>
@@ -1020,8 +1083,12 @@ id="safetyAgreement"
 >
 
 <label for="safetyAgreement">
+
 I agree to follow
-<strong>safe work practices and applicable manufacturer specifications</strong>.
+<strong>
+safe work practices and applicable manufacturer specifications
+</strong>.
+
 </label>
 
 </div>
@@ -1034,9 +1101,13 @@ id="accuracyAgreement"
 >
 
 <label for="accuracyAgreement">
+
 I confirm that the information I provided about my
-<strong>age, experience, qualifications, and equipment</strong>
+<strong>
+age, experience, qualifications, and equipment
+</strong>
 is accurate.
+
 </label>
 
 </div>
@@ -1065,6 +1136,7 @@ I agree to the
 <a
 href="provider-terms.html"
 target="_blank"
+rel="noopener noreferrer"
 >
 World OIL Provider Terms
 </a>
@@ -1128,6 +1200,7 @@ Connecting customers with automotive service providers.
 
 </footer>
 
+
 <script type="module">
 
 import {
@@ -1155,6 +1228,10 @@ getDoc
 from
 "https://www.gstatic.com/firebasejs/12.18.0/firebase-firestore.js";
 
+
+/* =========================================
+   FIREBASE CONFIGURATION
+========================================= */
 
 const firebaseConfig = {
 
@@ -1192,6 +1269,18 @@ const db =
 getFirestore(app);
 
 
+/* =========================================
+   STRIPE CHECKOUT FUNCTION
+========================================= */
+
+const CHECKOUT_FUNCTION_URL =
+"https://us-central1-worldoilllc.cloudfunctions.net/createCheckoutSession";
+
+
+/* =========================================
+   PAGE ELEMENTS
+========================================= */
+
 const form =
 document.getElementById("signupForm");
 
@@ -1226,12 +1315,12 @@ const accountModeText =
 document.getElementById("accountModeText");
 
 
-const CHECKOUT_FUNCTION_URL =
-"https://us-central1-worldoilllc.cloudfunctions.net/createCheckoutSession";
-
-
 let existingUser = null;
 
+
+/* =========================================
+   MESSAGE
+========================================= */
 
 function showMessage(text, type) {
 
@@ -1242,12 +1331,19 @@ function showMessage(text, type) {
 }
 
 
+/* =========================================
+   CALCULATE AGE
+========================================= */
+
 function calculateAge(dateOfBirth) {
 
-    const today = new Date();
+    const today =
+        new Date();
 
     const birthDate =
-        new Date(dateOfBirth + "T00:00:00");
+        new Date(
+            dateOfBirth + "T00:00:00"
+        );
 
     let age =
         today.getFullYear() -
@@ -1261,7 +1357,8 @@ function calculateAge(dateOfBirth) {
         monthDifference < 0 ||
         (
             monthDifference === 0 &&
-            today.getDate() < birthDate.getDate()
+            today.getDate() <
+            birthDate.getDate()
         )
     ) {
 
@@ -1273,6 +1370,10 @@ function calculateAge(dateOfBirth) {
 
 }
 
+
+/* =========================================
+   FIREBASE ERROR MESSAGE
+========================================= */
 
 function firebaseErrorMessage(error) {
 
@@ -1318,6 +1419,10 @@ function firebaseErrorMessage(error) {
 }
 
 
+/* =========================================
+   PLAN SELECTION
+========================================= */
+
 plans.forEach(function(plan) {
 
     const radio =
@@ -1329,13 +1434,17 @@ plans.forEach(function(plan) {
 
             plans.forEach(function(item) {
 
-                item.classList.remove("selected");
+                item.classList.remove(
+                    "selected"
+                );
 
             });
 
             if (radio.checked) {
 
-                plan.classList.add("selected");
+                plan.classList.add(
+                    "selected"
+                );
 
             }
 
@@ -1344,6 +1453,10 @@ plans.forEach(function(plan) {
 
 });
 
+
+/* =========================================
+   EXISTING ACCOUNT SIGN IN
+========================================= */
 
 signInButton.addEventListener(
     "click",
@@ -1364,6 +1477,10 @@ signInButton.addEventListener(
     }
 );
 
+
+/* =========================================
+   CANCEL SIGN IN
+========================================= */
 
 cancelSignIn.addEventListener(
     "click",
@@ -1386,6 +1503,10 @@ cancelSignIn.addEventListener(
     }
 );
 
+
+/* =========================================
+   EXISTING TECHNICIAN LOGIN
+========================================= */
 
 existingSignInSubmit.addEventListener(
     "click",
@@ -1449,6 +1570,7 @@ existingSignInSubmit.addEventListener(
                 await getDoc(
                     technicianRef
                 );
+
 
             if (!technicianSnap.exists()) {
 
@@ -1533,6 +1655,7 @@ form.addEventListener(
                     'input[name="subscription"]:checked'
                 );
 
+
             if (!selectedSubscription) {
 
                 showMessage(
@@ -1578,6 +1701,7 @@ form.addEventListener(
 
             }
 
+
             if (!experienceAgreement.checked) {
 
                 showMessage(
@@ -1588,6 +1712,7 @@ form.addEventListener(
                 return;
 
             }
+
 
             if (!equipmentAgreement.checked) {
 
@@ -1600,6 +1725,7 @@ form.addEventListener(
 
             }
 
+
             if (!damageAgreement.checked) {
 
                 showMessage(
@@ -1610,6 +1736,7 @@ form.addEventListener(
                 return;
 
             }
+
 
             if (!safetyAgreement.checked) {
 
@@ -1622,6 +1749,7 @@ form.addEventListener(
 
             }
 
+
             if (!accuracyAgreement.checked) {
 
                 showMessage(
@@ -1632,6 +1760,7 @@ form.addEventListener(
                 return;
 
             }
+
 
             if (!terms.checked) {
 
@@ -1647,6 +1776,20 @@ form.addEventListener(
 
             const plan =
                 selectedSubscription.value;
+
+
+            /* Priority must never be processed */
+
+            if (plan !== "standard") {
+
+                showMessage(
+                    "The Priority plan is coming soon.",
+                    "error"
+                );
+
+                return;
+
+            }
 
 
             submitButton.disabled =
@@ -1773,6 +1916,16 @@ form.addEventListener(
                 .value
                 .trim();
 
+
+        /* NEW SERVICE ADDRESS */
+
+        const serviceAddress =
+            document
+                .getElementById("serviceAddress")
+                .value
+                .trim();
+
+
         const dateOfBirth =
             document
                 .getElementById("dateOfBirth")
@@ -1804,6 +1957,7 @@ form.addEventListener(
                 .value
                 .trim();
 
+
         const terms =
             document.getElementById("terms");
 
@@ -1825,24 +1979,30 @@ form.addEventListener(
         const accuracyAgreement =
             document.getElementById("accuracyAgreement");
 
+
         const selectedSubscription =
             document.querySelector(
                 'input[name="subscription"]:checked'
             );
 
 
+        /* =========================================
+           REQUIRED FIELD VALIDATION
+        ========================================= */
+
         if (
             !firstName ||
             !lastName ||
             !email ||
             !phone ||
+            !serviceAddress ||
             !dateOfBirth ||
             !password ||
             !confirmPassword
         ) {
 
             showMessage(
-                "Please fill out all required fields.",
+                "Please fill out all required fields, including your service address.",
                 "error"
             );
 
@@ -1850,6 +2010,10 @@ form.addEventListener(
 
         }
 
+
+        /* =========================================
+           AGE
+        ========================================= */
 
         const technicianAge =
             calculateAge(dateOfBirth);
@@ -1869,6 +2033,10 @@ form.addEventListener(
 
         }
 
+
+        /* =========================================
+           PASSWORD
+        ========================================= */
 
         if (password.length < 8) {
 
@@ -1893,6 +2061,10 @@ form.addEventListener(
 
         }
 
+
+        /* =========================================
+           EXPERIENCE
+        ========================================= */
 
         if (!experience) {
 
@@ -1930,6 +2102,10 @@ form.addEventListener(
         }
 
 
+        /* =========================================
+           SUBSCRIPTION
+        ========================================= */
+
         if (!selectedSubscription) {
 
             showMessage(
@@ -1941,6 +2117,38 @@ form.addEventListener(
 
         }
 
+
+        const plan =
+            selectedSubscription.value;
+
+        const price =
+            selectedSubscription.dataset.price;
+
+        const planName =
+            plan === "priority"
+                ? "Priority"
+                : "Standard";
+
+
+        /* =========================================
+           PRIORITY SAFETY CHECK
+        ========================================= */
+
+        if (plan !== "standard") {
+
+            showMessage(
+                "The Priority plan is coming soon.",
+                "error"
+            );
+
+            return;
+
+        }
+
+
+        /* =========================================
+           REQUIREMENTS
+        ========================================= */
 
         if (!ageAgreement.checked) {
 
@@ -2017,7 +2225,7 @@ form.addEventListener(
         if (!terms.checked) {
 
             showMessage(
-                "You must agree to the Provider Terms.",
+                "You must agree to the World OIL Provider Terms.",
                 "error"
             );
 
@@ -2026,17 +2234,9 @@ form.addEventListener(
         }
 
 
-        const plan =
-            selectedSubscription.value;
-
-        const price =
-            selectedSubscription.dataset.price;
-
-        const planName =
-            plan === "priority"
-                ? "Priority"
-                : "Standard";
-
+        /* =========================================
+           DISABLE SUBMIT
+        ========================================= */
 
         submitButton.disabled =
             true;
@@ -2052,6 +2252,11 @@ form.addEventListener(
 
         try {
 
+
+            /* =========================================
+               CREATE FIREBASE AUTH USER
+            ========================================= */
+
             const userCredential =
                 await createUserWithEmailAndPassword(
                     auth,
@@ -2063,14 +2268,24 @@ form.addEventListener(
                 userCredential.user;
 
 
+            /* =========================================
+               UPDATE FIREBASE PROFILE
+            ========================================= */
+
             await updateProfile(
                 user,
                 {
+
                     displayName:
                         `${firstName} ${lastName}`
+
                 }
             );
 
+
+            /* =========================================
+               CREATE TECHNICIAN FIRESTORE DOCUMENT
+            ========================================= */
 
             await setDoc(
                 doc(
@@ -2094,6 +2309,13 @@ form.addEventListener(
 
                     phone:
                         phone,
+
+
+                    /* SERVICE ADDRESS */
+
+                    serviceAddress:
+                        serviceAddress,
+
 
                     dateOfBirth:
                         dateOfBirth,
@@ -2171,6 +2393,10 @@ form.addEventListener(
             );
 
 
+            /* =========================================
+               STRIPE CHECKOUT
+            ========================================= */
+
             submitButton.textContent =
                 "Opening Payment...";
 
@@ -2233,14 +2459,22 @@ form.addEventListener(
             }
 
 
+            /* =========================================
+               REDIRECT TO STRIPE
+            ========================================= */
+
             window.location.href =
                 data.url;
+
 
         }
 
         catch (error) {
 
-            console.error(error);
+            console.error(
+                "Technician signup error:",
+                error
+            );
 
             showMessage(
                 firebaseErrorMessage(error),
