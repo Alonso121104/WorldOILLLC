@@ -7,13 +7,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Technician </title>
+<title>Technician</title>
 
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" type="image/png" href="./icons/white-on-black.png">
 <link rel="apple-touch-icon" href="./icons/white-on-black.png">
 <meta name="theme-color" content="#0b0b0b">
-    
+
 <style>
 
 * {
@@ -200,6 +200,23 @@ select:focus {
     pointer-events: none;
 }
 
+/* COMING SOON PLAN */
+
+.plan.coming-soon {
+    opacity: .65;
+    cursor: not-allowed;
+    background: #f5f6f8;
+}
+
+.plan.coming-soon:hover {
+    border-color: #dce1e5;
+}
+
+.plan.coming-soon .recommended {
+    background: #707981;
+    color: white;
+}
+
 .plan-name {
     font-size: 20px;
     font-weight: 900;
@@ -359,7 +376,6 @@ button {
     cursor: not-allowed;
 }
 
-/* FIXED: visible immediately */
 #existingAccountBox {
     display: block;
     background: #fff8df;
@@ -858,13 +874,16 @@ Choose the monthly technician membership you want.
 
 <div class="plans">
 
-<label class="plan">
+<!-- STANDARD - AVAILABLE -->
+
+<label class="plan selected">
 
 <input
 type="radio"
 name="subscription"
 value="standard"
 data-price="149.99"
+checked
 required
 >
 
@@ -888,20 +907,17 @@ $149.99
 
 </label>
 
-<label class="plan selected">
+
+<!-- PRIORITY - COMING SOON / NOT CLICKABLE -->
+
+<div
+class="plan coming-soon"
+aria-disabled="true"
+>
 
 <div class="recommended">
-RECOMMENDED
+COMING SOON
 </div>
-
-<input
-type="radio"
-name="subscription"
-value="priority"
-data-price="200.00"
-checked
-required
->
 
 <div class="plan-name">
 Priority
@@ -921,7 +937,7 @@ $200.00
 
 </ul>
 
-</label>
+</div>
 
 </div>
 
@@ -1186,7 +1202,7 @@ const message =
 document.getElementById("message");
 
 const plans =
-document.querySelectorAll(".plan");
+document.querySelectorAll(".plan:not(.coming-soon)");
 
 const existingAccountBox =
 document.getElementById("existingAccountBox");
@@ -1219,1029 +1235,1027 @@ let existingUser = null;
 
 function showMessage(text, type) {
 
-message.textContent =
-text;
+    message.textContent = text;
 
-message.className =
-type || "";
+    message.className = type || "";
 
 }
 
 
 function calculateAge(dateOfBirth) {
 
-const today =
-new Date();
+    const today = new Date();
 
-const birthDate =
-new Date(dateOfBirth + "T00:00:00");
+    const birthDate =
+        new Date(dateOfBirth + "T00:00:00");
 
-let age =
-today.getFullYear() -
-birthDate.getFullYear();
+    let age =
+        today.getFullYear() -
+        birthDate.getFullYear();
 
-const monthDifference =
-today.getMonth() -
-birthDate.getMonth();
+    const monthDifference =
+        today.getMonth() -
+        birthDate.getMonth();
 
-if (
-monthDifference < 0 ||
-(
-monthDifference === 0 &&
-today.getDate() < birthDate.getDate()
-)
-) {
+    if (
+        monthDifference < 0 ||
+        (
+            monthDifference === 0 &&
+            today.getDate() < birthDate.getDate()
+        )
+    ) {
 
-age--;
+        age--;
 
-}
+    }
 
-return age;
+    return age;
 
 }
 
 
 function firebaseErrorMessage(error) {
 
-console.error(error);
+    console.error(error);
 
-switch (error.code) {
+    switch (error.code) {
 
-case "auth/email-already-in-use":
+        case "auth/email-already-in-use":
 
-return "This email already has a World OIL account. Click Sign In to use that account.";
+            return "This email already has a World OIL account. Click Sign In to use that account.";
 
-case "auth/invalid-email":
+        case "auth/invalid-email":
 
-return "Please enter a valid email address.";
+            return "Please enter a valid email address.";
 
-case "auth/weak-password":
+        case "auth/weak-password":
 
-return "Password must contain at least 8 characters.";
+            return "Password must contain at least 8 characters.";
 
-case "auth/invalid-credential":
+        case "auth/invalid-credential":
 
-case "auth/wrong-password":
+        case "auth/wrong-password":
 
-case "auth/user-not-found":
+        case "auth/user-not-found":
 
-return "The email or password is incorrect.";
+            return "The email or password is incorrect.";
 
-case "auth/too-many-requests":
+        case "auth/too-many-requests":
 
-return "Too many sign-in attempts. Please wait and try again.";
+            return "Too many sign-in attempts. Please wait and try again.";
 
-case "auth/network-request-failed":
+        case "auth/network-request-failed":
 
-return "Network error. Please check your internet connection.";
+            return "Network error. Please check your internet connection.";
 
-default:
+        default:
 
-return error.message ||
-"Unable to complete your request.";
+            return error.message ||
+                "Unable to complete your request.";
 
-}
+    }
 
 }
 
 
 plans.forEach(function(plan) {
 
-const radio =
-plan.querySelector("input");
+    const radio =
+        plan.querySelector("input");
 
-radio.addEventListener(
-"change",
-function() {
+    radio.addEventListener(
+        "change",
+        function() {
 
-plans.forEach(function(item) {
+            plans.forEach(function(item) {
 
-item.classList.remove("selected");
+                item.classList.remove("selected");
 
-});
+            });
 
-if (radio.checked) {
+            if (radio.checked) {
 
-plan.classList.add("selected");
+                plan.classList.add("selected");
 
-}
+            }
 
-}
-);
+        }
+    );
 
 });
 
 
 signInButton.addEventListener(
-"click",
-function() {
+    "click",
+    function() {
 
-signInBox.style.display =
-"block";
+        signInBox.style.display =
+            "block";
 
-newAccountFields.style.display =
-"none";
+        newAccountFields.style.display =
+            "none";
 
-submitButton.style.display =
-"none";
+        submitButton.style.display =
+            "none";
 
-accountModeText.textContent =
-"Existing technician: sign in below to continue.";
+        accountModeText.textContent =
+            "Existing technician: sign in below to continue.";
 
-}
+    }
 );
 
 
 cancelSignIn.addEventListener(
-"click",
-function() {
+    "click",
+    function() {
 
-signInBox.style.display =
-"none";
+        signInBox.style.display =
+            "none";
 
-newAccountFields.style.display =
-"block";
+        newAccountFields.style.display =
+            "block";
 
-submitButton.style.display =
-"block";
+        submitButton.style.display =
+            "block";
 
-accountModeText.textContent =
-"New technician? Create your account below.";
+        accountModeText.textContent =
+            "New technician? Create your account below.";
 
-showMessage("", "");
+        showMessage("", "");
 
-}
+    }
 );
 
 
 existingSignInSubmit.addEventListener(
-"click",
-async function() {
+    "click",
+    async function() {
 
-const email =
-document
-.getElementById("signInEmail")
-.value
-.trim()
-.toLowerCase();
+        const email =
+            document
+                .getElementById("signInEmail")
+                .value
+                .trim()
+                .toLowerCase();
 
-const password =
-document
-.getElementById("signInPassword")
-.value;
+        const password =
+            document
+                .getElementById("signInPassword")
+                .value;
 
-if (!email || !password) {
+        if (!email || !password) {
 
-showMessage(
-"Enter your email and password.",
-"error"
+            showMessage(
+                "Enter your email and password.",
+                "error"
+            );
+
+            return;
+
+        }
+
+        existingSignInSubmit.disabled =
+            true;
+
+        existingSignInSubmit.textContent =
+            "Signing In...";
+
+        showMessage(
+            "Signing in...",
+            "loading"
+        );
+
+        try {
+
+            const credential =
+                await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+            existingUser =
+                credential.user;
+
+
+            const technicianRef =
+                doc(
+                    db,
+                    "technicians",
+                    existingUser.uid
+                );
+
+            const technicianSnap =
+                await getDoc(
+                    technicianRef
+                );
+
+            if (!technicianSnap.exists()) {
+
+                throw new Error(
+                    "This account is not registered as a World OIL technician."
+                );
+
+            }
+
+
+            signInBox.style.display =
+                "none";
+
+            newAccountFields.style.display =
+                "none";
+
+            existingAccountBox.style.display =
+                "none";
+
+            submitButton.style.display =
+                "block";
+
+            submitButton.textContent =
+                "Continue to Subscription";
+
+            accountModeText.textContent =
+                `Signed in as ${existingUser.email}. Choose your plan below.`;
+
+            showMessage(
+                "Signed in successfully. Choose your subscription plan and continue.",
+                "success"
+            );
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                firebaseErrorMessage(error),
+                "error"
+            );
+
+        }
+
+        finally {
+
+            existingSignInSubmit.disabled =
+                false;
+
+            existingSignInSubmit.textContent =
+                "Sign In";
+
+        }
+
+    }
 );
 
-return;
 
-}
-
-existingSignInSubmit.disabled =
-true;
-
-existingSignInSubmit.textContent =
-"Signing In...";
-
-showMessage(
-"Signing in...",
-"loading"
-);
-
-try {
-
-const credential =
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
-
-existingUser =
-credential.user;
-
-
-const technicianRef =
-doc(
-db,
-"technicians",
-existingUser.uid
-);
-
-const technicianSnap =
-await getDoc(technicianRef);
-
-if (!technicianSnap.exists()) {
-
-throw new Error(
-"This account is not registered as a World OIL technician."
-);
-
-}
-
-
-signInBox.style.display =
-"none";
-
-newAccountFields.style.display =
-"none";
-
-existingAccountBox.style.display =
-"none";
-
-submitButton.style.display =
-"block";
-
-submitButton.textContent =
-"Continue to Subscription";
-
-accountModeText.textContent =
-`Signed in as ${existingUser.email}. Choose your plan below.`;
-
-showMessage(
-"Signed in successfully. Choose your subscription plan and continue.",
-"success"
-);
-
-}
-
-catch (error) {
-
-console.error(error);
-
-showMessage(
-firebaseErrorMessage(error),
-"error"
-);
-
-}
-
-finally {
-
-existingSignInSubmit.disabled =
-false;
-
-existingSignInSubmit.textContent =
-"Sign In";
-
-}
-
-}
-);
-
-
-/*
-IMPORTANT:
-Do NOT hide existingAccountBox here.
-It is now visible immediately through CSS.
-*/
-
+/* =========================================
+   FORM SUBMISSION
+========================================= */
 
 form.addEventListener(
-"submit",
-async function(event) {
+    "submit",
+    async function(event) {
 
-event.preventDefault();
+        event.preventDefault();
 
-showMessage("", "");
+        showMessage("", "");
 
 
-/*
-=========================================
-EXISTING TECHNICIAN
-=========================================
-*/
+        /* =========================================
+           EXISTING TECHNICIAN
+        ========================================= */
 
-if (existingUser) {
+        if (existingUser) {
 
-const selectedSubscription =
-document.querySelector(
-'input[name="subscription"]:checked'
-);
+            const selectedSubscription =
+                document.querySelector(
+                    'input[name="subscription"]:checked'
+                );
 
-if (!selectedSubscription) {
+            if (!selectedSubscription) {
 
-showMessage(
-"Please choose a subscription plan.",
-"error"
-);
+                showMessage(
+                    "Please choose a subscription plan.",
+                    "error"
+                );
 
-return;
+                return;
 
-}
+            }
 
 
-const terms =
-document.getElementById("terms");
+            const terms =
+                document.getElementById("terms");
 
-const ageAgreement =
-document.getElementById("ageAgreement");
+            const ageAgreement =
+                document.getElementById("ageAgreement");
 
-const experienceAgreement =
-document.getElementById("experienceAgreement");
+            const experienceAgreement =
+                document.getElementById("experienceAgreement");
 
-const equipmentAgreement =
-document.getElementById("equipmentAgreement");
+            const equipmentAgreement =
+                document.getElementById("equipmentAgreement");
 
-const damageAgreement =
-document.getElementById("damageAgreement");
+            const damageAgreement =
+                document.getElementById("damageAgreement");
 
-const safetyAgreement =
-document.getElementById("safetyAgreement");
+            const safetyAgreement =
+                document.getElementById("safetyAgreement");
 
-const accuracyAgreement =
-document.getElementById("accuracyAgreement");
+            const accuracyAgreement =
+                document.getElementById("accuracyAgreement");
 
 
-if (!ageAgreement.checked) {
+            if (!ageAgreement.checked) {
 
-showMessage(
-"You must confirm that you are at least 18 years old.",
-"error"
-);
+                showMessage(
+                    "You must confirm that you are at least 18 years old.",
+                    "error"
+                );
 
-return;
+                return;
 
-}
+            }
 
-if (!experienceAgreement.checked) {
+            if (!experienceAgreement.checked) {
 
-showMessage(
-"You must confirm that you have at least 1 year of automotive experience.",
-"error"
-);
+                showMessage(
+                    "You must confirm that you have at least 1 year of automotive experience.",
+                    "error"
+                );
 
-return;
+                return;
 
-}
+            }
 
-if (!equipmentAgreement.checked) {
+            if (!equipmentAgreement.checked) {
 
-showMessage(
-"You must confirm that you have the proper tools and equipment.",
-"error"
-);
+                showMessage(
+                    "You must confirm that you have the proper tools and equipment.",
+                    "error"
+                );
 
-return;
+                return;
 
-}
+            }
 
-if (!damageAgreement.checked) {
+            if (!damageAgreement.checked) {
 
-showMessage(
-"You must accept the damage responsibility requirement.",
-"error"
-);
+                showMessage(
+                    "You must accept the damage responsibility requirement.",
+                    "error"
+                );
 
-return;
+                return;
 
-}
+            }
 
-if (!safetyAgreement.checked) {
+            if (!safetyAgreement.checked) {
 
-showMessage(
-"You must agree to follow safe work practices.",
-"error"
-);
+                showMessage(
+                    "You must agree to follow safe work practices.",
+                    "error"
+                );
 
-return;
+                return;
 
-}
+            }
 
-if (!accuracyAgreement.checked) {
+            if (!accuracyAgreement.checked) {
 
-showMessage(
-"You must confirm that your information is accurate.",
-"error"
-);
+                showMessage(
+                    "You must confirm that your information is accurate.",
+                    "error"
+                );
 
-return;
+                return;
 
-}
+            }
 
-if (!terms.checked) {
+            if (!terms.checked) {
 
-showMessage(
-"You must agree to the Provider Terms.",
-"error"
-);
+                showMessage(
+                    "You must agree to the Provider Terms.",
+                    "error"
+                );
 
-return;
+                return;
 
-}
+            }
 
 
-const plan =
-selectedSubscription.value;
+            const plan =
+                selectedSubscription.value;
 
 
-submitButton.disabled =
-true;
+            submitButton.disabled =
+                true;
 
-submitButton.textContent =
-"Opening Payment...";
+            submitButton.textContent =
+                "Opening Payment...";
 
-showMessage(
-"Preparing your subscription payment...",
-"loading"
-);
+            showMessage(
+                "Preparing your subscription payment...",
+                "loading"
+            );
 
 
-try {
+            try {
 
-const response =
-await fetch(
-CHECKOUT_FUNCTION_URL,
-{
+                const response =
+                    await fetch(
+                        CHECKOUT_FUNCTION_URL,
+                        {
 
-method: "POST",
+                            method: "POST",
 
-headers: {
-"Content-Type":
-"application/json"
-},
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
 
-body:
-JSON.stringify({
+                            body:
+                                JSON.stringify({
 
-uid:
-existingUser.uid,
+                                    uid:
+                                        existingUser.uid,
 
-email:
-existingUser.email,
+                                    email:
+                                        existingUser.email,
 
-plan:
-plan
+                                    plan:
+                                        plan
 
-})
+                                })
 
-}
-);
+                        }
+                    );
 
 
-const data =
-await response.json();
+                const data =
+                    await response.json();
 
 
-if (!response.ok) {
+                if (!response.ok) {
 
-throw new Error(
-data.error ||
-"Unable to create payment session."
-);
+                    throw new Error(
+                        data.error ||
+                        "Unable to create payment session."
+                    );
 
-}
+                }
 
 
-if (!data.url) {
+                if (!data.url) {
 
-throw new Error(
-"Stripe Checkout URL was not returned."
-);
+                    throw new Error(
+                        "Stripe Checkout URL was not returned."
+                    );
 
-}
+                }
 
 
-window.location.href =
-data.url;
+                window.location.href =
+                    data.url;
 
-}
+            }
 
-catch (error) {
+            catch (error) {
 
-console.error(error);
+                console.error(error);
 
-showMessage(
-error.message ||
-"Unable to open payment.",
-"error"
-);
+                showMessage(
+                    error.message ||
+                    "Unable to open payment.",
+                    "error"
+                );
 
-submitButton.disabled =
-false;
+                submitButton.disabled =
+                    false;
 
-submitButton.textContent =
-"Continue to Subscription";
+                submitButton.textContent =
+                    "Continue to Subscription";
 
-}
+            }
 
-return;
+            return;
 
-}
+        }
 
 
-/*
-=========================================
-NEW TECHNICIAN
-=========================================
-*/
+        /* =========================================
+           NEW TECHNICIAN
+        ========================================= */
 
-const firstName =
-document
-.getElementById("firstName")
-.value
-.trim();
+        const firstName =
+            document
+                .getElementById("firstName")
+                .value
+                .trim();
 
-const lastName =
-document
-.getElementById("lastName")
-.value
-.trim();
+        const lastName =
+            document
+                .getElementById("lastName")
+                .value
+                .trim();
 
-const email =
-document
-.getElementById("email")
-.value
-.trim()
-.toLowerCase();
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim()
+                .toLowerCase();
 
-const phone =
-document
-.getElementById("phone")
-.value
-.trim();
+        const phone =
+            document
+                .getElementById("phone")
+                .value
+                .trim();
 
-const dateOfBirth =
-document
-.getElementById("dateOfBirth")
-.value;
+        const dateOfBirth =
+            document
+                .getElementById("dateOfBirth")
+                .value;
 
-const password =
-document
-.getElementById("password")
-.value;
+        const password =
+            document
+                .getElementById("password")
+                .value;
 
-const confirmPassword =
-document
-.getElementById("confirmPassword")
-.value;
+        const confirmPassword =
+            document
+                .getElementById("confirmPassword")
+                .value;
 
-const experience =
-document
-.getElementById("experience")
-.value;
+        const experience =
+            document
+                .getElementById("experience")
+                .value;
 
-const previousAutomotiveJob =
-document
-.getElementById("previousAutomotiveJob")
-.value;
+        const previousAutomotiveJob =
+            document
+                .getElementById("previousAutomotiveJob")
+                .value;
 
-const experienceDetails =
-document
-.getElementById("experienceDetails")
-.value
-.trim();
+        const experienceDetails =
+            document
+                .getElementById("experienceDetails")
+                .value
+                .trim();
 
-const terms =
-document.getElementById("terms");
+        const terms =
+            document.getElementById("terms");
 
-const ageAgreement =
-document.getElementById("ageAgreement");
+        const ageAgreement =
+            document.getElementById("ageAgreement");
 
-const experienceAgreement =
-document.getElementById("experienceAgreement");
+        const experienceAgreement =
+            document.getElementById("experienceAgreement");
 
-const equipmentAgreement =
-document.getElementById("equipmentAgreement");
+        const equipmentAgreement =
+            document.getElementById("equipmentAgreement");
 
-const damageAgreement =
-document.getElementById("damageAgreement");
+        const damageAgreement =
+            document.getElementById("damageAgreement");
 
-const safetyAgreement =
-document.getElementById("safetyAgreement");
+        const safetyAgreement =
+            document.getElementById("safetyAgreement");
 
-const accuracyAgreement =
-document.getElementById("accuracyAgreement");
+        const accuracyAgreement =
+            document.getElementById("accuracyAgreement");
 
-const selectedSubscription =
-document.querySelector(
-'input[name="subscription"]:checked'
-);
+        const selectedSubscription =
+            document.querySelector(
+                'input[name="subscription"]:checked'
+            );
 
 
-if (
-!firstName ||
-!lastName ||
-!email ||
-!phone ||
-!dateOfBirth ||
-!password ||
-!confirmPassword
-) {
+        if (
+            !firstName ||
+            !lastName ||
+            !email ||
+            !phone ||
+            !dateOfBirth ||
+            !password ||
+            !confirmPassword
+        ) {
 
-showMessage(
-"Please fill out all required fields.",
-"error"
-);
+            showMessage(
+                "Please fill out all required fields.",
+                "error"
+            );
 
-return;
+            return;
 
-}
+        }
 
 
-const technicianAge =
-calculateAge(dateOfBirth);
+        const technicianAge =
+            calculateAge(dateOfBirth);
 
 
-if (
-technicianAge < 18 ||
-technicianAge > 120
-) {
+        if (
+            technicianAge < 18 ||
+            technicianAge > 120
+        ) {
 
-showMessage(
-"You must be at least 18 years old.",
-"error"
-);
+            showMessage(
+                "You must be at least 18 years old.",
+                "error"
+            );
 
-return;
+            return;
 
-}
+        }
 
 
-if (password.length < 8) {
+        if (password.length < 8) {
 
-showMessage(
-"Password must contain at least 8 characters.",
-"error"
-);
+            showMessage(
+                "Password must contain at least 8 characters.",
+                "error"
+            );
 
-return;
+            return;
 
-}
+        }
 
 
-if (password !== confirmPassword) {
+        if (password !== confirmPassword) {
 
-showMessage(
-"Passwords do not match.",
-"error"
-);
+            showMessage(
+                "Passwords do not match.",
+                "error"
+            );
 
-return;
+            return;
 
-}
+        }
 
 
-if (!experience) {
+        if (!experience) {
 
-showMessage(
-"Please select your automotive experience.",
-"error"
-);
+            showMessage(
+                "Please select your automotive experience.",
+                "error"
+            );
 
-return;
+            return;
 
-}
+        }
 
 
-if (experience === "less_than_1") {
+        if (experience === "less_than_1") {
 
-showMessage(
-"You must have at least 1 year of automotive experience.",
-"error"
-);
+            showMessage(
+                "You must have at least 1 year of automotive experience.",
+                "error"
+            );
 
-return;
+            return;
 
-}
+        }
 
 
-if (!previousAutomotiveJob) {
+        if (!previousAutomotiveJob) {
 
-showMessage(
-"Please answer the previous automotive work question.",
-"error"
-);
+            showMessage(
+                "Please answer the previous automotive work question.",
+                "error"
+            );
 
-return;
+            return;
 
-}
+        }
 
 
-if (!selectedSubscription) {
+        if (!selectedSubscription) {
 
-showMessage(
-"Please choose a subscription plan.",
-"error"
-);
+            showMessage(
+                "Please choose a subscription plan.",
+                "error"
+            );
 
-return;
+            return;
 
-}
+        }
 
 
-if (!ageAgreement.checked) {
+        if (!ageAgreement.checked) {
 
-showMessage(
-"You must confirm that you are at least 18 years old.",
-"error"
-);
+            showMessage(
+                "You must confirm that you are at least 18 years old.",
+                "error"
+            );
 
-return;
+            return;
 
-}
+        }
 
-if (!experienceAgreement.checked) {
 
-showMessage(
-"You must confirm that you have at least 1 year of automotive experience.",
-"error"
-);
+        if (!experienceAgreement.checked) {
 
-return;
+            showMessage(
+                "You must confirm that you have at least 1 year of automotive experience.",
+                "error"
+            );
 
-}
+            return;
 
-if (!equipmentAgreement.checked) {
+        }
 
-showMessage(
-"You must confirm that you have the proper tools and equipment.",
-"error"
-);
 
-return;
+        if (!equipmentAgreement.checked) {
 
-}
+            showMessage(
+                "You must confirm that you have the proper tools and equipment.",
+                "error"
+            );
 
-if (!damageAgreement.checked) {
+            return;
 
-showMessage(
-"You must accept the damage responsibility requirement.",
-"error"
-);
+        }
 
-return;
 
-}
+        if (!damageAgreement.checked) {
 
-if (!safetyAgreement.checked) {
+            showMessage(
+                "You must accept the damage responsibility requirement.",
+                "error"
+            );
 
-showMessage(
-"You must agree to follow safe work practices.",
-"error"
-);
+            return;
 
-return;
+        }
 
-}
 
-if (!accuracyAgreement.checked) {
+        if (!safetyAgreement.checked) {
 
-showMessage(
-"You must confirm that your information is accurate.",
-"error"
-);
+            showMessage(
+                "You must agree to follow safe work practices.",
+                "error"
+            );
 
-return;
+            return;
 
-}
+        }
 
-if (!terms.checked) {
 
-showMessage(
-"You must agree to the Provider Terms.",
-"error"
-);
+        if (!accuracyAgreement.checked) {
 
-return;
+            showMessage(
+                "You must confirm that your information is accurate.",
+                "error"
+            );
 
-}
+            return;
 
+        }
 
-const plan =
-selectedSubscription.value;
 
-const price =
-selectedSubscription.dataset.price;
+        if (!terms.checked) {
 
-const planName =
-plan === "priority"
-? "Priority"
-: "Standard";
+            showMessage(
+                "You must agree to the Provider Terms.",
+                "error"
+            );
 
+            return;
 
-submitButton.disabled =
-true;
+        }
 
-submitButton.textContent =
-"Creating Account...";
 
-showMessage(
-"Creating your technician account...",
-"loading"
-);
+        const plan =
+            selectedSubscription.value;
 
+        const price =
+            selectedSubscription.dataset.price;
 
-try {
+        const planName =
+            plan === "priority"
+                ? "Priority"
+                : "Standard";
 
-const userCredential =
-await createUserWithEmailAndPassword(
-auth,
-email,
-password
-);
 
-const user =
-userCredential.user;
+        submitButton.disabled =
+            true;
 
+        submitButton.textContent =
+            "Creating Account...";
 
-await updateProfile(
-user,
-{
-displayName:
-`${firstName} ${lastName}`
-}
-);
+        showMessage(
+            "Creating your technician account...",
+            "loading"
+        );
 
 
-await setDoc(
-doc(
-db,
-"technicians",
-user.uid
-),
-{
+        try {
 
-uid:
-user.uid,
+            const userCredential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
 
-firstName:
-firstName,
+            const user =
+                userCredential.user;
 
-lastName:
-lastName,
 
-email:
-email,
+            await updateProfile(
+                user,
+                {
+                    displayName:
+                        `${firstName} ${lastName}`
+                }
+            );
 
-phone:
-phone,
 
-dateOfBirth:
-dateOfBirth,
+            await setDoc(
+                doc(
+                    db,
+                    "technicians",
+                    user.uid
+                ),
+                {
 
-ageAtSignup:
-technicianAge,
+                    uid:
+                        user.uid,
 
-automotiveExperience:
-experience,
+                    firstName:
+                        firstName,
 
-previousAutomotiveJob:
-previousAutomotiveJob,
+                    lastName:
+                        lastName,
 
-experienceDetails:
-experienceDetails,
+                    email:
+                        email,
 
-paidTechnician:
-false,
+                    phone:
+                        phone,
 
-marketplaceAccess:
-false,
+                    dateOfBirth:
+                        dateOfBirth,
 
-subscriptionStatus:
-"pending_payment",
+                    ageAtSignup:
+                        technicianAge,
 
-ageConfirmed:
-true,
+                    automotiveExperience:
+                        experience,
 
-oneYearExperienceConfirmed:
-true,
+                    previousAutomotiveJob:
+                        previousAutomotiveJob,
 
-properEquipmentConfirmed:
-true,
+                    experienceDetails:
+                        experienceDetails,
 
-damageResponsibilityAccepted:
-true,
+                    paidTechnician:
+                        false,
 
-safetyRequirementsAccepted:
-true,
+                    marketplaceAccess:
+                        false,
 
-informationAccuracyConfirmed:
-true,
+                    subscriptionStatus:
+                        "pending_payment",
 
-providerTermsAccepted:
-true,
+                    ageConfirmed:
+                        true,
 
-plan:
-plan,
+                    oneYearExperienceConfirmed:
+                        true,
 
-planName:
-planName,
+                    properEquipmentConfirmed:
+                        true,
 
-monthlyPrice:
-Number(price),
+                    damageResponsibilityAccepted:
+                        true,
 
-priorityNotifications:
-plan === "priority",
+                    safetyRequirementsAccepted:
+                        true,
 
-expandedServiceArea:
-plan === "priority",
+                    informationAccuracyConfirmed:
+                        true,
 
-activeTicketId:
-null,
+                    providerTermsAccepted:
+                        true,
 
-activeTicketStatus:
-null,
+                    plan:
+                        plan,
 
-lastCompletedAt:
-null,
+                    planName:
+                        planName,
 
-createdAt:
-serverTimestamp()
+                    monthlyPrice:
+                        Number(price),
 
-}
-);
+                    priorityNotifications:
+                        false,
 
+                    expandedServiceArea:
+                        false,
 
-submitButton.textContent =
-"Opening Payment...";
+                    activeTicketId:
+                        null,
 
-showMessage(
-"Account created. Opening secure payment...",
-"loading"
-);
+                    activeTicketStatus:
+                        null,
 
+                    lastCompletedAt:
+                        null,
 
-const response =
-await fetch(
-CHECKOUT_FUNCTION_URL,
-{
+                    createdAt:
+                        serverTimestamp()
 
-method: "POST",
+                }
+            );
 
-headers: {
-"Content-Type":
-"application/json"
-},
 
-body:
-JSON.stringify({
+            submitButton.textContent =
+                "Opening Payment...";
 
-uid:
-user.uid,
+            showMessage(
+                "Account created. Opening secure payment...",
+                "loading"
+            );
 
-email:
-email,
 
-plan:
-plan
+            const response =
+                await fetch(
+                    CHECKOUT_FUNCTION_URL,
+                    {
 
-})
+                        method: "POST",
 
-}
-);
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
 
+                        body:
+                            JSON.stringify({
 
-const data =
-await response.json();
+                                uid:
+                                    user.uid,
 
+                                email:
+                                    email,
 
-if (!response.ok) {
+                                plan:
+                                    plan
 
-throw new Error(
-data.error ||
-"Unable to create payment session."
-);
+                            })
 
-}
+                    }
+                );
 
 
-if (!data.url) {
+            const data =
+                await response.json();
 
-throw new Error(
-"Stripe Checkout URL was not returned."
-);
 
-}
+            if (!response.ok) {
 
+                throw new Error(
+                    data.error ||
+                    "Unable to create payment session."
+                );
 
-window.location.href =
-data.url;
+            }
 
-}
 
-catch (error) {
+            if (!data.url) {
 
-console.error(error);
+                throw new Error(
+                    "Stripe Checkout URL was not returned."
+                );
 
-showMessage(
-firebaseErrorMessage(error),
-"error"
-);
+            }
 
-submitButton.disabled =
-false;
 
-submitButton.textContent =
-"Create Technician Account";
+            window.location.href =
+                data.url;
 
-}
+        }
 
-}
+        catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                firebaseErrorMessage(error),
+                "error"
+            );
+
+            submitButton.disabled =
+                false;
+
+            submitButton.textContent =
+                "Create Technician Account";
+
+        }
+
+    }
 );
 
 </script>
