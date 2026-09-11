@@ -14,28 +14,26 @@
         name="description"
         content="World Oil Change - convenient mobile oil change service."
     >
+
     <link rel="manifest" href="./manifest.webmanifest">
 
-<link
-    rel="icon"
-    type="image/png"
-    href="./icons/primary.png"
->
+    <link
+        rel="icon"
+        type="image/png"
+        href="./icons/primary.png"
+    >
 
-<link
-    rel="apple-touch-icon"
-    href="./icons/primary.png"
->
+    <link
+        rel="apple-touch-icon"
+        href="./icons/primary.png"
+    >
 
-<meta
-    name="theme-color"
-    content="#0b0b0b"
->
+    <meta
+        name="theme-color"
+        content="#1976d2"
+    >
 
     <title>World Oil Change</title>
-
-
-
 
     <style>
 
@@ -47,11 +45,9 @@
             box-sizing: border-box;
         }
 
-
         html {
             scroll-behavior: smooth;
         }
-
 
         body {
             margin: 0;
@@ -78,7 +74,6 @@
                 overflow 0.2s ease;
         }
 
-
         body.no-scroll {
             overflow: hidden;
         }
@@ -104,7 +99,6 @@
             text-align: left;
         }
 
-
         h1 {
             margin: 0 0 20px;
 
@@ -113,11 +107,9 @@
             text-align: center;
         }
 
-
         .field {
             margin-bottom: 14px;
         }
-
 
         label {
             display: block;
@@ -129,11 +121,9 @@
             font-weight: bold;
         }
 
-
         .required {
             color: #b00020;
         }
-
 
         .help {
             display: block;
@@ -144,7 +134,6 @@
 
             font-size: 12px;
         }
-
 
         input,
         select,
@@ -164,24 +153,21 @@
             font-size: 16px;
         }
 
-
         input:focus,
         select:focus,
         textarea:focus {
             outline: none;
 
-            border-color: #111;
+            border-color: #1976d2;
 
             box-shadow:
-                0 0 0 2px rgba(0, 0, 0, 0.08);
+                0 0 0 2px rgba(25, 118, 210, 0.12);
         }
-
 
         input:invalid:not(:placeholder-shown),
         select:invalid:not(:focus) {
             border-color: #ccc;
         }
-
 
         button {
             font-family: inherit;
@@ -203,7 +189,7 @@
 
             border-radius: 6px;
 
-            background: #111;
+            background: #1976d2;
 
             color: white;
 
@@ -215,11 +201,9 @@
                 background 0.15s ease;
         }
 
-
         #submitButton:hover {
-            background: #333;
+            background: #125ca3;
         }
-
 
         #submitButton:disabled {
             background: #777;
@@ -227,10 +211,9 @@
             cursor: not-allowed;
         }
 
-
         button:focus-visible,
         a:focus-visible {
-            outline: 3px solid #555;
+            outline: 3px solid #1976d2;
 
             outline-offset: 2px;
         }
@@ -256,13 +239,11 @@
             text-align: center;
         }
 
-
         #message.error,
         #message.success,
         #message.loading {
             display: block;
         }
-
 
         #message.error {
             color: #b00020;
@@ -270,13 +251,11 @@
             background: #ffe5e5;
         }
 
-
         #message.success {
             color: #146c2e;
 
             background: #e5f7e9;
         }
-
 
         #message.loading {
             color: #333;
@@ -307,7 +286,7 @@
 
             border-radius: 8px;
 
-            background: #111;
+            background: #1976d2;
 
             color: white;
 
@@ -321,11 +300,13 @@
 
             box-shadow:
                 0 4px 12px rgba(0, 0, 0, 0.25);
+
+            transition:
+                background 0.15s ease;
         }
 
-
         .menu-button:hover {
-            background: #333;
+            background: #125ca3;
         }
 
 
@@ -359,18 +340,15 @@
                 left 0.25s ease;
         }
 
-
         .side-menu.open {
             left: 0;
         }
-
 
         .side-menu h2 {
             margin: 0 0 8px;
 
             font-size: 21px;
         }
-
 
         .menu-est {
             margin-bottom: 20px;
@@ -379,7 +357,6 @@
 
             font-size: 13px;
         }
-
 
         .side-menu a {
             display: block;
@@ -399,12 +376,14 @@
             text-decoration: none;
 
             transition:
-                background 0.15s ease;
+                background 0.15s ease,
+                color 0.15s ease;
         }
 
-
         .side-menu a:hover {
-            background: #eee;
+            background: #eaf3ff;
+
+            color: #125ca3;
         }
 
 
@@ -423,7 +402,6 @@
 
             background: rgba(0, 0, 0, 0.40);
         }
-
 
         .menu-overlay.show {
             display: block;
@@ -453,11 +431,9 @@
                 backdropFadeIn 0.20s ease;
         }
 
-
         .info-backdrop.show {
             display: block;
         }
-
 
         @keyframes backdropFadeIn {
 
@@ -508,11 +484,9 @@
                 panelOpen 0.22s ease;
         }
 
-
         .info-panel.show {
             display: block;
         }
-
 
         @keyframes panelOpen {
 
@@ -534,13 +508,11 @@
 
         }
 
-
         .info-panel h2 {
             margin-top: 0;
 
             margin-bottom: 18px;
         }
-
 
         .info-panel p {
             font-size: 15px;
@@ -566,7 +538,7 @@
 
             border-radius: 6px;
 
-            background: #111;
+            background: #1976d2;
 
             color: white;
 
@@ -575,11 +547,13 @@
             line-height: 1;
 
             cursor: pointer;
+
+            transition:
+                background 0.15s ease;
         }
 
-
         .close-panel:hover {
-            background: #333;
+            background: #125ca3;
         }
 
 
@@ -595,11 +569,11 @@
             text-decoration: none;
         }
 
-
         .contact-link:hover {
+            color: #1976d2;
+
             text-decoration: underline;
         }
-
 
         .contact-box {
             padding: 14px;
@@ -627,7 +601,6 @@
 
             margin: 14px 0 8px;
         }
-
 
         .review-star {
             width: 52px;
@@ -661,7 +634,6 @@
                 background 0.15s ease;
         }
 
-
         .review-star:hover {
             background: #fff8df;
 
@@ -670,7 +642,6 @@
             transform: scale(1.10);
         }
 
-
         .review-star.selected {
             color: #ffc107;
 
@@ -678,22 +649,19 @@
                 0 1px 2px rgba(0, 0, 0, 0.15);
         }
 
-
         .review-star:focus-visible {
-            outline: 3px solid #111;
+            outline: 3px solid #1976d2;
 
             outline-offset: 2px;
 
             background: #fff8df;
         }
 
-
         .review-note {
             color: #666;
 
             font-size: 14px;
         }
-
 
         .rating-label {
             margin-top: 4px;
@@ -706,7 +674,6 @@
 
             text-align: center;
         }
-
 
         .info-panel textarea {
             width: 100%;
@@ -728,7 +695,6 @@
             font-size: 16px;
         }
 
-
         .review-submit {
             width: 100%;
 
@@ -738,27 +704,27 @@
 
             border-radius: 6px;
 
-            background: #111;
+            background: #1976d2;
 
             color: white;
 
             font-size: 16px;
 
             cursor: pointer;
-        }
 
+            transition:
+                background 0.15s ease;
+        }
 
         .review-submit:hover {
-            background: #333;
+            background: #125ca3;
         }
-
 
         .review-submit:disabled {
             background: #777;
 
             cursor: not-allowed;
         }
-
 
         #reviewMessage {
             min-height: 20px;
@@ -777,7 +743,6 @@
             margin-top: 18px;
         }
 
-
         .review-item {
             padding: 14px;
 
@@ -788,13 +753,11 @@
             background: #f5f5f5;
         }
 
-
         .review-item-name {
             margin-bottom: 4px;
 
             font-weight: bold;
         }
-
 
         .review-item-stars {
             color: #ffc107;
@@ -803,7 +766,6 @@
 
             letter-spacing: 2px;
         }
-
 
         .review-item-text {
             margin: 8px 0 0;
@@ -832,11 +794,9 @@
                 background-attachment: scroll;
             }
 
-
             .container {
                 margin-bottom: 30px;
             }
-
 
             .info-panel {
                 width: calc(100% - 30px);
@@ -846,16 +806,13 @@
                 padding: 20px;
             }
 
-
             .side-menu {
                 width: 290px;
             }
 
-
             .review-stars {
                 gap: 2px;
             }
-
 
             .review-star {
                 width: 54px;
@@ -876,7 +833,6 @@
             html {
                 scroll-behavior: auto;
             }
-
 
             .side-menu,
             .info-panel,
@@ -1006,16 +962,13 @@
             ×
         </button>
 
-
         <h2 id="aboutMeTitle">
             About Me
         </h2>
 
-
         <p>
             Welcome to World Oil Change.
         </p>
-
 
         <p>
             I started World OIL LLC with the goal of
@@ -1023,13 +976,11 @@
             for customers.
         </p>
 
-
         <p>
             Instead of spending time waiting at a shop,
             our service is designed to bring the oil change
             directly to you.
         </p>
-
 
         <p>
             Thank you for choosing World Oil Change.
@@ -1059,23 +1010,19 @@
             ×
         </button>
 
-
         <h2 id="aboutCompanyTitle">
             About World OIL LLC
         </h2>
-
 
         <p>
             Welcome to World OIL LLC, where we bring your
             oil change directly to your home.
         </p>
 
-
         <p>
             Our goal is to make oil changes simple,
             convenient, and stress-free.
         </p>
-
 
         <p>
             With our easy-to-use website, you can quickly
@@ -1084,12 +1031,10 @@
             steps.
         </p>
 
-
         <p>
             Our website is designed to make booking as
             simple as possible.
         </p>
-
 
         <p>
             <strong>Est. June 2026</strong>
@@ -1119,11 +1064,9 @@
             ×
         </button>
 
-
         <h2 id="contactTitle">
             Contact Us
         </h2>
-
 
         <div class="contact-box">
 
@@ -1137,7 +1080,6 @@
                 </a>
             </p>
 
-
             <p>
                 ✉️
                 <a
@@ -1149,7 +1091,6 @@
             </p>
 
         </div>
-
 
         <p>
             Tap the phone number to call us or tap the
@@ -1180,11 +1121,9 @@
             ×
         </button>
 
-
         <h2 id="reviewsTitle">
             Customer Reviews
         </h2>
-
 
         <div id="reviewList">
 
@@ -1218,18 +1157,15 @@
             ×
         </button>
 
-
         <h2 id="leaveReviewTitle">
             Leave a Review
         </h2>
-
 
         <div class="field">
 
             <label for="reviewName">
                 Your Name
             </label>
-
 
             <input
                 type="text"
@@ -1263,7 +1199,6 @@
                 ☆
             </button>
 
-
             <button
                 type="button"
                 class="review-star"
@@ -1275,7 +1210,6 @@
             >
                 ☆
             </button>
-
 
             <button
                 type="button"
@@ -1289,7 +1223,6 @@
                 ☆
             </button>
 
-
             <button
                 type="button"
                 class="review-star"
@@ -1301,7 +1234,6 @@
             >
                 ☆
             </button>
-
 
             <button
                 type="button"
@@ -1325,21 +1257,17 @@
             5 out of 5 stars
         </div>
 
-
         <br>
-
 
         <label for="reviewText">
             Your Review
         </label>
-
 
         <textarea
             id="reviewText"
             placeholder="Tell us about your experience"
             maxlength="1000"
         ></textarea>
-
 
         <button
             class="review-submit"
@@ -1348,7 +1276,6 @@
         >
             Submit Review
         </button>
-
 
         <p
             id="reviewMessage"
@@ -1370,7 +1297,6 @@
             World Oil Change
         </h1>
 
-
         <form
             id="bookingForm"
             novalidate
@@ -1382,7 +1308,6 @@
                     Full Name
                     <span class="required">*</span>
                 </label>
-
 
                 <input
                     type="text"
@@ -1406,7 +1331,6 @@
                     <span class="required">*</span>
                 </label>
 
-
                 <input
                     type="tel"
                     id="phone"
@@ -1419,7 +1343,6 @@
                     placeholder="Enter your phone number"
                     aria-describedby="phoneHelp"
                 >
-
 
                 <span
                     id="phoneHelp"
@@ -1437,7 +1360,6 @@
                     Vehicle Year
                     <span class="required">*</span>
                 </label>
-
 
                 <input
                     type="number"
@@ -1460,7 +1382,6 @@
                     <span class="required">*</span>
                 </label>
 
-
                 <input
                     type="text"
                     id="make"
@@ -1481,7 +1402,6 @@
                     Vehicle Model
                     <span class="required">*</span>
                 </label>
-
 
                 <input
                     type="text"
@@ -1504,7 +1424,6 @@
                     <span class="required">*</span>
                 </label>
 
-
                 <input
                     type="date"
                     id="date"
@@ -1513,7 +1432,6 @@
                     aria-required="true"
                     aria-describedby="dateHelp"
                 >
-
 
                 <span
                     id="dateHelp"
@@ -1531,7 +1449,6 @@
                     Appointment Time
                     <span class="required">*</span>
                 </label>
-
 
                 <select
                     id="time"
@@ -3297,7 +3214,6 @@
 
             }
         );
-
 
     </script>
 
