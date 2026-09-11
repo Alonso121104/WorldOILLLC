@@ -1,4 +1,4 @@
-const CACHE_NAME = "world-oil-v3";
+const CACHE_NAME = "world-oil-v4";
 
 const APP_SHELL = [
     "./",
@@ -6,14 +6,14 @@ const APP_SHELL = [
     "./tech_login.html",
     "./technician-signup.html",
     "./technician-dashboard.html",
-    "./manifest.json",
     "./manifest.webmanifest"
 ];
+
 
 self.addEventListener("install", event => {
 
     console.log(
-        "World OIL service worker installing..."
+        "World OIL service worker v4 installing..."
     );
 
     event.waitUntil(
@@ -40,7 +40,7 @@ self.addEventListener("install", event => {
 self.addEventListener("activate", event => {
 
     console.log(
-        "World OIL service worker activated..."
+        "World OIL service worker v4 activated..."
     );
 
     event.waitUntil(
@@ -76,7 +76,10 @@ self.addEventListener("activate", event => {
 
 self.addEventListener("fetch", event => {
 
-    // Only handle GET requests
+    /*
+     * Only handle GET requests.
+     */
+
     if (
         event.request.method !== "GET"
     ) {
@@ -85,12 +88,15 @@ self.addEventListener("fetch", event => {
 
 
     const url =
-        new URL(event.request.url);
+        new URL(
+            event.request.url
+        );
 
 
     /*
      * Do NOT interfere with Firebase,
-     * Stripe, or Cloud Functions.
+     * Stripe, Cloud Functions, or other
+     * backend requests.
      */
 
     if (
@@ -125,14 +131,24 @@ self.addEventListener("fetch", event => {
     /*
      * HTML PAGES
      *
-     * Always try the network first.
-     * This prevents users from being stuck
-     * with an old version of the website.
+     * Network first.
+     *
+     * This means the newest version
+     * of your page is requested first.
+     *
+     * If the internet is unavailable,
+     * the cached page is used.
      */
 
     if (
-        event.request.mode === "navigate" ||
-        url.pathname.endsWith(".html")
+
+        event.request.mode ===
+            "navigate" ||
+
+        url.pathname.endsWith(
+            ".html"
+        )
+
     ) {
 
         event.respondWith(
@@ -142,24 +158,32 @@ self.addEventListener("fetch", event => {
                 .then(networkResponse => {
 
                     if (
+
                         networkResponse &&
-                        networkResponse.status === 200
+
+                        networkResponse.status ===
+                            200
+
                     ) {
 
                         const responseClone =
                             networkResponse.clone();
 
-                        caches.open(CACHE_NAME)
-                            .then(cache => {
 
-                                cache.put(
-                                    event.request,
-                                    responseClone
-                                );
+                        caches.open(
+                            CACHE_NAME
+                        )
+                        .then(cache => {
 
-                            });
+                            cache.put(
+                                event.request,
+                                responseClone
+                            );
+
+                        });
 
                     }
+
 
                     return networkResponse;
 
@@ -183,62 +207,78 @@ self.addEventListener("fetch", event => {
     /*
      * OTHER FILES
      *
-     * Use cache first for things like:
-     * CSS, JavaScript, icons, images, etc.
+     * Cache first.
+     *
+     * Used for:
+     * - icons
+     * - images
+     * - manifests
+     * - CSS
+     * - JavaScript
      */
 
     event.respondWith(
 
-        caches.match(event.request)
+        caches.match(
+            event.request
+        )
 
-            .then(cachedResponse => {
+        .then(cachedResponse => {
 
-                if (cachedResponse) {
+            if (
+                cachedResponse
+            ) {
 
-                    return cachedResponse;
+                return cachedResponse;
+
+            }
+
+
+            return fetch(
+                event.request
+            )
+
+            .then(networkResponse => {
+
+                if (
+
+                    !networkResponse ||
+
+                    networkResponse.status !==
+                        200 ||
+
+                    networkResponse.type !==
+                        "basic"
+
+                ) {
+
+                    return networkResponse;
 
                 }
 
 
-                return fetch(event.request)
-
-                    .then(networkResponse => {
-
-                        if (
-
-                            !networkResponse ||
-
-                            networkResponse.status !== 200 ||
-
-                            networkResponse.type !== "basic"
-
-                        ) {
-
-                            return networkResponse;
-
-                        }
+                const responseClone =
+                    networkResponse.clone();
 
 
-                        const responseClone =
-                            networkResponse.clone();
+                caches.open(
+                    CACHE_NAME
+                )
+                .then(cache => {
+
+                    cache.put(
+                        event.request,
+                        responseClone
+                    );
+
+                });
 
 
-                        caches.open(CACHE_NAME)
-                            .then(cache => {
+                return networkResponse;
 
-                                cache.put(
-                                    event.request,
-                                    responseClone
-                                );
+            });
 
-                            });
-
-
-                        return networkResponse;
-
-                    });
-
-            })
+        })
 
     );
 
