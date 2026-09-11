@@ -14,27 +14,26 @@
         name="description"
         content="World Oil Change - convenient mobile oil change service."
     >
+
     <link rel="manifest" href="./manifest.webmanifest">
 
-<link
-    rel="icon"
-    type="image/png"
-    href="./icons/primary.png"
->
+    <link
+        rel="icon"
+        type="image/png"
+        href="./icons/primary.png"
+    >
 
-<link
-    rel="apple-touch-icon"
-    href="./icons/primary.png"
->
+    <link
+        rel="apple-touch-icon"
+        href="./icons/primary.png"
+    >
 
-<meta
-    name="theme-color"
-    content="#0b0b0b"
->
+    <meta
+        name="theme-color"
+        content="#07558a"
+    >
 
     <title>World Oil Change</title>
-
-
 
 
     <style>
@@ -61,7 +60,14 @@
 
             font-family: Arial, sans-serif;
 
+            /*
+             * BLUE-TINTED BACKGROUND IMAGE
+             */
             background:
+                linear-gradient(
+                    rgba(0, 78, 140, 0.28),
+                    rgba(0, 78, 140, 0.28)
+                ),
                 url("https://cdn2.vectorstock.com/i/1000x1000/23/11/line-icon-of-a-car-and-oil-change-symbol-vector-40522311.jpg")
                 center center
                 no-repeat;
@@ -71,7 +77,9 @@
             background-attachment: fixed;
 
             display: flex;
+
             justify-content: center;
+
             align-items: center;
 
             transition:
@@ -90,16 +98,19 @@
 
         .container {
             width: 340px;
+
             max-width: calc(100% - 40px);
 
             padding: 25px;
 
-            background: rgba(255, 255, 255, 0.96);
+            background: rgba(255, 255, 255, 0.97);
 
-            border-radius: 12px;
+            border-radius: 16px;
+
+            border: 2px solid rgba(7, 85, 138, 0.18);
 
             box-shadow:
-                0 10px 30px rgba(0, 0, 0, 0.30);
+                0 15px 40px rgba(0, 40, 80, 0.28);
 
             text-align: left;
         }
@@ -111,6 +122,8 @@
             font-size: 22px;
 
             text-align: center;
+
+            color: #07558a;
         }
 
 
@@ -127,11 +140,13 @@
             font-size: 15px;
 
             font-weight: bold;
+
+            color: #222;
         }
 
 
         .required {
-            color: #b00020;
+            color: #c00000;
         }
 
 
@@ -153,15 +168,19 @@
 
             padding: 10px;
 
-            border: 1px solid #ccc;
+            border: 1px solid #c9c9c9;
 
-            border-radius: 6px;
+            border-radius: 7px;
 
             background: #fff;
 
             font-family: inherit;
 
             font-size: 16px;
+
+            transition:
+                border-color 0.15s ease,
+                box-shadow 0.15s ease;
         }
 
 
@@ -170,10 +189,10 @@
         textarea:focus {
             outline: none;
 
-            border-color: #111;
+            border-color: #07558a;
 
             box-shadow:
-                0 0 0 2px rgba(0, 0, 0, 0.08);
+                0 0 0 3px rgba(7, 85, 138, 0.12);
         }
 
 
@@ -195,29 +214,38 @@
         #submitButton {
             width: 100%;
 
-            padding: 12px;
+            padding: 13px;
 
             margin-top: 8px;
 
             border: none;
 
-            border-radius: 6px;
+            border-radius: 8px;
 
-            background: #111;
+            background: #07558a;
 
             color: white;
 
             font-size: 16px;
 
+            font-weight: bold;
+
             cursor: pointer;
 
             transition:
-                background 0.15s ease;
+                background 0.15s ease,
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
         }
 
 
         #submitButton:hover {
-            background: #333;
+            background: #063f67;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 5px 12px rgba(7, 85, 138, 0.25);
         }
 
 
@@ -225,12 +253,16 @@
             background: #777;
 
             cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
         }
 
 
         button:focus-visible,
         a:focus-visible {
-            outline: 3px solid #555;
+            outline: 3px solid #07558a;
 
             outline-offset: 2px;
         }
@@ -247,7 +279,7 @@
 
             padding: 10px;
 
-            border-radius: 6px;
+            border-radius: 7px;
 
             font-size: 14px;
 
@@ -279,9 +311,9 @@
 
 
         #message.loading {
-            color: #333;
+            color: #07558a;
 
-            background: #eee;
+            background: #e8f4fb;
         }
 
 
@@ -293,21 +325,24 @@
             position: fixed;
 
             top: 16px;
+
             left: 16px;
 
             z-index: 4001;
 
             width: 48px;
+
             height: 48px;
 
             padding: 0;
+
             margin: 0;
 
             border: none;
 
-            border-radius: 8px;
+            border-radius: 10px;
 
-            background: #111;
+            background: #07558a;
 
             color: white;
 
@@ -320,12 +355,18 @@
             cursor: pointer;
 
             box-shadow:
-                0 4px 12px rgba(0, 0, 0, 0.25);
+                0 5px 15px rgba(0, 40, 80, 0.30);
+
+            transition:
+                background 0.15s ease,
+                transform 0.15s ease;
         }
 
 
         .menu-button:hover {
-            background: #333;
+            background: #063f67;
+
+            transform: translateY(-1px);
         }
 
 
@@ -337,11 +378,13 @@
             position: fixed;
 
             top: 0;
+
             left: -310px;
 
             z-index: 4000;
 
             width: 290px;
+
             max-width: 85vw;
 
             height: 100vh;
@@ -369,6 +412,8 @@
             margin: 0 0 8px;
 
             font-size: 21px;
+
+            color: #07558a;
         }
 
 
@@ -388,7 +433,7 @@
 
             margin-bottom: 5px;
 
-            border-radius: 6px;
+            border-radius: 7px;
 
             color: #111;
 
@@ -399,12 +444,15 @@
             text-decoration: none;
 
             transition:
-                background 0.15s ease;
+                background 0.15s ease,
+                color 0.15s ease;
         }
 
 
         .side-menu a:hover {
-            background: #eee;
+            background: #e8f4fb;
+
+            color: #07558a;
         }
 
 
@@ -421,7 +469,7 @@
 
             z-index: 3999;
 
-            background: rgba(0, 0, 0, 0.40);
+            background: rgba(0, 20, 40, 0.45);
         }
 
 
@@ -443,7 +491,7 @@
 
             z-index: 4500;
 
-            background: rgba(0, 0, 0, 0.48);
+            background: rgba(0, 30, 60, 0.48);
 
             backdrop-filter: blur(9px);
 
@@ -482,6 +530,7 @@
             position: fixed;
 
             top: 50%;
+
             left: 50%;
 
             z-index: 5000;
@@ -497,9 +546,11 @@
             transform:
                 translate(-50%, -50%);
 
-            border-radius: 12px;
+            border-radius: 14px;
 
             background: white;
+
+            border-top: 5px solid #07558a;
 
             box-shadow:
                 0 15px 45px rgba(0, 0, 0, 0.50);
@@ -539,6 +590,8 @@
             margin-top: 0;
 
             margin-bottom: 18px;
+
+            color: #07558a;
         }
 
 
@@ -566,7 +619,7 @@
 
             border-radius: 6px;
 
-            background: #111;
+            background: #07558a;
 
             color: white;
 
@@ -579,7 +632,7 @@
 
 
         .close-panel:hover {
-            background: #333;
+            background: #063f67;
         }
 
 
@@ -588,7 +641,7 @@
         ========================================== */
 
         .contact-link {
-            color: #111;
+            color: #07558a;
 
             font-weight: bold;
 
@@ -608,7 +661,9 @@
 
             border-radius: 8px;
 
-            background: #f5f5f5;
+            background: #e8f4fb;
+
+            border-left: 4px solid #07558a;
         }
 
 
@@ -631,14 +686,17 @@
 
         .review-star {
             width: 52px;
+
             height: 52px;
 
             padding: 0;
+
             margin: 0;
 
             display: flex;
 
             align-items: center;
+
             justify-content: center;
 
             border: none;
@@ -663,16 +721,16 @@
 
 
         .review-star:hover {
-            background: #fff8df;
+            background: #e8f4fb;
 
-            color: #ffc107;
+            color: #07558a;
 
             transform: scale(1.10);
         }
 
 
         .review-star.selected {
-            color: #ffc107;
+            color: #07558a;
 
             text-shadow:
                 0 1px 2px rgba(0, 0, 0, 0.15);
@@ -680,11 +738,11 @@
 
 
         .review-star:focus-visible {
-            outline: 3px solid #111;
+            outline: 3px solid #07558a;
 
             outline-offset: 2px;
 
-            background: #fff8df;
+            background: #e8f4fb;
         }
 
 
@@ -698,7 +756,7 @@
         .rating-label {
             margin-top: 4px;
 
-            color: #555;
+            color: #07558a;
 
             font-size: 14px;
 
@@ -721,7 +779,7 @@
 
             border: 1px solid #ccc;
 
-            border-radius: 6px;
+            border-radius: 7px;
 
             font-family: inherit;
 
@@ -736,20 +794,25 @@
 
             border: none;
 
-            border-radius: 6px;
+            border-radius: 7px;
 
-            background: #111;
+            background: #07558a;
 
             color: white;
 
             font-size: 16px;
 
+            font-weight: bold;
+
             cursor: pointer;
+
+            transition:
+                background 0.15s ease;
         }
 
 
         .review-submit:hover {
-            background: #333;
+            background: #063f67;
         }
 
 
@@ -785,7 +848,9 @@
 
             border-radius: 8px;
 
-            background: #f5f5f5;
+            background: #f5f9fc;
+
+            border-left: 4px solid #07558a;
         }
 
 
@@ -793,11 +858,13 @@
             margin-bottom: 4px;
 
             font-weight: bold;
+
+            color: #222;
         }
 
 
         .review-item-stars {
-            color: #ffc107;
+            color: #07558a;
 
             font-size: 18px;
 
@@ -859,6 +926,7 @@
 
             .review-star {
                 width: 54px;
+
                 height: 54px;
 
                 font-size: 40px;
@@ -1241,8 +1309,6 @@
 
         </div>
 
-
-        <!-- STAR RATING -->
 
         <div
             class="review-stars"
@@ -2757,7 +2823,7 @@
             }
 
             .review-loading {
-                color: #666;
+                color: #07558a;
                 font-size: 14px;
                 text-align: center;
             }
@@ -3297,7 +3363,6 @@
 
             }
         );
-
 
     </script>
 
