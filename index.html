@@ -30,7 +30,7 @@
 
     <meta
         name="theme-color"
-        content="#1976d2"
+        content="#145A8D"
     >
 
     <title>World Oil Change</title>
@@ -125,7 +125,7 @@
 
             font-size: 22px;
 
-            color: #1976d2;
+            color: #145A8D;
         }
 
         .brand-gif {
@@ -192,10 +192,10 @@
         textarea:focus {
             outline: none;
 
-            border-color: #1976d2;
+            border-color: #145A8D;
 
             box-shadow:
-                0 0 0 2px rgba(25, 118, 210, 0.12);
+                0 0 0 2px rgba(20, 90, 141, 0.12);
         }
 
         input:invalid:not(:placeholder-shown),
@@ -221,33 +221,50 @@
 
             border: none;
 
-            border-radius: 6px;
+            border-radius: 12px;
 
-            background: #1976d2;
+            background: #145A8D;
 
-            color: white;
+            color: #ffffff;
 
             font-size: 16px;
 
+            font-weight: 700;
+
             cursor: pointer;
 
+            box-shadow:
+                0 6px 15px rgba(20, 90, 141, 0.25);
+
             transition:
-                background 0.15s ease;
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
         }
 
         #submitButton:hover {
-            background: #125ca3;
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 18px rgba(20, 90, 141, 0.35);
+        }
+
+        #submitButton:active {
+            transform: translateY(0);
         }
 
         #submitButton:disabled {
             background: #777;
 
+            box-shadow: none;
+
             cursor: not-allowed;
+
+            transform: none;
         }
 
         button:focus-visible,
         a:focus-visible {
-            outline: 3px solid #1976d2;
+            outline: 3px solid #145A8D;
 
             outline-offset: 2px;
         }
@@ -320,7 +337,7 @@
 
             border-radius: 8px;
 
-            background: #1976d2;
+            background: #145A8D;
 
             color: white;
 
@@ -340,7 +357,7 @@
         }
 
         .menu-button:hover {
-            background: #125ca3;
+            background: #0B416A;
         }
 
 
@@ -415,9 +432,9 @@
         }
 
         .side-menu a:hover {
-            background: #eaf3ff;
+            background: #EAF3F9;
 
-            color: #125ca3;
+            color: #0B416A;
         }
 
 
@@ -572,7 +589,7 @@
 
             border-radius: 6px;
 
-            background: #1976d2;
+            background: #145A8D;
 
             color: white;
 
@@ -587,7 +604,7 @@
         }
 
         .close-panel:hover {
-            background: #125ca3;
+            background: #0B416A;
         }
 
 
@@ -604,7 +621,7 @@
         }
 
         .contact-link:hover {
-            color: #1976d2;
+            color: #145A8D;
 
             text-decoration: underline;
         }
@@ -684,7 +701,7 @@
         }
 
         .review-star:focus-visible {
-            outline: 3px solid #1976d2;
+            outline: 3px solid #145A8D;
 
             outline-offset: 2px;
 
@@ -738,7 +755,7 @@
 
             border-radius: 6px;
 
-            background: #1976d2;
+            background: #145A8D;
 
             color: white;
 
@@ -751,7 +768,7 @@
         }
 
         .review-submit:hover {
-            background: #125ca3;
+            background: #0B416A;
         }
 
         .review-submit:disabled {
