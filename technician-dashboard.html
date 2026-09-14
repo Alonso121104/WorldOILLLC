@@ -263,6 +263,11 @@ body {
     color: #ef6c00;
 }
 
+.menu-history {
+    background: #ede7f6;
+    color: #5e35b1;
+}
+
 
 /* =========================================================
    OVERLAY
@@ -943,6 +948,44 @@ button {
 
 
 /* =========================================================
+   HISTORY
+========================================================= */
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.history-card {
+    background: white;
+    border-radius: 16px;
+    padding: 22px;
+    border-left: 5px solid #5e35b1;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.09);
+}
+
+.history-card h3 {
+    margin: 0 0 12px;
+    color: #111;
+}
+
+.history-meta {
+    color: #666;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+.history-empty {
+    text-align: center;
+    padding: 35px 20px;
+    background: white;
+    border-radius: 15px;
+    color: #777;
+    box-shadow: 0 5px 18px rgba(0,0,0,0.07);
+}
+
+/* =========================================================
    HIDDEN
 ========================================================= */
 
@@ -1065,6 +1108,12 @@ button {
         class="menu-item menu-home"
         id="homeButton">
         🏠 Home
+    </button>
+
+    <button
+        class="menu-item menu-history"
+        id="historyButton">
+        📋 Job History
     </button>
 
 
@@ -1252,6 +1301,39 @@ button {
 
 
 <!-- =======================================================
+     JOB HISTORY
+======================================================= -->
+
+<section
+    id="historySection"
+    class="dashboard-card hidden">
+
+    <div class="dashboard-header">
+
+        <div>
+            <h1>📋 Job History</h1>
+
+            <div class="welcome">
+                Your accepted World Oil service requests
+            </div>
+        </div>
+
+    </div>
+
+    <div
+        id="historyContainer"
+        class="history-list">
+
+        <div class="loading">
+            Loading job history...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
      CANCEL SUBSCRIPTION
 ======================================================= -->
 
@@ -1426,6 +1508,15 @@ const loginSection =
 const dashboardSection =
     document.getElementById("dashboardSection");
 
+const historySection =
+    document.getElementById("historySection");
+
+const historyContainer =
+    document.getElementById("historyContainer");
+
+const historyButton =
+    document.getElementById("historyButton");
+
 const cancelSection =
     document.getElementById("cancelSection");
 
@@ -1471,6 +1562,198 @@ const cancelMessage =
     document.getElementById(
         "cancelMessage"
     );
+
+
+/* =======================================================
+   JOB HISTORY STORAGE
+======================================================= */
+
+let currentTickets = [];
+
+function historyStorageKey() {
+    return auth.currentUser
+        ? `worldOilJobHistory_${auth.currentUser.uid}`
+        : null;
+}
+
+function getJobHistory() {
+    const key = historyStorageKey();
+
+    if (!key) {
+        return [];
+    }
+
+    try {
+        return JSON.parse(
+            localStorage.getItem(key) || "[]"
+        );
+    } catch (error) {
+        console.error("History read error:", error);
+        return [];
+    }
+}
+
+function saveJobHistory(history) {
+    const key = historyStorageKey();
+
+    if (!key) {
+        return;
+    }
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(history)
+    );
+}
+
+function addJobToHistory(ticket) {
+    if (!ticket || !ticket.id) {
+        return;
+    }
+
+    const history = getJobHistory();
+
+    const existingIndex = history.findIndex(
+        item => item.id === ticket.id
+    );
+
+    const record = {
+        ...ticket,
+        historyStatus: ticket.status || "accepted",
+        historySavedAt: new Date().toISOString()
+    };
+
+    if (existingIndex >= 0) {
+        history[existingIndex] = {
+            ...history[existingIndex],
+            ...record
+        };
+    } else {
+        history.unshift(record);
+    }
+
+    saveJobHistory(history);
+}
+
+function updateJobInHistory(ticket) {
+    if (!ticket || !ticket.id) {
+        return;
+    }
+
+    const history = getJobHistory();
+
+    const existingIndex = history.findIndex(
+        item => item.id === ticket.id
+    );
+
+    if (existingIndex >= 0) {
+        history[existingIndex] = {
+            ...history[existingIndex],
+            ...ticket,
+            historyStatus: ticket.status || history[existingIndex].historyStatus
+        };
+
+        saveJobHistory(history);
+    }
+}
+
+function renderHistory() {
+    const history = getJobHistory();
+
+    if (!history.length) {
+        historyContainer.innerHTML = `
+            <div class="history-empty">
+                <div class="empty-icon">📋</div>
+                <strong>No job history yet.</strong>
+                <br><br>
+                Jobs you accept will appear here.
+            </div>
+        `;
+        return;
+    }
+
+    historyContainer.innerHTML = history
+        .map(ticket => {
+            const vehicle =
+                `${ticket.year || ""} ${ticket.make || ""} ${ticket.model || ""}`
+                    .trim() || "Vehicle not listed";
+
+            const status =
+                ticket.status ||
+                ticket.historyStatus ||
+                "accepted";
+
+            return `
+                <article class="history-card">
+
+                    <h3>🚗 Oil Change Request</h3>
+
+                    <div class="ticket-info">
+
+                        <div class="info-box">
+                            <span class="info-label">Vehicle</span>
+                            <span class="info-value">
+                                ${escapeHtml(vehicle)}
+                            </span>
+                        </div>
+
+                        <div class="info-box">
+                            <span class="info-label">Status</span>
+                            <span class="info-value">
+                                ${escapeHtml(status)}
+                            </span>
+                        </div>
+
+                        <div class="info-box">
+                            <span class="info-label">Service Date</span>
+                            <span class="info-value">
+                                ${escapeHtml(ticket.date || "")}
+                            </span>
+                        </div>
+
+                        <div class="info-box">
+                            <span class="info-label">Service Time</span>
+                            <span class="info-value">
+                                ${escapeHtml(ticket.time || "")}
+                            </span>
+                        </div>
+
+                    </div>
+
+                    ${
+                        ticket.customerName
+                            ? `
+                                <div class="history-meta">
+                                    Customer: ${escapeHtml(ticket.customerName)}
+                                </div>
+                            `
+                            : ""
+                    }
+
+                    ${
+                        ticket.address
+                            ? `
+                                <div class="history-meta">
+                                    Service Address: ${escapeHtml(ticket.address)}
+                                </div>
+                            `
+                            : ""
+                    }
+
+                    <div class="history-meta">
+                        Added to history:
+                        ${escapeHtml(
+                            ticket.historySavedAt
+                                ? new Date(ticket.historySavedAt).toLocaleString()
+                                : "Previously saved"
+                        )}
+                    </div>
+
+                </article>
+            `;
+        })
+        .join("");
+}
 
 
 /* =======================================================
@@ -1525,9 +1808,45 @@ homeButton.addEventListener(
             "hidden"
         );
 
+        historySection.classList.add(
+            "hidden"
+        );
+
         dashboardSection.classList.remove(
             "hidden"
         );
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+);
+
+
+/* =======================================================
+   JOB HISTORY MENU
+======================================================= */
+
+historyButton.addEventListener(
+    "click",
+    () => {
+
+        closeSideMenu();
+
+        dashboardSection.classList.add(
+            "hidden"
+        );
+
+        cancelSection.classList.add(
+            "hidden"
+        );
+
+        historySection.classList.remove(
+            "hidden"
+        );
+
+        renderHistory();
 
         window.scrollTo({
             top: 0,
@@ -1579,6 +1898,10 @@ cancelMenuButton.addEventListener(
         closeSideMenu();
 
         dashboardSection.classList.add(
+            "hidden"
+        );
+
+        historySection.classList.add(
             "hidden"
         );
 
@@ -1936,6 +2259,11 @@ async function loadTickets() {
             result.data?.tickets ||
             result.data ||
             [];
+
+        currentTickets =
+            Array.isArray(tickets)
+                ? tickets
+                : [];
 
 
         if (
@@ -2375,6 +2703,30 @@ async function handleTicketAction(
 
         });
 
+        const changedTicket =
+            currentTickets.find(
+                ticket =>
+                    String(ticket.id || ticket.ticketId || "") ===
+                    String(ticketId)
+            );
+
+        if (changedTicket) {
+
+            const historyTicket = {
+                ...changedTicket,
+                id: changedTicket.id || changedTicket.ticketId,
+                status:
+                    action === "accept"
+                        ? "accepted"
+                        : "completed"
+            };
+
+            if (action === "accept") {
+                addJobToHistory(historyTicket);
+            } else {
+                updateJobInHistory(historyTicket);
+            }
+        }
 
         await loadTickets();
 
@@ -2542,6 +2894,10 @@ onAuthStateChanged(
                 "hidden"
             );
 
+            historySection.classList.add(
+                "hidden"
+            );
+
             return;
         }
 
@@ -2551,6 +2907,10 @@ onAuthStateChanged(
         );
 
         dashboardSection.classList.remove(
+            "hidden"
+        );
+
+        historySection.classList.add(
             "hidden"
         );
 
