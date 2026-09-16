@@ -37,10 +37,6 @@
 
     <style>
 
-        /* ==========================================
-           RESET
-        ========================================== */
-
         * {
             box-sizing: border-box;
         }
@@ -845,10 +841,6 @@
                 background-attachment: scroll;
             }
 
-            /* ======================================
-               SMALLER BOOKING FORM ON PHONES
-            ====================================== */
-
             .container {
                 width: 320px;
 
@@ -903,11 +895,6 @@
                 font-size: 15px;
             }
 
-
-            /* ======================================
-               INFORMATION PANELS
-            ====================================== */
-
             .info-panel {
                 width: calc(100% - 30px);
 
@@ -916,19 +903,9 @@
                 padding: 20px;
             }
 
-
-            /* ======================================
-               SIDE MENU
-            ====================================== */
-
             .side-menu {
                 width: 290px;
             }
-
-
-            /* ======================================
-               REVIEWS
-            ====================================== */
 
             .review-stars {
                 gap: 2px;
@@ -1059,21 +1036,23 @@
             ✍️ Leave a Review
         </a>
 
-        <a
-    href="./terms.html"
-    target="_blank"
-    rel="noopener noreferrer"
->
-    📄 Terms & Conditions
-</a>
 
-<a
-    href="./privacy.html"
-    target="_blank"
-    rel="noopener noreferrer"
->
-    🔒 Privacy Policy
-</a>
+        <!-- TERMS & PRIVACY -->
+
+        <a
+            href="./terms.html"
+            data-policy-link="true"
+        >
+            📄 Terms & Conditions
+        </a>
+
+
+        <a
+            href="./privacy.html"
+            data-policy-link="true"
+        >
+            🔒 Privacy Policy
+        </a>
 
     </nav>
 
@@ -1314,8 +1293,6 @@
 
         </div>
 
-
-        <!-- STAR RATING -->
 
         <div
             class="review-stars"
@@ -1923,6 +1900,37 @@
                     link.addEventListener(
                         "click",
                         function(event) {
+
+                            /*
+                            ------------------------------------------
+                            TERMS & PRIVACY
+                            ------------------------------------------
+                            */
+
+                            if (
+                                link.dataset.policyLink === "true"
+                            ) {
+
+                                closeMenu();
+
+                                /*
+                                Do NOT preventDefault().
+                                The browser will navigate to:
+                                ./terms.html
+                                or
+                                ./privacy.html
+                                */
+
+                                return;
+
+                            }
+
+
+                            /*
+                            ------------------------------------------
+                            OTHER MENU LINKS
+                            ------------------------------------------
+                            */
 
                             event.preventDefault();
 
