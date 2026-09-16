@@ -43,6 +43,7 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         body {
@@ -50,6 +51,7 @@
             padding: 0;
 
             min-height: 100vh;
+            min-height: 100dvh;
 
             font-family: Arial, sans-serif;
 
@@ -66,12 +68,14 @@
             justify-content: center;
             align-items: center;
 
-            transition:
-                overflow 0.2s ease;
+            overflow-x: hidden;
+
+            transition: overflow 0.2s ease;
         }
 
         body.no-scroll {
             overflow: hidden;
+            width: 100%;
         }
 
 
@@ -126,7 +130,6 @@
 
         .brand-gif {
             width: 50px;
-
             height: 50px;
 
             object-fit: contain;
@@ -294,25 +297,23 @@
 
         #message.error {
             color: #b00020;
-
             background: #ffe5e5;
         }
 
         #message.success {
             color: #146c2e;
-
             background: #e5f7e9;
         }
 
         #message.loading {
             color: #333;
-
             background: #eee;
         }
 
 
         /* ==========================================
            HAMBURGER
+           FIXED ABOVE EVERYTHING
         ========================================== */
 
         .menu-button {
@@ -321,7 +322,7 @@
             top: 16px;
             left: 16px;
 
-            z-index: 4001;
+            z-index: 10001;
 
             width: 48px;
             height: 48px;
@@ -330,23 +331,29 @@
             margin: 0;
 
             border: none;
-
             border-radius: 8px;
 
             background: #145A8D;
-
-            color: white;
+            color: #ffffff;
 
             font-size: 26px;
-
             line-height: 48px;
 
             text-align: center;
 
             cursor: pointer;
 
+            -webkit-appearance: none;
+            appearance: none;
+
             box-shadow:
                 0 4px 12px rgba(0, 0, 0, 0.25);
+
+            transform: translateZ(0);
+
+            backface-visibility: hidden;
+
+            isolation: isolate;
 
             transition:
                 background 0.15s ease;
@@ -354,6 +361,10 @@
 
         .menu-button:hover {
             background: #0B416A;
+        }
+
+        .menu-button:active {
+            transform: translateZ(0);
         }
 
 
@@ -367,21 +378,27 @@
             top: 0;
             left: -310px;
 
-            z-index: 4000;
+            z-index: 10000;
 
             width: 290px;
             max-width: 85vw;
 
             height: 100vh;
+            height: 100dvh;
 
             padding: 85px 20px 20px;
 
             overflow-y: auto;
+            overflow-x: hidden;
 
-            background: white;
+            background: #ffffff;
 
             box-shadow:
                 5px 0 20px rgba(0, 0, 0, 0.25);
+
+            transform: translateZ(0);
+
+            backface-visibility: hidden;
 
             transition:
                 left 0.25s ease;
@@ -436,6 +453,7 @@
 
         /* ==========================================
            MENU OVERLAY
+           BELOW MENU, ABOVE PAGE
         ========================================== */
 
         .menu-overlay {
@@ -443,11 +461,27 @@
 
             position: fixed;
 
-            inset: 0;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
 
-            z-index: 3999;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+
+            margin: 0;
+            padding: 0;
+
+            border: 0;
+
+            z-index: 9999;
 
             background: rgba(0, 0, 0, 0.40);
+
+            transform: translateZ(0);
+
+            backface-visibility: hidden;
         }
 
         .menu-overlay.show {
@@ -466,7 +500,7 @@
 
             inset: 0;
 
-            z-index: 4500;
+            z-index: 11000;
 
             background: rgba(0, 0, 0, 0.48);
 
@@ -507,7 +541,7 @@
             top: 50%;
             left: 50%;
 
-            z-index: 5000;
+            z-index: 12000;
 
             width: min(90%, 440px);
 
@@ -522,7 +556,7 @@
 
             border-radius: 12px;
 
-            background: white;
+            background: #ffffff;
 
             box-shadow:
                 0 15px 45px rgba(0, 0, 0, 0.50);
@@ -831,6 +865,7 @@
 
             body {
                 min-height: 100vh;
+                min-height: 100dvh;
 
                 align-items: flex-start;
 
@@ -839,6 +874,8 @@
                 background-size: 600px;
 
                 background-attachment: scroll;
+
+                overflow-x: hidden;
             }
 
             .container {
@@ -899,12 +936,18 @@
                 width: calc(100% - 30px);
 
                 max-height: 85vh;
+                max-height: 85dvh;
 
                 padding: 20px;
             }
 
             .side-menu {
                 width: 290px;
+
+                max-width: 85vw;
+
+                height: 100vh;
+                height: 100dvh;
             }
 
             .review-stars {
@@ -1036,8 +1079,6 @@
             ✍️ Leave a Review
         </a>
 
-
-        <!-- TERMS & PRIVACY -->
 
         <a
             href="./terms.html"
@@ -1901,36 +1942,16 @@
                         "click",
                         function(event) {
 
-                            /*
-                            ------------------------------------------
-                            TERMS & PRIVACY
-                            ------------------------------------------
-                            */
-
                             if (
                                 link.dataset.policyLink === "true"
                             ) {
 
                                 closeMenu();
 
-                                /*
-                                Do NOT preventDefault().
-                                The browser will navigate to:
-                                ./terms.html
-                                or
-                                ./privacy.html
-                                */
-
                                 return;
 
                             }
 
-
-                            /*
-                            ------------------------------------------
-                            OTHER MENU LINKS
-                            ------------------------------------------
-                            */
 
                             event.preventDefault();
 
