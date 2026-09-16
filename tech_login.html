@@ -10,7 +10,28 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Technician Login | World OIL</title>
+    <meta
+        name="description"
+        content="World OIL LLC Terms and Conditions."
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="./icons/primary.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="./icons/primary.png"
+    >
+
+    <meta
+        name="theme-color"
+        content="#145A8D"
+    >
+
+    <title>Terms & Conditions | World Oil Change</title>
 
     <style>
 
@@ -18,265 +39,171 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f5f6f8;
-            color: #151a20;
+            padding: 80px 20px 40px;
+
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background: #f5f7f9;
+
+            color: #111;
         }
 
-        /* HEADER */
+        .back-button {
+            position: fixed;
 
-        header {
-            background: #11161c;
-            padding: 20px;
-        }
+            top: 16px;
+            left: 16px;
 
-        .header-inner {
-            max-width: 1000px;
-            margin: auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+            z-index: 9999;
 
-        .logo {
-            color: white;
-            font-size: 25px;
-            font-weight: 900;
-            letter-spacing: 2px;
-        }
+            display: inline-block;
 
-        .logo span {
-            color: #f4b400;
-        }
+            padding: 10px 16px;
 
-        .signup-link {
-            color: white;
-            text-decoration: none;
+            border-radius: 8px;
+
+            background: #145A8D;
+
+            color: #ffffff;
+
             font-size: 14px;
+            font-weight: bold;
+
+            text-decoration: none;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.25);
+
+            transition:
+                background 0.15s ease,
+                transform 0.15s ease;
         }
 
-        .signup-link:hover {
-            text-decoration: underline;
+        .back-button:hover {
+            background: #0B416A;
+
+            transform: translateY(-1px);
         }
 
-        /* HERO */
-
-        .hero {
-            background: #11161c;
-            color: white;
-            text-align: center;
-            padding: 45px 20px;
+        .back-button:active {
+            transform: translateY(0);
         }
 
-        .hero h1 {
-            margin: 0 0 10px;
-            font-size: 40px;
-        }
+        .back-button:focus-visible {
+            outline: 3px solid #145A8D;
 
-        .hero h1 span {
-            color: #f4b400;
+            outline-offset: 3px;
         }
-
-        .hero p {
-            margin: 0 auto;
-            max-width: 550px;
-            color: #c8cdd2;
-            line-height: 1.6;
-        }
-
-        /* CONTAINER */
 
         .container {
-            width: min(500px, calc(100% - 30px));
-            margin: 40px auto 70px;
-        }
+            width: 100%;
+            max-width: 850px;
 
-        .card {
-            background: white;
-            border-radius: 14px;
-            border: 1px solid #e0e3e7;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, .06);
-            overflow: hidden;
-        }
+            margin: 0 auto;
 
-        .section {
             padding: 30px;
+
+            background: #ffffff;
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.12);
         }
 
-        .section h2 {
-            margin: 0 0 8px;
-            font-size: 22px;
+        h1 {
+            margin-top: 0;
+
+            color: #145A8D;
+
+            text-align: center;
+
+            font-size: 28px;
         }
 
-        .description {
-            color: #707981;
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0 0 25px;
+        h2 {
+            margin-top: 28px;
+
+            color: #0B416A;
+
+            font-size: 20px;
         }
 
-        /* FORM */
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            margin-bottom: 18px;
-        }
-
-        label {
-            font-size: 14px;
-            font-weight: 700;
-            margin-bottom: 7px;
-        }
-
-        input {
-            width: 100%;
-            padding: 13px;
-            border: 1px solid #ccd1d6;
-            border-radius: 8px;
+        p,
+        li {
             font-size: 15px;
-            outline: none;
+
+            line-height: 1.7;
         }
 
-        input:focus {
-            border-color: #f4b400;
-            box-shadow: 0 0 0 3px rgba(244, 180, 0, .15);
+        ul {
+            padding-left: 22px;
         }
 
-        /* FORGOT PASSWORD */
+        .updated {
+            margin-bottom: 30px;
 
-        .forgot {
-            text-align: right;
-            margin-top: -8px;
-            margin-bottom: 20px;
-        }
+            color: #666;
 
-        .forgot a {
-            color: #1769aa;
             font-size: 13px;
-            text-decoration: none;
-        }
 
-        .forgot a:hover {
-            text-decoration: underline;
-        }
-
-        /* BUTTON */
-
-        #loginButton {
-            width: 100%;
-            border: none;
-            border-radius: 9px;
-            padding: 17px;
-            background: #f4b400;
-            color: #11161c;
-            font-size: 17px;
-            font-weight: 900;
-            cursor: pointer;
-        }
-
-        #loginButton:hover {
-            background: #dfa500;
-        }
-
-        #loginButton:disabled {
-            opacity: .65;
-            cursor: not-allowed;
-        }
-
-        /* MESSAGE */
-
-        #message {
-            display: none;
-            margin-bottom: 18px;
-            padding: 13px;
-            border-radius: 8px;
-            font-size: 14px;
-            line-height: 1.5;
             text-align: center;
-            font-weight: 700;
         }
 
-        #message.error {
-            display: block;
-            color: #b00020;
-            background: #ffe5e5;
-        }
+        .footer {
+            margin-top: 30px;
 
-        #message.success {
-            display: block;
-            color: #146c2e;
-            background: #e5f7e9;
-        }
+            padding-top: 20px;
 
-        #message.loading {
-            display: block;
-            color: #444;
-            background: #eeeeee;
-        }
+            border-top: 1px solid #ddd;
 
-        /* ACCOUNT */
+            color: #666;
 
-        .create-account {
+            font-size: 13px;
+
             text-align: center;
-            margin-top: 22px;
-            font-size: 14px;
-            color: #707981;
         }
-
-        .create-account a {
-            color: #1769aa;
-            font-weight: 700;
-            text-decoration: none;
-        }
-
-        .create-account a:hover {
-            text-decoration: underline;
-        }
-
-        /* SECURITY */
-
-        .secure {
-            text-align: center;
-            margin-top: 18px;
-            color: #7b838a;
-            font-size: 12px;
-        }
-
-        /* FOOTER */
-
-        footer {
-            background: #11161c;
-            color: #aab1b8;
-            text-align: center;
-            padding: 30px 20px;
-            font-size: 12px;
-        }
-
-        footer strong {
-            color: white;
-        }
-
-        /* MOBILE */
 
         @media (max-width: 600px) {
 
-            .hero h1 {
-                font-size: 32px;
+            body {
+                padding: 78px 12px 25px;
             }
 
-            .section {
-                padding: 22px;
+            .container {
+                padding: 20px;
+
+                border-radius: 10px;
             }
 
-            .header-inner {
-                gap: 15px;
+            h1 {
+                font-size: 24px;
             }
 
-            .signup-link {
-                font-size: 12px;
+            h2 {
+                font-size: 18px;
+            }
+
+            p,
+            li {
+                font-size: 14px;
+            }
+
+            .back-button {
+                top: 12px;
+                left: 12px;
+
+                padding: 9px 13px;
+
+                font-size: 13px;
             }
 
         }
@@ -285,543 +212,151 @@
 
 </head>
 
-
 <body>
 
+    <a
+        href="./index.html"
+        class="back-button"
+    >
+        ← Back to Booking
+    </a>
 
-<!-- HEADER -->
 
-<header>
+    <main class="container">
 
-    <div class="header-inner">
+        <h1>
+            Terms & Conditions
+        </h1>
 
-        <div class="logo">
-            WORLD <span>OIL</span>
+        <div class="updated">
+            World OIL LLC • Est. June 2026
         </div>
 
-        <a
-            href="technician-signup.html"
-            class="signup-link"
-        >
-            Create Account
-        </a>
 
-    </div>
+        <h2>
+            1. Service
+        </h2>
 
-</header>
+        <p>
+            World OIL LLC provides mobile oil change services
+            at locations where service is available. By
+            submitting an appointment request, you are
+            requesting service for the vehicle and date
+            provided through the booking form.
+        </p>
 
-
-<!-- HERO -->
-
-<section class="hero">
-
-    <h1>
-        Technician <span>Login</span>
-    </h1>
-
-    <p>
-        Sign in to your World OIL technician account
-        to access your dashboard.
-    </p>
-
-</section>
-
-
-<!-- MAIN -->
-
-<main class="container">
-
-    <div class="card">
-
-        <section class="section">
-
-            <h2>
-                Sign In
-            </h2>
-
-            <p class="description">
-                Enter the email address and password
-                you used when creating your technician
-                account.
-            </p>
-
-
-            <!-- MESSAGE -->
-
-            <div
-                id="message"
-                role="alert"
-                aria-live="polite"
-            ></div>
-
-
-            <!-- LOGIN FORM -->
-
-            <form id="loginForm">
-
-                <div class="form-group">
-
-                    <label for="email">
-                        Email Address
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        autocomplete="email"
-                        placeholder="john@example.com"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="password">
-                        Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="password"
-                        autocomplete="current-password"
-                        placeholder="Enter your password"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="forgot">
-
-                    <a
-                        href="#"
-                        id="forgotPassword"
-                    >
-                        Forgot password?
-                    </a>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    id="loginButton"
-                >
-                    Sign In
-                </button>
-
-            </form>
-
-
-            <div class="create-account">
-
-                Don't have a technician account?
-
-                <a href="technician-signup.html">
-                    Create one
-                </a>
-
-            </div>
-
-
-            <div class="secure">
-
-                🔒 Your login is securely handled
-                by Firebase Authentication.
-
-            </div>
-
-        </section>
-
-    </div>
-
-</main>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-    <strong>
-        WORLD OIL
-    </strong>
-
-    <br><br>
-
-    Connecting customers with
-    automotive service providers.
-
-    <br><br>
-
-    © 2026 World OIL.
-    All rights reserved.
-
-</footer>
-
-
-<!-- FIREBASE -->
-
-<script type="module">
-
-    import {
-        initializeApp
-    } from
-        "https://www.gstatic.com/firebasejs/12.18.0/firebase-app.js";
-
-
-    import {
-        getAuth,
-        signInWithEmailAndPassword,
-        sendPasswordResetEmail
-    } from
-        "https://www.gstatic.com/firebasejs/12.18.0/firebase-auth.js";
-
-
-    /*
-     * FIREBASE CONFIG
-     */
-
-    const firebaseConfig = {
-
-        apiKey:
-            "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
-
-        authDomain:
-            "worldoilllc.firebaseapp.com",
-
-        projectId:
-            "worldoilllc",
-
-        storageBucket:
-            "worldoilllc.firebasestorage.app",
-
-        messagingSenderId:
-            "769325331754",
-
-        appId:
-            "1:769325331754:web:234d7c3ffa9a6424779a53"
-
-    };
-
-
-    /*
-     * START FIREBASE
-     */
-
-    const app =
-        initializeApp(
-            firebaseConfig
-        );
-
-
-    const auth =
-        getAuth(app);
-
-
-    /*
-     * PAGE ELEMENTS
-     */
-
-    const form =
-        document.getElementById(
-            "loginForm"
-        );
-
-
-    const emailInput =
-        document.getElementById(
-            "email"
-        );
-
-
-    const passwordInput =
-        document.getElementById(
-            "password"
-        );
-
-
-    const loginButton =
-        document.getElementById(
-            "loginButton"
-        );
-
-
-    const message =
-        document.getElementById(
-            "message"
-        );
-
-
-    const forgotPassword =
-        document.getElementById(
-            "forgotPassword"
-        );
-
-
-    /*
-     * SHOW MESSAGE
-     */
-
-    function showMessage(
-        text,
-        type
-    ) {
-
-        message.textContent =
-            text;
-
-        message.className =
-            type;
-
-    }
-
-
-    /*
-     * LOGIN
-     */
-
-    form.addEventListener(
-        "submit",
-        async function(event) {
-
-            event.preventDefault();
-
-
-            const email =
-                emailInput.value
-                    .trim()
-                    .toLowerCase();
-
-
-            const password =
-                passwordInput.value;
-
-
-            if (
-                !email ||
-                !password
-            ) {
-
-                showMessage(
-                    "Please enter your email and password.",
-                    "error"
-                );
-
-                return;
-
-            }
-
-
-            loginButton.disabled =
-                true;
-
-            loginButton.textContent =
-                "Signing In...";
-
-
-            showMessage(
-                "Signing you in...",
-                "loading"
-            );
-
-
-            try {
-
-                /*
-                 * FIREBASE LOGIN
-                 */
-
-                const userCredential =
-                    await signInWithEmailAndPassword(
-                        auth,
-                        email,
-                        password
-                    );
-
-
-                const user =
-                    userCredential.user;
-
-
-                console.log(
-                    "Login successful:",
-                    user.uid
-                );
-
-
-                showMessage(
-                    "Login successful! Opening your dashboard...",
-                    "success"
-                );
-
-
-                /*
-                 * OPEN DASHBOARD
-                 */
-
-                setTimeout(
-                    function() {
-
-                        window.location.href =
-                            "technician-dashboard.html";
-
-                    },
-                    800
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    "LOGIN ERROR:",
-                    error
-                );
-
-
-                let errorMessage =
-                    "Unable to sign in. Please try again.";
-
-
-                if (
-                    error.code ===
-                    "auth/invalid-credential"
-                ) {
-
-                    errorMessage =
-                        "Incorrect email or password.";
-
-                }
-
-
-                else if (
-                    error.code ===
-                    "auth/invalid-email"
-                ) {
-
-                    errorMessage =
-                        "Please enter a valid email address.";
-
-                }
-
-
-                else if (
-                    error.code ===
-                    "auth/user-disabled"
-                ) {
-
-                    errorMessage =
-                        "This account has been disabled.";
-
-                }
-
-
-                else if (
-                    error.code ===
-                    "auth/too-many-requests"
-                ) {
-
-                    errorMessage =
-                        "Too many login attempts. Please wait and try again.";
-
-                }
-
-
-                else if (
-                    error.code ===
-                    "auth/network-request-failed"
-                ) {
-
-                    errorMessage =
-                        "Network error. Please check your internet connection.";
-
-                }
-
-
-                showMessage(
-                    errorMessage,
-                    "error"
-                );
-
-
-                loginButton.disabled =
-                    false;
-
-                loginButton.textContent =
-                    "Sign In";
-
-            }
-
-        }
-    );
-
-
-    /*
-     * FORGOT PASSWORD
-     */
-
-    forgotPassword.addEventListener(
-        "click",
-        async function(event) {
-
-            event.preventDefault();
-
-
-            const email =
-                emailInput.value
-                    .trim()
-                    .toLowerCase();
-
-
-            if (!email) {
-
-                showMessage(
-                    "Enter your email address first.",
-                    "error"
-                );
-
-                emailInput.focus();
-
-                return;
-
-            }
-
-
-            try {
-
-                await sendPasswordResetEmail(
-                    auth,
-                    email
-                );
-
-
-                showMessage(
-                    "Password reset instructions have been sent to your email.",
-                    "success"
-                );
-
-
-            } catch (error) {
-
-                console.error(
-                    "PASSWORD RESET ERROR:",
-                    error
-                );
-
-
-                showMessage(
-                    "Unable to send the password reset email.",
-                    "error"
-                );
-
-            }
-
-        }
-    );
-
-</script>
-
+
+        <h2>
+            2. Appointment Requests
+        </h2>
+
+        <p>
+            Submitting an appointment request does not
+            necessarily guarantee that the requested
+            appointment time is available. World OIL LLC
+            may contact you to confirm or discuss your
+            appointment.
+        </p>
+
+
+        <h2>
+            3. Customer Information
+        </h2>
+
+        <p>
+            Customers are responsible for providing accurate
+            information when submitting a booking request,
+            including their name, phone number, vehicle
+            information, appointment date, and appointment
+            time.
+        </p>
+
+
+        <h2>
+            4. Vehicle Information
+        </h2>
+
+        <p>
+            Customers are responsible for providing accurate
+            vehicle information. Incorrect vehicle information
+            may affect the ability to provide the requested
+            service.
+        </p>
+
+
+        <h2>
+            5. Service Location
+        </h2>
+
+        <p>
+            Mobile service requires a suitable and reasonably
+            accessible location for the technician to perform
+            the requested oil change.
+        </p>
+
+
+        <h2>
+            6. Cancellations and Changes
+        </h2>
+
+        <p>
+            Customers should contact World OIL LLC as soon as
+            possible if they need to cancel or change an
+            appointment.
+        </p>
+
+
+        <h2>
+            7. Safety
+        </h2>
+
+        <p>
+            The customer must provide a safe location for the
+            service to be performed. World OIL LLC may decline
+            or stop service if conditions are considered unsafe.
+        </p>
+
+
+        <h2>
+            8. Payments
+        </h2>
+
+        <p>
+            If payment is required for a service, applicable
+            pricing and payment terms will be communicated
+            before or during the booking process.
+        </p>
+
+
+        <h2>
+            9. Contact
+        </h2>
+
+        <p>
+            For questions regarding appointments or these
+            terms, contact World OIL LLC.
+        </p>
+
+        <p>
+            Phone:
+            <a href="tel:+13236010663">
+                (323) 601-0663
+            </a>
+        </p>
+
+        <p>
+            Email:
+            <a href="mailto:tech@worldoil.com">
+                tech@worldoil.com
+            </a>
+        </p>
+
+
+        <div class="footer">
+            © 2026 World OIL LLC. All rights reserved.
+        </div>
+
+    </main>
 
 </body>
 
