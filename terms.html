@@ -1,62 +1,541 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terms and Conditions | World OIL</title>
-<style>
-:root{--blue:#145A8D;--dark:#0B416A;--light:#EAF3F9}
-*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;line-height:1.65;color:#1f2937;background:#f7fafc}
-header{background:var(--dark);color:#fff;text-align:center;padding:28px 20px}
-main{max-width:900px;margin:30px auto;padding:30px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.08)}
-h2{color:var(--dark);margin-top:30px}a{color:var(--blue)}
-.notice{background:var(--light);border-left:4px solid var(--blue);padding:14px 16px;border-radius:6px}
-footer{text-align:center;padding:25px;color:#667085;font-size:14px}
-</style>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="World Oil Change Terms & Conditions."
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="./icons/primary.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="./icons/primary.png"
+    >
+
+    <meta
+        name="theme-color"
+        content="#145A8D"
+    >
+
+    <title>Terms & Conditions | World Oil Change</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+
+            padding: 85px 20px 40px;
+
+            min-height: 100vh;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                url("https://cdn2.vectorstock.com/i/1000x1000/23/11/line-icon-of-a-car-and-oil-change-symbol-vector-40522311.jpg")
+                center center
+                no-repeat;
+
+            background-size: 900px;
+
+            background-attachment: fixed;
+
+            color: #111;
+
+            line-height: 1.6;
+        }
+
+
+        /* ==========================================
+           BACK TO BOOKING
+        ========================================== */
+
+        .back-button {
+            position: fixed;
+
+            top: 16px;
+            left: 16px;
+
+            z-index: 9999;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding: 10px 16px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #145A8D;
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.25);
+
+            transition:
+                background 0.15s ease,
+                transform 0.15s ease;
+        }
+
+
+        .back-button:hover {
+            background: #0B416A;
+
+            transform: translateY(-1px);
+        }
+
+
+        .back-button:focus-visible {
+            outline: 3px solid #145A8D;
+
+            outline-offset: 3px;
+        }
+
+
+        /* ==========================================
+           MAIN CONTENT
+        ========================================== */
+
+        .container {
+            width: 100%;
+
+            max-width: 850px;
+
+            margin: 0 auto;
+
+            padding: 30px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.30);
+        }
+
+
+        h1 {
+            margin-top: 0;
+
+            margin-bottom: 8px;
+
+            color: #145A8D;
+
+            font-size: 28px;
+
+            text-align: center;
+        }
+
+
+        .updated {
+            margin-bottom: 30px;
+
+            color: #666;
+
+            font-size: 14px;
+
+            text-align: center;
+        }
+
+
+        h2 {
+            margin-top: 28px;
+
+            margin-bottom: 10px;
+
+            color: #0B416A;
+
+            font-size: 20px;
+        }
+
+
+        p {
+            margin: 10px 0;
+
+            font-size: 15px;
+        }
+
+
+        ul {
+            margin-top: 8px;
+
+            padding-left: 24px;
+        }
+
+
+        li {
+            margin-bottom: 8px;
+
+            font-size: 15px;
+        }
+
+
+        strong {
+            color: #0B416A;
+        }
+
+
+        .contact-box {
+            margin-top: 20px;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            background: #EAF3F9;
+        }
+
+
+        .contact-box a {
+            color: #145A8D;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+
+        .contact-box a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* ==========================================
+           FOOTER
+        ========================================== */
+
+        footer {
+            margin-top: 30px;
+
+            padding-top: 20px;
+
+            border-top: 1px solid #ddd;
+
+            color: #666;
+
+            font-size: 13px;
+
+            text-align: center;
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 600px) {
+
+            body {
+                padding: 80px 12px 30px;
+
+                background-size: 600px;
+
+                background-attachment: scroll;
+            }
+
+
+            .back-button {
+                top: 12px;
+
+                left: 12px;
+
+                padding: 9px 13px;
+
+                font-size: 13px;
+            }
+
+
+            .container {
+                padding: 20px;
+
+                border-radius: 10px;
+            }
+
+
+            h1 {
+                font-size: 24px;
+            }
+
+
+            h2 {
+                font-size: 18px;
+            }
+
+
+            p,
+            li {
+                font-size: 14px;
+            }
+
+        }
+
+    </style>
+
 </head>
+
+
 <body>
-<header><h1>World OIL Terms and Conditions</h1><p>Last updated: September 16, 2026</p></header>
-<main>
-<div class="notice">These Terms and Conditions govern use of the World OIL website and related services, including customer service requests and SMS communications.</div>
 
-<h2>1. World OIL Service</h2>
-<p>World OIL provides an online platform that facilitates mobile oil-change service requests and communication between customers and participating technicians. Service availability may vary by location, technician availability, and other operational factors.</p>
 
-<h2>2. Customer Information</h2>
-<p>Customers are responsible for providing accurate and current information when submitting a service request, including contact information, vehicle information, appointment information, and service location.</p>
+    <!-- ==========================================
+         BACK TO BOOKING
+    ========================================== -->
 
-<h2>3. SMS Messaging Program</h2>
-<p>By voluntarily opting in to World OIL text messaging, you agree to receive recurring automated SMS messages related to your World OIL service requests and appointments. Messages may include request status, technician acceptance, appointment information, completion, and cancellation notifications.</p>
-<p><strong>Message frequency varies. Message and data rates may apply.</strong></p>
-<p><strong>To stop receiving messages, reply STOP at any time.</strong> <strong>For help, reply HELP.</strong></p>
-<p>SMS consent is voluntary and is not required as a condition of purchasing unrelated goods or services. SMS consent is separate from acceptance of these Terms and Conditions.</p>
+    <a
+        href="./index.html"
+        class="back-button"
+        aria-label="Back to Booking"
+    >
+        ← Back to Booking
+    </a>
 
-<h2>4. Privacy</h2>
-<p>Information collected through the World OIL platform is handled according to our <a href="./privacy-policy.html">Privacy Policy</a>.</p>
 
-<h2>5. Service Requests and Appointments</h2>
-<p>Submitting a request does not necessarily guarantee that a technician will accept or complete the requested service. Appointment availability and service status may change. World OIL may communicate changes by SMS or other available contact methods.</p>
+    <!-- ==========================================
+         TERMS CONTENT
+    ========================================== -->
 
-<h2>6. Technician Services</h2>
-<p>Participating technicians are responsible for performing services they accept through the platform in accordance with applicable laws, safety requirements, and the terms governing their participation in World OIL.</p>
+    <main class="container">
 
-<h2>7. Prohibited Use</h2>
-<p>Users may not use the World OIL platform for unlawful activity, fraud, harassment, unauthorized access, abuse of communications services, or activity that interferes with the operation of the platform.</p>
+        <h1>
+            Terms & Conditions
+        </h1>
 
-<h2>8. Communications</h2>
-<p>You agree that World OIL may communicate with you using the contact information you provide for purposes related to your account, service requests, appointments, support, and other communications permitted by your preferences and applicable law.</p>
 
-<h2>9. Message Delivery</h2>
-<p>World OIL is not responsible for delays or failures caused by mobile carriers, network conditions, device limitations, or other circumstances outside World OIL's reasonable control. <strong>Carriers are not liable for delayed or undelivered messages.</strong></p>
+        <div class="updated">
+            Last Updated: September 2026
+        </div>
 
-<h2>10. Changes to These Terms</h2>
-<p>World OIL may update these Terms and Conditions from time to time. Updated terms will be posted on this page with a revised "Last updated" date.</p>
 
-<h2>11. Contact</h2>
-<p>For questions about these Terms or the World OIL SMS program, please contact World OIL through the contact information provided on our website.</p>
+        <p>
+            Welcome to World Oil Change. These Terms &
+            Conditions govern your use of the World Oil
+            Change website and your use of our mobile oil
+            change booking service.
+        </p>
 
-<p><a href="./index.html">← Back to World OIL</a></p>
-</main>
-<footer>© 2026 World OIL. All rights reserved.</footer>
+
+        <h2>
+            1. Use of Our Service
+        </h2>
+
+        <p>
+            World Oil Change provides a platform that
+            allows customers to request mobile oil change
+            services. Submitting a booking request does
+            not necessarily guarantee that an appointment
+            has been accepted or confirmed.
+        </p>
+
+
+        <h2>
+            2. Appointment Requests
+        </h2>
+
+        <p>
+            Customers are responsible for providing
+            accurate information when submitting an
+            appointment request, including their name,
+            phone number, vehicle information, appointment
+            date, and appointment time.
+        </p>
+
+        <p>
+            Appointment availability may change. World Oil
+            Change may contact you if additional information
+            is required or if an appointment needs to be
+            changed.
+        </p>
+
+
+        <h2>
+            3. Customer Responsibilities
+        </h2>
+
+        <p>
+            Customers are responsible for ensuring that the
+            vehicle is accessible and located in a safe
+            location where the requested service can be
+            performed.
+        </p>
+
+        <p>
+            Customers should inform World Oil Change of any
+            relevant vehicle conditions or circumstances
+            that could affect the service.
+        </p>
+
+
+        <h2>
+            4. Service Conditions
+        </h2>
+
+        <p>
+            Services may be refused, postponed, or
+            rescheduled when conditions make performing the
+            service unsafe or impractical.
+        </p>
+
+        <p>
+            This may include unsafe locations, severe
+            weather, vehicle conditions, or other
+            circumstances that could create a safety risk.
+        </p>
+
+
+        <h2>
+            5. Vehicle Information
+        </h2>
+
+        <p>
+            Customers are responsible for providing
+            accurate vehicle information. Incorrect
+            information may affect the ability to provide
+            the requested service.
+        </p>
+
+
+        <h2>
+            6. Payments
+        </h2>
+
+        <p>
+            If payment is required for a service, the
+            applicable price and payment terms will be
+            presented to the customer before payment is
+            completed.
+        </p>
+
+
+        <h2>
+            7. Cancellations and Rescheduling
+        </h2>
+
+        <p>
+            Customers should contact World Oil Change as
+            soon as possible if they need to cancel or
+            reschedule an appointment.
+        </p>
+
+
+        <h2>
+            8. Third-Party Services
+        </h2>
+
+        <p>
+            World Oil Change may use third-party services
+            and technology providers to support website
+            functionality, communications, payments,
+            authentication, and other business operations.
+        </p>
+
+
+        <h2>
+            9. Website Availability
+        </h2>
+
+        <p>
+            We work to keep the website available and
+            functioning properly, but we do not guarantee
+            that the website will always be available,
+            uninterrupted, or error-free.
+        </p>
+
+
+        <h2>
+            10. Changes to These Terms
+        </h2>
+
+        <p>
+            World Oil Change may update these Terms &
+            Conditions from time to time. Updated terms
+            will be posted on this page with a revised
+            "Last Updated" date.
+        </p>
+
+
+        <h2>
+            11. Privacy
+        </h2>
+
+        <p>
+            Information submitted through the website is
+            handled according to our Privacy Policy.
+        </p>
+
+
+        <h2>
+            12. Contact Us
+        </h2>
+
+        <p>
+            If you have questions about these Terms &
+            Conditions, please contact World Oil Change.
+        </p>
+
+
+        <div class="contact-box">
+
+            <p>
+                📞
+                <a href="tel:+13236010663">
+                    (323) 601-0663
+                </a>
+            </p>
+
+            <p>
+                ✉️
+                <a href="mailto:tech@worldoil.com">
+                    tech@worldoil.com
+                </a>
+            </p>
+
+        </div>
+
+
+        <footer>
+
+            © 2026 World OIL LLC. All rights reserved.
+
+        </footer>
+
+    </main>
+
+
 </body>
+
 </html>
