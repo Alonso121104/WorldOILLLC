@@ -3836,62 +3836,40 @@ onAuthStateChanged(
             );
 
 
-        if (!isPaid) {
+       if (!isPaid) {
 
-            welcomeMessage.textContent =
-                "Technician subscription required.";
-
-
-            ticketsContainer.innerHTML = `
-
-                <div class="empty">
-
-                    <div class="empty-icon">
-                        💳
-                    </div>
-
-                    <strong>
-                        Technician subscription required
-                    </strong>
-
-                    <br><br>
-
-                    Please subscribe to receive
-                    World Oil service requests.
-
-                    <br><br>
-
-                    <button
-                        class="refresh-button"
-                        id="subscribeNowButton"
-                    >
-
-                        Get Technician Subscription
-
-                    </button>
-
-                </div>
-
-            `;
+    loginSection.classList.remove(
+        "hidden"
+    );
 
 
-            document
-                .getElementById(
-                    "subscribeNowButton"
-                )
-                ?.addEventListener(
-                    "click",
-                    () => {
-
-                        window.location.href =
-                            "./technician-signup.html";
-
-                    }
-                );
+    dashboardSection.classList.add(
+        "hidden"
+    );
 
 
-            return;
-        }
+    historySection.classList.add(
+        "hidden"
+    );
+
+
+    cancelSection.classList.add(
+        "hidden"
+    );
+
+
+    await signOut(
+        auth
+    );
+
+
+    showLoginError(
+        "Your login worked, but your technician subscription is still being activated. Please wait a few minutes and try again."
+    );
+
+
+    return;
+}
 
 
         /*
