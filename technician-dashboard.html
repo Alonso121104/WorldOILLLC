@@ -1409,15 +1409,6 @@ button {
     </div>
 
 
-    <div class="pending-note">
-
-        📋 New service requests appear here.
-        Accept a request to reveal the customer's contact and
-        service information.
-
-    </div>
-
-
     <div
         id="ticketsContainer"
         class="tickets-container"
@@ -2957,15 +2948,50 @@ async function loadTickets() {
             [];
 
 
-        currentTickets =
+        const allTickets =
             Array.isArray(tickets)
                 ? tickets
                 : [];
 
 
+        /*
+            Completed jobs belong in History, not on Home.
+            Save any completed jobs returned by the backend before
+            removing them from the Home ticket list.
+        */
+        allTickets
+            .filter(ticket =>
+                String(ticket.status || "")
+                    .trim()
+                    .toLowerCase() === "completed"
+            )
+            .forEach(ticket => {
+
+                addJobToHistory({
+
+                    ...ticket,
+
+                    id:
+                        ticket.id ||
+                        ticket.ticketId,
+
+                    status:
+                        "completed"
+
+                });
+            });
+
+
+        currentTickets =
+            allTickets.filter(ticket =>
+                String(ticket.status || "")
+                    .trim()
+                    .toLowerCase() !== "completed"
+            );
+
+
         if (
-            !Array.isArray(tickets) ||
-            tickets.length === 0
+            currentTickets.length === 0
         ) {
 
             ticketsContainer.innerHTML = `
@@ -2993,7 +3019,7 @@ async function loadTickets() {
 
 
         ticketsContainer.innerHTML =
-            tickets
+            currentTickets
                 .map(
                     ticket =>
                         renderTicket(
@@ -3501,20 +3527,13 @@ async function handleTicketAction(event) {
             };
 
 
-            if (
-                action === "accept"
-            ) {
-
-                addJobToHistory(
-                    historyTicket
-                );
-
-            } else {
-
-                updateJobInHistory(
-                    historyTicket
-                );
-            }
+            /*
+                Save both accepted and completed jobs. This also
+                creates the History record if it is missing.
+            */
+            addJobToHistory(
+                historyTicket
+            );
         }
 
 
