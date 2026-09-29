@@ -1,0 +1,4002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="description"
+    content="World Oil Technician Dashboard"
+>
+
+<title>World Oil Technician Dashboard</title>
+
+
+<!-- =========================================================
+     PWA
+========================================================= -->
+
+<link
+    rel="manifest"
+    href="./manifest.webmanifest"
+>
+
+<link
+    rel="icon"
+    type="image/png"
+    href="./icons/white-on-black.png"
+>
+
+<link
+    rel="apple-touch-icon"
+    href="./icons/white-on-black.png"
+>
+
+<meta
+    name="theme-color"
+    content="#0b0b0b"
+>
+
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef7ff 0%,
+            #f7f7f7 45%,
+            #eaf8ef 100%
+        );
+
+    color: #111;
+}
+
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    width: 100%;
+
+    padding: 15px 20px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    background:
+        rgba(255,255,255,0.95);
+
+    border-bottom:
+        1px solid #ddd;
+
+    box-shadow:
+        0 3px 15px rgba(0,0,0,0.08);
+
+    border-left:
+        5px solid #1976d2;
+}
+
+
+/* =========================================================
+   HAMBURGER
+========================================================= */
+
+.menu-button {
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-size: 25px;
+    font-weight: bold;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111,
+            #1976d2
+        );
+
+    box-shadow:
+        0 5px 12px rgba(0,0,0,0.18);
+
+    transition: 0.2s;
+}
+
+.menu-button:hover {
+    transform: translateY(-2px);
+}
+
+.menu-button:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.page-title {
+    margin: 0;
+
+    font-size: 24px;
+
+    font-weight: 800;
+
+    background:
+        linear-gradient(
+            90deg,
+            #111,
+            #1976d2
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* =========================================================
+   SIDE MENU
+========================================================= */
+
+.side-menu {
+    position: fixed;
+
+    top: 0;
+    left: -310px;
+
+    width: 300px;
+    height: 100vh;
+
+    z-index: 1000;
+
+    padding: 25px 18px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #f1f7ff
+        );
+
+    box-shadow:
+        8px 0 30px rgba(0,0,0,0.18);
+
+    transition:
+        left 0.3s ease;
+
+    overflow-y: auto;
+}
+
+.side-menu.open {
+    left: 0;
+}
+
+
+.menu-header {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+.menu-header h2 {
+    margin: 0;
+
+    font-size: 22px;
+
+    color: #111;
+}
+
+.close-menu {
+    border: none;
+
+    background:
+        transparent;
+
+    font-size: 28px;
+
+    cursor: pointer;
+
+    color: #555;
+}
+
+.menu-item {
+    width: 100%;
+
+    padding: 15px 16px;
+
+    margin-bottom: 10px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    text-align: left;
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+
+    box-shadow:
+        0 3px 8px rgba(0,0,0,0.08);
+}
+
+.menu-item:hover {
+    transform:
+        translateX(4px);
+}
+
+
+/* =========================================================
+   MENU COLORS
+========================================================= */
+
+.menu-home {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.menu-cancel {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.menu-subscription {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.menu-logout {
+    background: #eeeeee;
+    color: #222;
+}
+
+.menu-support {
+    background: #fff8e1;
+    color: #ef6c00;
+}
+
+.menu-history {
+    background: #ede7f6;
+    color: #5e35b1;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.menu-overlay {
+    display: none;
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 999;
+
+    background:
+        rgba(0,0,0,0.45);
+}
+
+.menu-overlay.show {
+    display: block;
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+main {
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding:
+        35px 20px 70px;
+}
+
+
+/* =========================================================
+   LOGIN CARD
+========================================================= */
+
+.login-card,
+.dashboard-card {
+
+    background:
+        rgba(255,255,255,0.96);
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.10);
+}
+
+.login-card {
+    max-width: 520px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    border:
+        2px solid #1976d2;
+}
+
+.login-card h2 {
+    margin-top: 0;
+
+    font-size: 27px;
+
+    color: #111;
+}
+
+.login-card p {
+    color: #666;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    font-weight: 700;
+
+    color: #222;
+}
+
+.form-group input {
+    width: 100%;
+
+    padding: 14px;
+
+    border:
+        1px solid #ccc;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    outline: none;
+
+    transition: 0.2s;
+
+    background: #fff;
+}
+
+.form-group input:focus {
+    border-color: #1976d2;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(25,118,210,0.12);
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+button {
+    font-family: inherit;
+}
+
+.login-button {
+    width: 100%;
+
+    padding: 15px;
+
+    border: none;
+
+    border-radius: 11px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    font-weight: 800;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111,
+            #1976d2
+        );
+
+    box-shadow:
+        0 5px 14px
+        rgba(25,118,210,0.25);
+
+    transition: 0.2s;
+}
+
+.login-button:hover {
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   DASHBOARD HEADER
+========================================================= */
+
+.dashboard-header {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    gap: 20px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 20px;
+}
+
+.dashboard-header h1 {
+    margin: 0;
+
+    font-size: 30px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #111,
+            #1976d2
+        );
+
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.welcome {
+    margin-top: 7px;
+
+    font-size: 17px;
+
+    font-weight: 700;
+
+    color: #555;
+}
+
+
+/* =========================================================
+   REFRESH BUTTON
+========================================================= */
+
+.refresh-button {
+    border: none;
+
+    padding:
+        13px 18px;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #1976d2,
+            #42a5f5
+        );
+
+    box-shadow:
+        0 4px 12px
+        rgba(25,118,210,0.25);
+
+    transition: 0.2s;
+}
+
+.refresh-button:hover {
+    transform:
+        translateY(-2px);
+}
+
+
+/* =========================================================
+   PENDING NOTICE
+========================================================= */
+
+.pending-note {
+    padding:
+        15px 18px;
+
+    margin-bottom: 20px;
+
+    border-radius: 12px;
+
+    background:
+        #fff8e1;
+
+    border-left:
+        5px solid #ffb300;
+
+    color:
+        #795548;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   TICKETS
+========================================================= */
+
+.tickets-container {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+}
+
+.ticket {
+    background: white;
+
+    border-radius: 16px;
+
+    padding: 22px;
+
+    border-top:
+        5px solid #1976d2;
+
+    box-shadow:
+        0 6px 20px
+        rgba(0,0,0,0.09);
+
+    transition: 0.2s;
+}
+
+.ticket:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,0.12);
+}
+
+.ticket-header {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 15px;
+}
+
+.ticket-title {
+    margin: 0;
+
+    font-size: 21px;
+
+    color: #111;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status {
+    display: inline-block;
+
+    padding:
+        7px 12px;
+
+    border-radius: 999px;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    text-transform:
+        uppercase;
+}
+
+.status-pending {
+    background:
+        #fff3cd;
+
+    color:
+        #856404;
+}
+
+.status-accepted {
+    background:
+        #d1ecf1;
+
+    color:
+        #0c5460;
+}
+
+.status-completed {
+    background:
+        #d4edda;
+
+    color:
+        #155724;
+}
+
+
+/* =========================================================
+   TICKET INFORMATION
+========================================================= */
+
+.ticket-info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(0, 1fr)
+        );
+
+    gap: 12px;
+
+    margin-top: 15px;
+}
+
+.info-box {
+    padding: 13px;
+
+    border-radius: 10px;
+
+    background:
+        #f5f9ff;
+
+    border:
+        1px solid #e0eaf5;
+}
+
+.info-label {
+    display: block;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    color: #777;
+
+    text-transform:
+        uppercase;
+
+    margin-bottom: 5px;
+}
+
+.info-value {
+    font-size: 15px;
+
+    font-weight: 600;
+
+    color: #222;
+
+    word-break:
+        break-word;
+}
+
+
+/* =========================================================
+   CUSTOMER INFORMATION
+========================================================= */
+
+.customer-details {
+    margin-top: 18px;
+
+    padding: 18px;
+
+    border-radius: 13px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #eef7ff,
+            #f5fbff
+        );
+
+    border:
+        1px solid #cfe5f8;
+}
+
+.customer-details h3 {
+    margin-top: 0;
+
+    color:
+        #1565c0;
+}
+
+
+/* =========================================================
+   NOTES
+========================================================= */
+
+.notes {
+    margin-top: 15px;
+
+    padding: 13px;
+
+    border-radius: 10px;
+
+    background:
+        #f8f8f8;
+
+    color:
+        #444;
+
+    line-height:
+        1.5;
+}
+
+
+/* =========================================================
+   TICKET ACTIONS
+========================================================= */
+
+.ticket-actions {
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+}
+
+.accept-button,
+.complete-button {
+    border: none;
+
+    border-radius: 10px;
+
+    padding:
+        13px 18px;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    transition: 0.2s;
+}
+
+.accept-button {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #2e7d32,
+            #43a047
+        );
+}
+
+.complete-button {
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111,
+            #424242
+        );
+}
+
+.accept-button:hover,
+.complete-button:hover {
+    transform:
+        translateY(-2px);
+}
+
+.accept-button:disabled,
+.complete-button:disabled {
+    opacity: 0.6;
+
+    cursor:
+        not-allowed;
+
+    transform:
+        none;
+}
+
+
+/* =========================================================
+   ERROR / SUCCESS
+========================================================= */
+
+.message {
+    display: none;
+
+    padding:
+        14px 16px;
+
+    border-radius: 10px;
+
+    margin-top: 15px;
+
+    font-weight: 700;
+}
+
+.message.show {
+    display: block;
+}
+
+.error {
+    background:
+        linear-gradient(
+            135deg,
+            #ffebee,
+            #ffcdd2
+        );
+
+    color:
+        #b71c1c;
+
+    border-left:
+        5px solid #e53935;
+}
+
+.success {
+    background:
+        linear-gradient(
+            135deg,
+            #e8f5e9,
+            #c8e6c9
+        );
+
+    color:
+        #1b5e20;
+
+    border-left:
+        5px solid #43a047;
+}
+
+
+/* =========================================================
+   CANCEL SUBSCRIPTION
+========================================================= */
+
+.cancel-warning {
+    margin-top: 20px;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    background:
+        #fff8e1;
+
+    border:
+        1px solid #ffcc80;
+
+    color:
+        #6d4c41;
+
+    line-height:
+        1.5;
+}
+
+.cancel-button {
+    margin-top: 15px;
+
+    padding:
+        13px 18px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            135deg,
+            #c62828,
+            #e53935
+        );
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.loading {
+    text-align: center;
+
+    padding: 35px;
+
+    color:
+        #666;
+
+    font-weight:
+        700;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.empty {
+    text-align: center;
+
+    padding:
+        35px 20px;
+
+    background:
+        white;
+
+    border-radius:
+        15px;
+
+    color:
+        #777;
+
+    box-shadow:
+        0 5px 18px
+        rgba(0,0,0,0.07);
+}
+
+.empty-icon {
+    font-size:
+        42px;
+
+    margin-bottom:
+        10px;
+}
+
+
+/* =========================================================
+   HISTORY
+========================================================= */
+
+.history-list {
+    display: flex;
+
+    flex-direction:
+        column;
+
+    gap: 18px;
+}
+
+.history-card {
+    background:
+        white;
+
+    border-radius:
+        16px;
+
+    padding:
+        22px;
+
+    border-left:
+        5px solid #5e35b1;
+
+    box-shadow:
+        0 6px 20px
+        rgba(0,0,0,0.09);
+}
+
+.history-card h3 {
+    margin:
+        0 0 12px;
+
+    color:
+        #111;
+}
+
+.history-meta {
+    color:
+        #666;
+
+    font-size:
+        14px;
+
+    margin-top:
+        8px;
+}
+
+.history-empty {
+    text-align:
+        center;
+
+    padding:
+        35px 20px;
+
+    background:
+        white;
+
+    border-radius:
+        15px;
+
+    color:
+        #777;
+
+    box-shadow:
+        0 5px 18px
+        rgba(0,0,0,0.07);
+}
+
+
+/* =========================================================
+   HIDDEN
+========================================================= */
+
+.hidden {
+    display:
+        none !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .top-bar {
+        padding:
+            12px 15px;
+    }
+
+    .page-title {
+        font-size:
+            19px;
+    }
+
+    .menu-button {
+        width:
+            44px;
+
+        height:
+            44px;
+    }
+
+    main {
+        padding:
+            25px 13px 60px;
+    }
+
+    .login-card,
+    .dashboard-card {
+        padding:
+            20px;
+
+        border-radius:
+            15px;
+    }
+
+    .dashboard-header h1 {
+        font-size:
+            25px;
+    }
+
+    .ticket-info {
+        grid-template-columns:
+            1fr;
+    }
+
+    .ticket {
+        padding:
+            17px;
+    }
+
+    .ticket-actions button {
+        width:
+            100%;
+    }
+
+    .refresh-button {
+        width:
+            100%;
+    }
+
+    .side-menu {
+        width:
+            285px;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =======================================================
+     TOP BAR
+======================================================= -->
+
+<header class="top-bar">
+
+    <button
+        class="menu-button"
+        id="menuButton"
+        aria-label="Open menu"
+    >
+        ☰
+    </button>
+
+    <h1 class="page-title">
+        World Oil Technician
+    </h1>
+
+</header>
+
+
+<!-- =======================================================
+     SIDE MENU
+======================================================= -->
+
+<div
+    class="menu-overlay"
+    id="menuOverlay"
+></div>
+
+
+<nav
+    class="side-menu"
+    id="sideMenu"
+>
+
+    <div class="menu-header">
+
+        <h2>
+            World Oil
+        </h2>
+
+        <button
+            class="close-menu"
+            id="closeMenu"
+        >
+            ×
+        </button>
+
+    </div>
+
+
+    <button
+        class="menu-item menu-home"
+        id="homeButton"
+    >
+        🏠 Home
+    </button>
+
+
+    <button
+        class="menu-item menu-history"
+        id="historyButton"
+    >
+        📋 Job History
+    </button>
+
+
+    <button
+        class="menu-item menu-cancel"
+        id="cancelMenuButton"
+    >
+        ❌ Cancel Subscription
+    </button>
+
+
+    <button
+        class="menu-item menu-subscription"
+        id="subscriptionButton"
+    >
+        💳 Get Subscription
+    </button>
+
+
+    <button
+        class="menu-item menu-logout"
+        id="logoutButton"
+    >
+        🚪 Log Out
+    </button>
+
+
+    <button
+        class="menu-item menu-support"
+        id="supportButton"
+    >
+        🛠️ Customer Service
+    </button>
+
+</nav>
+
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
+
+<main>
+
+
+<!-- =======================================================
+     LOGIN
+======================================================= -->
+
+<section
+    class="login-card"
+    id="loginSection"
+>
+
+    <h2>
+        🛠️ Technician Login
+    </h2>
+
+    <p>
+        Sign in to view and manage your World Oil service requests.
+    </p>
+
+
+    <form id="loginForm">
+
+        <div class="form-group">
+
+            <label for="email">
+                Email
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                autocomplete="email"
+                placeholder="Enter your email"
+                required
+            >
+
+        </div>
+
+
+        <div class="form-group">
+
+            <label for="password">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="password"
+                autocomplete="current-password"
+                placeholder="Enter your password"
+                required
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="login-button"
+            id="loginButton"
+        >
+            Log In
+        </button>
+
+    </form>
+
+
+    <div
+        class="message error"
+        id="loginError"
+    ></div>
+
+</section>
+
+
+<!-- =======================================================
+     DASHBOARD
+======================================================= -->
+
+<section
+    id="dashboardSection"
+    class="hidden"
+>
+
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1>
+                🛠️ World Oil Technician Dashboard
+            </h1>
+
+            <div
+                class="welcome"
+                id="welcomeMessage"
+            >
+                Welcome, Technician
+            </div>
+
+        </div>
+
+
+        <button
+            class="refresh-button"
+            id="refreshButton"
+        >
+            🔄 Refresh Tickets
+        </button>
+
+    </div>
+
+
+    <div class="pending-note">
+
+        📋 New service requests appear here.
+        Accept a request to reveal the customer's contact and
+        service information.
+
+    </div>
+
+
+    <div
+        id="ticketsContainer"
+        class="tickets-container"
+    >
+
+        <div class="loading">
+            Loading service requests...
+        </div>
+
+    </div>
+
+
+    <div
+        class="message error"
+        id="dashboardError"
+    ></div>
+
+
+</section>
+
+
+<!-- =======================================================
+     JOB HISTORY
+======================================================= -->
+
+<section
+    id="historySection"
+    class="dashboard-card hidden"
+>
+
+    <div class="dashboard-header">
+
+        <div>
+
+            <h1>
+                📋 Job History
+            </h1>
+
+            <div class="welcome">
+                Your accepted World Oil service requests
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="historyContainer"
+        class="history-list"
+    >
+
+        <div class="loading">
+            Loading job history...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =======================================================
+     CANCEL SUBSCRIPTION
+======================================================= -->
+
+<section
+    id="cancelSection"
+    class="dashboard-card hidden"
+>
+
+    <h2>
+        Cancel Technician Subscription
+    </h2>
+
+
+    <div class="cancel-warning">
+
+        ⚠️ <strong>Important:</strong>
+
+        Cancelling your subscription will remove your technician
+        subscription access.
+
+        <br><br>
+
+        You will no longer be able to accept new World Oil
+        technician service requests until you subscribe again.
+
+    </div>
+
+
+    <button
+        class="cancel-button"
+        id="confirmCancelButton"
+    >
+        Cancel Subscription
+    </button>
+
+
+    <div
+        class="message"
+        id="cancelMessage"
+    ></div>
+
+</section>
+
+
+</main>
+
+
+<!-- =======================================================
+     FIREBASE
+======================================================= -->
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+
+import {
+    getAuth,
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+
+import {
+    getFunctions,
+    httpsCallable
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-functions.js";
+
+
+import {
+    getFirestore,
+    doc,
+    getDoc
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+
+/* =========================================================
+   FIREBASE CONFIG
+========================================================= */
+
+const firebaseConfig = {
+
+    apiKey:
+        "AIzaSyCInoQ5IkCJwKcxCfhylLJOd1wHVQiefUE",
+
+    authDomain:
+        "worldoilllc.firebaseapp.com",
+
+    projectId:
+        "worldoilllc",
+
+    storageBucket:
+        "worldoilllc.appspot.com",
+
+    messagingSenderId:
+        "769325331754",
+
+    appId:
+        "1:769325331754:web:234d7c3ffa9a6424779a53"
+};
+
+
+/* =========================================================
+   INITIALIZE FIREBASE
+========================================================= */
+
+const app =
+    initializeApp(firebaseConfig);
+
+
+const auth =
+    getAuth(app);
+
+
+const db =
+    getFirestore(app);
+
+
+const functions =
+    getFunctions(
+        app,
+        "us-central1"
+    );
+
+
+/* =========================================================
+   CALLABLE FUNCTIONS
+========================================================= */
+
+const createTechnicianSession =
+    httpsCallable(
+        functions,
+        "createTechnicianSession"
+    );
+
+
+const verifyTechnicianSession =
+    httpsCallable(
+        functions,
+        "verifyTechnicianSession"
+    );
+
+
+const getTechnicianTickets =
+    httpsCallable(
+        functions,
+        "getTechnicianTickets"
+    );
+
+
+const technicianTicketAction =
+    httpsCallable(
+        functions,
+        "technicianTicketAction"
+    );
+
+
+const cancelTechnicianSubscription =
+    httpsCallable(
+        functions,
+        "cancelTechnicianSubscription"
+    );
+
+
+/* =========================================================
+   TECHNICIAN SESSION
+========================================================= */
+
+let technicianSessionId = null;
+
+let sessionVerificationTimer = null;
+
+let sessionCreating = false;
+
+
+/*
+    Create a brand-new session for the currently
+    authenticated technician.
+*/
+
+async function startTechnicianSession(user) {
+
+    if (!user) {
+        throw new Error(
+            "Technician authentication is required."
+        );
+    }
+
+
+    if (sessionCreating) {
+        return technicianSessionId;
+    }
+
+
+    sessionCreating = true;
+
+
+    try {
+
+        const result =
+            await createTechnicianSession();
+
+
+        /*
+            Backend returns technicianSessionId.
+            This also supports sessionId in case the
+            response name is sessionId.
+        */
+
+        const returnedSessionId =
+            result?.data?.technicianSessionId ||
+            result?.data?.sessionId;
+
+
+        if (!returnedSessionId) {
+
+            throw new Error(
+                "Unable to create technician session."
+            );
+        }
+
+
+        technicianSessionId =
+            returnedSessionId;
+
+
+        console.log(
+            "World Oil technician session created."
+        );
+
+
+        startSessionVerification();
+
+
+        return technicianSessionId;
+
+    } finally {
+
+        sessionCreating = false;
+    }
+}
+
+
+/*
+    Verify the current session periodically.
+*/
+
+function startSessionVerification() {
+
+    stopSessionVerification();
+
+
+    /*
+        Verify every 5 minutes.
+    */
+
+    sessionVerificationTimer =
+        setInterval(
+            verifyCurrentTechnicianSession,
+            5 * 60 * 1000
+        );
+}
+
+
+/*
+    Stop the verification timer.
+*/
+
+function stopSessionVerification() {
+
+    if (
+        sessionVerificationTimer
+    ) {
+
+        clearInterval(
+            sessionVerificationTimer
+        );
+
+        sessionVerificationTimer =
+            null;
+    }
+}
+
+
+/*
+    Verify that the backend still considers this
+    browser/device to be the active technician session.
+*/
+
+async function verifyCurrentTechnicianSession() {
+
+    const user =
+        auth.currentUser;
+
+
+    if (
+        !user ||
+        !technicianSessionId
+    ) {
+
+        return;
+    }
+
+
+    try {
+
+        const result =
+            await verifyTechnicianSession({
+
+                sessionId:
+                    technicianSessionId
+
+            });
+
+
+        const valid =
+            result?.data?.valid === true ||
+            result?.data?.sessionValid === true;
+
+
+        if (!valid) {
+
+            console.warn(
+                "World Oil technician session is no longer valid."
+            );
+
+
+            await forceTechnicianLogout(
+                "Your technician session expired or was replaced. Please sign in again."
+            );
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Session verification error:",
+            error
+        );
+
+
+        /*
+            If the backend specifically rejects the
+            session, force the technician back to login.
+        */
+
+        const message =
+            String(
+                error?.message || ""
+            ).toLowerCase();
+
+
+        if (
+            message.includes("session") ||
+            message.includes("unauthorized") ||
+            message.includes("permission")
+        ) {
+
+            await forceTechnicianLogout(
+                "Your technician session is no longer valid. Please sign in again."
+            );
+        }
+    }
+}
+
+
+/*
+    Safely log the technician out when the backend
+    rejects the active session.
+*/
+
+async function forceTechnicianLogout(message) {
+
+    stopSessionVerification();
+
+    technicianSessionId =
+        null;
+
+
+    try {
+
+        await signOut(auth);
+
+    } catch (error) {
+
+        console.error(
+            "Forced logout error:",
+            error
+        );
+    }
+
+
+    loginSection.classList.remove(
+        "hidden"
+    );
+
+    dashboardSection.classList.add(
+        "hidden"
+    );
+
+    historySection.classList.add(
+        "hidden"
+    );
+
+    cancelSection.classList.add(
+        "hidden"
+    );
+
+
+    showLoginError(
+        message
+    );
+
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+}
+
+
+/* =========================================================
+   DOM
+========================================================= */
+
+const menuButton =
+    document.getElementById(
+        "menuButton"
+    );
+
+const closeMenu =
+    document.getElementById(
+        "closeMenu"
+    );
+
+const sideMenu =
+    document.getElementById(
+        "sideMenu"
+    );
+
+const menuOverlay =
+    document.getElementById(
+        "menuOverlay"
+    );
+
+const loginSection =
+    document.getElementById(
+        "loginSection"
+    );
+
+const dashboardSection =
+    document.getElementById(
+        "dashboardSection"
+    );
+
+const historySection =
+    document.getElementById(
+        "historySection"
+    );
+
+const historyContainer =
+    document.getElementById(
+        "historyContainer"
+    );
+
+const historyButton =
+    document.getElementById(
+        "historyButton"
+    );
+
+const cancelSection =
+    document.getElementById(
+        "cancelSection"
+    );
+
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
+
+const loginError =
+    document.getElementById(
+        "loginError"
+    );
+
+const dashboardError =
+    document.getElementById(
+        "dashboardError"
+    );
+
+const ticketsContainer =
+    document.getElementById(
+        "ticketsContainer"
+    );
+
+const welcomeMessage =
+    document.getElementById(
+        "welcomeMessage"
+    );
+
+const refreshButton =
+    document.getElementById(
+        "refreshButton"
+    );
+
+const logoutButton =
+    document.getElementById(
+        "logoutButton"
+    );
+
+const homeButton =
+    document.getElementById(
+        "homeButton"
+    );
+
+const subscriptionButton =
+    document.getElementById(
+        "subscriptionButton"
+    );
+
+const cancelMenuButton =
+    document.getElementById(
+        "cancelMenuButton"
+    );
+
+const supportButton =
+    document.getElementById(
+        "supportButton"
+    );
+
+const confirmCancelButton =
+    document.getElementById(
+        "confirmCancelButton"
+    );
+
+const cancelMessage =
+    document.getElementById(
+        "cancelMessage"
+    );
+
+
+/* =========================================================
+   JOB HISTORY STORAGE
+========================================================= */
+
+let currentTickets = [];
+
+
+function historyStorageKey() {
+
+    return auth.currentUser
+        ? `worldOilJobHistory_${auth.currentUser.uid}`
+        : null;
+}
+
+
+function getJobHistory() {
+
+    const key =
+        historyStorageKey();
+
+
+    if (!key) {
+        return [];
+    }
+
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(key) ||
+            "[]"
+        );
+
+    } catch (error) {
+
+        console.error(
+            "History read error:",
+            error
+        );
+
+        return [];
+    }
+}
+
+
+function saveJobHistory(history) {
+
+    const key =
+        historyStorageKey();
+
+
+    if (!key) {
+        return;
+    }
+
+
+    localStorage.setItem(
+        key,
+        JSON.stringify(history)
+    );
+}
+
+
+function addJobToHistory(ticket) {
+
+    if (
+        !ticket ||
+        !ticket.id
+    ) {
+
+        return;
+    }
+
+
+    const history =
+        getJobHistory();
+
+
+    const existingIndex =
+        history.findIndex(
+            item =>
+                item.id === ticket.id
+        );
+
+
+    const record = {
+
+        ...ticket,
+
+        historyStatus:
+            ticket.status ||
+            "accepted",
+
+        historySavedAt:
+            new Date().toISOString()
+
+    };
+
+
+    if (
+        existingIndex >= 0
+    ) {
+
+        history[existingIndex] = {
+
+            ...history[existingIndex],
+
+            ...record
+
+        };
+
+    } else {
+
+        history.unshift(
+            record
+        );
+    }
+
+
+    saveJobHistory(
+        history
+    );
+}
+
+
+function updateJobInHistory(ticket) {
+
+    if (
+        !ticket ||
+        !ticket.id
+    ) {
+
+        return;
+    }
+
+
+    const history =
+        getJobHistory();
+
+
+    const existingIndex =
+        history.findIndex(
+            item =>
+                item.id === ticket.id
+        );
+
+
+    if (
+        existingIndex >= 0
+    ) {
+
+        history[existingIndex] = {
+
+            ...history[existingIndex],
+
+            ...ticket,
+
+            historyStatus:
+                ticket.status ||
+                history[existingIndex]
+                    .historyStatus
+
+        };
+
+
+        saveJobHistory(
+            history
+        );
+    }
+}
+
+
+function renderHistory() {
+
+    const history =
+        getJobHistory();
+
+
+    if (!history.length) {
+
+        historyContainer.innerHTML = `
+
+            <div class="history-empty">
+
+                <div class="empty-icon">
+                    📋
+                </div>
+
+                <strong>
+                    No job history yet.
+                </strong>
+
+                <br><br>
+
+                Jobs you accept will appear here.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    historyContainer.innerHTML =
+        history
+            .map(
+                ticket => {
+
+                    const vehicle =
+                        `${ticket.year || ""} ${ticket.make || ""} ${ticket.model || ""}`
+                            .trim() ||
+                        "Vehicle not listed";
+
+
+                    const status =
+                        ticket.status ||
+                        ticket.historyStatus ||
+                        "accepted";
+
+
+                    return `
+
+                        <article class="history-card">
+
+                            <h3>
+                                🚗 Oil Change Request
+                            </h3>
+
+
+                            <div class="ticket-info">
+
+                                <div class="info-box">
+
+                                    <span class="info-label">
+                                        Vehicle
+                                    </span>
+
+                                    <span class="info-value">
+                                        ${escapeHtml(vehicle)}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="info-box">
+
+                                    <span class="info-label">
+                                        Status
+                                    </span>
+
+                                    <span class="info-value">
+                                        ${escapeHtml(status)}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="info-box">
+
+                                    <span class="info-label">
+                                        Service Date
+                                    </span>
+
+                                    <span class="info-value">
+                                        ${escapeHtml(
+                                            ticket.date || ""
+                                        )}
+                                    </span>
+
+                                </div>
+
+
+                                <div class="info-box">
+
+                                    <span class="info-label">
+                                        Service Time
+                                    </span>
+
+                                    <span class="info-value">
+                                        ${escapeHtml(
+                                            ticket.time || ""
+                                        )}
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            ${
+                                ticket.customerName
+                                    ? `
+
+                                        <div class="history-meta">
+
+                                            Customer:
+                                            ${escapeHtml(
+                                                ticket.customerName
+                                            )}
+
+                                        </div>
+
+                                    `
+                                    : ""
+                            }
+
+
+                            ${
+                                ticket.address
+                                    ? `
+
+                                        <div class="history-meta">
+
+                                            Service Address:
+                                            ${escapeHtml(
+                                                ticket.address
+                                            )}
+
+                                        </div>
+
+                                    `
+                                    : ""
+                            }
+
+
+                            <div class="history-meta">
+
+                                Added to history:
+
+                                ${escapeHtml(
+                                    ticket.historySavedAt
+                                        ? new Date(
+                                            ticket.historySavedAt
+                                        ).toLocaleString()
+                                        : "Previously saved"
+                                )}
+
+                            </div>
+
+                        </article>
+
+                    `;
+                }
+            )
+            .join("");
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+function openMenu() {
+
+    sideMenu.classList.add(
+        "open"
+    );
+
+    menuOverlay.classList.add(
+        "show"
+    );
+}
+
+
+function closeSideMenu() {
+
+    sideMenu.classList.remove(
+        "open"
+    );
+
+    menuOverlay.classList.remove(
+        "show"
+    );
+}
+
+
+menuButton.addEventListener(
+    "click",
+    openMenu
+);
+
+
+closeMenu.addEventListener(
+    "click",
+    closeSideMenu
+);
+
+
+menuOverlay.addEventListener(
+    "click",
+    closeSideMenu
+);
+
+
+/* =========================================================
+   HOME
+========================================================= */
+
+homeButton.addEventListener(
+    "click",
+    () => {
+
+        closeSideMenu();
+
+
+        cancelSection.classList.add(
+            "hidden"
+        );
+
+
+        historySection.classList.add(
+            "hidden"
+        );
+
+
+        dashboardSection.classList.remove(
+            "hidden"
+        );
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+);
+
+
+/* =========================================================
+   JOB HISTORY
+========================================================= */
+
+historyButton.addEventListener(
+    "click",
+    () => {
+
+        closeSideMenu();
+
+
+        dashboardSection.classList.add(
+            "hidden"
+        );
+
+
+        cancelSection.classList.add(
+            "hidden"
+        );
+
+
+        historySection.classList.remove(
+            "hidden"
+        );
+
+
+        renderHistory();
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+);
+
+
+/* =========================================================
+   GET SUBSCRIPTION
+========================================================= */
+
+subscriptionButton.addEventListener(
+    "click",
+    () => {
+
+        window.location.href =
+            "./technician-signup.html";
+    }
+);
+
+
+/* =========================================================
+   CUSTOMER SERVICE
+========================================================= */
+
+supportButton.addEventListener(
+    "click",
+    () => {
+
+        closeSideMenu();
+
+
+        alert(
+            "For World Oil customer service, please contact support."
+        );
+    }
+);
+
+
+/* =========================================================
+   CANCEL MENU
+========================================================= */
+
+cancelMenuButton.addEventListener(
+    "click",
+    () => {
+
+        closeSideMenu();
+
+
+        dashboardSection.classList.add(
+            "hidden"
+        );
+
+
+        historySection.classList.add(
+            "hidden"
+        );
+
+
+        cancelSection.classList.remove(
+            "hidden"
+        );
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+);
+
+
+/* =========================================================
+   SHOW ERROR
+========================================================= */
+
+function showLoginError(message) {
+
+    loginError.textContent =
+        message;
+
+    loginError.classList.add(
+        "show"
+    );
+}
+
+
+function showDashboardError(message) {
+
+    dashboardError.textContent =
+        message;
+
+    dashboardError.classList.add(
+        "show"
+    );
+}
+
+
+function clearDashboardError() {
+
+    dashboardError.textContent =
+        "";
+
+    dashboardError.classList.remove(
+        "show"
+    );
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+loginForm.addEventListener(
+    "submit",
+    async event => {
+
+        event.preventDefault();
+
+
+        loginError.classList.remove(
+            "show"
+        );
+
+
+        technicianSessionId =
+            null;
+
+
+        stopSessionVerification();
+
+
+        const email =
+            document
+                .getElementById(
+                    "email"
+                )
+                .value
+                .trim();
+
+
+        const password =
+            document
+                .getElementById(
+                    "password"
+                )
+                .value;
+
+
+        const loginButton =
+            document.getElementById(
+                "loginButton"
+            );
+
+
+        loginButton.disabled =
+            true;
+
+
+        loginButton.textContent =
+            "Signing In...";
+
+
+        try {
+
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Login error:",
+                error
+            );
+
+
+            let message =
+                "Unable to sign in.";
+
+
+            if (
+                error.code ===
+                "auth/invalid-credential"
+            ) {
+
+                message =
+                    "Incorrect email or password.";
+
+            } else if (
+                error.code ===
+                "auth/user-not-found"
+            ) {
+
+                message =
+                    "No technician account was found.";
+
+            } else if (
+                error.code ===
+                "auth/wrong-password"
+            ) {
+
+                message =
+                    "Incorrect password.";
+
+            } else if (
+                error.code ===
+                "auth/too-many-requests"
+            ) {
+
+                message =
+                    "Too many login attempts. Please try again later.";
+            }
+
+
+            showLoginError(
+                message
+            );
+
+        } finally {
+
+            loginButton.disabled =
+                false;
+
+            loginButton.textContent =
+                "Log In";
+        }
+    }
+);
+
+
+/* =========================================================
+   CHECK PAID TECHNICIAN
+========================================================= */
+
+async function checkPaidTechnician(user) {
+
+    for (
+        let attempt = 0;
+        attempt < 12;
+        attempt++
+    ) {
+
+        try {
+
+            const tokenResult =
+                await user.getIdTokenResult(
+                    true
+                );
+
+
+            if (
+                tokenResult.claims
+                    .paidTechnician === true
+            ) {
+
+                return true;
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Token check error:",
+                error
+            );
+        }
+
+
+        await new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    2500
+                )
+        );
+    }
+
+
+    return false;
+}
+
+
+/* =========================================================
+   LOAD TECHNICIAN NAME
+========================================================= */
+
+async function loadTechnicianName(user) {
+
+    try {
+
+        const technicianRef =
+            doc(
+                db,
+                "technicians",
+                user.uid
+            );
+
+
+        const technicianSnap =
+            await getDoc(
+                technicianRef
+            );
+
+
+        if (
+            technicianSnap.exists()
+        ) {
+
+            const data =
+                technicianSnap.data();
+
+
+            const firstName =
+                data.firstName ||
+                data.name ||
+                "Technician";
+
+
+            welcomeMessage.textContent =
+                `Welcome, ${firstName}!`;
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Could not load technician:",
+            error
+        );
+
+
+        welcomeMessage.textContent =
+            "Welcome, Technician";
+    }
+}
+
+
+/* =========================================================
+   ESCAPE HTML
+========================================================= */
+
+function escapeHtml(value) {
+
+    return String(
+        value ?? ""
+    )
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+        .replace(
+            /</g,
+            "&lt;"
+        )
+        .replace(
+            />/g,
+            "&gt;"
+        )
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+}
+
+
+/* =========================================================
+   FORMAT STATUS
+========================================================= */
+
+function statusClass(status) {
+
+    const clean =
+        String(
+            status || ""
+        )
+            .toLowerCase();
+
+
+    if (
+        clean === "accepted"
+    ) {
+
+        return "status-accepted";
+    }
+
+
+    if (
+        clean === "completed"
+    ) {
+
+        return "status-completed";
+    }
+
+
+    return "status-pending";
+}
+
+
+/* =========================================================
+   LOAD TICKETS
+========================================================= */
+
+async function loadTickets() {
+
+    clearDashboardError();
+
+
+    if (!technicianSessionId) {
+
+        showDashboardError(
+            "Technician session is missing. Please sign in again."
+        );
+
+
+        ticketsContainer.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    🔐
+                </div>
+
+                <strong>
+                    Technician session is missing.
+                </strong>
+
+                <br><br>
+
+                Please sign out and sign in again.
+
+            </div>
+
+        `;
+
+        return;
+    }
+
+
+    ticketsContainer.innerHTML = `
+
+        <div class="loading">
+            🔄 Loading service requests...
+        </div>
+
+    `;
+
+
+    try {
+
+        /*
+            IMPORTANT:
+            The sessionId is now sent to the backend.
+        */
+
+        const result =
+            await getTechnicianTickets({
+
+                sessionId:
+                    technicianSessionId
+
+            });
+
+
+        const allTickets =
+    result.data?.tickets ||
+    result.data ||
+    [];
+
+const tickets =
+    Array.isArray(allTickets)
+        ? allTickets.filter(ticket => {
+            const status =
+                String(ticket.status || "")
+                    .toLowerCase();
+
+            return status !== "completed";
+        })
+        : [];
+
+currentTickets =
+    tickets;
+
+if (tickets.length === 0) {
+
+            ticketsContainer.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        📋
+                    </div>
+
+                    <strong>
+                        No service requests right now.
+                    </strong>
+
+                    <br><br>
+
+                    New customer requests will appear here.
+
+                </div>
+
+            `;
+
+            return;
+        }
+
+
+        ticketsContainer.innerHTML =
+            tickets
+                .map(
+                    ticket =>
+                        renderTicket(
+                            ticket
+                        )
+                )
+                .join("");
+
+
+        document
+            .querySelectorAll(
+                "[data-action]"
+            )
+            .forEach(button => {
+
+                button.addEventListener(
+                    "click",
+                    handleTicketAction
+                );
+            });
+
+
+    } catch (error) {
+
+        console.error(
+            "Ticket loading error:",
+            error
+        );
+
+
+        /*
+            If the backend rejected the session,
+            send the technician back to login.
+        */
+
+        const errorMessage =
+            String(
+                error?.message || ""
+            );
+
+
+        if (
+            errorMessage
+                .toLowerCase()
+                .includes("session")
+        ) {
+
+            await forceTechnicianLogout(
+                "Your technician session is no longer valid. Please sign in again."
+            );
+
+            return;
+        }
+
+
+        ticketsContainer.innerHTML = `
+
+            <div class="empty">
+
+                <div class="empty-icon">
+                    ⚠️
+                </div>
+
+                Unable to load service requests.
+
+            </div>
+
+        `;
+
+
+        showDashboardError(
+            error.message ||
+            "Unable to load service requests."
+        );
+    }
+}
+
+
+/* =========================================================
+   RENDER TICKET
+========================================================= */
+
+function renderTicket(ticket) {
+
+    const id =
+        ticket.id ||
+        ticket.ticketId ||
+        "";
+
+
+    const status =
+        ticket.status ||
+        "pending";
+
+
+    const accepted =
+        String(status)
+            .toLowerCase() ===
+        "accepted";
+
+
+    const completed =
+        String(status)
+            .toLowerCase() ===
+        "completed";
+
+
+    const customerName =
+        ticket.customerName ||
+        ticket.name ||
+        "";
+
+
+    const phone =
+        ticket.phone ||
+        ticket.customerPhone ||
+        "";
+
+
+    const address =
+        ticket.address ||
+        ticket.serviceAddress ||
+        "";
+
+
+    const year =
+        ticket.year ||
+        "";
+
+
+    const make =
+        ticket.make ||
+        "";
+
+
+    const model =
+        ticket.model ||
+        "";
+
+
+    const date =
+        ticket.date ||
+        "";
+
+
+    const time =
+        ticket.time ||
+        "";
+
+
+    const notes =
+        ticket.notes ||
+        "";
+
+
+    let customerHTML =
+        "";
+
+
+    /*
+        Customer information remains hidden
+        until the technician accepts the job.
+    */
+
+    if (
+        accepted ||
+        completed
+    ) {
+
+        customerHTML = `
+
+            <div class="customer-details">
+
+                <h3>
+                    👤 Customer Information
+                </h3>
+
+
+                <div class="ticket-info">
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Customer
+                        </span>
+
+                        <span class="info-value">
+                            ${escapeHtml(
+                                customerName
+                            )}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Phone
+                        </span>
+
+                        <span class="info-value">
+                            ${escapeHtml(
+                                phone
+                            )}
+                        </span>
+
+                    </div>
+
+
+                    <div class="info-box">
+
+                        <span class="info-label">
+                            Address
+                        </span>
+
+                        <span class="info-value">
+                            ${escapeHtml(
+                                address
+                            )}
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        `;
+
+    } else {
+
+        customerHTML = `
+
+            <div class="pending-note">
+
+                🔒 Customer contact information
+                becomes available after you accept
+                the service request.
+
+            </div>
+
+        `;
+    }
+
+
+    let actionHTML =
+        "";
+
+
+    if (
+        !accepted &&
+        !completed
+    ) {
+
+        actionHTML = `
+
+            <button
+                class="accept-button"
+                data-action="accept"
+                data-ticket-id="${escapeHtml(id)}"
+            >
+
+                ✅ Accept Service Request
+
+            </button>
+
+        `;
+
+    } else if (
+        accepted
+    ) {
+
+        actionHTML = `
+
+            <button
+                class="complete-button"
+                data-action="complete"
+                data-ticket-id="${escapeHtml(id)}"
+            >
+
+                ✔️ Mark Job Completed
+
+            </button>
+
+        `;
+
+    } else {
+
+        actionHTML = `
+
+            <strong>
+                ✅ Job Completed
+            </strong>
+
+        `;
+    }
+
+
+    return `
+
+        <article class="ticket">
+
+            <div class="ticket-header">
+
+                <h2 class="ticket-title">
+                    🚗 Oil Change Request
+                </h2>
+
+
+                <span
+                    class="status ${statusClass(status)}"
+                >
+
+                    ${escapeHtml(status)}
+
+                </span>
+
+            </div>
+
+
+            <div class="ticket-info">
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Vehicle
+                    </span>
+
+                    <span class="info-value">
+
+                        ${escapeHtml(
+                            `${year} ${make} ${model}`.trim()
+                        )}
+
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Service Date
+                    </span>
+
+                    <span class="info-value">
+                        ${escapeHtml(date)}
+                    </span>
+
+                </div>
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Service Time
+                    </span>
+
+                    <span class="info-value">
+                        ${escapeHtml(time)}
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            ${
+                notes
+                    ? `
+
+                        <div class="notes">
+
+                            <strong>
+                                📝 Customer Notes:
+                            </strong>
+
+                            <br>
+
+                            ${escapeHtml(notes)}
+
+                        </div>
+
+                    `
+                    : ""
+            }
+
+
+            ${customerHTML}
+
+
+            <div class="ticket-actions">
+
+                ${actionHTML}
+
+            </div>
+
+        </article>
+
+    `;
+}
+
+
+/* =========================================================
+   ACCEPT / COMPLETE
+========================================================= */
+
+async function handleTicketAction(event) {
+
+    const button =
+        event.currentTarget;
+
+
+    const action =
+        button.dataset.action;
+
+
+    const ticketId =
+        button.dataset.ticketId;
+
+
+    if (
+        !ticketId ||
+        !action
+    ) {
+
+        return;
+    }
+
+
+    if (!technicianSessionId) {
+
+        showDashboardError(
+            "Technician session is missing. Please sign in again."
+        );
+
+        return;
+    }
+
+
+    button.disabled =
+        true;
+
+
+    const originalText =
+        button.textContent;
+
+
+    button.textContent =
+        action === "accept"
+            ? "Accepting..."
+            : "Completing...";
+
+
+    try {
+
+        /*
+            IMPORTANT:
+            The sessionId is now sent with
+            every ticket action.
+        */
+
+        await technicianTicketAction({
+
+            ticketId:
+                ticketId,
+
+            action:
+                action,
+
+            sessionId:
+                technicianSessionId
+
+        });
+
+
+        const changedTicket =
+            currentTickets.find(
+                ticket =>
+                    String(
+                        ticket.id ||
+                        ticket.ticketId ||
+                        ""
+                    ) ===
+                    String(ticketId)
+            );
+
+
+        if (changedTicket) {
+
+            const historyTicket = {
+
+                ...changedTicket,
+
+                id:
+                    changedTicket.id ||
+                    changedTicket.ticketId,
+
+                status:
+                    action === "accept"
+                        ? "accepted"
+                        : "completed"
+
+            };
+
+
+            if (
+                action === "accept"
+            ) {
+
+                addJobToHistory(
+                    historyTicket
+                );
+
+            } else {
+
+                updateJobInHistory(
+                    historyTicket
+                );
+            }
+        }
+
+
+        await ;
+
+
+    } catch (error) {
+
+        console.error(
+            "Ticket action error:",
+            error
+        );
+
+
+        const errorMessage =
+            String(
+                error?.message || ""
+            );
+
+
+        if (
+            errorMessage
+                .toLowerCase()
+                .includes("session")
+        ) {
+
+            await forceTechnicianLogout(
+                "Your technician session is no longer valid. Please sign in again."
+            );
+
+            return;
+        }
+
+
+        showDashboardError(
+            error.message ||
+            "Unable to update service request."
+        );
+
+
+        button.disabled =
+            false;
+
+
+        button.textContent =
+            originalText;
+    }
+}
+
+
+/* =========================================================
+   REFRESH
+========================================================= */
+
+refreshButton.addEventListener(
+    "click",
+    async () => {
+
+        if (
+            !technicianSessionId
+        ) {
+
+            showDashboardError(
+                "Technician session is missing. Please sign in again."
+            );
+
+            return;
+        }
+
+
+        await verifyCurrentTechnicianSession();
+
+        if (
+            auth.currentUser &&
+            technicianSessionId
+        ) {
+
+            await loadTickets();
+        }
+    }
+);
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+logoutButton.addEventListener(
+    "click",
+    async () => {
+
+        stopSessionVerification();
+
+        technicianSessionId =
+            null;
+
+
+        try {
+
+            await signOut(auth);
+
+
+            window.location.href =
+                "./technician-signup.html";
+
+        } catch (error) {
+
+            console.error(
+                "Logout error:",
+                error
+            );
+
+
+            alert(
+                "Unable to log out. Please try again."
+            );
+        }
+    }
+);
+
+
+/* =========================================================
+   CANCEL SUBSCRIPTION
+========================================================= */
+
+confirmCancelButton.addEventListener(
+    "click",
+    async () => {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to cancel your technician subscription?"
+            );
+
+
+        if (!confirmed) {
+
+            return;
+        }
+
+
+        if (
+            !technicianSessionId
+        ) {
+
+            cancelMessage.textContent =
+                "Technician session is missing. Please sign in again.";
+
+            cancelMessage.className =
+                "message error show";
+
+            return;
+        }
+
+
+        confirmCancelButton.disabled =
+            true;
+
+
+        confirmCancelButton.textContent =
+            "Cancelling...";
+
+
+        try {
+
+            /*
+                IMPORTANT:
+                Cancellation also requires
+                the active session ID.
+            */
+
+            await cancelTechnicianSubscription({
+
+                sessionId:
+                    technicianSessionId
+
+            });
+
+
+            cancelMessage.textContent =
+                "Your subscription has been cancelled.";
+
+
+            cancelMessage.className =
+                "message success show";
+
+
+            stopSessionVerification();
+
+            technicianSessionId =
+                null;
+
+
+            await signOut(
+                auth
+            );
+
+
+            setTimeout(
+                () => {
+
+                    window.location.href =
+                        "./technician-signup.html";
+
+                },
+                1500
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Cancellation error:",
+                error
+            );
+
+
+            cancelMessage.textContent =
+                error.message ||
+                "Unable to cancel subscription.";
+
+
+            cancelMessage.className =
+                "message error show";
+
+
+            confirmCancelButton.disabled =
+                false;
+
+
+            confirmCancelButton.textContent =
+                "Cancel Subscription";
+        }
+    }
+);
+
+
+/* =========================================================
+   AUTH STATE
+========================================================= */
+
+onAuthStateChanged(
+    auth,
+    async user => {
+
+        /*
+            Clear any previous session whenever
+            Firebase auth changes.
+        */
+
+        stopSessionVerification();
+
+        technicianSessionId =
+            null;
+
+
+        if (!user) {
+
+            loginSection.classList.remove(
+                "hidden"
+            );
+
+
+            dashboardSection.classList.add(
+                "hidden"
+            );
+
+
+            cancelSection.classList.add(
+                "hidden"
+            );
+
+
+            historySection.classList.add(
+                "hidden"
+            );
+
+
+            return;
+        }
+
+
+        loginSection.classList.add(
+            "hidden"
+        );
+
+
+        dashboardSection.classList.remove(
+            "hidden"
+        );
+
+
+        historySection.classList.add(
+            "hidden"
+        );
+
+
+        cancelSection.classList.add(
+            "hidden"
+        );
+
+
+        welcomeMessage.textContent =
+            "Checking technician subscription...";
+
+
+        /*
+            First verify that the Firebase account
+            has paidTechnician access.
+        */
+
+        const isPaid =
+            await checkPaidTechnician(
+                user
+            );
+
+
+       if (!isPaid) {
+
+    loginSection.classList.remove(
+        "hidden"
+    );
+
+
+    dashboardSection.classList.add(
+        "hidden"
+    );
+
+
+    historySection.classList.add(
+        "hidden"
+    );
+
+
+    cancelSection.classList.add(
+        "hidden"
+    );
+
+
+    await signOut(
+        auth
+    );
+
+
+    showLoginError(
+        "Your login worked, but your technician subscription is still being activated. Please wait a few minutes and try again."
+    );
+
+
+    return;
+}
+
+
+        /*
+            =================================================
+            THIS IS THE IMPORTANT FIX
+            =================================================
+
+            Create the active technician session BEFORE
+            loading tickets.
+        */
+
+        try {
+
+            welcomeMessage.textContent =
+                "Starting secure technician session...";
+
+
+            await startTechnicianSession(
+                user
+            );
+
+
+        } catch (error) {
+
+            console.error(
+                "Technician session creation error:",
+                error
+            );
+
+
+            welcomeMessage.textContent =
+                "Unable to start technician session.";
+
+
+            ticketsContainer.innerHTML = `
+
+                <div class="empty">
+
+                    <div class="empty-icon">
+                        🔐
+                    </div>
+
+                    <strong>
+                        Unable to start technician session.
+                    </strong>
+
+                    <br><br>
+
+                    Please refresh the page and try again.
+
+                </div>
+
+            `;
+
+
+            showDashboardError(
+                error.message ||
+                "Unable to start technician session."
+            );
+
+
+            return;
+        }
+
+
+        await loadTechnicianName(
+            user
+        );
+
+
+        await loadTickets();
+
+    }
+);
+
+</script>
+
+
+<!-- =======================================================
+     SERVICE WORKER
+======================================================= -->
+
+<script>
+
+if (
+    "serviceWorker" in navigator
+) {
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            navigator.serviceWorker
+                .register(
+                    "./service-worker.js"
+                )
+                .then(
+                    registration => {
+
+                        console.log(
+                            "World Oil service worker registered:",
+                            registration.scope
+                        );
+
+
+                        registration.update();
+
+                    }
+                )
+                .catch(
+                    error => {
+
+                        console.error(
+                            "World Oil service worker registration failed:",
+                            error
+                        );
+
+                    }
+                );
+
+        }
+    );
+
+}
+
+</script>
+
+
+</body>
+</html>
