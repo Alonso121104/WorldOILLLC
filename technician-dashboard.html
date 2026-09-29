@@ -3061,6 +3061,21 @@ async function loadTickets() {
             );
 
 
+        const requestAlreadyAccepted =
+            errorMessage
+                .toLowerCase()
+                .includes("already accepted") ||
+            errorMessage
+                .toLowerCase()
+                .includes("already assigned") ||
+            errorMessage
+                .toLowerCase()
+                .includes("already taken") ||
+            errorMessage
+                .toLowerCase()
+                .includes("accepted by another technician");
+
+
         if (
             errorMessage
                 .toLowerCase()
@@ -3568,10 +3583,23 @@ async function handleTicketAction(event) {
         }
 
 
-        showDashboardError(
-            error.message ||
-            "Unable to update service request."
-        );
+        if (
+            requestAlreadyAccepted
+        ) {
+
+            await loadTickets();
+
+            showDashboardError(
+                "This service request was already accepted by another technician."
+            );
+
+        } else {
+
+            showDashboardError(
+                error.message ||
+                "Unable to update service request."
+            );
+        }
 
 
         button.disabled =
