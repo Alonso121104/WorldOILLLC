@@ -1200,7 +1200,7 @@ button {
         id="menuButton"
         aria-label="Open menu"
     >
-        ☰
+        â˜°
     </button>
 
     <h1 class="page-title">
@@ -1235,7 +1235,7 @@ button {
             class="close-menu"
             id="closeMenu"
         >
-            ×
+            Ã—
         </button>
 
     </div>
@@ -1245,7 +1245,7 @@ button {
         class="menu-item menu-home"
         id="homeButton"
     >
-        🏠 Home
+        ðŸ  Home
     </button>
 
 
@@ -1253,7 +1253,7 @@ button {
         class="menu-item menu-history"
         id="historyButton"
     >
-        📋 Job History
+        ðŸ“‹ Job History
     </button>
 
 
@@ -1261,7 +1261,7 @@ button {
         class="menu-item menu-cancel"
         id="cancelMenuButton"
     >
-        ❌ Cancel Subscription
+        âŒ Cancel Subscription
     </button>
 
 
@@ -1269,7 +1269,7 @@ button {
         class="menu-item menu-subscription"
         id="subscriptionButton"
     >
-        💳 Get Subscription
+        ðŸ’³ Get Subscription
     </button>
 
 
@@ -1277,7 +1277,7 @@ button {
         class="menu-item menu-logout"
         id="logoutButton"
     >
-        🚪 Log Out
+        ðŸšª Log Out
     </button>
 
 
@@ -1285,7 +1285,7 @@ button {
         class="menu-item menu-support"
         id="supportButton"
     >
-        🛠️ Customer Service
+        ðŸ› ï¸ Customer Service
     </button>
 
 </nav>
@@ -1308,7 +1308,7 @@ button {
 >
 
     <h2>
-        🛠️ Technician Login
+        ðŸ› ï¸ Technician Login
     </h2>
 
     <p>
@@ -1386,7 +1386,7 @@ button {
         <div>
 
             <h1>
-                🛠️ World Oil Technician Dashboard
+                ðŸ› ï¸ World Oil Technician Dashboard
             </h1>
 
             <div
@@ -1403,7 +1403,7 @@ button {
             class="refresh-button"
             id="refreshButton"
         >
-            🔄 Refresh Tickets
+            ðŸ”„ Refresh Tickets
         </button>
 
     </div>
@@ -1444,7 +1444,7 @@ button {
         <div>
 
             <h1>
-                📋 Job History
+                ðŸ“‹ Job History
             </h1>
 
             <div class="welcome">
@@ -1486,7 +1486,7 @@ button {
 
     <div class="cancel-warning">
 
-        ⚠️ <strong>Important:</strong>
+        âš ï¸ <strong>Important:</strong>
 
         Cancelling your subscription will remove your technician
         subscription access.
@@ -2199,7 +2199,7 @@ function renderHistory() {
             <div class="history-empty"> 
  
                 <div class="empty-icon"> 
-                    📋 
+                    ðŸ“‹ 
                 </div> 
  
                 <strong> 
@@ -2240,7 +2240,7 @@ function renderHistory() {
                         <article class="history-card"> 
  
                             <h3> 
-                                🚗 Oil Change Request 
+                                ðŸš— Oil Change Request 
                             </h3> 
  
  
@@ -2898,7 +2898,7 @@ async function loadTickets() {
             <div class="empty"> 
  
                 <div class="empty-icon"> 
-                    🔐 
+                    ðŸ” 
                 </div> 
  
                 <strong> 
@@ -2920,7 +2920,7 @@ async function loadTickets() {
     ticketsContainer.innerHTML = ` 
  
         <div class="loading"> 
-            🔄 Loading service requests... 
+            ðŸ”„ Loading service requests... 
         </div> 
  
     `; 
@@ -2999,7 +2999,7 @@ async function loadTickets() {
                 <div class="empty"> 
  
                     <div class="empty-icon"> 
-                        📋 
+                        ðŸ“‹ 
                     </div> 
  
                     <strong> 
@@ -3061,21 +3061,6 @@ async function loadTickets() {
             ); 
  
  
-        const requestAlreadyAccepted = 
-            errorMessage 
-                .toLowerCase() 
-                .includes("already accepted") || 
-            errorMessage 
-                .toLowerCase() 
-                .includes("already assigned") || 
-            errorMessage 
-                .toLowerCase() 
-                .includes("already taken") || 
-            errorMessage 
-                .toLowerCase() 
-                .includes("accepted by another technician"); 
- 
- 
         if ( 
             errorMessage 
                 .toLowerCase() 
@@ -3095,7 +3080,7 @@ async function loadTickets() {
             <div class="empty"> 
  
                 <div class="empty-icon"> 
-                    ⚠️ 
+                    âš ï¸ 
                 </div> 
  
                 Unable to load service requests. 
@@ -3209,7 +3194,7 @@ function renderTicket(ticket) {
             <div class="customer-details"> 
  
                 <h3> 
-                    👤 Customer Information 
+                    ðŸ‘¤ Customer Information 
                 </h3> 
  
  
@@ -3271,7 +3256,7 @@ function renderTicket(ticket) {
  
             <div class="pending-note"> 
  
-                🔒 Customer contact information 
+                ðŸ”’ Customer contact information 
                 becomes available after you accept 
                 the service request. 
  
@@ -3298,7 +3283,7 @@ function renderTicket(ticket) {
                 data-ticket-id="${escapeHtml(id)}" 
             > 
  
-                ✅ Accept Service Request 
+                âœ… Accept Service Request 
  
             </button> 
  
@@ -3316,7 +3301,7 @@ function renderTicket(ticket) {
                 data-ticket-id="${escapeHtml(id)}" 
             > 
  
-                ✔️ Mark Job Completed 
+                âœ”ï¸ Mark Job Completed 
  
             </button> 
  
@@ -3327,7 +3312,7 @@ function renderTicket(ticket) {
         actionHTML = ` 
  
             <strong> 
-                ✅ Job Completed 
+                âœ… Job Completed 
             </strong> 
  
         `; 
@@ -3341,7 +3326,7 @@ function renderTicket(ticket) {
             <div class="ticket-header"> 
  
                 <h2 class="ticket-title"> 
-                    🚗 Oil Change Request 
+                    ðŸš— Oil Change Request 
                 </h2> 
  
  
@@ -3410,7 +3395,7 @@ function renderTicket(ticket) {
                         <div class="notes"> 
  
                             <strong> 
-                                📝 Customer Notes: 
+                                ðŸ“ Customer Notes: 
                             </strong> 
  
                             <br> 
@@ -3565,14 +3550,23 @@ async function handleTicketAction(event) {
  
         const errorMessage = 
             String( 
-                error?.message || "" 
-            ); 
+                error?.message || 
+                error?.details || 
+                "" 
+            ).toLowerCase(); 
+ 
+ 
+        const requestAlreadyAccepted = 
+            errorMessage.includes("already accepted") || 
+            errorMessage.includes("already assigned") || 
+            errorMessage.includes("already taken") || 
+            errorMessage.includes("accepted by another technician"); 
  
  
         if ( 
-            errorMessage 
-                .toLowerCase() 
-                .includes("session") 
+            errorMessage.includes("session") || 
+            errorMessage.includes("unauthorized") || 
+            errorMessage.includes("permission") 
         ) { 
  
             await forceTechnicianLogout( 
@@ -3890,7 +3884,7 @@ onAuthStateChanged(
                 <div class="empty"> 
  
                     <div class="empty-icon"> 
-                        💳 
+                        ðŸ’³ 
                     </div> 
  
                     <strong> 
@@ -3974,7 +3968,7 @@ onAuthStateChanged(
                 <div class="empty"> 
  
                     <div class="empty-icon"> 
-                        🔐 
+                        ðŸ” 
                     </div> 
  
                     <strong> 
@@ -4063,6 +4057,5 @@ if (
 </script> 
  
  
-</body>
-
+</body> 
 </html>
