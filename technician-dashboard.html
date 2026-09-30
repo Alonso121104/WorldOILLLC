@@ -3043,11 +3043,62 @@ async function loadTickets() {
 
 
     } catch (error) {
+    console.error(
+        "Ticket action error:",
+        error
+    );
 
-        console.error(
-            "Ticket loading error:",
-            error
+    const errorMessage =
+        String(
+            error?.message ||
+            error?.details ||
+            ""
+        ).toLowerCase();
+
+    const requestAlreadyAccepted =
+        errorMessage.includes(
+            "already accepted"
+        ) ||
+        errorMessage.includes(
+            "already assigned"
+        ) ||
+        errorMessage.includes(
+            "already taken"
+        ) ||
+        errorMessage.includes(
+            "accepted by another technician"
         );
+
+    if (
+        errorMessage.includes("session") ||
+        errorMessage.includes("unauthorized") ||
+        errorMessage.includes("permission")
+    ) {
+        await forceTechnicianLogout(
+            "Your technician session is no longer valid. Please sign in again."
+        );
+
+        return;
+    }
+
+    if (requestAlreadyAccepted) {
+        await loadTickets();
+
+        showDashboardError(
+            "This service request was already accepted by another technician."
+        );
+
+        return;
+    }
+
+    showDashboardError(
+        error?.message ||
+        "Unable to update service request."
+    );
+
+    button.disabled = false;
+    button.textContent = originalText;
+}
 
 
         /*
