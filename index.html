@@ -1718,6 +1718,9 @@
         const API_URL =
             "https://worldoil-render-backend.onrender.com";
 
+        const BOOKING_CHECKOUT_URL =
+            "https://us-central1-worldoilllc.cloudfunctions.net/createOilChangeCheckoutSession";
+
         const OIL_CHANGE_PRICE_CENTS =
             5000;
 
@@ -3342,7 +3345,7 @@
 
                     const response =
                         await fetch(
-                            `${API_URL}/book`,
+                            BOOKING_CHECKOUT_URL,
                             {
 
                                 method:
