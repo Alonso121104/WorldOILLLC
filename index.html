@@ -84,7 +84,7 @@
         ========================================== */
 
         .container {
-            width: 340px;
+            width: min(620px, calc(100% - 40px));
             max-width: calc(100% - 40px);
 
             padding: 25px;
@@ -1686,7 +1686,7 @@
                 type="submit"
                 id="submitButton"
             >
-                Request Oil Change — $5 Booking Fee
+                Continue to Stripe — Pay $5 Deposit
             </button>
 
 
@@ -1695,6 +1695,14 @@
                 role="status"
                 aria-live="polite"
             ></div>
+
+
+            <p
+                class="booking-deposit-note"
+                style="margin: 16px 0 0; padding: 12px; text-align: center; border-radius: 8px; background: #fff8e6; color: #6b4f00; font-weight: 600;"
+            >
+                $5 deposit due when booking. This deposit counts toward the $50 oil change.
+            </p>
 
         </form>
 
@@ -3385,18 +3393,34 @@
                     }
 
 
+                    const checkoutUrl =
+                        result.checkoutUrl ||
+                        result.checkout_url ||
+                        result.url ||
+                        "";
+
+
+                    if (!checkoutUrl) {
+
+                        throw new Error(
+                            "Stripe checkout is not available yet. Please try again later."
+                        );
+
+                    }
+
+
                     showMessage(
-                        "Appointment request submitted. The $5 booking fee is credited toward the $50 oil-change price.",
+                        "Opening secure Stripe payment...",
                         "success"
                     );
 
 
-                    form.reset();
+                    window.location.assign(
+                        checkoutUrl
+                    );
 
 
-                    updateDateLimit();
-
-                    updateYearLimit();
+                    return;
 
 
                 } catch (error) {
@@ -3436,7 +3460,7 @@
                         false;
 
                     submitButton.textContent =
-                        "Request Oil Change — $5 Booking Fee";
+                        "Continue to Stripe — Pay $5 Deposit";
 
                 }
 
