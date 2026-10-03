@@ -1616,9 +1616,9 @@
                     <span class="required">*</span>
                 </label>
 
-                <select
-                    id="time"
-                    name="time"
+            <select
+                id="time"
+                name="time"
                     required
                     aria-required="true"
                 >
@@ -1652,11 +1652,41 @@
             </div>
 
 
+            <div
+                class="booking-price-summary"
+                aria-label="Booking price summary"
+                style="margin: 18px 0; padding: 16px; border: 1px solid #d7e3ec; border-radius: 10px; background: #f6fbff;"
+            >
+
+                <strong>Oil Change Price</strong>
+                <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                    <span>Total oil-change service price</span>
+                    <strong>$50.00</strong>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 6px;">
+                    <span>Booking fee due today</span>
+                    <strong>$5.00</strong>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 6px;">
+                    <span>Remaining balance at service</span>
+                    <strong>$45.00</strong>
+                </div>
+
+                <p style="margin: 10px 0 0; font-size: 0.9rem;">
+                    The $5 booking fee goes toward the $50 oil-change price.
+                    Oil and filter are not included and must be provided by the customer.
+                </p>
+
+            </div>
+
+
             <button
                 type="submit"
                 id="submitButton"
             >
-                Submit Request
+                Request Oil Change — $5 Booking Fee
             </button>
 
 
@@ -1679,6 +1709,15 @@
 
         const API_URL =
             "https://worldoil-render-backend.onrender.com";
+
+        const OIL_CHANGE_PRICE_CENTS =
+            5000;
+
+        const BOOKING_FEE_CENTS =
+            500;
+
+        const REMAINING_BALANCE_CENTS =
+            OIL_CHANGE_PRICE_CENTS - BOOKING_FEE_CENTS;
 
 
         /* ==================================================
@@ -3242,7 +3281,19 @@
                         appointmentDate,
 
                     time:
-                        time
+                        time,
+
+                    servicePriceCents:
+                        OIL_CHANGE_PRICE_CENTS,
+
+                    bookingFeeCents:
+                        BOOKING_FEE_CENTS,
+
+                    remainingBalanceCents:
+                        REMAINING_BALANCE_CENTS,
+
+                    oilAndFilterIncluded:
+                        false
 
                 };
 
@@ -3335,7 +3386,7 @@
 
 
                     showMessage(
-                        "Appointment request submitted successfully!",
+                        "Appointment request submitted. The $5 booking fee is credited toward the $50 oil-change price.",
                         "success"
                     );
 
@@ -3385,7 +3436,7 @@
                         false;
 
                     submitButton.textContent =
-                        "Submit Request";
+                        "Request Oil Change — $5 Booking Fee";
 
                 }
 
