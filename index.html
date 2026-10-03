@@ -139,6 +139,29 @@
             flex-shrink: 0;
         }
 
+        .language-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: -8px 0 18px;
+        }
+
+        .language-button {
+            border: 1px solid #145A8D;
+            border-radius: 999px;
+            background: #ffffff;
+            color: #145A8D;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .language-button.active,
+        .language-button:hover {
+            background: #145A8D;
+            color: #ffffff;
+        }
+
 
         .field {
             margin-bottom: 14px;
@@ -1457,10 +1480,30 @@
             >
 
             <span>
-                World Oil Change
+                <span data-i18n="pageTitle">World Oil Change</span>
             </span>
 
         </h1>
+
+        <div
+            class="language-switcher"
+            aria-label="Language selection"
+        >
+            <button
+                type="button"
+                class="language-button active"
+                data-language="en"
+            >
+                English
+            </button>
+            <button
+                type="button"
+                class="language-button"
+                data-language="es"
+            >
+                Español
+            </button>
+        </div>
 
 
         <form
@@ -1471,7 +1514,7 @@
             <div class="field">
 
                 <label for="name">
-                    Full Name
+                    <span data-i18n="fullName">Full Name</span>
                     <span class="required">*</span>
                 </label>
 
@@ -1485,6 +1528,7 @@
                     required
                     aria-required="true"
                     placeholder="Enter your full name"
+                    data-i18n-placeholder="fullNamePlaceholder"
                 >
 
             </div>
@@ -1493,7 +1537,7 @@
             <div class="field">
 
                 <label for="phone">
-                    Phone Number
+                    <span data-i18n="phoneNumber">Phone Number</span>
                     <span class="required">*</span>
                 </label>
 
@@ -1514,7 +1558,7 @@
                     id="phoneHelp"
                     class="help"
                 >
-                    Enter a 10-digit phone number.
+                    <span data-i18n="phoneHelp">Enter a 10-digit phone number.</span>
                 </span>
 
             </div>
@@ -1523,7 +1567,7 @@
             <div class="field">
 
                 <label for="year">
-                    Vehicle Year
+                    <span data-i18n="vehicleYear">Vehicle Year</span>
                     <span class="required">*</span>
                 </label>
 
@@ -1536,6 +1580,7 @@
                     required
                     aria-required="true"
                     placeholder="Example: 2020"
+                    data-i18n-placeholder="vehicleYearPlaceholder"
                 >
 
             </div>
@@ -1544,7 +1589,7 @@
             <div class="field">
 
                 <label for="make">
-                    Vehicle Make
+                    <span data-i18n="vehicleMake">Vehicle Make</span>
                     <span class="required">*</span>
                 </label>
 
@@ -1557,6 +1602,7 @@
                     required
                     aria-required="true"
                     placeholder="Example: Toyota"
+                    data-i18n-placeholder="vehicleMakePlaceholder"
                 >
 
             </div>
@@ -1565,7 +1611,7 @@
             <div class="field">
 
                 <label for="model">
-                    Vehicle Model
+                    <span data-i18n="vehicleModel">Vehicle Model</span>
                     <span class="required">*</span>
                 </label>
 
@@ -1578,6 +1624,7 @@
                     required
                     aria-required="true"
                     placeholder="Example: Camry"
+                    data-i18n-placeholder="vehicleModelPlaceholder"
                 >
 
             </div>
@@ -1586,7 +1633,7 @@
             <div class="field">
 
                 <label for="date">
-                    Appointment Date
+                    <span data-i18n="appointmentDate">Appointment Date</span>
                     <span class="required">*</span>
                 </label>
 
@@ -1603,7 +1650,7 @@
                     id="dateHelp"
                     class="help"
                 >
-                    Select the date you want your oil change.
+                    <span data-i18n="dateHelp">Select the date you want your oil change.</span>
                 </span>
 
             </div>
@@ -1612,7 +1659,7 @@
             <div class="field">
 
                 <label for="time">
-                    Appointment Time
+                    <span data-i18n="appointmentTime">Appointment Time</span>
                     <span class="required">*</span>
                 </label>
 
@@ -1624,7 +1671,7 @@
                 >
 
                     <option value="">
-                        Select a time
+                        <span data-i18n="selectTime">Select a time</span>
                     </option>
 
                     <option value="08:00 AM">08:00 AM</option>
@@ -1658,25 +1705,24 @@
                 style="margin: 18px 0; padding: 16px; border: 1px solid #d7e3ec; border-radius: 10px; background: #f6fbff;"
             >
 
-                <strong>Oil Change Price</strong>
+                <strong data-i18n="oilChangePrice">Oil Change Price</strong>
                 <div style="display: flex; justify-content: space-between; margin-top: 8px;">
-                    <span>Total oil-change service price</span>
+                    <span data-i18n="totalServicePrice">Total oil-change service price</span>
                     <strong>$50.00</strong>
                 </div>
 
                 <div style="display: flex; justify-content: space-between; margin-top: 6px;">
-                    <span>Booking fee due today</span>
+                    <span data-i18n="bookingFeeToday">Booking fee due today</span>
                     <strong>$5.00</strong>
                 </div>
 
                 <div style="display: flex; justify-content: space-between; margin-top: 6px;">
-                    <span>Remaining balance at service</span>
+                    <span data-i18n="remainingBalance">Remaining balance at service</span>
                     <strong>$45.00</strong>
                 </div>
 
                 <p style="margin: 10px 0 0; font-size: 0.9rem;">
-                    The $5 booking fee goes toward the $50 oil-change price.
-                    Oil and filter are not included and must be provided by the customer.
+                    <span data-i18n="priceDescription">The $5 booking fee goes toward the $50 oil-change price. Oil and filter are not included and must be provided by the customer.</span>
                 </p>
 
             </div>
@@ -1686,7 +1732,7 @@
                 type="submit"
                 id="submitButton"
             >
-                Continue to Stripe — Pay $5 Deposit
+                <span data-i18n="stripeButton">Continue to Stripe — Pay $5 Deposit</span>
             </button>
 
 
@@ -1701,7 +1747,7 @@
                 class="booking-deposit-note"
                 style="margin: 16px 0 0; padding: 12px; text-align: center; border-radius: 8px; background: #fff8e6; color: #6b4f00; font-weight: 600;"
             >
-                $5 deposit due when booking. This deposit counts toward the $50 oil change.
+                <span data-i18n="depositNote">$5 deposit due when booking. This deposit counts toward the $50 oil change.</span>
             </p>
 
         </form>
@@ -1729,6 +1775,120 @@
 
         const REMAINING_BALANCE_CENTS =
             OIL_CHANGE_PRICE_CENTS - BOOKING_FEE_CENTS;
+
+        let currentLanguage = "en";
+
+        const translations = {
+            en: {
+                pageTitle: "World Oil Change",
+                fullName: "Full Name",
+                fullNamePlaceholder: "Enter your full name",
+                phoneNumber: "Phone Number",
+                phoneHelp: "Enter a 10-digit phone number.",
+                vehicleYear: "Vehicle Year",
+                vehicleYearPlaceholder: "Example: 2020",
+                vehicleMake: "Vehicle Make",
+                vehicleMakePlaceholder: "Example: Toyota",
+                vehicleModel: "Vehicle Model",
+                vehicleModelPlaceholder: "Example: Camry",
+                appointmentDate: "Appointment Date",
+                dateHelp: "Select the date you want your oil change.",
+                appointmentTime: "Appointment Time",
+                selectTime: "Select a time",
+                oilChangePrice: "Oil Change Price",
+                totalServicePrice: "Total oil-change service price",
+                bookingFeeToday: "Booking fee due today",
+                remainingBalance: "Remaining balance at service",
+                priceDescription: "The $5 booking fee goes toward the $50 oil-change price. Oil and filter are not included and must be provided by the customer.",
+                stripeButton: "Continue to Stripe — Pay $5 Deposit",
+                depositNote: "$5 deposit due when booking. This deposit counts toward the $50 oil change."
+            },
+            es: {
+                pageTitle: "Cambio de aceite World Oil",
+                fullName: "Nombre completo",
+                fullNamePlaceholder: "Ingrese su nombre completo",
+                phoneNumber: "Número de teléfono",
+                phoneHelp: "Ingrese un número de teléfono de 10 dígitos.",
+                vehicleYear: "Año del vehículo",
+                vehicleYearPlaceholder: "Ejemplo: 2020",
+                vehicleMake: "Marca del vehículo",
+                vehicleMakePlaceholder: "Ejemplo: Toyota",
+                vehicleModel: "Modelo del vehículo",
+                vehicleModelPlaceholder: "Ejemplo: Camry",
+                appointmentDate: "Fecha de la cita",
+                dateHelp: "Seleccione la fecha de su cambio de aceite.",
+                appointmentTime: "Hora de la cita",
+                selectTime: "Seleccione una hora",
+                oilChangePrice: "Precio del cambio de aceite",
+                totalServicePrice: "Precio total del servicio de cambio de aceite",
+                bookingFeeToday: "Tarifa de reserva que se paga hoy",
+                remainingBalance: "Saldo restante al realizar el servicio",
+                priceDescription: "La tarifa de reserva de $5 se aplica al precio de $50 del cambio de aceite. El aceite y el filtro no están incluidos y el cliente debe proporcionarlos.",
+                stripeButton: "Continuar a Stripe — Pagar depósito de $5",
+                depositNote: "Depósito de $5 al reservar. Este depósito cuenta para el cambio de aceite de $50."
+            }
+        };
+
+        const messageTranslations = {
+            "Please fill out all required fields.": "Complete todos los campos obligatorios.",
+            "Please enter your full name.": "Ingrese su nombre completo.",
+            "Please enter a valid 10-digit phone number.": "Ingrese un número de teléfono válido de 10 dígitos.",
+            "Please enter a valid vehicle year.": "Ingrese un año válido para el vehículo.",
+            "Please enter the vehicle make and model.": "Ingrese la marca y el modelo del vehículo.",
+            "Please select today or a future date.": "Seleccione hoy o una fecha futura.",
+            "Please select a time.": "Seleccione una hora.",
+            "Opening secure Stripe payment...": "Abriendo el pago seguro de Stripe...",
+            "Submitting your request...": "Enviando su solicitud...",
+            "Stripe checkout is not available yet. Please try again later.": "El pago de Stripe aún no está disponible. Inténtelo de nuevo más tarde.",
+            "The server took too long to respond. Please try again.": "El servidor tardó demasiado en responder. Inténtelo de nuevo.",
+            "Could not submit request. Please try again.": "No se pudo enviar la solicitud. Inténtelo de nuevo."
+        };
+
+        function translateMessage(text) {
+            return currentLanguage === "es"
+                ? (messageTranslations[text] || text)
+                : text;
+        }
+
+        function applyLanguage(language) {
+            currentLanguage = language === "es" ? "es" : "en";
+            const selected = translations[currentLanguage];
+
+            document.documentElement.lang = currentLanguage;
+
+            document.querySelectorAll("[data-i18n]").forEach((element) => {
+                const key = element.dataset.i18n;
+                if (selected[key]) {
+                    element.textContent = selected[key];
+                }
+            });
+
+            document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+                const key = element.dataset.i18nPlaceholder;
+                if (selected[key]) {
+                    element.placeholder = selected[key];
+                }
+            });
+
+            document.querySelectorAll("#time option").forEach((option) => {
+                if (option.value === "") {
+                    option.textContent = selected.selectTime;
+                }
+            });
+
+            document.querySelectorAll(".language-button").forEach((button) => {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.language === currentLanguage
+                );
+            });
+        }
+
+        document.querySelectorAll(".language-button").forEach((button) => {
+            button.addEventListener("click", () => {
+                applyLanguage(button.dataset.language);
+            });
+        });
 
 
         /* ==================================================
@@ -3044,7 +3204,7 @@
         ) {
 
             message.textContent =
-                text;
+                translateMessage(text);
 
             message.className =
                 type || "";
@@ -3462,8 +3622,7 @@
                     submitButton.disabled =
                         false;
 
-                    submitButton.textContent =
-                        "Continue to Stripe — Pay $5 Deposit";
+                    applyLanguage(currentLanguage);
 
                 }
 
