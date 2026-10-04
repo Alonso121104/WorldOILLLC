@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1997,6 +2005,30 @@ form.addEventListener(
            NEW TECHNICIAN
         ========================================= */
 
+        function getServiceAreaFromAddress(address) {
+            const value = String(address || "").toLowerCase();
+
+            if (
+                /riverside|san bernardino|ontario|rancho cucamonga|fontana|redlands|rialto|corona|moreno valley|inland empire/.test(value)
+            ) {
+                return "inland-empire";
+            }
+
+            if (
+                /orange county|anaheim|santa ana|irvine|orange|fullerton|garden grove|huntington beach|costa mesa|westminster|yorba linda|brea/.test(value)
+            ) {
+                return "orange-county";
+            }
+
+            if (
+                /los angeles county|los angeles|long beach|pasadena|torrance|glendale|burbank|compton|inland empire/.test(value)
+            ) {
+                return "los-angeles";
+            }
+
+            return "";
+        }
+
         const firstName =
             document
                 .getElementById("firstName")
@@ -2030,6 +2062,9 @@ form.addEventListener(
                 .getElementById("serviceAddress")
                 .value
                 .trim();
+
+        const serviceArea =
+            getServiceAreaFromAddress(serviceAddress);
 
 
         const dateOfBirth =
@@ -2114,6 +2149,15 @@ form.addEventListener(
 
             return;
 
+        }
+
+        if (!serviceArea) {
+            showMessage(
+                "Please enter a service address in Los Angeles, Orange County, or the Inland Empire.",
+                "error"
+            );
+
+            return;
         }
 
 
@@ -2421,6 +2465,9 @@ form.addEventListener(
 
                     serviceAddress:
                         serviceAddress,
+
+                    serviceArea:
+                        serviceArea,
 
 
                     dateOfBirth:
