@@ -1,3 +1,14 @@
+
+
+
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1623,6 +1634,28 @@
 
             <div class="field">
 
+                <label for="serviceArea">
+                    <span data-i18n="serviceArea">Service Area</span>
+                    <span class="required">*</span>
+                </label>
+
+                <select
+                    id="serviceArea"
+                    name="serviceArea"
+                    required
+                    aria-required="true"
+                >
+                    <option value="" data-i18n="selectServiceArea">Select your service area</option>
+                    <option value="los-angeles" data-i18n="losAngeles">Los Angeles</option>
+                    <option value="orange-county" data-i18n="orangeCounty">Orange County</option>
+                    <option value="inland-empire" data-i18n="inlandEmpire">Inland Empire</option>
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
                 <label for="year">
                     <span data-i18n="vehicleYear">Vehicle Year</span>
                     <span class="required">*</span>
@@ -1834,6 +1867,11 @@
                 fullNamePlaceholder: "Enter your full name",
                 phoneNumber: "Phone Number",
                 phoneHelp: "Enter a 10-digit phone number.",
+                serviceArea: "Service Area",
+                selectServiceArea: "Select your service area",
+                losAngeles: "Los Angeles",
+                orangeCounty: "Orange County",
+                inlandEmpire: "Inland Empire",
                 vehicleYear: "Vehicle Year",
                 vehicleYearPlaceholder: "Example: 2020",
                 vehicleMake: "Vehicle Make",
@@ -1858,6 +1896,11 @@
                 fullNamePlaceholder: "Ingrese su nombre completo",
                 phoneNumber: "Número de teléfono",
                 phoneHelp: "Ingrese un número de teléfono de 10 dígitos.",
+                serviceArea: "Área de servicio",
+                selectServiceArea: "Seleccione su área de servicio",
+                losAngeles: "Los Ángeles",
+                orangeCounty: "Condado de Orange",
+                inlandEmpire: "Inland Empire",
                 vehicleYear: "Año del vehículo",
                 vehicleYearPlaceholder: "Ejemplo: 2020",
                 vehicleMake: "Marca del vehículo",
@@ -3236,6 +3279,11 @@
                 "year"
             );
 
+        const serviceAreaInput =
+            document.getElementById(
+                "serviceArea"
+            );
+
 
         /* ==================================================
            TODAY
@@ -3571,6 +3619,9 @@
 
                     phone:
                         normalizedPhone,
+
+                    serviceArea:
+                        serviceAreaInput.value,
 
                     year:
                         vehicleYear,
