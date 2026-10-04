@@ -624,6 +624,28 @@
             line-height: 1.6;
         }
 
+        .booking-card {
+            padding: 14px;
+            margin: 12px 0;
+            border: 1px solid #d7e3ec;
+            border-radius: 10px;
+            background: #f6fbff;
+        }
+
+        .booking-card p {
+            margin: 6px 0;
+            line-height: 1.45;
+        }
+
+        .booking-card strong {
+            color: #145A8D;
+        }
+
+        .booking-empty {
+            color: #666;
+            text-align: center;
+        }
+
 
         /* ==========================================
            CLOSE BUTTON
@@ -1078,6 +1100,11 @@
         </a>
 
 
+        <a href="#" data-panel="bookings">
+            📋 My Bookings
+        </a>
+
+
         <a href="#" data-panel="about-me">
             👨‍🔧 About Me
         </a>
@@ -1119,6 +1146,36 @@
         </a>
 
     </nav>
+
+
+    <!-- ==========================================
+         BOOKINGS
+    ========================================== -->
+
+    <section
+        class="info-panel"
+        id="bookings"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="bookingsTitle"
+        aria-hidden="true"
+    >
+
+        <button
+            class="close-panel"
+            type="button"
+            aria-label="Close My Bookings"
+        >
+            ×
+        </button>
+
+        <h2 id="bookingsTitle">My Bookings</h2>
+
+        <div id="bookingList" aria-live="polite">
+            <p class="booking-empty">No bookings submitted yet.</p>
+        </div>
+
+    </section>
 
 
     <!-- ==========================================
@@ -1838,8 +1895,10 @@
             "Please select today or a future date.": "Seleccione hoy o una fecha futura.",
             "Please select a time.": "Seleccione una hora.",
             "Opening secure Stripe payment...": "Abriendo el pago seguro de Stripe...",
+            "Your request has been submitted. Redirecting you to secure Stripe payment...": "Su solicitud ha sido enviada. Será redirigido al pago seguro de Stripe...",
             "Submitting your request...": "Enviando su solicitud...",
             "Stripe checkout is not available yet. Please try again later.": "El pago de Stripe aún no está disponible. Inténtelo de nuevo más tarde.",
+            "This request could not be submitted.": "No se pudo enviar esta solicitud.",
             "The server took too long to respond. Please try again.": "El servidor tardó demasiado en responder. Inténtelo de nuevo.",
             "Could not submit request. Please try again.": "No se pudo enviar la solicitud. Inténtelo de nuevo."
         };
@@ -1909,6 +1968,80 @@
 
         const infoPanels =
             document.querySelectorAll(".info-panel");
+
+        const bookingList =
+            document.getElementById("bookingList");
+
+        const SAVED_BOOKINGS_KEY =
+            "worldOilSavedBookings";
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function renderBookings() {
+            let bookings = [];
+
+            try {
+                bookings = JSON.parse(
+                    localStorage.getItem(SAVED_BOOKINGS_KEY) || "[]"
+                );
+            } catch (error) {
+                bookings = [];
+            }
+
+            if (!bookings.length) {
+                bookingList.innerHTML =
+                    '<p class="booking-empty">No bookings submitted yet.</p>';
+                return;
+            }
+
+            bookingList.innerHTML = bookings.map(function(booking) {
+                return `
+                    <div class="booking-card">
+                        <p><strong>Status:</strong> Request submitted — payment pending</p>
+                        <p><strong>Name:</strong> ${escapeHtml(booking.name)}</p>
+                        <p><strong>Vehicle:</strong> ${escapeHtml(booking.year)} ${escapeHtml(booking.make)} ${escapeHtml(booking.model)}</p>
+                        <p><strong>Appointment:</strong> ${escapeHtml(booking.rawDate)} at ${escapeHtml(booking.time)}</p>
+                        <p><strong>Booking fee:</strong> $5.00</p>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function saveBooking(booking) {
+            let bookings = [];
+
+            try {
+                bookings = JSON.parse(
+                    localStorage.getItem(SAVED_BOOKINGS_KEY) || "[]"
+                );
+            } catch (error) {
+                bookings = [];
+            }
+
+            bookings.unshift({
+                name: booking.name,
+                year: booking.year,
+                make: booking.make,
+                model: booking.model,
+                rawDate: booking.rawDate,
+                time: booking.time,
+                createdAt: new Date().toISOString()
+            });
+
+            localStorage.setItem(
+                SAVED_BOOKINGS_KEY,
+                JSON.stringify(bookings.slice(0, 10))
+            );
+
+            renderBookings();
+        }
 
 
         /* ==================================================
@@ -2210,6 +2343,14 @@
                             ) {
 
                                 loadReviews();
+
+                            }
+
+                            if (
+                                panelId === "bookings"
+                            ) {
+
+                                renderBookings();
 
                             }
 
@@ -3571,16 +3712,20 @@
 
                     }
 
+                    saveBooking(data);
+
 
                     showMessage(
-                        "Opening secure Stripe payment...",
+                        "Your request has been submitted. Redirecting you to secure Stripe payment...",
                         "success"
                     );
 
+                    // Keep the confirmation visible long enough for the customer to read it.
+                    await new Promise(function(resolve) {
+                        setTimeout(resolve, 1800);
+                    });
 
-                    window.location.assign(
-                        checkoutUrl
-                    );
+                    window.location.assign(checkoutUrl);
 
 
                     return;
