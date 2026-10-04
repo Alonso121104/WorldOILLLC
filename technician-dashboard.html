@@ -1647,6 +1647,65 @@ let technicianSessionId = null;
 let sessionVerificationTimer = null; 
  
 let sessionCreating = false; 
+
+let technicianServiceArea = "";
+
+function normalizeServiceArea(value) {
+
+    const normalized =
+        String(value || "")
+            .trim()
+            .toLowerCase();
+
+    if (
+        normalized.includes("orange")
+    ) {
+        return "orange-county";
+    }
+
+    if (
+        normalized.includes("inland") ||
+        normalized.includes("riverside") ||
+        normalized.includes("san bernardino")
+    ) {
+        return "inland-empire";
+    }
+
+    if (
+        normalized.includes("los angeles") ||
+        normalized === "la"
+    ) {
+        return "los-angeles";
+    }
+
+    return "";
+}
+
+function getServiceAreaFromAddress(address) {
+
+    const value =
+        String(address || "").toLowerCase();
+
+    if (
+        /riverside|san bernardino|ontario|rancho cucamonga|fontana|redlands|rialto|corona|moreno valley|inland empire/.test(value)
+    ) {
+        return "inland-empire";
+    }
+
+    if (
+        /orange county|anaheim|santa ana|irvine|orange|fullerton|garden grove|huntington beach|costa mesa|westminster|yorba linda|brea/.test(value)
+    ) {
+        return "orange-county";
+    }
+
+    if (
+        /los angeles county|los angeles|long beach|pasadena|torrance|glendale|burbank|compton/.test(value)
+    ) {
+        return "los-angeles";
+    }
+
+    return "";
+}
  
  
 /* 
@@ -2786,6 +2845,12 @@ async function loadTechnicianName(user) {
  
             const data = 
                 technicianSnap.data(); 
+
+            technicianServiceArea =
+                normalizeServiceArea(data.serviceArea) ||
+                getServiceAreaFromAddress(
+                    data.serviceAddress
+                );
  
  
             const firstName = 
@@ -2935,10 +3000,13 @@ async function loadTickets() {
  
         const result = 
             await getTechnicianTickets({ 
- 
+
                 sessionId: 
-                    technicianSessionId 
- 
+                    technicianSessionId,
+
+                serviceArea:
+                    technicianServiceArea
+
             }); 
  
  
@@ -2952,6 +3020,18 @@ async function loadTickets() {
             Array.isArray(tickets) 
                 ? tickets 
                 : []; 
+
+        if (!technicianServiceArea) {
+            throw new Error(
+                "Your technician service area is not configured. Please update your service address."
+            );
+        }
+
+        const areaTickets =
+            allTickets.filter(ticket =>
+                normalizeServiceArea(ticket.serviceArea) ===
+                    technicianServiceArea
+            );
  
  
         /* 
@@ -2959,7 +3039,7 @@ async function loadTickets() {
             Save any completed jobs returned by the backend before 
             removing them from the Home ticket list. 
         */ 
-        allTickets 
+        areaTickets 
             .filter(ticket => 
                 String(ticket.status || "") 
                     .trim() 
@@ -2983,7 +3063,7 @@ async function loadTickets() {
  
  
         currentTickets = 
-            allTickets.filter(ticket => 
+            areaTickets.filter(ticket => 
                 String(ticket.status || "") 
                     .trim() 
                     .toLowerCase() !== "completed" 
