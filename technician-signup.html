@@ -837,9 +837,21 @@ placeholder="Street address, City, State, ZIP"
 autocomplete="street-address"
 >
 
+<label for="serviceArea" style="margin-top: 14px;">
+Service Area
+<span class="required">*</span>
+</label>
+
+<select id="serviceArea" required>
+<option value="">Select your service area</option>
+<option value="los-angeles">Los Angeles</option>
+<option value="orange-county">Orange County</option>
+<option value="inland-empire">Inland Empire</option>
+</select>
+
 <div class="age-notice">
-Your service address is used to determine your service area
-and help match you with customer jobs. It will not be displayed publicly.
+Your selected service area is used to match you with customer jobs.
+Your address is kept private and is used as a backup for area matching.
 </div>
 
 </div>
@@ -2055,7 +2067,13 @@ form.addEventListener(
                 .value
                 .trim();
 
+        const selectedServiceArea =
+            document
+                .getElementById("serviceArea")
+                .value;
+
         const serviceArea =
+            selectedServiceArea ||
             getServiceAreaFromAddress(serviceAddress);
 
 
@@ -2129,6 +2147,7 @@ form.addEventListener(
             !email ||
             !phone ||
             !serviceAddress ||
+            !selectedServiceArea ||
             !dateOfBirth ||
             !password ||
             !confirmPassword
