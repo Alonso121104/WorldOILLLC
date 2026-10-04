@@ -3021,12 +3021,6 @@ async function loadTickets() {
                 ? tickets 
                 : []; 
 
-        if (!technicianServiceArea) {
-            throw new Error(
-                "Your technician service area is not configured. Please update your service address."
-            );
-        }
-
         const areaTickets =
             allTickets.filter(ticket =>
                 normalizeServiceArea(ticket.serviceArea) ===
