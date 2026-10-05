@@ -1919,7 +1919,8 @@
             "Please select today or a future date.": "Seleccione hoy o una fecha futura.",
             "Please select a time.": "Seleccione una hora.",
             "Opening secure Stripe payment...": "Abriendo el pago seguro de Stripe...",
-            "Your request has been submitted. Redirecting you to secure Stripe payment...": "Su solicitud ha sido enviada. Será redirigido al pago seguro de Stripe...",
+            "Payment successful! Your booking has been added to My Bookings.": "¡Pago exitoso! Su reserva se agregó a Mis reservas.",
+            "Payment was cancelled. Your booking was not saved.": "El pago fue cancelado. Su reserva no se guardó.",
             "Submitting your request...": "Enviando su solicitud...",
             "Stripe checkout is not available yet. Please try again later.": "El pago de Stripe aún no está disponible. Inténtelo de nuevo más tarde.",
             "This request could not be submitted.": "No se pudo enviar esta solicitud.",
@@ -1999,6 +2000,9 @@
         const SAVED_BOOKINGS_KEY =
             "worldOilSavedBookings";
 
+        const PENDING_BOOKING_KEY =
+            "worldOilPendingBooking";
+
         function escapeHtml(value) {
             return String(value)
                 .replace(/&/g, "&amp;")
@@ -2066,6 +2070,58 @@
 
             renderBookings();
         }
+
+        function handleStripeReturn() {
+            const params = new URLSearchParams(
+                window.location.search
+            );
+
+            const paymentStatus =
+                params.get("payment");
+
+            if (paymentStatus === "success") {
+                let pendingBooking = null;
+
+                try {
+                    pendingBooking = JSON.parse(
+                        localStorage.getItem(PENDING_BOOKING_KEY) || "null"
+                    );
+                } catch (error) {
+                    pendingBooking = null;
+                }
+
+                if (pendingBooking) {
+                    saveBooking(pendingBooking);
+                    localStorage.removeItem(PENDING_BOOKING_KEY);
+                    showMessage(
+                        "Payment successful! Your booking has been added to My Bookings.",
+                        "success"
+                    );
+                }
+
+                window.history.replaceState(
+                    {},
+                    document.title,
+                    window.location.pathname
+                );
+            }
+
+            if (paymentStatus === "cancelled") {
+                localStorage.removeItem(PENDING_BOOKING_KEY);
+                showMessage(
+                    "Payment was cancelled. Your booking was not saved.",
+                    "error"
+                );
+
+                window.history.replaceState(
+                    {},
+                    document.title,
+                    window.location.pathname
+                );
+            }
+        }
+
+        handleStripeReturn();
 
 
         /* ==================================================
@@ -3744,18 +3800,16 @@
 
                     }
 
-                    saveBooking(data);
-
-
-                    showMessage(
-                        "Your request has been submitted. Redirecting you to secure Stripe payment...",
-                        "success"
+                    // Keep the booking hidden until Stripe returns success.
+                    localStorage.setItem(
+                        PENDING_BOOKING_KEY,
+                        JSON.stringify(data)
                     );
 
-                    // Keep the confirmation visible long enough for the customer to read it.
-                    await new Promise(function(resolve) {
-                        setTimeout(resolve, 1800);
-                    });
+                    showMessage(
+                        "Opening secure Stripe payment...",
+                        "loading"
+                    );
 
                     window.location.assign(checkoutUrl);
 
