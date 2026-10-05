@@ -2031,7 +2031,7 @@
                         <p><strong>Status:</strong> Request submitted — payment pending</p>
                         <p><strong>Name:</strong> ${escapeHtml(booking.name)}</p>
                         <p><strong>Vehicle:</strong> ${escapeHtml(booking.year)} ${escapeHtml(booking.make)} ${escapeHtml(booking.model)}</p>
-                        <p><strong>Appointment:</strong> ${escapeHtml(booking.rawDate)} at ${escapeHtml(booking.time)}</p>
+                        <p><strong>Appointment:</strong> ${escapeHtml(booking.bookingDate)} at ${escapeHtml(booking.time)}</p>
                         <p><strong>Booking fee:</strong> $5.00</p>
                     </div>
                 `;
@@ -2054,7 +2054,7 @@
                 year: booking.year,
                 make: booking.make,
                 model: booking.model,
-                rawDate: booking.rawDate,
+                bookingDate: booking.bookingDate,
                 time: booking.time,
                 createdAt: new Date().toISOString()
             });
@@ -3621,7 +3621,7 @@
                     model:
                         model,
 
-                    rawDate:
+                    bookingDate:
                         appointmentDate,
 
                     time:
