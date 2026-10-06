@@ -1,0 +1,3866 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="World Oil Change - convenient mobile oil change service."
+    >
+
+    <link rel="manifest" href="./manifest.webmanifest">
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="./icons/primary.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="./icons/primary.png"
+    >
+
+    <meta
+        name="theme-color"
+        content="#145A8D"
+    >
+
+    <title>World Oil Change</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+
+            min-height: 100vh;
+            min-height: 100dvh;
+
+            font-family: Arial, sans-serif;
+
+            background:
+                url("./icons/vectorstock_40522311.png")
+                center center
+                no-repeat;
+
+            background-size: 900px;
+
+            background-attachment: fixed;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow-x: hidden;
+
+            transition: overflow 0.2s ease;
+        }
+
+        body.no-scroll {
+            overflow: hidden;
+            width: 100%;
+        }
+
+
+        /* ==========================================
+           BOOKING CONTAINER
+        ========================================== */
+
+        .container {
+            width: min(400px, calc(100% - 40px));
+            max-width: calc(100% - 40px);
+
+            padding: 25px;
+
+            background: rgba(255, 255, 255, 0.96);
+
+            border-radius: 12px;
+
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.30);
+
+            text-align: left;
+        }
+
+        h1 {
+            margin: 0 0 20px;
+
+            font-size: 22px;
+
+            text-align: center;
+        }
+
+
+        /* ==========================================
+           WORLD OIL CHANGE TITLE + GIF
+        ========================================== */
+
+        .brand-title {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            margin: 0 0 20px;
+
+            font-size: 22px;
+
+            color: #145A8D;
+        }
+
+        .brand-gif {
+            width: 50px;
+            height: 50px;
+
+            object-fit: contain;
+
+            display: block;
+
+            flex-shrink: 0;
+        }
+
+        .language-switcher {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: -8px 0 18px;
+        }
+
+        .language-button {
+            border: 1px solid #145A8D;
+            border-radius: 999px;
+            background: #ffffff;
+            color: #145A8D;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .language-button.active,
+        .language-button:hover {
+            background: #145A8D;
+            color: #ffffff;
+        }
+
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+
+            margin-bottom: 6px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+        }
+
+        .required {
+            color: #b00020;
+        }
+
+        .help {
+            display: block;
+
+            margin-top: 4px;
+
+            color: #666;
+
+            font-size: 12px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            padding: 10px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            background: #fff;
+
+            font-family: inherit;
+
+            font-size: 16px;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+
+            border-color: #145A8D;
+
+            box-shadow:
+                0 0 0 2px rgba(20, 90, 141, 0.12);
+        }
+
+        input:invalid:not(:placeholder-shown),
+        select:invalid:not(:focus) {
+            border-color: #ccc;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+
+        /* ==========================================
+           MAIN BUTTON
+        ========================================== */
+
+        #submitButton {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-top: 8px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            background: #145A8D;
+
+            color: #ffffff;
+
+            font-size: 16px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 6px 15px rgba(20, 90, 141, 0.25);
+
+            transition:
+                transform 0.15s ease,
+                box-shadow 0.15s ease;
+        }
+
+        #submitButton:hover {
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 18px rgba(20, 90, 141, 0.35);
+        }
+
+        #submitButton:active {
+            transform: translateY(0);
+        }
+
+        #submitButton:disabled {
+            background: #777;
+
+            box-shadow: none;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+        button:focus-visible,
+        a:focus-visible {
+            outline: 3px solid #145A8D;
+
+            outline-offset: 2px;
+        }
+
+
+        /* ==========================================
+           BOOKING MESSAGE
+        ========================================== */
+
+        #message {
+            display: none;
+
+            margin-top: 12px;
+
+            padding: 10px;
+
+            border-radius: 6px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            text-align: center;
+        }
+
+        #message.error,
+        #message.success,
+        #message.loading {
+            display: block;
+        }
+
+        #message.error {
+            color: #b00020;
+            background: #ffe5e5;
+        }
+
+        #message.success {
+            color: #146c2e;
+            background: #e5f7e9;
+        }
+
+        #message.loading {
+            color: #333;
+            background: #eee;
+        }
+
+
+        /* ==========================================
+           HAMBURGER
+           FIXED ABOVE EVERYTHING
+        ========================================== */
+
+        .menu-button {
+            position: fixed;
+
+            top: 16px;
+            left: 16px;
+
+            z-index: 10001;
+
+            width: 48px;
+            height: 48px;
+
+            padding: 0;
+            margin: 0;
+
+            border: none;
+            border-radius: 8px;
+
+            background: #145A8D;
+            color: #ffffff;
+
+            font-size: 26px;
+            line-height: 48px;
+
+            text-align: center;
+
+            cursor: pointer;
+
+            -webkit-appearance: none;
+            appearance: none;
+
+            box-shadow:
+                0 4px 12px rgba(0, 0, 0, 0.25);
+
+            transform: translateZ(0);
+
+            backface-visibility: hidden;
+
+            isolation: isolate;
+
+            transition:
+                background 0.15s ease;
+        }
+
+        .menu-button:hover {
+            background: #0B416A;
+        }
+
+        .menu-button:active {
+            transform: translateZ(0);
+        }
+        
+        /* ==========================================
+           SIDE MENU
+        ========================================== */
+
+        .side-menu {
+            position: fixed;
+
+            top: 0;
+            left: -310px;
+
+            z-index: 10000;
+
+            width: 290px;
+            max-width: 85vw;
+
+            height: 100vh;
+            height: 100dvh;
+
+            padding: 85px 20px 20px;
+
+            overflow-y: auto;
+            overflow-x: hidden;
+
+            background: #ffffff;
+
+            box-shadow:
+                5px 0 20px rgba(0, 0, 0, 0.25);
+
+            transform: translateZ(0);
+
+            backface-visibility: hidden;
+
+            transition:
+                left 0.25s ease;
+        }
+
+        .side-menu.open {
+            left: 0;
+        }
+
+        .side-menu h2 {
+            margin: 0 0 8px;
+
+            font-size: 21px;
+        }
+
+        .menu-est {
+            margin-bottom: 20px;
+
+            color: #666;
+
+            font-size: 13px;
+        }
+
+        .side-menu a {
+            display: block;
+
+            padding: 14px 10px;
+
+            margin-bottom: 5px;
+
+            border-radius: 6px;
+
+            color: #111;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+            transition:
+                background 0.15s ease,
+                color 0.15s ease;
+        }
+
+        .side-menu a:hover {
+            background: #EAF3F9;
+
+            color: #0B416A;
+        }
+
+
+        /* ==========================================
+           MENU OVERLAY
+           BELOW MENU, ABOVE PAGE
+        ========================================== */
+
+        .menu-overlay {
+            display: none;
+
+            position: fixed;
+
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+
+            margin: 0;
+            padding: 0;
+
+            border: 0;
+
+            z-index: 9999;
+
+            background: rgba(0, 0, 0, 0.40);
+
+            transform: translateZ(0);
+
+            backface-visibility: hidden;
+        }
+
+        .menu-overlay.show {
+            display: block;
+        }
+
+
+        /* ==========================================
+           INFORMATION BACKDROP
+        ========================================== */
+
+        .info-backdrop {
+            display: none;
+
+            position: fixed;
+
+            inset: 0;
+
+            z-index: 11000;
+
+            background: rgba(0, 0, 0, 0.48);
+
+            backdrop-filter: blur(9px);
+
+            -webkit-backdrop-filter: blur(9px);
+
+            animation:
+                backdropFadeIn 0.20s ease;
+        }
+
+        .info-backdrop.show {
+            display: block;
+        }
+
+        @keyframes backdropFadeIn {
+
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+
+        }
+
+
+        /* ==========================================
+           INFORMATION PANELS
+        ========================================== */
+
+        .info-panel {
+            display: none;
+
+            position: fixed;
+
+            top: 50%;
+            left: 50%;
+
+            z-index: 12000;
+
+            width: min(90%, 440px);
+
+            max-height: 82vh;
+
+            padding: 25px;
+
+            overflow-y: auto;
+
+            transform:
+                translate(-50%, -50%);
+
+            border-radius: 12px;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 15px 45px rgba(0, 0, 0, 0.50);
+
+            animation:
+                panelOpen 0.22s ease;
+        }
+
+        .info-panel.show {
+            display: block;
+        }
+
+        @keyframes panelOpen {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translate(-50%, -47%)
+                    scale(0.96);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(1);
+            }
+
+        }
+
+        .info-panel h2 {
+            margin-top: 0;
+
+            margin-bottom: 18px;
+        }
+
+        .info-panel p {
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+        .booking-card {
+            padding: 14px;
+            margin: 12px 0;
+            border: 1px solid #d7e3ec;
+            border-radius: 10px;
+            background: #f6fbff;
+        }
+
+        .booking-card p {
+            margin: 6px 0;
+            line-height: 1.45;
+        }
+
+        .booking-card strong {
+            color: #145A8D;
+        }
+
+        .booking-empty {
+            color: #666;
+            text-align: center;
+        }
+
+
+        /* ==========================================
+           CLOSE BUTTON
+        ========================================== */
+
+        .close-panel {
+            float: right;
+
+            width: auto;
+
+            padding: 4px 11px;
+
+            margin: -8px -8px 10px 10px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #145A8D;
+
+            color: white;
+
+            font-size: 22px;
+
+            line-height: 1;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s ease;
+        }
+
+        .close-panel:hover {
+            background: #0B416A;
+        }
+
+
+        /* ==========================================
+           CONTACT
+        ========================================== */
+
+        .contact-link {
+            color: #111;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .contact-link:hover {
+            color: #145A8D;
+
+            text-decoration: underline;
+        }
+
+        .contact-box {
+            padding: 14px;
+
+            margin-top: 12px;
+
+            border-radius: 8px;
+
+            background: #f5f5f5;
+        }
+
+
+        /* ==========================================
+           REVIEWS
+        ========================================== */
+
+        .review-stars {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 5px;
+
+            margin: 14px 0 8px;
+        }
+
+        .review-star {
+            width: 52px;
+            height: 52px;
+
+            padding: 0;
+            margin: 0;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background: transparent;
+
+            color: #d0d0d0;
+
+            font-size: 38px;
+
+            line-height: 1;
+
+            cursor: pointer;
+
+            transition:
+                color 0.15s ease,
+                transform 0.15s ease,
+                background 0.15s ease;
+        }
+
+        .review-star:hover {
+            background: #fff8df;
+
+            color: #ffc107;
+
+            transform: scale(1.10);
+        }
+
+        .review-star.selected {
+            color: #ffc107;
+
+            text-shadow:
+                0 1px 2px rgba(0, 0, 0, 0.15);
+        }
+
+        .review-star:focus-visible {
+            outline: 3px solid #145A8D;
+
+            outline-offset: 2px;
+
+            background: #fff8df;
+        }
+
+        .review-note {
+            color: #666;
+
+            font-size: 14px;
+        }
+
+        .rating-label {
+            margin-top: 4px;
+
+            color: #555;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            text-align: center;
+        }
+
+        .info-panel textarea {
+            width: 100%;
+
+            min-height: 110px;
+
+            padding: 10px;
+
+            margin-bottom: 12px;
+
+            resize: vertical;
+
+            border: 1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-family: inherit;
+
+            font-size: 16px;
+        }
+
+        .review-submit {
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 6px;
+
+            background: #145A8D;
+
+            color: white;
+
+            font-size: 16px;
+
+            cursor: pointer;
+
+            transition:
+                background 0.15s ease;
+        }
+
+        .review-submit:hover {
+            background: #0B416A;
+        }
+
+        .review-submit:disabled {
+            background: #777;
+
+            cursor: not-allowed;
+        }
+
+        #reviewMessage {
+            min-height: 20px;
+
+            margin-bottom: 0;
+
+            text-align: center;
+        }
+
+
+        /* ==========================================
+           REVIEW LIST
+        ========================================== */
+
+        #reviewList {
+            margin-top: 18px;
+        }
+
+        .review-item {
+            padding: 14px;
+
+            margin-top: 10px;
+
+            border-radius: 8px;
+
+            background: #f5f5f5;
+        }
+
+        .review-item-name {
+            margin-bottom: 4px;
+
+            font-weight: bold;
+        }
+
+        .review-item-stars {
+            color: #ffc107;
+
+            font-size: 18px;
+
+            letter-spacing: 2px;
+        }
+
+        .review-item-text {
+            margin: 8px 0 0;
+
+            line-height: 1.5;
+
+            overflow-wrap: anywhere;
+        }
+
+
+        /* ==========================================
+           MOBILE
+        ========================================== */
+
+        @media (max-width: 500px) {
+
+            body {
+                min-height: 100vh;
+                min-height: 100dvh;
+
+                align-items: flex-start;
+
+                padding-top: 80px;
+
+                background-size: 600px;
+
+                background-attachment: scroll;
+
+                overflow-x: hidden;
+            }
+
+            .container {
+                width: 320px;
+
+                max-width: calc(100% - 24px);
+
+                padding: 18px;
+
+                margin-bottom: 30px;
+            }
+
+            .brand-title {
+                gap: 6px;
+
+                font-size: 19px;
+
+                margin-bottom: 16px;
+            }
+
+            .brand-gif {
+                width: 40px;
+
+                height: 40px;
+            }
+
+            .field {
+                margin-bottom: 10px;
+            }
+
+            label {
+                margin-bottom: 4px;
+
+                font-size: 13px;
+            }
+
+            input,
+            select,
+            textarea {
+                padding: 8px;
+
+                font-size: 15px;
+            }
+
+            .help {
+                margin-top: 3px;
+
+                font-size: 11px;
+            }
+
+            #submitButton {
+                padding: 10px;
+
+                font-size: 15px;
+            }
+
+            .info-panel {
+                width: calc(100% - 30px);
+
+                max-height: 85vh;
+                max-height: 85dvh;
+
+                padding: 20px;
+            }
+
+            .side-menu {
+                width: 290px;
+
+                max-width: 85vw;
+
+                height: 100vh;
+                height: 100dvh;
+            }
+
+            .review-stars {
+                gap: 2px;
+            }
+
+            .review-star {
+                width: 54px;
+
+                height: 54px;
+
+                font-size: 40px;
+            }
+
+        }
+
+
+        /* ==========================================
+           REDUCED MOTION
+        ========================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior: auto;
+            }
+
+            .side-menu,
+            .info-panel,
+            .info-backdrop,
+            .review-star {
+                transition: none;
+
+                animation: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- ==========================================
+         HAMBURGER BUTTON
+    ========================================== -->
+
+    <button
+        class="menu-button"
+        id="menuButton"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="sideMenu"
+    >
+        ☰
+    </button>
+
+
+    <!-- ==========================================
+         MENU OVERLAY
+    ========================================== -->
+
+    <div
+        class="menu-overlay"
+        id="menuOverlay"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- ==========================================
+         INFORMATION BACKDROP
+    ========================================== -->
+
+    <div
+        class="info-backdrop"
+        id="infoBackdrop"
+        aria-hidden="true"
+    ></div>
+
+
+    <!-- ==========================================
+         SIDE MENU
+    ========================================== -->
+
+    <nav
+        class="side-menu"
+        id="sideMenu"
+        aria-label="Main menu"
+        aria-hidden="true"
+    >
+
+        <h2>World Oil Change</h2>
+
+        <div class="menu-est">
+            World OIL LLC • Est. June 2026
+        </div>
+
+
+        <a href="#" data-action="book">
+            🏠 Book Appointment
+        </a>
+
+
+        <a href="#" data-panel="bookings">
+            📋 My Bookings
+        </a>
+
+
+        <a href="#" data-panel="about-me">
+            👨‍🔧 About Me
+        </a>
+
+
+        <a href="#" data-panel="about-company">
+            🏢 About Company
+        </a>
+
+
+        <a href="#" data-panel="contact">
+            📞 Contact
+        </a>
+
+
+        <a href="#" data-panel="reviews">
+            ⭐ Reviews
+        </a>
+
+
+        <a href="#" data-panel="leave-review">
+            ✍️ Leave a Review
+        </a>
+
+
+        <a
+            href="./terms.html"
+            data-policy-link="true"
+        >
+            📄 Terms & Conditions
+        </a>
+
+
+        <a
+            href="./privacy-policy.html"
+            data-policy-link="true"
+        >
+            🔒 Privacy Policy
+        </a>
+
+    </nav>
+
+
+    <!-- ==========================================
+         BOOKINGS
+    ========================================== -->
+
+    <section
+        class="info-panel"
+        id="bookings"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="bookingsTitle"
+        aria-hidden="true"
+    >
+
+        <button
+            class="close-panel"
+            type="button"
+            aria-label="Close My Bookings"
+        >
+            ×
+        </button>
+
+        <h2 id="bookingsTitle">My Bookings</h2>
+
+        <div id="bookingList" aria-live="polite">
+            <p class="booking-empty">No bookings submitted yet.</p>
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         ABOUT ME
+    ========================================== -->
+
+    <section
+        class="info-panel"
+        id="about-me"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="aboutMeTitle"
+        aria-hidden="true"
+    >
+
+        <button
+            class="close-panel"
+            type="button"
+            aria-label="Close About Me"
+        >
+            ×
+        </button>
+
+        <h2 id="aboutMeTitle">
+            About Me
+        </h2>
+
+        <p>
+            Welcome to World Oil Change.
+        </p>
+
+        <p>
+            I started World OIL LLC with the goal of
+            making oil changes easier and more convenient
+            for customers.
+        </p>
+
+        <p>
+            Instead of spending time waiting at a shop,
+            our service is designed to bring the oil change
+            directly to you.
+        </p>
+
+        <p>
+            Thank you for choosing World Oil Change.
+        </p>
+
+    </section>
+
+
+    <!-- ==========================================
+         ABOUT COMPANY
+    ========================================== -->
+
+    <section
+        class="info-panel"
+        id="about-company"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="aboutCompanyTitle"
+        aria-hidden="true"
+    >
+
+        <button
+            class="close-panel"
+            type="button"
+            aria-label="Close About Company"
+        >
+            ×
+        </button>
+
+        <h2 id="aboutCompanyTitle">
+            About World OIL LLC
+        </h2>
+
+        <p>
+            Welcome to World OIL LLC, where we bring your
+            oil change directly to your home.
+        </p>
+
+        <p>
+            Our goal is to make oil changes simple,
+            convenient, and stress-free.
+        </p>
+
+        <p>
+            With our easy-to-use website, you can quickly
+            navigate, choose an appointment time, and
+            request your oil change without complicated
+            steps.
+        </p>
+
+        <p>
+            Our website is designed to make booking as
+            simple as possible.
+        </p>
+
+        <p>
+            <strong>Est. June 2026</strong>
+        </p>
+
+    </section>
+
+
+    <!-- ==========================================
+         CONTACT
+    ========================================== -->
+
+    <section
+        class="info-panel"
+        id="contact"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="contactTitle"
+        aria-hidden="true"
+    >
+
+        <button
+            class="close-panel"
+            type="button"
+            aria-label="Close Contact"
+        >
+            ×
+        </button>
+
+        <h2 id="contactTitle">
+            Contact Us
+        </h2>
+
+        <div class="contact-box">
+
+            <p>
+                📞
+                <a
+                    class="contact-link"
+                    href="tel:+13236010663"
+                >
+                    (323) 601-0663
+                </a>
+            </p>
+
+            <p>
+                ✉️
+                <a
+                    class="contact-link"
+                    href="mailto:tech@worldoil.com"
+                >
+                    tech@worldoil.com
+                </a>
+            </p>
+
+        </div>
+
+        <p>
+            Tap the phone number to call us or tap the
+            email address to send us an email.
+        </p>
+
+    </section>
+
+
+    <!-- ==========================================
+         REVIEWS
+    ========================================== -->
+
+    <section
+        class="info-panel"
+        id="reviews"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="reviewsTitle"
+        aria-hidden="true"
+    >
+
+        <button
+            class="close-panel"
+            type="button"
+            aria-label="Close Reviews"
+        >
+            ×
+        </button>
+
+        <h2 id="reviewsTitle">
+            Customer Reviews
+        </h2>
+
+        <div id="reviewList">
+
+            <p class="review-note">
+                Customer reviews will appear here.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==========================================
+         LEAVE A REVIEW
+    ========================================== -->
+
+    <section
+        class="info-panel"
+        id="leave-review"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="leaveReviewTitle"
+        aria-hidden="true"
+    >
+
+        <button
+            class="close-panel"
+            type="button"
+            aria-label="Close Leave a Review"
+        >
+            ×
+        </button>
+
+        <h2 id="leaveReviewTitle">
+            Leave a Review
+        </h2>
+
+        <div class="field">
+
+            <label for="reviewName">
+                Your Name
+            </label>
+
+            <input
+                type="text"
+                id="reviewName"
+                placeholder="Your name"
+                maxlength="100"
+                autocomplete="name"
+            >
+
+        </div>
+
+
+        <div
+            class="review-stars"
+            id="reviewStars"
+            role="radiogroup"
+            aria-label="Choose a star rating"
+        >
+
+            <button
+                type="button"
+                class="review-star"
+                data-rating="1"
+                role="radio"
+                aria-label="1 star"
+                aria-checked="false"
+                tabindex="-1"
+            >
+                ☆
+            </button>
+
+            <button
+                type="button"
+                class="review-star"
+                data-rating="2"
+                role="radio"
+                aria-label="2 stars"
+                aria-checked="false"
+                tabindex="-1"
+            >
+                ☆
+            </button>
+
+            <button
+                type="button"
+                class="review-star"
+                data-rating="3"
+                role="radio"
+                aria-label="3 stars"
+                aria-checked="false"
+                tabindex="-1"
+            >
+                ☆
+            </button>
+
+            <button
+                type="button"
+                class="review-star"
+                data-rating="4"
+                role="radio"
+                aria-label="4 stars"
+                aria-checked="false"
+                tabindex="-1"
+            >
+                ☆
+            </button>
+
+            <button
+                type="button"
+                class="review-star"
+                data-rating="5"
+                role="radio"
+                aria-label="5 stars"
+                aria-checked="true"
+                tabindex="0"
+            >
+                ★
+            </button>
+
+        </div>
+
+
+        <div
+            class="rating-label"
+            id="ratingLabel"
+        >
+            5 out of 5 stars
+        </div>
+
+        <br>
+
+        <label for="reviewText">
+            Your Review
+        </label>
+
+        <textarea
+            id="reviewText"
+            placeholder="Tell us about your experience"
+            maxlength="1000"
+        ></textarea>
+
+        <button
+            class="review-submit"
+            id="reviewSubmit"
+            type="button"
+        >
+            Submit Review
+        </button>
+
+        <p
+            id="reviewMessage"
+            class="review-note"
+            role="status"
+            aria-live="polite"
+        ></p>
+
+    </section>
+
+
+    <!-- ==========================================
+         BOOKING FORM
+    ========================================== -->
+
+    <main class="container">
+
+        <h1 class="brand-title">
+
+            <img
+                src="./icons/animated-logo.gif"
+                alt="World Oil Change"
+                class="brand-gif"
+            >
+
+            <span>
+                <span data-i18n="pageTitle">World Oil Change</span>
+            </span>
+
+        </h1>
+
+        <div
+            class="language-switcher"
+            aria-label="Language selection"
+        >
+            <button
+                type="button"
+                class="language-button active"
+                data-language="en"
+            >
+                English
+            </button>
+            <button
+                type="button"
+                class="language-button"
+                data-language="es"
+            >
+                Español
+            </button>
+        </div>
+
+
+        <form
+            id="bookingForm"
+            novalidate
+        >
+
+            <div class="field">
+
+                <label for="name">
+                    <span data-i18n="fullName">Full Name</span>
+                    <span class="required">*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    autocomplete="name"
+                    maxlength="100"
+                    minlength="2"
+                    required
+                    aria-required="true"
+                    placeholder="Enter your full name"
+                    data-i18n-placeholder="fullNamePlaceholder"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="phone">
+                    <span data-i18n="phoneNumber">Phone Number</span>
+                    <span class="required">*</span>
+                </label>
+
+                <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    autocomplete="tel"
+                    inputmode="tel"
+                    maxlength="20"
+                    required
+                    aria-required="true"
+                    placeholder="Enter your phone number"
+                    aria-describedby="phoneHelp"
+                >
+
+                <span
+                    id="phoneHelp"
+                    class="help"
+                >
+                    <span data-i18n="phoneHelp">Enter a 10-digit phone number.</span>
+                </span>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="serviceArea">
+                    <span data-i18n="serviceArea">Service Area</span>
+                    <span class="required">*</span>
+                </label>
+
+                <select
+                    id="serviceArea"
+                    name="serviceArea"
+                    required
+                    aria-required="true"
+                >
+                    <option value="" data-i18n="selectServiceArea">Select your service area</option>
+                    <option value="los-angeles" data-i18n="losAngeles">Los Angeles</option>
+                    <option value="orange-county" data-i18n="orangeCounty">Orange County</option>
+                    <option value="inland-empire" data-i18n="inlandEmpire">Inland Empire</option>
+                </select>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="year">
+                    <span data-i18n="vehicleYear">Vehicle Year</span>
+                    <span class="required">*</span>
+                </label>
+
+                <input
+                    type="number"
+                    id="year"
+                    name="year"
+                    inputmode="numeric"
+                    min="1900"
+                    required
+                    aria-required="true"
+                    placeholder="Example: 2020"
+                    data-i18n-placeholder="vehicleYearPlaceholder"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="make">
+                    <span data-i18n="vehicleMake">Vehicle Make</span>
+                    <span class="required">*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="make"
+                    name="make"
+                    maxlength="50"
+                    minlength="2"
+                    required
+                    aria-required="true"
+                    placeholder="Example: Toyota"
+                    data-i18n-placeholder="vehicleMakePlaceholder"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="model">
+                    <span data-i18n="vehicleModel">Vehicle Model</span>
+                    <span class="required">*</span>
+                </label>
+
+                <input
+                    type="text"
+                    id="model"
+                    name="model"
+                    maxlength="50"
+                    minlength="1"
+                    required
+                    aria-required="true"
+                    placeholder="Example: Camry"
+                    data-i18n-placeholder="vehicleModelPlaceholder"
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="date">
+                    <span data-i18n="appointmentDate">Appointment Date</span>
+                    <span class="required">*</span>
+                </label>
+
+                <input
+                    type="date"
+                    id="date"
+                    name="date"
+                    required
+                    aria-required="true"
+                    aria-describedby="dateHelp"
+                >
+
+                <span
+                    id="dateHelp"
+                    class="help"
+                >
+                    <span data-i18n="dateHelp">Select the date you want your oil change.</span>
+                </span>
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="time">
+                    <span data-i18n="appointmentTime">Appointment Time</span>
+                    <span class="required">*</span>
+                </label>
+
+            <select
+                id="time"
+                name="time"
+                    required
+                    aria-required="true"
+                >
+
+                    <option value="">
+                        <span data-i18n="selectTime">Select a time</span>
+                    </option>
+
+                    <option value="08:00 AM">08:00 AM</option>
+                    <option value="08:30 AM">08:30 AM</option>
+                    <option value="09:00 AM">09:00 AM</option>
+                    <option value="09:30 AM">09:30 AM</option>
+                    <option value="10:00 AM">10:00 AM</option>
+                    <option value="10:30 AM">10:30 AM</option>
+                    <option value="11:00 AM">11:00 AM</option>
+                    <option value="11:30 AM">11:30 AM</option>
+                    <option value="12:00 PM">12:00 PM</option>
+                    <option value="12:30 PM">12:30 PM</option>
+                    <option value="01:00 PM">01:00 PM</option>
+                    <option value="01:30 PM">01:30 PM</option>
+                    <option value="02:00 PM">02:00 PM</option>
+                    <option value="02:30 PM">02:30 PM</option>
+                    <option value="03:00 PM">03:00 PM</option>
+                    <option value="03:30 PM">03:30 PM</option>
+                    <option value="04:00 PM">04:00 PM</option>
+                    <option value="04:30 PM">04:30 PM</option>
+                    <option value="05:00 PM">05:00 PM</option>
+
+                </select>
+
+            </div>
+
+
+            <div
+                class="booking-price-summary"
+                aria-label="Booking price summary"
+                style="margin: 18px 0; padding: 16px; border: 1px solid #d7e3ec; border-radius: 10px; background: #f6fbff;"
+            >
+
+                <strong data-i18n="oilChangePrice">Oil Change Price</strong>
+                <div style="display: flex; justify-content: space-between; margin-top: 8px;">
+                    <span data-i18n="totalServicePrice">Total oil-change service price</span>
+                    <strong>$50.00</strong>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 6px;">
+                    <span data-i18n="bookingFeeToday">Booking fee due today</span>
+                    <strong>$5.00</strong>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-top: 6px;">
+                    <span data-i18n="remainingBalance">Remaining balance at service</span>
+                    <strong>$45.00</strong>
+                </div>
+
+                <p style="margin: 10px 0 0; font-size: 0.9rem;">
+                    <span data-i18n="priceDescription">The $5 booking fee goes toward the $50 oil-change service. The technician provides the oil and filter, which will be charged separately in addition to the $50 service price.</span>
+                </p>
+
+            </div>
+
+
+            <button
+                type="submit"
+                id="submitButton"
+            >
+                <span data-i18n="stripeButton">Continue to Stripe — Pay $5 Deposit</span>
+            </button>
+
+
+            <div
+                id="message"
+                role="status"
+                aria-live="polite"
+            ></div>
+
+        </form>
+
+    </main>
+
+
+    <script>
+
+        /* ==================================================
+           CONFIGURATION
+        ================================================== */
+
+        const API_URL =
+            "https://worldoil-render-backend.onrender.com";
+
+        const BOOKING_CHECKOUT_URL =
+            "https://us-central1-worldoilllc.cloudfunctions.net/createOilChangeCheckoutSession";
+
+        const OIL_CHANGE_PRICE_CENTS =
+            5000;
+
+        const BOOKING_FEE_CENTS =
+            500;
+
+        const REMAINING_BALANCE_CENTS =
+            OIL_CHANGE_PRICE_CENTS - BOOKING_FEE_CENTS;
+
+        let currentLanguage = "en";
+
+        const translations = {
+            en: {
+                pageTitle: "World Oil Change",
+                fullName: "Full Name",
+                fullNamePlaceholder: "Enter your full name",
+                phoneNumber: "Phone Number",
+                phoneHelp: "Enter a 10-digit phone number.",
+                serviceArea: "Service Area",
+                selectServiceArea: "Select your service area",
+                losAngeles: "Los Angeles",
+                orangeCounty: "Orange County",
+                inlandEmpire: "Inland Empire",
+                vehicleYear: "Vehicle Year",
+                vehicleYearPlaceholder: "Example: 2020",
+                vehicleMake: "Vehicle Make",
+                vehicleMakePlaceholder: "Example: Toyota",
+                vehicleModel: "Vehicle Model",
+                vehicleModelPlaceholder: "Example: Camry",
+                appointmentDate: "Appointment Date",
+                dateHelp: "Select the date you want your oil change.",
+                appointmentTime: "Appointment Time",
+                selectTime: "Select a time",
+                oilChangePrice: "Oil Change Price",
+                totalServicePrice: "Total oil-change service price",
+                bookingFeeToday: "Booking fee due today",
+                remainingBalance: "Remaining balance at service",
+                priceDescription: "The $5 booking fee goes toward the $50 oil-change price. Oil and filter are not included and must be provided by the customer.",
+                stripeButton: "Continue to Stripe — Pay $5 Deposit",
+                depositNote: "$5 deposit due when booking. This deposit counts toward the $50 oil change."
+            },
+            es: {
+                pageTitle: "Cambio de aceite World Oil",
+                fullName: "Nombre completo",
+                fullNamePlaceholder: "Ingrese su nombre completo",
+                phoneNumber: "Número de teléfono",
+                phoneHelp: "Ingrese un número de teléfono de 10 dígitos.",
+                serviceArea: "Área de servicio",
+                selectServiceArea: "Seleccione su área de servicio",
+                losAngeles: "Los Ángeles",
+                orangeCounty: "Condado de Orange",
+                inlandEmpire: "Inland Empire",
+                vehicleYear: "Año del vehículo",
+                vehicleYearPlaceholder: "Ejemplo: 2020",
+                vehicleMake: "Marca del vehículo",
+                vehicleMakePlaceholder: "Ejemplo: Toyota",
+                vehicleModel: "Modelo del vehículo",
+                vehicleModelPlaceholder: "Ejemplo: Camry",
+                appointmentDate: "Fecha de la cita",
+                dateHelp: "Seleccione la fecha de su cambio de aceite.",
+                appointmentTime: "Hora de la cita",
+                selectTime: "Seleccione una hora",
+                oilChangePrice: "Precio del cambio de aceite",
+                totalServicePrice: "Precio total del servicio de cambio de aceite",
+                bookingFeeToday: "Tarifa de reserva que se paga hoy",
+                remainingBalance: "Saldo restante al realizar el servicio",
+                priceDescription: "El técnico proporciona el aceite y el filtro, que se cobrarán por separado además del precio del servicio de $50.",
+                stripeButton: "Continuar a Stripe — Pagar depósito de $5",
+                depositNote: "Depósito de $5 al reservar. Este depósito cuenta para el cambio de aceite de $50."
+            }
+        };
+
+        const messageTranslations = {
+            "Please fill out all required fields.": "Complete todos los campos obligatorios.",
+            "Please enter your full name.": "Ingrese su nombre completo.",
+            "Please enter a valid 10-digit phone number.": "Ingrese un número de teléfono válido de 10 dígitos.",
+            "Please enter a valid vehicle year.": "Ingrese un año válido para el vehículo.",
+            "Please enter the vehicle make and model.": "Ingrese la marca y el modelo del vehículo.",
+            "Please select today or a future date.": "Seleccione hoy o una fecha futura.",
+            "Please select a time.": "Seleccione una hora.",
+            "Opening secure Stripe payment...": "Abriendo el pago seguro de Stripe...",
+            "Payment successful! Your booking has been added to My Bookings.": "¡Pago exitoso! Su reserva se agregó a Mis reservas.",
+            "Payment was cancelled. Your booking was not saved.": "El pago fue cancelado. Su reserva no se guardó.",
+            "Submitting your request...": "Enviando su solicitud...",
+            "Stripe checkout is not available yet. Please try again later.": "El pago de Stripe aún no está disponible. Inténtelo de nuevo más tarde.",
+            "This request could not be submitted.": "No se pudo enviar esta solicitud.",
+            "The server took too long to respond. Please try again.": "El servidor tardó demasiado en responder. Inténtelo de nuevo.",
+            "Could not submit request. Please try again.": "No se pudo enviar la solicitud. Inténtelo de nuevo."
+        };
+
+        function translateMessage(text) {
+            return currentLanguage === "es"
+                ? (messageTranslations[text] || text)
+                : text;
+        }
+
+        function applyLanguage(language) {
+            currentLanguage = language === "es" ? "es" : "en";
+            const selected = translations[currentLanguage];
+
+            document.documentElement.lang = currentLanguage;
+
+            document.querySelectorAll("[data-i18n]").forEach((element) => {
+                const key = element.dataset.i18n;
+                if (selected[key]) {
+                    element.textContent = selected[key];
+                }
+            });
+
+            document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+                const key = element.dataset.i18nPlaceholder;
+                if (selected[key]) {
+                    element.placeholder = selected[key];
+                }
+            });
+
+            document.querySelectorAll("#time option").forEach((option) => {
+                if (option.value === "") {
+                    option.textContent = selected.selectTime;
+                }
+            });
+
+            document.querySelectorAll(".language-button").forEach((button) => {
+                button.classList.toggle(
+                    "active",
+                    button.dataset.language === currentLanguage
+                );
+            });
+        }
+
+        document.querySelectorAll(".language-button").forEach((button) => {
+            button.addEventListener("click", () => {
+                applyLanguage(button.dataset.language);
+            });
+        });
+
+
+        /* ==================================================
+           ELEMENTS
+        ================================================== */
+
+        const menuButton =
+            document.getElementById("menuButton");
+
+        const sideMenu =
+            document.getElementById("sideMenu");
+
+        const menuOverlay =
+            document.getElementById("menuOverlay");
+
+        const infoBackdrop =
+            document.getElementById("infoBackdrop");
+
+        const infoPanels =
+            document.querySelectorAll(".info-panel");
+
+        const bookingList =
+            document.getElementById("bookingList");
+
+        const SAVED_BOOKINGS_KEY =
+            "worldOilSavedBookings";
+
+        const PENDING_BOOKING_KEY =
+            "worldOilPendingBooking";
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function renderBookings() {
+            let bookings = [];
+
+            try {
+                bookings = JSON.parse(
+                    localStorage.getItem(SAVED_BOOKINGS_KEY) || "[]"
+                );
+            } catch (error) {
+                bookings = [];
+            }
+
+            if (!bookings.length) {
+                bookingList.innerHTML =
+                    '<p class="booking-empty">No bookings submitted yet.</p>';
+                return;
+            }
+
+            bookingList.innerHTML = bookings.map(function(booking) {
+                return `
+                    <div class="booking-card">
+                        <p><strong>Status:</strong> Paid — booking confirmed</p>
+                        <p><strong>Name:</strong> ${escapeHtml(booking.name)}</p>
+                        <p><strong>Vehicle:</strong> ${escapeHtml(booking.year)} ${escapeHtml(booking.make)} ${escapeHtml(booking.model)}</p>
+                        <p><strong>Appointment:</strong> ${escapeHtml(booking.bookingDate)} at ${escapeHtml(booking.time)}</p>
+                        <p><strong>Booking fee:</strong> $5.00</p>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function saveBooking(booking) {
+            let bookings = [];
+
+            try {
+                bookings = JSON.parse(
+                    localStorage.getItem(SAVED_BOOKINGS_KEY) || "[]"
+                );
+            } catch (error) {
+                bookings = [];
+            }
+
+            bookings.unshift({
+                name: booking.name,
+                year: booking.year,
+                make: booking.make,
+                model: booking.model,
+                bookingDate: booking.bookingDate,
+                time: booking.time,
+                createdAt: new Date().toISOString()
+            });
+
+            localStorage.setItem(
+                SAVED_BOOKINGS_KEY,
+                JSON.stringify(bookings.slice(0, 10))
+            );
+
+            renderBookings();
+        }
+
+        function handleStripeReturn() {
+            const params = new URLSearchParams(
+                window.location.search
+            );
+
+            const paymentStatus =
+                params.get("payment");
+
+            if (paymentStatus === "success") {
+                let pendingBooking = null;
+
+                try {
+                    pendingBooking = JSON.parse(
+                        localStorage.getItem(PENDING_BOOKING_KEY) || "null"
+                    );
+                } catch (error) {
+                    pendingBooking = null;
+                }
+
+                if (pendingBooking) {
+                    saveBooking(pendingBooking);
+                    localStorage.removeItem(PENDING_BOOKING_KEY);
+                    showMessage(
+                        "Payment successful! Your booking has been added to My Bookings.",
+                        "success"
+                    );
+                }
+
+                window.history.replaceState(
+                    {},
+                    document.title,
+                    window.location.pathname
+                );
+            }
+
+            if (paymentStatus === "cancelled") {
+                localStorage.removeItem(PENDING_BOOKING_KEY);
+                showMessage(
+                    "Payment was cancelled. Your booking was not saved.",
+                    "error"
+                );
+
+                window.history.replaceState(
+                    {},
+                    document.title,
+                    window.location.pathname
+                );
+            }
+        }
+
+        handleStripeReturn();
+
+
+        /* ==================================================
+           BODY SCROLL LOCK
+        ================================================== */
+
+        function updateBodyScroll() {
+
+            const menuOpen =
+                sideMenu.classList.contains("open");
+
+            const panelOpen =
+                document.querySelector(
+                    ".info-panel.show"
+                );
+
+            document.body.classList.toggle(
+                "no-scroll",
+                menuOpen || Boolean(panelOpen)
+            );
+
+        }
+
+
+        /* ==================================================
+           CLOSE MENU
+        ================================================== */
+
+        function closeMenu() {
+
+            sideMenu.classList.remove("open");
+
+            menuOverlay.classList.remove("show");
+
+            sideMenu.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            menuOverlay.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            menuButton.setAttribute(
+                "aria-label",
+                "Open menu"
+            );
+
+            menuButton.textContent = "☰";
+
+            updateBodyScroll();
+
+        }
+
+
+        /* ==================================================
+           OPEN MENU
+        ================================================== */
+
+        function openMenu() {
+
+            sideMenu.classList.add("open");
+
+            menuOverlay.classList.add("show");
+
+            sideMenu.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            menuOverlay.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            menuButton.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            menuButton.setAttribute(
+                "aria-label",
+                "Close menu"
+            );
+
+            menuButton.textContent = "×";
+
+            updateBodyScroll();
+
+        }
+
+
+        /* ==================================================
+           CLOSE PANELS
+        ================================================== */
+
+        function closePanels() {
+
+            infoPanels.forEach(
+                function(panel) {
+
+                    panel.classList.remove("show");
+
+                    panel.setAttribute(
+                        "aria-hidden",
+                        "true"
+                    );
+
+                }
+            );
+
+            infoBackdrop.classList.remove("show");
+
+            infoBackdrop.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            updateBodyScroll();
+
+        }
+
+
+        /* ==================================================
+           OPEN PANEL
+        ================================================== */
+
+        function openPanel(panel) {
+
+            closeMenu();
+
+            closePanels();
+
+            infoBackdrop.classList.add("show");
+
+            infoBackdrop.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            panel.classList.add("show");
+
+            panel.setAttribute(
+                "aria-hidden",
+                "false"
+            );
+
+            updateBodyScroll();
+
+            const firstInput =
+                panel.querySelector(
+                    "input, textarea, button"
+                );
+
+            if (firstInput) {
+
+                setTimeout(
+                    function() {
+
+                        firstInput.focus();
+
+                    },
+                    50
+                );
+
+            }
+
+        }
+
+
+        /* ==================================================
+           MENU BUTTON
+        ================================================== */
+
+        menuButton.addEventListener(
+            "click",
+            function() {
+
+                if (
+                    sideMenu.classList.contains("open")
+                ) {
+
+                    closeMenu();
+
+                } else {
+
+                    closePanels();
+
+                    openMenu();
+
+                }
+
+            }
+        );
+
+
+        /* ==================================================
+           MENU OVERLAY
+        ================================================== */
+
+        menuOverlay.addEventListener(
+            "click",
+            function() {
+
+                closeMenu();
+
+            }
+        );
+
+
+        /* ==================================================
+           INFORMATION BACKDROP
+        ================================================== */
+
+        infoBackdrop.addEventListener(
+            "click",
+            function() {
+
+                closePanels();
+
+            }
+        );
+
+
+        /* ==================================================
+           MENU LINKS
+        ================================================== */
+
+        document
+            .querySelectorAll(".side-menu a")
+            .forEach(
+                function(link) {
+
+                    link.addEventListener(
+                        "click",
+                        function(event) {
+
+                            if (
+                                link.dataset.policyLink === "true"
+                            ) {
+
+                                closeMenu();
+
+                                return;
+
+                            }
+
+
+                            event.preventDefault();
+
+
+                            if (
+                                link.dataset.action === "book"
+                            ) {
+
+                                closeMenu();
+
+                                closePanels();
+
+
+                                document
+                                    .querySelector(".container")
+                                    .scrollIntoView({
+                                        behavior: "smooth",
+                                        block: "center"
+                                    });
+
+                                return;
+
+                            }
+
+
+                            const panelId =
+                                link.dataset.panel;
+
+
+                            const panel =
+                                document.getElementById(
+                                    panelId
+                                );
+
+
+                            if (!panel) {
+                                return;
+                            }
+
+
+                            openPanel(panel);
+
+
+                            if (
+                                panelId === "reviews"
+                            ) {
+
+                                loadReviews();
+
+                            }
+
+                            if (
+                                panelId === "bookings"
+                            ) {
+
+                                renderBookings();
+
+                            }
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* ==================================================
+           CLOSE BUTTONS
+        ================================================== */
+
+        document
+            .querySelectorAll(".close-panel")
+            .forEach(
+                function(button) {
+
+                    button.addEventListener(
+                        "click",
+                        function() {
+
+                            closePanels();
+
+                            menuButton.focus();
+
+                        }
+                    );
+
+                }
+            );
+
+
+        /* ==================================================
+           ESCAPE KEY
+        ================================================== */
+
+        document.addEventListener(
+            "keydown",
+            function(event) {
+
+                if (
+                    event.key !== "Escape"
+                ) {
+                    return;
+                }
+
+
+                if (
+                    sideMenu.classList.contains("open")
+                ) {
+
+                    closeMenu();
+
+                    menuButton.focus();
+
+                    return;
+
+                }
+
+
+                if (
+                    document.querySelector(
+                        ".info-panel.show"
+                    )
+                ) {
+
+                    closePanels();
+
+                    menuButton.focus();
+
+                }
+
+            }
+        );
+
+
+        /* ==================================================
+           REVIEW ELEMENTS
+        ================================================== */
+
+        const reviewName =
+            document.getElementById(
+                "reviewName"
+            );
+
+        const reviewText =
+            document.getElementById(
+                "reviewText"
+            );
+
+        const reviewSubmit =
+            document.getElementById(
+                "reviewSubmit"
+            );
+
+        const reviewMessage =
+            document.getElementById(
+                "reviewMessage"
+            );
+
+        const reviewStars =
+            document.querySelectorAll(
+                ".review-star"
+            );
+
+        const ratingLabel =
+            document.getElementById(
+                "ratingLabel"
+            );
+
+
+        /* ==================================================
+           REVIEW RATING
+        ================================================== */
+
+        let selectedRating = 5;
+
+
+        /* ==================================================
+           UPDATE STARS
+        ================================================== */
+
+        function updateRatingStars() {
+
+            reviewStars.forEach(
+                function(star) {
+
+                    const rating =
+                        Number(
+                            star.dataset.rating
+                        );
+
+
+                    const selected =
+                        rating <= selectedRating;
+
+
+                    star.classList.toggle(
+                        "selected",
+                        selected
+                    );
+
+
+                    star.textContent =
+                        selected
+                            ? "★"
+                            : "☆";
+
+
+                    star.setAttribute(
+                        "aria-checked",
+                        String(
+                            rating === selectedRating
+                        )
+                    );
+
+
+                    star.tabIndex =
+                        rating === selectedRating
+                            ? 0
+                            : -1;
+
+                }
+            );
+
+
+            ratingLabel.textContent =
+                `${selectedRating} out of 5 stars`;
+
+        }
+
+
+        /* ==================================================
+           SELECT RATING
+        ================================================== */
+
+        function selectRating(rating) {
+
+            selectedRating =
+                Math.min(
+                    5,
+                    Math.max(
+                        1,
+                        Number(rating)
+                    )
+                );
+
+
+            updateRatingStars();
+
+        }
+
+
+        /* ==================================================
+           STAR EVENTS
+        ================================================== */
+
+        reviewStars.forEach(
+            function(star) {
+
+                star.addEventListener(
+                    "click",
+                    function() {
+
+                        selectRating(
+                            star.dataset.rating
+                        );
+
+                    }
+                );
+
+
+                star.addEventListener(
+                    "mouseenter",
+                    function() {
+
+                        const hoverRating =
+                            Number(
+                                star.dataset.rating
+                            );
+
+
+                        reviewStars.forEach(
+                            function(item) {
+
+                                const rating =
+                                    Number(
+                                        item.dataset.rating
+                                    );
+
+
+                                item.textContent =
+                                    rating <= hoverRating
+                                        ? "★"
+                                        : "☆";
+
+                            }
+                        );
+
+                    }
+                );
+
+
+                star.addEventListener(
+                    "mouseleave",
+                    function() {
+
+                        updateRatingStars();
+
+                    }
+                );
+
+
+                star.addEventListener(
+                    "keydown",
+                    function(event) {
+
+                        let newRating =
+                            selectedRating;
+
+
+                        if (
+                            event.key === "ArrowRight" ||
+                            event.key === "ArrowUp"
+                        ) {
+
+                            newRating =
+                                Math.min(
+                                    5,
+                                    selectedRating + 1
+                                );
+
+                        }
+
+
+                        if (
+                            event.key === "ArrowLeft" ||
+                            event.key === "ArrowDown"
+                        ) {
+
+                            newRating =
+                                Math.max(
+                                    1,
+                                    selectedRating - 1
+                                );
+
+                        }
+
+
+                        if (
+                            event.key === "Home"
+                        ) {
+
+                            newRating = 1;
+
+                        }
+
+
+                        if (
+                            event.key === "End"
+                        ) {
+
+                            newRating = 5;
+
+                        }
+
+
+                        if (
+                            newRating !== selectedRating
+                        ) {
+
+                            event.preventDefault();
+
+                            selectRating(newRating);
+
+                            const nextStar =
+                                document.querySelector(
+                                    `.review-star[data-rating="${newRating}"]`
+                                );
+
+                            if (nextStar) {
+                                nextStar.focus();
+                            }
+
+                        }
+
+                    }
+                );
+
+            }
+        );
+
+
+        updateRatingStars();
+
+
+        /* ==================================================
+           REVIEW MESSAGE
+        ================================================== */
+
+        function showReviewMessage(
+            text,
+            type
+        ) {
+
+            reviewMessage.textContent =
+                text;
+
+
+            reviewMessage.className =
+                type || "review-note";
+
+        }
+
+
+        /* ==================================================
+           REVIEW SUBMISSION
+        ================================================== */
+
+        reviewSubmit.addEventListener(
+            "click",
+            async function() {
+
+                const name =
+                    reviewName.value.trim();
+
+                const review =
+                    reviewText.value.trim();
+
+
+                if (!name) {
+
+                    showReviewMessage(
+                        "Please enter your name.",
+                        "review-error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (!review) {
+
+                    showReviewMessage(
+                        "Please enter your review.",
+                        "review-error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    review.length < 3
+                ) {
+
+                    showReviewMessage(
+                        "Your review must be at least 3 characters.",
+                        "review-error"
+                    );
+
+                    return;
+
+                }
+
+
+                reviewSubmit.disabled =
+                    true;
+
+                reviewSubmit.textContent =
+                    "Submitting...";
+
+
+                showReviewMessage(
+                    "Submitting your review...",
+                    "review-loading"
+                );
+
+
+                const controller =
+                    new AbortController();
+
+
+                const timeout =
+                    setTimeout(
+                        function() {
+
+                            controller.abort();
+
+                        },
+                        30000
+                    );
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            `${API_URL}/reviews`,
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        name:
+                                            name,
+
+                                        rating:
+                                            selectedRating,
+
+                                        review:
+                                            review
+                                    }),
+
+                                signal:
+                                    controller.signal
+                            }
+                        );
+
+
+                    clearTimeout(timeout);
+
+
+                    let result = {};
+
+
+                    try {
+
+                        result =
+                            await response.json();
+
+                    } catch {
+
+                        result = {};
+
+                    }
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            result.error ||
+                            "Could not submit your review."
+                        );
+
+                    }
+
+
+                    showReviewMessage(
+                        "Thank you for your review!",
+                        "review-success"
+                    );
+
+
+                    reviewName.value = "";
+
+                    reviewText.value = "";
+
+
+                    selectRating(5);
+
+
+                    await loadReviews();
+
+                } catch (error) {
+
+                    clearTimeout(timeout);
+
+
+                    console.error(
+                        "Review error:",
+                        error
+                    );
+
+
+                    if (
+                        error.name === "AbortError"
+                    ) {
+
+                        showReviewMessage(
+                            "The server took too long to respond. Please try again.",
+                            "review-error"
+                        );
+
+                    } else {
+
+                        showReviewMessage(
+                            error.message ||
+                            "Could not submit your review. Please try again.",
+                            "review-error"
+                        );
+
+                    }
+
+                } finally {
+
+                    reviewSubmit.disabled =
+                        false;
+
+                    reviewSubmit.textContent =
+                        "Submit Review";
+
+                }
+
+            }
+        );
+
+
+        /* ==================================================
+           LOAD REVIEWS
+        ================================================== */
+
+        async function loadReviews() {
+
+            const reviewContainer =
+                document.getElementById(
+                    "reviewList"
+                );
+
+
+            if (!reviewContainer) {
+                return;
+            }
+
+
+            reviewContainer.innerHTML =
+                `
+                    <p class="review-note">
+                        Loading reviews...
+                    </p>
+                `;
+
+
+            const controller =
+                new AbortController();
+
+
+            const timeout =
+                setTimeout(
+                    function() {
+
+                        controller.abort();
+
+                    },
+                    15000
+                );
+
+
+            try {
+
+                const response =
+                    await fetch(
+                        `${API_URL}/reviews`,
+                        {
+                            signal:
+                                controller.signal
+                        }
+                    );
+
+
+                clearTimeout(timeout);
+
+
+                let result = {};
+
+
+                try {
+
+                    result =
+                        await response.json();
+
+                } catch {
+
+                    result = {};
+
+                }
+
+
+                if (!response.ok) {
+
+                    throw new Error(
+                        result.error ||
+                        "Could not load reviews."
+                    );
+
+                }
+
+
+                const reviews =
+                    Array.isArray(
+                        result.reviews
+                    )
+                        ? result.reviews
+                        : [];
+
+
+                if (
+                    reviews.length === 0
+                ) {
+
+                    reviewContainer.innerHTML =
+                        `
+                            <p>
+                                No customer reviews yet.
+                            </p>
+
+                            <p class="review-note">
+                                Be the first to leave a review!
+                            </p>
+                        `;
+
+                    return;
+
+                }
+
+
+                reviewContainer.innerHTML =
+                    "";
+
+
+                reviews.forEach(
+                    function(item) {
+
+                        const reviewBox =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        reviewBox.className =
+                            "review-item";
+
+
+                        const stars =
+                            Math.min(
+                                5,
+                                Math.max(
+                                    1,
+                                    Number(
+                                        item.rating
+                                    ) || 5
+                                )
+                            );
+
+
+                        const starsElement =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        starsElement.className =
+                            "review-item-stars";
+
+
+                        starsElement.textContent =
+                            "★".repeat(stars) +
+                            "☆".repeat(
+                                5 - stars
+                            );
+
+
+                        const nameElement =
+                            document.createElement(
+                                "div"
+                            );
+
+
+                        nameElement.className =
+                            "review-item-name";
+
+
+                        nameElement.textContent =
+                            item.name ||
+                            "Customer";
+
+
+                        const textElement =
+                            document.createElement(
+                                "p"
+                            );
+
+
+                        textElement.className =
+                            "review-item-text";
+
+
+                        textElement.textContent =
+                            item.review ||
+                            "";
+
+
+                        reviewBox.appendChild(
+                            starsElement
+                        );
+
+
+                        reviewBox.appendChild(
+                            nameElement
+                        );
+
+
+                        reviewBox.appendChild(
+                            textElement
+                        );
+
+
+                        if (
+                            item.createdAt
+                        ) {
+
+                            const date =
+                                new Date(
+                                    item.createdAt
+                                );
+
+
+                            if (
+                                !Number.isNaN(
+                                    date.getTime()
+                                )
+                            ) {
+
+                                const dateElement =
+                                    document.createElement(
+                                        "small"
+                                    );
+
+
+                                dateElement.textContent =
+                                    date.toLocaleDateString();
+
+
+                                dateElement.style.color =
+                                    "#666";
+
+
+                                reviewBox.appendChild(
+                                    dateElement
+                                );
+
+                            }
+
+                        }
+
+
+                        reviewContainer.appendChild(
+                            reviewBox
+                        );
+
+                    }
+                );
+
+            } catch (error) {
+
+                clearTimeout(timeout);
+
+
+                console.error(
+                    "Load reviews error:",
+                    error
+                );
+
+
+                reviewContainer.innerHTML =
+                    `
+                        <p class="review-note">
+                            Unable to load reviews right now.
+                            Please try again later.
+                        </p>
+                    `;
+
+            }
+
+        }
+
+
+        /* ==================================================
+           REVIEW MESSAGE STYLES
+        ================================================== */
+
+        const reviewMessageStyle =
+            document.createElement("style");
+
+
+        reviewMessageStyle.textContent = `
+
+            .review-error {
+                color: #b00020;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .review-success {
+                color: #146c2e;
+                font-size: 14px;
+                font-weight: bold;
+                text-align: center;
+            }
+
+            .review-loading {
+                color: #666;
+                font-size: 14px;
+                text-align: center;
+            }
+
+        `;
+
+
+        document.head.appendChild(
+            reviewMessageStyle
+        );
+
+
+        /* ==================================================
+           BOOKING ELEMENTS
+        ================================================== */
+
+        const form =
+            document.getElementById(
+                "bookingForm"
+            );
+
+        const submitButton =
+            document.getElementById(
+                "submitButton"
+            );
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+        const dateInput =
+            document.getElementById(
+                "date"
+            );
+
+        const yearInput =
+            document.getElementById(
+                "year"
+            );
+
+        const serviceAreaInput =
+            document.getElementById(
+                "serviceArea"
+            );
+
+
+        /* ==================================================
+           TODAY
+        ================================================== */
+
+        function getTodayString() {
+
+            const today =
+                new Date();
+
+
+            const year =
+                today.getFullYear();
+
+
+            const month =
+                String(
+                    today.getMonth() + 1
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+
+            const day =
+                String(
+                    today.getDate()
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+
+            return `${year}-${month}-${day}`;
+
+        }
+
+
+        /* ==================================================
+           UPDATE DATE/YEAR
+        ================================================== */
+
+        function updateDateLimit() {
+
+            dateInput.min =
+                getTodayString();
+
+        }
+
+
+        function updateYearLimit() {
+
+            yearInput.max =
+                String(
+                    new Date().getFullYear()
+                );
+
+        }
+
+
+        updateDateLimit();
+
+        updateYearLimit();
+
+
+        setInterval(
+            function() {
+
+                updateDateLimit();
+
+                updateYearLimit();
+
+            },
+            60 * 60 * 1000
+        );
+
+
+        /* ==================================================
+           PHONE
+        ================================================== */
+
+        function normalizePhone(phone) {
+
+            return phone.replace(
+                /\D/g,
+                ""
+            );
+
+        }
+
+
+        /* ==================================================
+           BOOKING MESSAGE
+        ================================================== */
+
+        function showMessage(
+            text,
+            type
+        ) {
+
+            message.textContent =
+                translateMessage(text);
+
+            message.className =
+                type || "";
+
+        }
+
+
+        /* ==================================================
+           BOOKING SUBMISSION
+        ================================================== */
+
+        form.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                showMessage(
+                    "",
+                    ""
+                );
+
+
+                if (
+                    !form.checkValidity()
+                ) {
+
+                    form.reportValidity();
+
+
+                    showMessage(
+                        "Please fill out all required fields.",
+                        "error"
+                    );
+
+
+                    return;
+
+                }
+
+
+                const name =
+                    document
+                        .getElementById("name")
+                        .value
+                        .trim();
+
+
+                const phone =
+                    document
+                        .getElementById("phone")
+                        .value
+                        .trim();
+
+
+                const year =
+                    yearInput
+                        .value
+                        .trim();
+
+
+                const make =
+                    document
+                        .getElementById("make")
+                        .value
+                        .trim();
+
+
+                const model =
+                    document
+                        .getElementById("model")
+                        .value
+                        .trim();
+
+
+                const appointmentDate =
+                    dateInput.value;
+
+
+                const time =
+                    document
+                        .getElementById("time")
+                        .value;
+
+
+                /* ------------------------------------------
+                   NAME
+                ------------------------------------------ */
+
+                if (
+                    name.length < 2
+                ) {
+
+                    showMessage(
+                        "Please enter your full name.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ------------------------------------------
+                   PHONE
+                ------------------------------------------ */
+
+                const normalizedPhone =
+                    normalizePhone(phone);
+
+
+                if (
+                    normalizedPhone.length !== 10
+                ) {
+
+                    showMessage(
+                        "Please enter a valid 10-digit phone number.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ------------------------------------------
+                   YEAR
+                ------------------------------------------ */
+
+                const vehicleYear =
+                    Number(year);
+
+
+                const currentYear =
+                    new Date().getFullYear();
+
+
+                if (
+                    !Number.isInteger(
+                        vehicleYear
+                    ) ||
+                    vehicleYear < 1900 ||
+                    vehicleYear > currentYear
+                ) {
+
+                    showMessage(
+                        "Please enter a valid vehicle year.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ------------------------------------------
+                   VEHICLE
+                ------------------------------------------ */
+
+                if (
+                    make.length < 2 ||
+                    model.length < 1
+                ) {
+
+                    showMessage(
+                        "Please enter the vehicle make and model.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ------------------------------------------
+                   DATE
+                ------------------------------------------ */
+
+                if (!appointmentDate) {
+
+                    showMessage(
+                        "Please select an appointment date.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                if (
+                    appointmentDate <
+                    getTodayString()
+                ) {
+
+                    showMessage(
+                        "Please select today or a future date.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ------------------------------------------
+                   TIME
+                ------------------------------------------ */
+
+                if (!time) {
+
+                    showMessage(
+                        "Please select an appointment time.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
+                /* ------------------------------------------
+                   DATA
+                ------------------------------------------ */
+
+                const data = {
+
+                    name:
+                        name,
+
+                    phone:
+                        normalizedPhone,
+
+                    serviceArea:
+                        serviceAreaInput.value,
+
+                    year:
+                        vehicleYear,
+
+                    make:
+                        make,
+
+                    model:
+                        model,
+
+                    bookingDate:
+                        appointmentDate,
+
+                    time:
+                        time,
+
+                    servicePriceCents:
+                        OIL_CHANGE_PRICE_CENTS,
+
+                    bookingFeeCents:
+                        BOOKING_FEE_CENTS,
+
+                    remainingBalanceCents:
+                        REMAINING_BALANCE_CENTS,
+
+                    oilAndFilterIncluded:
+                        false
+
+                };
+
+
+                /* ------------------------------------------
+                   SUBMIT
+                ------------------------------------------ */
+
+                submitButton.disabled =
+                    true;
+
+                submitButton.textContent =
+                    "Submitting...";
+
+
+                showMessage(
+                    "Submitting your request...",
+                    "loading"
+                );
+
+
+                const controller =
+                    new AbortController();
+
+
+                const timeout =
+                    setTimeout(
+                        function() {
+
+                            controller.abort();
+
+                        },
+                        15000
+                    );
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            BOOKING_CHECKOUT_URL,
+                            {
+
+                                method:
+                                    "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify(
+                                        data
+                                    ),
+
+                                signal:
+                                    controller.signal
+
+                            }
+                        );
+
+
+                    clearTimeout(timeout);
+
+
+                    let result = {};
+
+
+                    try {
+
+                        result =
+                            await response.json();
+
+                    } catch {
+
+                        result = {};
+
+                    }
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            result.error ||
+                            "This request could not be submitted."
+                        );
+
+                    }
+
+
+                    const checkoutUrl =
+                        result.checkoutUrl ||
+                        result.checkout_url ||
+                        result.url ||
+                        "";
+
+
+                    if (!checkoutUrl) {
+
+                        throw new Error(
+                            "Stripe checkout is not available yet. Please try again later."
+                        );
+
+                    }
+
+                    // Keep the booking hidden until Stripe returns success.
+                    localStorage.setItem(
+                        PENDING_BOOKING_KEY,
+                        JSON.stringify(data)
+                    );
+
+                    showMessage(
+                        "Opening secure Stripe payment...",
+                        "loading"
+                    );
+
+                    window.location.assign(checkoutUrl);
+
+
+                    return;
+
+
+                } catch (error) {
+
+                    clearTimeout(timeout);
+
+
+                    console.error(
+                        "Booking error:",
+                        error
+                    );
+
+
+                    if (
+                        error.name ===
+                        "AbortError"
+                    ) {
+
+                        showMessage(
+                            "The server took too long to respond. Please try again.",
+                            "error"
+                        );
+
+                    } else {
+
+                        showMessage(
+                            error.message ||
+                            "Could not submit request. Please try again.",
+                            "error"
+                        );
+
+                    }
+
+                } finally {
+
+                    submitButton.disabled =
+                        false;
+
+                    applyLanguage(currentLanguage);
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
