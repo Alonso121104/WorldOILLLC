@@ -2285,6 +2285,13 @@ function renderHistory() {
                         `${ticket.year || ""} ${ticket.make || ""} ${ticket.model || ""}` 
                             .trim() || 
                         "Vehicle not listed"; 
+
+
+                    const mileage =
+                        ticket.mileage ||
+                        ticket.odometer ||
+                        ticket.miles ||
+                        "Not provided";
  
  
                     const status = 
@@ -2315,6 +2322,19 @@ function renderHistory() {
                                     </span> 
  
                                 </div> 
+
+
+                                <div class="info-box">
+
+                                    <span class="info-label">
+                                        Mileage
+                                    </span>
+
+                                    <span class="info-value">
+                                        ${escapeHtml(String(mileage))}
+                                    </span>
+
+                                </div>
  
  
                                 <div class="info-box"> 
@@ -3231,6 +3251,13 @@ function renderTicket(ticket) {
     const model = 
         ticket.model || 
         ""; 
+
+
+    const mileage =
+        ticket.mileage ||
+        ticket.odometer ||
+        ticket.miles ||
+        "Not provided";
  
  
     const date = 
@@ -3431,6 +3458,19 @@ function renderTicket(ticket) {
                     </span> 
  
                 </div> 
+
+
+                <div class="info-box">
+
+                    <span class="info-label">
+                        Mileage
+                    </span>
+
+                    <span class="info-value">
+                        ${escapeHtml(String(mileage))}
+                    </span>
+
+                </div>
  
  
                 <div class="info-box"> 
