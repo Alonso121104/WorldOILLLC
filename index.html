@@ -191,6 +191,31 @@
             font-size: 12px;
         }
 
+        .consent-field {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            margin: 16px 0;
+        }
+
+        .consent-field input[type="checkbox"] {
+            width: auto;
+            margin-top: 3px;
+            flex: 0 0 auto;
+        }
+
+        .consent-field label {
+            margin: 0;
+            font-size: 13px;
+            font-weight: normal;
+            line-height: 1.45;
+        }
+
+        .consent-field a {
+            color: #145A8D;
+            text-decoration: underline;
+        }
+
         input,
         select,
         textarea {
@@ -1710,6 +1735,46 @@
 
             <div class="field">
 
+                <label for="mileage">
+                    <span data-i18n="vehicleMileage">Current Vehicle Mileage</span>
+                    <span class="required">*</span>
+                </label>
+
+                <input
+                    type="number"
+                    id="mileage"
+                    name="mileage"
+                    inputmode="numeric"
+                    min="0"
+                    max="9999999"
+                    step="1"
+                    required
+                    aria-required="true"
+                    placeholder="Example: 85000"
+                    data-i18n-placeholder="vehicleMileagePlaceholder"
+                >
+
+            </div>
+
+
+            <div class="consent-field">
+
+                <input
+                    type="checkbox"
+                    id="smsConsent"
+                    name="smsConsent"
+                    value="yes"
+                >
+
+                <label for="smsConsent">
+                    <span data-i18n="smsConsentPrefix">I agree to receive text messages from World Oil LLC about my booking, appointment reminders, technician updates, and service notifications. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out or HELP for help. View our </span><a href="./terms.html" target="_blank" rel="noopener" data-i18n="termsLink">Terms and Conditions</a><span data-i18n="smsConsentAnd"> and </span><a href="./privacy-policy.html" target="_blank" rel="noopener" data-i18n="privacyLink">Privacy Policy</a>.
+                </label>
+
+            </div>
+
+
+            <div class="field">
+
                 <label for="date">
                     <span data-i18n="appointmentDate">Appointment Date</span>
                     <span class="required">*</span>
@@ -1866,6 +1931,12 @@
                 vehicleMakePlaceholder: "Example: Toyota",
                 vehicleModel: "Vehicle Model",
                 vehicleModelPlaceholder: "Example: Camry",
+                vehicleMileage: "Current Vehicle Mileage",
+                vehicleMileagePlaceholder: "Example: 85000",
+                smsConsentPrefix: "I agree to receive text messages from World Oil LLC about my booking, appointment reminders, technician updates, and service notifications. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out or HELP for help. View our ",
+                termsLink: "Terms and Conditions",
+                smsConsentAnd: " and ",
+                privacyLink: "Privacy Policy",
                 appointmentDate: "Appointment Date",
                 dateHelp: "Select the date you want your oil change.",
                 appointmentTime: "Appointment Time",
@@ -1895,6 +1966,12 @@
                 vehicleMakePlaceholder: "Ejemplo: Toyota",
                 vehicleModel: "Modelo del vehículo",
                 vehicleModelPlaceholder: "Ejemplo: Camry",
+                vehicleMileage: "Millaje actual del vehículo",
+                vehicleMileagePlaceholder: "Ejemplo: 85000",
+                smsConsentPrefix: "Acepto recibir mensajes de texto de World Oil LLC sobre mi reserva, recordatorios de citas, actualizaciones del técnico y notificaciones del servicio. La frecuencia de los mensajes varía. Pueden aplicarse tarifas de mensajes y datos. Responda STOP para cancelar o HELP para obtener ayuda. Consulte nuestros ",
+                termsLink: "Términos y condiciones",
+                smsConsentAnd: " y nuestra ",
+                privacyLink: "Política de privacidad",
                 appointmentDate: "Fecha de la cita",
                 dateHelp: "Seleccione la fecha de su cambio de aceite.",
                 appointmentTime: "Hora de la cita",
@@ -1914,6 +1991,7 @@
             "Please enter your full name.": "Ingrese su nombre completo.",
             "Please enter a valid 10-digit phone number.": "Ingrese un número de teléfono válido de 10 dígitos.",
             "Please enter a valid vehicle year.": "Ingrese un año válido para el vehículo.",
+            "Please enter a valid vehicle mileage.": "Ingrese un millaje válido para el vehículo.",
             "Please enter the vehicle make and model.": "Ingrese la marca y el modelo del vehículo.",
             "Please select today or a future date.": "Seleccione hoy o una fecha futura.",
             "Please select a time.": "Seleccione una hora.",
@@ -2034,6 +2112,7 @@
                         <p><strong>Status:</strong> Paid — booking confirmed</p>
                         <p><strong>Name:</strong> ${escapeHtml(booking.name)}</p>
                         <p><strong>Vehicle:</strong> ${escapeHtml(booking.year)} ${escapeHtml(booking.make)} ${escapeHtml(booking.model)}</p>
+                        <p><strong>Mileage:</strong> ${escapeHtml(booking.mileage)} miles</p>
                         <p><strong>Appointment:</strong> ${escapeHtml(booking.bookingDate)} at ${escapeHtml(booking.time)}</p>
                         <p><strong>Booking fee:</strong> $5.00</p>
                     </div>
@@ -2057,6 +2136,7 @@
                 year: booking.year,
                 make: booking.make,
                 model: booking.model,
+                mileage: booking.mileage,
                 bookingDate: booking.bookingDate,
                 time: booking.time,
                 createdAt: new Date().toISOString()
@@ -3505,6 +3585,17 @@
                         .value
                         .trim();
 
+                const mileage =
+                    document
+                        .getElementById("mileage")
+                        .value
+                        .trim();
+
+                const smsConsent =
+                    document
+                        .getElementById("smsConsent")
+                        .checked;
+
 
                 const appointmentDate =
                     dateInput.value;
@@ -3605,6 +3696,24 @@
                 }
 
 
+                const vehicleMileage = Number(mileage);
+
+                if (
+                    !Number.isInteger(vehicleMileage) ||
+                    vehicleMileage < 0 ||
+                    vehicleMileage > 9999999
+                ) {
+
+                    showMessage(
+                        "Please enter a valid vehicle mileage.",
+                        "error"
+                    );
+
+                    return;
+
+                }
+
+
                 /* ------------------------------------------
                    DATE
                 ------------------------------------------ */
@@ -3675,6 +3784,12 @@
 
                     model:
                         model,
+
+                    mileage:
+                        vehicleMileage,
+
+                    smsConsent:
+                        smsConsent,
 
                     bookingDate:
                         appointmentDate,
