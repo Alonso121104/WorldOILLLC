@@ -1652,6 +1652,7 @@
                     id="smsConsent"
                     name="smsConsent"
                     value="yes"
+                    required
                 >
 
                 <label for="smsConsent">
@@ -1940,7 +1941,7 @@
                 vehicleMileage: "Current Vehicle Mileage",
                 vehicleMileagePlaceholder: "Example: 85000",
                 smsConsentLabel: "SMS approval",
-                smsConsentDetails: "I agree to receive World Oil LLC booking and service text messages. Msg & data rates may apply. Reply STOP to opt out or HELP for help.",
+                smsConsentDetails: "I agree to receive World Oil LLC booking and service text messages. Message frequency varies. Msg & data rates may apply. Reply STOP to opt out or HELP for help.",
                 termsLink: "Terms and Conditions",
                 smsConsentAnd: " and ",
                 privacyLink: "Privacy Policy",
@@ -1976,7 +1977,7 @@
                 vehicleMileage: "Millaje actual del vehículo",
                 vehicleMileagePlaceholder: "Ejemplo: 85000",
                 smsConsentLabel: "Aprobación de SMS",
-                smsConsentDetails: "Acepto recibir mensajes de texto de World Oil LLC sobre mi reserva y servicio. Pueden aplicarse tarifas de mensajes y datos. Responda STOP para cancelar o HELP para obtener ayuda.",
+                smsConsentDetails: "Acepto recibir mensajes de texto de World Oil LLC sobre mi reserva y servicio. La frecuencia de los mensajes varía. Pueden aplicarse tarifas de mensajes y datos. Responda STOP para cancelar o HELP para obtener ayuda.",
                 termsLink: "Términos y condiciones",
                 smsConsentAnd: " y nuestra ",
                 privacyLink: "Política de privacidad",
@@ -3603,6 +3604,17 @@
                     document
                         .getElementById("smsConsent")
                         .checked;
+
+                if (!smsConsent) {
+
+                    showMessage(
+                        "Please check SMS approval to continue.",
+                        "error"
+                    );
+
+                    return;
+
+                }
 
 
                 const appointmentDate =
